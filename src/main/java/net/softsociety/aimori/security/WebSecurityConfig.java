@@ -31,12 +31,6 @@ public class WebSecurityConfig {
         .authorizeRequests()
         .antMatchers(	// antMatchers( Mapping경로 ) + .permitAll() ==> 해당 경로에 모든 사용자 접근 가능
         		"/",	// home화면 경로
-        		"/member/joinMember", 		  // 가입화면 경로(Mapping 경로)
-        		"/member/joinMember/idCheck", // ID 중복확인 화면 경로
-                "/board/list",
-                "/board/read",
-                "/board/selectBy",
-                "/board/boardDetail",
                 "/images/**", // static 폴더의 images, css, js의 모든 폴더는 모든 사용자 접근 가능
                 "/css/**",
                 "/js/**").permitAll()		//설정한 리소스의 접근을 인증절차 없이 허용
