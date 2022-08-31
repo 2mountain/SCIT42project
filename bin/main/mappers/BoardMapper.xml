@@ -1,0 +1,171 @@
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DAO인터페이스와 매핑 -->
+<mapper namespace="net.softsociety.page.dao.BoardDAO">
+	<!-- 회원 가입 -->
+	<insert id="insert" parameterType="Board">
+		INSERT INTO page_board
+		(
+		boardnum
+		, memberid
+		, title
+		, contents
+		<if test="originalfile != null and savedfile != null">
+			, originalfile
+			, savedfile
+		</if>
+		)
+		VALUES
+		(
+		page_board_seq.nextval
+		, #{memberid}
+		, #{title}
+		, #{contents}
+		<if test="originalfile != null and savedfile != null">
+			, #{originalfile}
+			, #{savedfile}
+		</if>
+		)
+	</insert>
+	
+	<!-- 글 개수 -->
+	<select id="count" parameterType="map" resultType="int">
+		SELECT 
+			COUNT(*)
+		FROM page_board
+		<if test="type != null and searchWord != null">
+			<where> <!-- <where> 사용시 해당 되는 if문이 없는 경우, where 부분도 DB로 전달 X -->
+				<if test="type == 'title'">
+					title like '%' || #{searchWord} || '%'
+					<!-- map을 받은 경우 #{map의 key값} == 해당 키의 value를 가져옴 -->
+				</if>
+				<if test="type == 'memberid'">
+					memberid = #{searchWord}
+				</if>
+				<if test="type == 'contents'">
+					contents like '%' || #{searchWord} || '%'
+				</if>
+				<if test="type == 'all'">
+					title like '%' || #{searchWord} || '%'
+					OR memberid = #{searchWord}
+					OR contents like '%' || #{searchWord} || '%'
+				</if>
+			</where>
+		</if>
+	</select>
+	
+	<!-- 글 전체 목록 -->
+	<select id="selectAll" parameterType="map" resultType="Board">
+		SELECT 
+			boardnum
+			, title
+			, memberid
+			, hits
+			, TO_CHAR(input, 'MM/DD HH24:MI')  AS input
+		FROM page_board
+		<if test="type != null and searchWord != null">
+			<where> <!-- <where> 사용시 해당 되는 if문이 없는 경우, where 부분도 DB로 전달 X -->
+				<if test="type == 'title'">
+					title like '%' || #{searchWord} || '%'
+					<!-- map을 받은 경우 #{map의 key값} == 해당 키의 value를 가져옴 -->
+				</if>
+				<if test="type == 'memberid'">
+					memberid = #{searchWord}
+				</if>
+				<if test="type == 'contents'">
+					contents like '%' || #{searchWord} || '%'
+				</if>
+				<if test="type == 'all'">
+					title like '%' || #{searchWord} || '%'
+					OR memberid = #{searchWord}
+					OR contents like '%' || #{searchWord} || '%'
+				</if>
+			</where>
+		</if>
+		ORDER BY boardnum DESC
+	</select>
+	
+	<select id="selectOne" parameterType="int" resultType="Board">
+		SELECT
+			boardnum 
+			, memberid
+			, to_char(input, 'YYYY-MM-DD HH24:MI:SS') input
+			, hits
+			, title
+			, contents
+			, originalfile
+			, savedfile
+		FROM page_board
+		WHERE boardnum=#{boardnum}
+	</select>
+	<!-- parameterType이 int등의 단일 값인 경우 #{} 에는 아무 이름이나 사용 가능
+		 but) 동적 SQL <if>를 사용하는 경우에는 _parameter 라고 써야함 -->
+		 
+	<insert id="replyWrite" parameterType="Reply">
+		INSERT INTO page_comment
+		(
+			replynum
+			, boardnum
+			, memberid
+			, replytext
+		)
+		VALUES 
+		(
+			page_comment_seq.nextval
+			, #{boardnum}
+			, #{memberid}
+			, #{replytext}
+		)
+	</insert>
+	
+	<select id="readReply" parameterType="int" resultType="Reply">
+		SELECT *
+		FROM page_comment
+		WHERE boardnum=#{boardnum}
+	</select>
+	
+	<select id="selectReply" parameterType="int" resultType="Reply">
+		SELECT *
+		FROM page_comment
+		WHERE replynum=#{replynum}
+	</select>
+	
+	<delete id="deleteReply" parameterType="Reply">
+		DELETE FROM page_comment
+		WHERE
+			replynum=#{replynum}
+			AND
+			memberid=#{memberid}
+	</delete>
+		
+	<update id="updateHits" parameterType="Integer">
+		UPDATE page_board
+		SET hits = hits + 1
+		WHERE boardnum=#{boardnum}
+	</update>
+	
+	<delete id="delete" parameterType="Board">
+		DELETE FROM page_board
+		WHERE
+			boardnum=#{boardnum}
+			AND 
+			memberid=#{memberid}
+	</delete>
+	
+	<update id="update" parameterType="Board">
+		UPDATE page_board
+		SET 
+			title=#{title}
+			, contents=#{contents}
+			<if test="originalfile != null and savedfile != null">
+				, originalfile=#{originalfile}
+				, savedfile=#{savedfile}
+			</if>
+		WHERE
+			boardnum=#{boardnum}
+			AND
+			memberid=#{memberid}
+	</update>
+</mapper>

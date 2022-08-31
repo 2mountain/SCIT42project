@@ -1,0 +1,51 @@
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DAO인터페이스와 매핑 -->
+<mapper namespace="net.softsociety.page.dao.MemberDAO">
+	<!-- 회원 가입 -->
+	<insert id="joinMember" parameterType="Member">
+		INSERT INTO page_member
+		(
+		memberid,
+		memberpw,
+		membername,
+		email,
+		phone,
+		address
+		)
+		VALUES
+		(
+		#{memberid},
+		#{memberpw},
+		#{membername},
+		#{email},
+		#{phone},
+		#{address}
+		)
+	</insert>
+	
+	<!-- 회원정보 1개 조회 -->
+	<select id="selectOne" parameterType="string" resultType="Member">
+		SELECT * FROM page_member WHERE memberid = #{memberid}
+	</select>
+	
+	<!-- 회원정보 수정 -->
+	<update id="updateInfo" parameterType="Member">
+		UPDATE page_member
+		SET 
+			membername=#{membername}
+			, email=#{email}
+			, phone=#{phone}
+			, address=#{address}
+			<if test="memberpw == null or memberpw == ''">
+			<!-- 동적 SQL - 조건이 참이면 if 태그만 지우고 코드 실행 --> 
+				, memberpw = (SELECT memberpw FROM page_member WHERE memberid = #{memberid})
+			</if>
+			<if test="memberpw != null and memberpw != ''">
+				, memberpw = #{memberpw}
+			</if>
+		WHERE memberid=#{memberid}
+	</update>
+</mapper>
