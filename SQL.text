@@ -1,0 +1,131 @@
+DROP TABLE member;
+DROP TABLE shopCoupon;
+
+CREATE SEQUENCE doctor_seq;
+CREATE SEQUENCE pet_seq;
+CREATE SEQUENCE boardNumber_seq;
+CREATE SEQUENCE reply_seq;
+CREATE SEQUENCE memberCouponNumber_seq;
+CREATE SEQUENCE challenge_seq;
+
+CREATE TABLE member
+(
+    memberId VARCHAR2(40) CONSTRAINT member_memberId_pk PRIMARY KEY,                                             --회원 아이디
+    memberPassword VARCHAR2(40) CONSTRAINT member_memberPassword_nn NOT NULL,                         --회원 비밀번호
+    memberNickName VARCHAR2(40) CONSTRAINT member_memberNickName_nn_uq NOT NULL UNIQUE,   --회원 닉네임 
+    memberAddress VARCHAR2(300) CONSTRAINT member_memberAddress_nn NOT NULL,                             --회원 주소 
+    memberEmail VARCHAR2(50) CONSTRAINT member_memberEmail_nn_uq NOT NULL UNIQUE,                  --회원 이메일
+    memberBirtyDay VARCHAR2(12) CONSTRAINT member_memberBirthDay_nn NOT NULL,                              --회원 생년월일
+    memberPoint NUMBER DEFAULT 0,                                                                                                     --회원 포인트
+    memberRoleName VARCHAR2(20) CONSTRAINT member_memberRoleName_ck                                            --회원 역할
+                               CHECK (memberRoleName IN ('ROLE_ADMIN', 'ROLE_DOCTOR', 'ROLE_NORMAL')),
+    memberEnabled NUMBER CONSTRAINT member_memberEnabled_nn_ck CHECK(memberEnabled IN(0, 1)), --회원 차단 여부
+    memberJoinDate DATE DEFAULT SYSDATE,
+    memberImageOriginalFile VARCHAR2(300) DEFAULT 'defaultImage',                                                  --대표 이미지의 원래 이름
+    memberImageSavedFile VARCHAR2(100)                                                                                                   --이미지 첨부파일 서버에 저장된 이름
+);
+
+	
+
+CREATE TABLE Pet    --Pet table
+(
+    petNumber NUMBER PRIMARY KEY, --애완동물 등록번호
+    memberId VARCHAR2(40) REFERENCES member(memberId), --회원 아이디 참조
+    petName VARCHAR2(20) NOT NULL, --애완동물 이름
+    petBreed VARCHAR2(40) NOT NULL CHECK(petBreed in('말티즈', '치와와', '포메라니안', '푸들', '시츄', '시바견', '비글', '웰시코기', '코커스패니얼', '보더콜리', '골든리트리버', '달마시안', '도베르만', '그레이하운드', '허스키', '기타(직접입력)')), --애완동물 품종
+    petGender VARCHAR2(1) NOT NULL CHECK(petGender in('M', 'F')), --애완동물 성별
+    petBirthDay VARCHAR2(12) NOT NULL, --애완동물 생년월일
+    petWeight NUMBER default 0 NOT NULL, --애완동물 몸무게
+    petHeight NUMBER default 0 NOT NULL, --애완동물 체고
+    petFood VARCHAR2(50) NOT NULL, --애완동물 사료명
+    petIntake NUMBER, --사료 일일 섭취량(g)
+    petNeuter VARCHAR2(1) CHECK(petNeuter IN('Y', 'N')), --중성화 여부
+    petImageOriginalFile VARCHAR2(300), --애완동물 사진의 원래 이름
+    petImageSavedFile VARCHAR2(100), --애완동물 마이페이지 사진 서버에 저장된 이름
+    petSize VARCHAR2(10) CHECK(petSize IN('소형견', '중형견', '대형견')) --애완동물 사이즈 따라 분류
+);
+
+/*
+	petBreed
+		소형견 - 말티즈 치와와 포메라니안 푸들 시츄
+		중형견 - 시바견 비글 웰시코기 코커스패니얼 보더콜리
+		대형견 - 골든리트리버 달마시안 도베르만 그레이하운드 허스키
+		직접입력
+*/
+
+
+CREATE TABLE board
+(
+    boardNumber NUMBER PRIMARY KEY,                                                                             /* 글 번호(BoardNumber_seq사용) */
+    memberId VARCHAR2(40) REFERENCES Member(memberId) ON DELETE CASCADE,         /* 회원 아이디 */
+    boardTitle VARCHAR2(300) NOT NULL,                                                                                /* 글 제목 */
+    memberNickName VARCHAR2(40) REFERENCES member(memberNickName),             /* 작성자 닉네임 */                                                       
+    boardInputDate DATE DEFAULT SYSDATE,                                                                       /* 글 작성일 */
+    boardHits NUMBER DEFAULT 0,                                                                                          /* 글 조회수 */
+    boardLiked NUMBER DEFAULT 0,                                                                                       /* 글 추천수 */
+    boardReport NUMBER DEFAULT 0,                                                                                     /* 글 신고수 */
+    boardContents VARCHAR2(4000) NOT NULL,                                                                      /* 글 내용 */
+    boardCategory VARCHAR2(20) CHECK (boardCategory IN ('Free', 'NormalQnA', 'DoctorQnA', 'Tip', 'Report')),     /* 글 말머리 */
+    boardImageOriginal VARCHAR2(300),                                                                                  /* 게시글 이미지 첨부파일*/
+    boardImageSaved VARCHAR2(100)                                                                                     /* 서버에 저장된 첨부파일 이름*/
+);
+
+
+CREATE TABLE reply
+(
+    replyNumber NUMBER CONSTRAINT reply_replyNumber_pk PRIMARY KEY,  --댓글 번호
+    boardNumber NUMBER REFERENCES board(boardNumber) CONSTRAINT reply_boardNumber_nn NOT NULL, --글 번호(외래키)
+    memberNickName VARCHAR2(40) CONSTRAINT reply_memberNickName_nn NOT NULL, -- 댓글 작성하는 회원 닉네임
+    replyContents VARCHAR2(4000) CONSTRAINT reply_replyContents_nn NOT NULL, --댓글 내용
+    replyInputDate DATE DEFAULT SYSDATE,  -- 댓글 작성 일자
+    answerAccept VARCHAR2(12) CONSTRAINT reply_answerAccept_ck CHECK (answerAccept IN('accepted', 'unaccepted'))
+);
+
+CREATE TABLE memberCoupon
+(
+    memberCouponNumber NUMBER PRIMARY KEY,                                                             /* 쿠폰 식별 번호 */
+    memberId varchar2(40) NOT NULL REFERENCES member(memberid),                        /* 회원 아이디 */
+    couponType varchar2(100) NOT NULL REFERENCES shopCoupon(couponType)      /* 쿠폰 종류(이름) */
+);
+
+CREATE TABLE shopCoupon
+(
+couponType VARCHAR2(100) PRIMARY KEY,     -- 쿠폰의 종류(이름)
+couponPrice NUMBER NOT NULL,              -- 쿠폰포인트 가격
+couponEndDate VARCHAR2(12)                -- 쿠폰 만료일
+);
+
+--도전과제 정보테이블
+CREATE TABLE challenge 
+(
+challengeNumber 	NUMBER PRIMARY KEY,
+challengeName 		VARCHAR2(200),
+challengeStartDate 	VARCHAR2(200),
+challengeEndDate 	VARCHAR2(200),
+challengePoint 		NUMBER 
+);
+
+--의사 정보 테이블
+CREATE TABLE doctor  -- DOCTOR CHECK 테이블이 있다면 기본키 수정 필요
+(
+    doctorNumber 				NUMBER CONSTRAINT doctor_doctorNumber_pk PRIMARY KEY,                              
+    			--의사회원번호
+    memberId 					VARCHAR2(40) CONSTRAINT doctor_memberId_fk REFERENCES member(memberId),  
+    			--회원 번호
+    doctorName 					VARCHAR2(20) CONSTRAINT doctor_doctorName_nn NOT NULL,                               
+    			--의사 회원 이름
+    hospitalName 				VARCHAR2(40), 
+    			--병원이름
+    licenseGetDate 				DATE, 
+    			--자격증 취득일
+    licenseImageOriginalFile 	VARCHAR2(300) CONSTRAINT doctor_licenseImageOriginalFile_nn NOT NULL, 
+    			--수의사 자격증 이미지 첨부파일의 원래 이름
+    licenseImageSavedFile 		VARCHAR2(100),  
+    			--자격증 이미지 첨부파일 서버에 저장된 이름
+    doctorApproval 				VARCHAR2(10) CONSTRAINT doctor_doctorApproval_ck CHECK(doctorApproval IN('Y','Wait', 'N'))
+    			--의사 인증 승인 여부
+	doctorApplicationDate 		DATE DEFAULT SYSDATE, 
+				--의사 인증 신청일
+    doctorAcceptedDate			DATE 
+    			--의사 인증 승인일
+);
