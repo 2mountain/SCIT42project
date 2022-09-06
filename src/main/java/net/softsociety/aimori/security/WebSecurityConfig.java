@@ -31,16 +31,17 @@ public class WebSecurityConfig {
         .authorizeRequests()
         .antMatchers(	// antMatchers( Mapping경로 ) + .permitAll() ==> 해당 경로에 모든 사용자 접근 가능
         		"/",	// home화면 경로
-                "/images/**", // static 폴더의 images, css, js의 모든 폴더는 모든 사용자 접근 가능
+                "/img/**", // static 폴더의 img, css, js의 모든 폴더는 모든 사용자 접근 가능
                 "/css/**",
+                "/fonts/**",
                 "/js/**").permitAll()		//설정한 리소스의 접근을 인증절차 없이 허용
-        .antMatchers("/board/admin").access("hasRole('ROLE_ADMIN')") // 관리자용 페이지, 권한 설정
+ //       .antMatchers("/board/admin").access("hasRole('ROLE_ADMIN')") // 관리자용 페이지, 권한 설정
         .anyRequest().authenticated()   	//위의 경로 외에는 모두 로그인을 해야 함
         .and() // 논리연산자의 && 와 같은 역할
         .formLogin()						//일반적인 폼을 이용한 로그인 처리/실패 방법을 사용할 것
-        .loginPage("/member/loginForm")		//시큐리티에서 제공하는 기본 폼이 아닌 사용자가 만든 폼 사용
+        .loginPage("/")		//시큐리티에서 제공하는 기본 폼이 아닌 사용자가 만든 폼 사용
         	//★ 로그인 화면의 경로 연결
-        .loginProcessingUrl("/member/login").permitAll()	
+        .loginProcessingUrl("/").permitAll()	
         	//★ 인증 처리를 하는 URL을 설정. 로그인 폼의 action으로 지정
         	//★ 로그인 폼이 전송될 경로 --> loginForm.html의 form태그의 action으로 전송 받을 경로
         .usernameParameter("memberid")		//로그인폼의 아이디 입력란의 name
