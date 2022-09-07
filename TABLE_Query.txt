@@ -2,10 +2,17 @@ DROP TABLE member;
 DROP TABLE pet;
 DROP TABLE board;
 DROP TABLE reply;
-DROP TABEL challenge;
+DROP TABLE challenge;
 DROP TABLE memberCoupon;
 DROP TABLE shopCoupon;
 DROP TABLE doctor;
+
+DROP SEQUENCE doctor_seq;
+DROP SEQUENCE pet_seq;
+DROP SEQUENCE boardNumber_seq;
+DROP SEQUENCE reply_seq;
+DROP SEQUENCE memberCouponNumber_seq;
+DROP SEQUENCE challenge_seq;
 
 CREATE SEQUENCE doctor_seq;
 CREATE SEQUENCE pet_seq;
@@ -44,7 +51,7 @@ CREATE TABLE member
 
 	
 
-CREATE TABLE Pet    --Pet table
+CREATE TABLE pet    --Pet table
 (
     petNumber 				NUMBER PRIMARY KEY, 
     			--애완동물 등록번호
@@ -130,21 +137,21 @@ CREATE TABLE reply
     			--댓글 채택 여부
 );
 
-CREATE TABLE memberCoupon
-(
-    memberCouponNumber 	NUMBER PRIMARY KEY,   
-    			--쿠폰 식별 번호
-    memberId 			VARCHAR2(40) NOT NULL REFERENCES member(memberid),
-                --회원 아이디
-    couponType 			VARCHAR2(100) NOT NULL REFERENCES shopCoupon(couponType)      
-    			--쿠폰 종류(이름)
-);
-
 CREATE TABLE shopCoupon
 (
 	couponType		VARCHAR2(100) PRIMARY KEY,  -- 쿠폰의 종류(이름)
 	couponPrice	 	NUMBER NOT NULL,            -- 쿠폰포인트 가격
 	couponEndDate 	VARCHAR2(12)                -- 쿠폰 만료일
+);
+
+CREATE TABLE memberCoupon
+(
+    memberCouponNumber 	NUMBER PRIMARY KEY,   
+    			--쿠폰 식별 번호
+    memberId 		            	VARCHAR2(40) NOT NULL REFERENCES member(memberid),
+                --회원 아이디
+    couponType 			        VARCHAR2(100) NOT NULL REFERENCES shopCoupon(couponType)      
+    			--쿠폰 종류(이름)
 );
 
 --도전과제 정보테이블
@@ -174,7 +181,7 @@ CREATE TABLE doctor  -- DOCTOR CHECK 테이블이 있다면 기본키 수정 필
     			--수의사 자격증 이미지 첨부파일의 원래 이름
     licenseImageSavedFile 		VARCHAR2(100),  
     			--자격증 이미지 첨부파일 서버에 저장된 이름
-    doctorApproval 				VARCHAR2(10) CONSTRAINT doctor_doctorApproval_ck CHECK(doctorApproval IN('Y','Wait', 'N'))
+    doctorApproval 				VARCHAR2(10) CONSTRAINT doctor_doctorApproval_ck CHECK(doctorApproval IN('Y','Wait', 'N')),
     			--의사 인증 승인 여부
 	doctorApplicationDate 		DATE DEFAULT SYSDATE, 
 				--의사 인증 신청일
