@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 public class FacilitiesController {
 	@GetMapping("/facilities")
 	public String facilities() {
-		log.debug("w");
+		log.debug("[facilities]");
 		return "/facilities/facilities";
 	}
 }
