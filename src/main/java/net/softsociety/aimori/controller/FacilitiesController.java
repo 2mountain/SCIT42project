@@ -7,11 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-public class HomeController {
-	
-	@GetMapping({"/", ""})
-	public String index() {
-		log.debug("test");
-		return "home";
+public class FacilitiesController {
+	@GetMapping("/facilities")
+	public String facilities() {
+		log.debug("w");
+		return "/facilities/facilities";
 	}
 }
