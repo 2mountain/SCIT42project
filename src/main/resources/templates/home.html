@@ -36,14 +36,6 @@
         <div class="yummy-load"></div>
     </div>
 
-    <!-- Background Pattern Swither -->
-    <div id="pattern-switcher">
-        Bg Pattern
-    </div>
-    <div id="patter-close">
-        <i class="fa fa-times" aria-hidden="true"></i>
-    </div>
-
     <!-- ****** Top Header Area Start ****** -->
     <div class="top_header_area">
         <div class="container">
@@ -108,7 +100,7 @@
                         <div class="collapse navbar-collapse justify-content-center" id="yummyfood-nav">
                             <ul class="navbar-nav" id="yummy-nav">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="#">커뮤니티 <span class="sr-only">(current)</span></a>
+                                    <a class="nav-link" th:href="@{/board}">커뮤니티 <span class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
@@ -977,7 +969,7 @@
                     <div class="footer-content">
                         <!-- Logo Area Start -->
                         <div class="footer-logo-area text-center">
-                            <a href="index.html" class="yummy-logo">Yummy Blog</a>
+                            <a href="index.html" class="yummy-logo">Aimori</a>
                         </div>
                         <!-- Menu Area Start -->
                         <nav class="navbar navbar-expand-lg">
