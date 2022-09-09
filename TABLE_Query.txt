@@ -92,33 +92,35 @@ CREATE TABLE pet    --Pet table
 */
 
 
-CREATE TABLE board
+CREATE TABLE BOARD
 (
-    boardNumber 		NUMBER PRIMARY KEY,                                                                             
-    			--글 번호(BoardNumber_seq사용)
-    memberId 			VARCHAR2(40) REFERENCES Member(memberId) ON DELETE CASCADE,         
-    			--회원 아이디
-    boardTitle 			VARCHAR2(300) NOT NULL,                                                                               
-    			--글 제목
-    memberNickName 		VARCHAR2(40) REFERENCES member(memberNickName),             
-    			--작성자 닉네임                                                       
-    boardInputDate 		DATE DEFAULT SYSDATE,                                                                       
-    			--글 작성일
-    boardHits 			NUMBER DEFAULT 0,
-                --글 조회수
-    boardLiked 			NUMBER DEFAULT 0, 
-                --글 추천수
-    boardReport 		NUMBER DEFAULT 0,                        
-                --글 신고수
-    boardContents 		VARCHAR2(4000) NOT NULL,                         
-    			--글 내용
-    boardCategory 		VARCHAR2(20) CHECK (boardCategory IN ('Free', 'NormalQnA', 'DoctorQnA', 'Tip', 'Report')),     
-    			--글 말머리
-    boardImageOriginal 	VARCHAR2(300),                                                                                  
-    			--게시글 이미지 첨부파일
-    boardImageSaved 	VARCHAR2(100)                                                                                    
-    			--서버에 저장된 첨부파일 이름
+    boardNumber number PRIMARY KEY,
+		/* 글 번호(BoardNumber_seq사용) */
+    memberId varchar2(40) REFERENCES Members(memberId),
+		/* 회원 아이디 */
+    boardTitle varchar2(300) NOT NULL,
+		/* 글 제목 */
+    memberNickName varchar2(40) REFERENCES Member(memberNickName),
+		/* 작성자 닉네임 */                                                       
+    boardInputDate date DEFAULT SYSDATE,
+		/* 글 작성일 */
+    boardHits number DEFAULT 0,
+		/* 글 조회수 */
+    boardLiked number DEFAULT 0,
+		/* 글 추천수 */
+    boardReport number DEFAULT 0,
+		/* 글 신고수 */
+    boardContents varchar2(4000) NOT NULL,
+		/* 글 내용 */
+    boardCategory varchar2(20) default 'Daily' CHECK (boardCategory IN ('Daily', 'Gather', 'Tip')),
+		/* 글 말머리 */
+    boardImageOriginal varchar2(300),
+		/* 게시글 이미지 첨부파일*/
+    boardImageSaved varchar2(100)
+		/* 서버에 저장된 첨부파일 이름*/
 );
+
+create sequence boardNumber_seq;
 
 
 CREATE TABLE reply
