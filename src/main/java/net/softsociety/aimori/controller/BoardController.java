@@ -11,9 +11,21 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class BoardController {
 	
+	/**
+	 * 커뮤니티 메인 화면
+	 * @return board.html
+	 */
 	@GetMapping({"/", ""})
 	public String board() {
 		log.debug("[Open Board mainScreen]");
 		return "/board/board";
+	}
+	
+	/**
+	 * 글쓰기 폼으로 이동
+	 */
+	@GetMapping("write")
+	public String write() {
+		return "/board/boardWriteForm";
 	}
 }
