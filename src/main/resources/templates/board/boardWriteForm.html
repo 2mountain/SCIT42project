@@ -181,6 +181,9 @@
                             <li class="breadcrumb-item"><a th:href="@{/}"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Aimori Community</li>
                         </ol>
+                        <br>
+                        <ol><li><h5 id="temp1" colspan="2">글쓰기</h5></li></ol>
+                        <hr>
                     </nav>
                 </div>
             </div>
@@ -193,29 +196,40 @@
     <section>
 <form th:action="@{/board/write}"  method="post" 
 	enctype="multipart/form-data" onsubmit="return validation();">
-	
+		
 	<table>
 	<tr>
+		<th id="boardSelect" style="width:200px;" colspan="2">
+			게시판 선택
+			<select id="boardSelect" name="boardSelect">
+			<option value="Daily" th:selected="${boardSelect} == 'Daily'">일상</option>
+			<option value="Gather" th:selected="${boardSelect} == 'Gather'">같이해요(모집)</option>
+			<option value="Tip" th:selected="${boardSelect} == 'Tip'">Tip공유</option>
+			</select>
+		</th>
+	</tr>
+	<tr>
 		<th>제목</th>
-		<td>
-			<input type="text" name="title" id="title" style="width:400px;">
+		<td class="boardWriteFormTd">
+			<input type="text" name="title" id="title" style="width: 900px;">
 		</td>
 	</tr>
-	<tr>
-		<th>내용</th> 
-		<td>
-			<textarea name="contents" id="contents"></textarea>
-		</td>
-	</tr>
-	<tr>
-		<th>파일첨부</th> 
+	<tr>    
+		<th>파일첨부</th>
 		<td>
 			<input type="file" name="upload">
 		</td>
 	</tr>
 	<tr>
+		<th>내용</th>
+		<td class="boardWriteFormTd">
+			<textarea name="contents" id="contents" style="width: 900px; height: 500px;"></textarea>
+		</td>
+	</tr>
+
+	<tr>
 		<td colspan="2" class="white center">
-			<input type="submit" value="저장">
+			<input type="submit" value="글등록">
 		</td> 
 	</tr>
 	</table>

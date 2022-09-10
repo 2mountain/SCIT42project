@@ -34,6 +34,7 @@ textarea {
 }
 table {
 	margin: auto;
+	width: 1100px;
 }
 
 tr.hover {
@@ -41,7 +42,7 @@ tr.hover {
 }
 
 th {
-	width:100px;
+	width:150px;
 	height: 30px;
 	background-color: #cccccc;
 	font-weight: bold;
@@ -64,6 +65,10 @@ td.white {
 	text-align: right;
 	background-color: white;
 }
+td.boardWriteFormTd {
+	text-align: center;
+	width: 900;
+}
 
 /* 게시판 가운데 정렬 열 */
 .center {
@@ -83,9 +88,19 @@ pre {
 	margin-top: 20px;
 }
 
+#temp1 {
+	background-color: white;
+	text-align: left;
+}
+
 #boardSearch {
 	text-align: center;
 	margin: auto;
+}
+
+#boardSelect {
+	width: 250px;
+	background-color: white;
 }
 
 /* 리플 폼 영역 */
@@ -134,4 +149,8 @@ td.replybutton {
 	color: red;
 	font-size: 12px;
 	background-color: #ffffff;
+}
+
+table, td, th {
+	border: solid 2px white;
 }
