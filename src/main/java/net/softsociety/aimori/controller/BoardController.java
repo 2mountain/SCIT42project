@@ -26,7 +26,7 @@ public class BoardController {
 
 	@Autowired
 	BoardDAO boardDAO;
-
+	
 	/**
 	 * 커뮤니티 메인 화면
 	 * 

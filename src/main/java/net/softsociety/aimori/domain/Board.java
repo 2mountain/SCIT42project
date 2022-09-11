@@ -22,7 +22,7 @@ public class Board {
 	int boardReport;		// 글 신고수
 	String boardContents;	// 글 내용
 	String boardCategory;	// 글 말머리
-	String boardImageOriginal; // 게시글 이미지 첨부파일
-	String boardImageSaved;	// 이미지 첨부파일 서버에 저장된 이름
+	String boardImageOriginal;	// 게시글 이미지 첨부파일
+	String boardImageSaved;		// 이미지 첨부파일 서버에 저장된 이름
 			
 }
