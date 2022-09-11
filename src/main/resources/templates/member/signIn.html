@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>会員登録</title>
+<script>
+function idCheckForm() {
+	window.open('idCheck', 'newWindow', 'left=550, top=200, width=350, height=200, menubar=no');
+}
+</script>
+</head>
+<style>
+table {
+    width: 500px;
+    border: 1px solid #fff;
+    border-spacing: 1px;
+    font-family: 'Cairo', sans-serif;
+  	margin: auto;
+}
+
+table td {
+    padding: 10px;
+    background-color: #333;
+    text-align:left;
+}
+
+table th {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align : center;
+}
+
+.btn {
+    border: none;
+    padding: 5px 10px;
+    color: #fff;
+    font-weight: bold;
+    background-color: #333;
+}
+</style>
+<body>
+<h2 style="text-align : center;">【 会員登録 】</h2>
+<form action="signup" method="post">
+	<table style="margin : auto; text-align : center;">
+		<tr>
+			<th><label for="memberid">ID</label></th>
+			<td>
+				<input id="memberid" type="text" name="memberid" required="required" maxlength="20" style="width:190px;" readonly="readonly">
+				<input id="checkbtn" type="button" value="IDチェック" onclick="idCheckForm()">	
+			</td>
+		</tr>
+		<tr>
+			<th><label for="memberpw">パスワード</label></th>
+			<td>
+				<input id="memberpw" type="text" name="memberpw" required="required" maxlength="100" style="width:190px;">
+			</td>
+		</tr>
+		<tr>
+			<th><label for="membername">名前</label></th>
+			<td>
+				<input id="membername" type="text" name="membername" required="required" maxlength="10" style="width:190px;">
+			</td>
+		</tr>
+		<tr>
+			<th><label for="phone">電話番号</label></th>
+			<td>
+				<input id="phone" type="text" name="phone" maxlength="15" style="width:190px;">
+			</td>
+		</tr>
+		<tr>
+			<th><label for="email">メールアドレス</label></th>
+			<td>
+				<input id="email" type="text" name="email" maxlength="30" style="width:190px;">
+			</td>
+		</tr>
+		<tr>
+			<th><label for="address">住所</label></th>
+			<td>
+				<textarea id="address" type="text" name="address" maxlength="100"
+				style="width:190px; height:50px; resize:none"></textarea>
+			</td>
+		</tr>
+		<tr>
+        	<td class="btn" colspan="2">
+	        	<div id="div-1" style="display: flex; justify-content: center;">
+	            	<input id="btn" type="submit" value="登録する">
+	            	<input id="btn" type="reset" value="リセット">
+	        	</div>
+        	</td>
+        </tr>
+	</table>
+</form>
+</body>
+</html>

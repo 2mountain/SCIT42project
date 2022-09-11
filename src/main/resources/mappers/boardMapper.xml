@@ -1,0 +1,27 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.softsociety.aimori.dao.BoardDAO">
+
+<!-- 게시글 저장 -->
+<insert id="insertBoard" parameterType="Board">
+	insert into BOARD (
+		boardNumber
+		, memberId
+		, boardTitle
+		, memberNickName
+		, boardContents
+		, boardCategory
+		)
+	values (
+		boardNumber_seq.nextval
+		, #{memberId}
+		, #{boardTitle}
+		, #{memberNickName}
+		, #{boardContents}
+		, #{boardCategory}
+		)
+</insert>
+
+</mapper>
