@@ -621,6 +621,10 @@ li {
 :: 6.0 Blog Area CSS 
 -------------------- */
 
+.kakaoMap_radius div {
+    border-radius: 30px;
+    margin-bottom: 30px;
+}
 .post-thumb img {
     border-radius: 30px;
     margin-bottom: 30px;
