@@ -22,7 +22,7 @@ public class Member implements UserDetails {
 
 	String memberId;		// 회원 아이디
 	String memberPassword;	// 회원 비밀번호
-	String memberNickName;	// 회원 닉네임 
+	String memberNickName;	// 회원 닉네임
 	String memberAddress;	// 회원 주소
 	String memberEmail; 	// 회원 이메일
 	String memberBirtyDay;	// 회원 생년월일
@@ -31,7 +31,7 @@ public class Member implements UserDetails {
 	int memberEnabled;		// 회원 차단 여부
 	String memberJoinDate;	// 회원 가입일
 	String memberImageOriginalFile;	// 대표 이미지의 원래 이름
-	String memberImageSavedFile;		//이미지 첨부파일 서버에 저장된 이름
+	String memberImageSavedFile;	//이미지 첨부파일 서버에 저장된 이름
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
