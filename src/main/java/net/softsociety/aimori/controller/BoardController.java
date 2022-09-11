@@ -59,17 +59,21 @@ public class BoardController {
 		log.debug("저장할 글정보 : {}", board); log.debug("파일 업로드 경로: {}", uploadPath);
 		log.debug("파일 정보: {}", upload);
 
-		board.setMemberId(user.getUsername());
+//		board.setMemberId(user.getUsername());
+		board.setMemberId("aaa");
+		board.setMemberNickName("aaa");
 
 		// 첨부파일이 있는 경우 지정된 경로에 저장하고, 원본 파일명과 저장된 파일명을 Board객체에 세팅
 		if (!upload.isEmpty()) {
 			String savedfile = FileService.saveFile(upload, uploadPath);
-			board.setBoardImageOriginal((upload.getOriginalFilename()));
+			board.setBoardImageOriginal(upload.getOriginalFilename());
 			board.setBoardImageSaved(savedfile);
 		}
+		
+		log.debug("set 처리 후 board : {}", board);
 
 		int result = boardDAO.insertBoard(board);
-		return "redirect:/board/list";
+		return "redirect:/board";
 	}
 
 }
