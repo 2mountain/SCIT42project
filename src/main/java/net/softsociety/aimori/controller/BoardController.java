@@ -49,7 +49,7 @@ public class BoardController {
 	 * 
 	 * @return board.html
 	 */
-	@GetMapping({ "/", "" })
+	@GetMapping({"", "/"})
 	public String board() {
 		log.debug("[Open Board mainScreen]");
 		return "/board/board";
