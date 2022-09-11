@@ -33,7 +33,7 @@ CREATE TABLE members
     			--회원 주소 
     memberEmail 				VARCHAR2(50) CONSTRAINT member_memberEmail_nn_uq NOT NULL UNIQUE,
     			--회원 이메일
-    memberBirtyDay 				VARCHAR2(12) CONSTRAINT member_memberBirthDay_nn NOT NULL,
+    memberBirthDay 				VARCHAR2(12) CONSTRAINT member_memberBirthDay_nn NOT NULL,
     			--회원 생년월일
     memberPoint 				NUMBER DEFAULT 0,
     			--회원 포인트
@@ -49,6 +49,10 @@ CREATE TABLE members
                 --이미지 첨부파일 서버에 저장된 이름
 );
 
+-- 테스트용 관리자 계정 ID : test1 / PW : test1
+insert into members
+(memberId, memberPassword, memberNickName, memberAddress, memberEmail, memberBirthDay, memberRoleName, memberEnabled)
+values('test1', 'test1', 'testUser', 'address', 'email', 'birthDay', 'ROLE_ADMIN', 1);
 
 
 insert into members values ('aaa', 'aaa', 'aaa', 'aaa', 'aaa', 'aaa', 1, 'aaa', 0, 'aaa', 'aaa');
@@ -196,7 +200,7 @@ CREATE TABLE doctor  -- DOCTOR CHECK 테이블이 있다면 기본키 수정 필
     			--의사 인증 승인일
 );
 
-insert into members(memberId, memberPassword, memberNickName, memberAddress, memberEmail, memberBirtyDay, memberRoleName, memberEnabled, memberImageOriginalFile, memberImageSavedFile)
+insert into members(memberId, memberPassword, memberNickName, memberAddress, memberEmail, memberBirthDay, memberRoleName, memberEnabled, memberImageOriginalFile, memberImageSavedFile)
 values ('aaa', 'aaa', 'aaa', 'aaa', 'aaa', 'aaa', 'ROLE_NORMAL', 0, 'aaa', 'aaa');
 
 commit;
