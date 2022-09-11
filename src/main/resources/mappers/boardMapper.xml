@@ -13,8 +13,6 @@
 		, memberNickName
 		, boardContents
 		, boardCategory
-		, boardImageOriginal
-		, boardImageSaved
 		)
 	values (
 		boardNumber_seq.nextval
@@ -23,8 +21,6 @@
 		, #{memberNickName}
 		, #{boardContents}
 		, #{boardCategory}
-		, #{boardImageOriginal}
-		, #{boardImageSaved}
 		)
 </insert>
 

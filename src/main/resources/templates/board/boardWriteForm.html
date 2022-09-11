@@ -199,19 +199,19 @@
 		
 	<table>
 	<tr>
-		<th id="boardSelect" style="width:200px;" colspan="2">
+		<th id="boardCategory" style="width:200px;" colspan="2">
 			게시판 선택
-			<select id="boardSelect" name="boardSelect">
-			<option value="Daily" th:selected="${boardSelect} == 'Daily'">일상</option>
-			<option value="Gather" th:selected="${boardSelect} == 'Gather'">같이해요(모집)</option>
-			<option value="Tip" th:selected="${boardSelect} == 'Tip'">Tip공유</option>
+			<select id="boardCategory" name="boardCategory">
+			<option value="Daily" th:selected="${boardCategory} == 'Daily'">일상</option>
+			<option value="Gather" th:selected="${boardCategory} == 'Gather'">같이해요(모집)</option>
+			<option value="Tip" th:selected="${boardCategory} == 'Tip'">Tip공유</option>
 			</select>
 		</th>
 	</tr>
 	<tr>
 		<th>제목</th>
 		<td class="boardWriteFormTd">
-			<input type="text" name="title" id="title" style="width: 900px;">
+			<input type="text" name="boardTitle" id="boardTitle" style="width: 900px;">
 		</td>
 	</tr>
 	<tr>    
@@ -223,7 +223,7 @@
 	<tr>
 		<th>내용</th>
 		<td class="boardWriteFormTd">
-			<textarea name="contents" id="contents" style="width: 900px; height: 500px;"></textarea>
+			<textarea name="boardContents" id="boardContents" style="width: 900px; height: 500px;"></textarea>
 		</td>
 	</tr>
 
