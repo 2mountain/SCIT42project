@@ -65,6 +65,8 @@
 			#pagination {margin:10px auto;text-align: center;}
 			#pagination a {display:inline-block;margin-right:10px;}
 			#pagination .on {font-weight: bold; cursor: default;color:#777;}
+			
+			#buttons {text-align: center;}
 		</style>
 </head>
 
@@ -220,6 +222,22 @@
 	            <div class="kakaoMap_radius">
 	            	<div class="map_wrap">
 				    	<div id="map" style="width:1100px;height:500px;"></div>
+				    	
+			    		아래 버튼들 눌렀을 때 카카오맵에서 해당 이름으로 검색하게 하기
+				    	<div id="buttons">
+					    	<button type="button" class="btn btn-lg btn-primary">운동장</button>
+					    	<button type="button" class="btn btn-lg btn-primary">동물병원</button>
+					    	<button type="button" class="btn btn-lg btn-primary">애완동물용품</button>
+					    	<button type="button" class="btn btn-lg btn-primary">카페</button>
+					    	<button type="button" class="btn btn-lg btn-primary">식당</button>
+					    	<button type="button" class="btn btn-lg btn-primary">운동장</button>
+					    	<button type="button" class="btn btn-lg btn-primary">운동장</button>
+					    	<button type="button" class="btn btn-lg btn-primary">운동장</button>
+					    	<button type="button" class="btn btn-lg btn-primary">운동장</button>
+					    	<button type="button" class="btn btn-lg btn-primary">운동장</button>
+				    	</div>
+				    	<!-- buttons용 부트스트랩 3.3.2 -->
+						<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 				    </div>
 				</div>
 				
@@ -242,6 +260,7 @@
 					// 지도의 우측에 확대 축소 컨트롤을 추가한다
 					map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 			
+					// 사용자 현 위치 호출
 					getCurrentPos();
 
 					// 현재 사용자 위치를 가져오기
@@ -275,10 +294,10 @@
 					};
 				</script>
 				
-				<hr>
+				<br>
 				</div>
 			<!-- KAKAO MAP API END -->
-			
+			<br>
 			<!-- List -->
             <div class="row">
                 <!-- Single Post -->
