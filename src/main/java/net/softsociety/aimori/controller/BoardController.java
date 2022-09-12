@@ -105,8 +105,8 @@ public class BoardController {
 		log.debug("파일 정보: {}", upload);
 
 //		board.setMemberId(user.getUsername());
-		board.setMemberId("aaa");
-		board.setMemberNickName("aaa");
+		board.setMemberId("test1");
+		board.setMemberNickName("test1");
 
 		// 첨부파일이 있는 경우 지정된 경로에 저장하고, 원본 파일명과 저장된 파일명을 Board객체에 세팅
 		if (!upload.isEmpty()) {

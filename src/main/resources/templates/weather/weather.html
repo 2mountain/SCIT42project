@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+
+	<title>Weather API</title>
+</head>
+
+
+<body>
+<h2>current weather</h2>
+<h2 class="time">현재 시간: </h3>
+<h3 class="ctemp">현재 온도: </h3>
+<h3 class="lowtemp">최저 온도: </h3>
+<h3 class="hightemp">최고 온도: </h3>
+<h3 class="icon"></h3>
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script>
+	$.getJSON('https://api.openweathermap.org/data/2.5/weather?lat=37&lon=127&appid=d31defa8e5437ce94838e8d636024afd&units=metric',function(result){
+		$('.ctemp').append(result.main.temp);
+		$('.lowtemp').append(result.main.temp_min);
+		$('.hightemp').append(result.main.temp_max);
+		//result.weather[0].icon 현재 날씨 가져오기
+		var wiconUrl = '<img src="https://openweathermap.org/img/wn/'+result.weather[0].icon+'.png" alt="'+result.weather[0].description+'">'
+		$('.icon').append(wiconUrl);
+		
+		var ct = result.dt;
+		function converTime(ct){
+			var originalTime 
+		}
+		
+		
+		var currentTime = convertMilisec()
+		$('.time').append(result.main.temp);
+	});
+	
+	
+</script>
+
+</body>
+</html>

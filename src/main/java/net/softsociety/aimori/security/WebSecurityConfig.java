@@ -33,6 +33,7 @@ public class WebSecurityConfig {
         		"/",	// home화면 경로
         		"/board/**",
         		"/facilities/**",
+        		"/weather/**",
                 "/img/**", // static 폴더의 img, css, js의 모든 폴더는 모든 사용자 접근 가능
                 "/css/**",
                 "/fonts/**",

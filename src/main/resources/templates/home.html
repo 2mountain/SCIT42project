@@ -159,15 +159,21 @@
         <!-- Single Slide -->
         <div class="welcome-single-slide">
             <!-- Post Thumb -->
-            <img src="img/bg-img/main_product.jpg" alt="">
+            <img src="img/bg-img/sun.jpg" alt="">
             <!-- Overlay Text -->
             <div class="project_title">
                 <div class="post-date-commnents d-flex">
-                    <a href="#">May 19, 2017</a>
-                    <a href="#">5 Comment</a>
+                    <a th:href="@{/weather/list}">Today's Weather</a>
+                    <a th:href="@{/weather/list}">5 Comment</a>
+                    
+                   <!--<a th:href="@{/home}">
+                   
+                   th:href="@{/board/list}"
+                     --> 
+                    
                 </div>
-                <a href="#">
-                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
+                <a th:href="@{/weather/list}">
+                    <h5>날씨가 좋아요 산책갈까요?</h5>
                 </a>
             </div>
         </div>
