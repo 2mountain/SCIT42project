@@ -25,7 +25,7 @@ import net.softsociety.aimori.service.BoardService;
 @RequestMapping("board")
 @Controller
 public class BoardController {
-
+	
 	//게시판 목록의 페이지당 글 수
 	@Value("${user.board.page}")
 	int countPerPage;
@@ -40,7 +40,7 @@ public class BoardController {
 	
 	@Autowired
 	BoardService service;
-
+	
 	@Autowired
 	BoardDAO boardDAO;
 	
@@ -106,7 +106,7 @@ public class BoardController {
 
 //		board.setMemberId(user.getUsername());
 		board.setMemberId("test1");
-		board.setMemberNickName("test1");
+		board.setMemberNickName("testUser");
 
 		// 첨부파일이 있는 경우 지정된 경로에 저장하고, 원본 파일명과 저장된 파일명을 Board객체에 세팅
 		if (!upload.isEmpty()) {
@@ -118,7 +118,7 @@ public class BoardController {
 		log.debug("set 처리 후 board : {}", board);
 
 		int result = boardDAO.insertBoard(board);
-		return "redirect:/board";
+		return "redirect:/board/list";
 	}
 
 }
