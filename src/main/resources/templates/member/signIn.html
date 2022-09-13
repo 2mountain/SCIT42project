@@ -2,34 +2,52 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>会員登録</title>
+<title>Aimori</title>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    function sample6_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample6_postcode').value = data.zonecode;
+                document.getElementById("sample6_address").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("sample6_detailAddress").focus();
+            }
+        }).open();
+    }
+</script>
 <script>
 function idCheckForm() {
 	window.open('idCheck', 'newWindow', 'left=550, top=200, width=350, height=200, menubar=no');
 }
 </script>
-</head>
 <style>
-table {
-    width: 500px;
-    border: 1px solid #fff;
-    border-spacing: 1px;
-    font-family: 'Cairo', sans-serif;
-  	margin: auto;
-}
+@import url('https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700|Quicksand:300,400,500,700|Shadows+Into+Light+Two');
 
-table td {
-    padding: 10px;
-    background-color: #333;
-    text-align:left;
-}
-
-table th {
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-    text-align : center;
-}
+/* ***** Import CSS ***** */
+/* 
+@import '/css/bootstrap/bootstrap.min.css';
+ */
+@import '../css/others/animate.css';
+@import '../css/others/magnific-popup.css';
+@import '../css/others/meanmenu.min.css';
+@import '../css/others/owl.carousel.min.css';
+@import '../css/others/font-awesome.min.css';
+@import '../css/others/pe-icon-7-stroke.css';
 
 .btn {
     border: none;
@@ -38,58 +56,207 @@ table th {
     font-weight: bold;
     background-color: #333;
 }
+
+.logo_area .yummy-logo {
+    font-family: 'Shadows Into Light Two', cursive;
+    font-size: 60px;
+    margin-bottom: 0;
+    padding: 35px 0 20px 0;
+    display: inline-block;
+    color: #232d37;
+}
+
+.container {
+	text-align : center;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap');
+
+*{
+    box-sizing: border-box; /*전체에 박스사이징*/
+    outline: none; /*focus 했을때 테두리 나오게 */
+}
+
+body{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size:14px;
+    background-color: #f5f6f7;
+    line-height: 1.5em;
+    color : #222;
+    margin: 0;
+}
+
+a{
+    text-decoration: none;
+    color: #222;
+}
+
+/*member sign in*/
+.member{
+    width: 400px;
+    /* border: 1px solid #000; */
+    margin: auto; /*중앙 정렬*/
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
+
+.member .logo{
+    /*로고는 이미지라 인라인 블록이니까 마진 오토 안됨 블록요소만 됨 */
+    display: block;
+    margin :50px auto;
+}
+
+.member .field{
+    margin :5px 0; /*상하로 좀 띄워주기*/
+}
+
+.member b{
+    /* border: 1px solid #000; */
+    display: block; /*수직 정렬하기 */
+    margin-bottom: 5px;
+}
+
+/*input 중 radio 는 width 가 100%면 안되니까 */
+.member input:not(input[type=radio]),.member select{
+    border: 1px solid #dadada;
+    padding: 15px;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.member input[type=button],
+.member input[type=submit]{
+background-color: #2db400;
+color:#fff
+}
+
+.member input:focus, .member select:focus{
+    border: 1px solid #2db400;
+}
+
+.field.api div {
+    display: flex;
+}
+
+.field.api div input:nth-child(1){
+    flex:2;
+}
+
+.field.api div input:nth-child(2){
+    flex:1;
+}
+
+.placehold-text{
+    display: block; /*span 으로 감싸서 크기영역을 블록요소로 만들어준다*/
+    position:relative;
+    /* border: 1px solid #000; */
+}
+
+.member-footer {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 20px;
+}
+
+.member-footer div a:hover{
+    text-decoration: underline;
+    color:#2db400
+}
+
+.member-footer div a:after{
+    content:'|';
+    font-size: 10px;
+    color:#bbb;
+    margin-right: 5px;
+    margin-left: 7px;
+    /*살짝 내려가 있기 때문에 위로 올려주기 위해 transform 사용하기*/
+    display: inline-block;
+    transform: translateY(-1px);
+
+}
+
+.member-footer div a:last-child:after{
+    display: none;
+}
+
+@media (max-width:768px) {
+    .member{
+        width: 100%;
+    }
+}
 </style>
+</head>
 <body>
-<h2 style="text-align : center;">【 会員登録 】</h2>
-<form action="signup" method="post">
-	<table style="margin : auto; text-align : center;">
-		<tr>
-			<th><label for="memberid">ID</label></th>
-			<td>
-				<input id="memberid" type="text" name="memberid" required="required" maxlength="20" style="width:190px;" readonly="readonly">
-				<input id="checkbtn" type="button" value="IDチェック" onclick="idCheckForm()">	
-			</td>
-		</tr>
-		<tr>
-			<th><label for="memberpw">パスワード</label></th>
-			<td>
-				<input id="memberpw" type="text" name="memberpw" required="required" maxlength="100" style="width:190px;">
-			</td>
-		</tr>
-		<tr>
-			<th><label for="membername">名前</label></th>
-			<td>
-				<input id="membername" type="text" name="membername" required="required" maxlength="10" style="width:190px;">
-			</td>
-		</tr>
-		<tr>
-			<th><label for="phone">電話番号</label></th>
-			<td>
-				<input id="phone" type="text" name="phone" maxlength="15" style="width:190px;">
-			</td>
-		</tr>
-		<tr>
-			<th><label for="email">メールアドレス</label></th>
-			<td>
-				<input id="email" type="text" name="email" maxlength="30" style="width:190px;">
-			</td>
-		</tr>
-		<tr>
-			<th><label for="address">住所</label></th>
-			<td>
-				<textarea id="address" type="text" name="address" maxlength="100"
-				style="width:190px; height:50px; resize:none"></textarea>
-			</td>
-		</tr>
-		<tr>
-        	<td class="btn" colspan="2">
-	        	<div id="div-1" style="display: flex; justify-content: center;">
-	            	<input id="btn" type="submit" value="登録する">
-	            	<input id="btn" type="reset" value="リセット">
-	        	</div>
-        	</td>
-        </tr>
-	</table>
+    <header class="header_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="logo_area text-center">
+                        <a href="index.html" class="yummy-logo">AIMORI</a>
+                    </div>
+                </div>
+            </div>
+		</div>
+	</header>
+	
+<h2 style="text-align : center;">【 회원가입 】</h2>
+<form action="signIn" method="post">
+    <div class="member">
+        <div class="field api">
+            <b>아이디</b>
+            <div>
+            <input id="memberID" type="text" required="required" maxlength="40">
+            <input id="checkbtn" type="button" value="ID 중복검사" onclick="idCheckForm()">
+			</div>
+        </div>
+        
+        <div class="field">
+            <b>비밀번호</b>
+            <input id="memberPassword" type="password" required="required" maxlength="40">
+        </div>
+        
+        <div class="field">
+            <b>비밀번호 재확인</b>
+            <input id="memberPassword" type="password" required="required" maxlength="40">
+        </div>
+        
+        <div class="field birth">
+            <b>생년월일</b>
+            <div>
+                <input id="memberBirthDay" type="date" required="required">
+            </div>
+        </div>
+        
+        <div class="field">
+            <b>닉네임</b>
+            <input id="memberNickName" type="text" required="required" maxlength="40">
+        </div>
+        
+        <div class="field api">
+            <b>이메일</b>
+            <div>
+                <input id="memberEmail" type="text" placeholder="이메일 입력" required="required" maxlength="40">
+                <input type="button" value="인증번호 받기">
+            </div>
+            <input type="text" placeholder="인증번호를 입력하세요">
+        </div>
+        
+        <div class="field api">
+            <b>주소</b>
+            <div>
+            	<input id="sample6_postcode" type="text" placeholder="우편번호">
+            	<input type="button" value="우편번호 찾기" onclick="sample6_execDaumPostcode()">
+            </div> 
+            	<input type="text" id="sample6_address" placeholder="주소" readonly="readonly"><br>
+				<input type="text" id="sample6_detailAddress" placeholder="상세주소">
+        </div>
+
+        <input type="submit" value="가입하기">
+
+        <div class="member-footer">
+            <span><a href="#none">SCIT Corp.</a></span>
+        </div>
+    </div>
 </form>
 </body>
 </html>
