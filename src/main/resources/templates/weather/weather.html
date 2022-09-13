@@ -26,14 +26,24 @@
 		var wiconUrl = '<img src="https://openweathermap.org/img/wn/'+result.weather[0].icon+'.png" alt="'+result.weather[0].description+'">'
 		$('.icon').append(wiconUrl);
 		
+		
+		//현재시간 가져오기
 		var ct = result.dt;
-		function converTime(ct){
-			var originalTime 
-		}
 		
+		function convertTime(t){
+			var originalTime = new Date(t*1000);
+			//Tue Sep 13 2022 09:34:07 GMT+0900 (한국 표준시)
+			//너무 길어서 쪼개서 출력한다
+			var hr = originalTime.getHours();
+			var m = originalTime.getMinutes();
+			var s = originalTime.getSeconds();
+			
+			return hr + ':' + m + ':' + s
+			
+		} 
 		
-		var currentTime = convertMilisec()
-		$('.time').append(result.main.temp);
+		var currentTime = convertTime(ct)
+		$('.time').append(currentTime);
 	});
 	
 	
