@@ -214,24 +214,15 @@
 		<div class="text-right">
 		<a class="btn btn-light" style="background-color: rgb(220, 220, 255);" colspan="6" th:href="@{/board/write}">글쓰기</a>
 		</div>
-		<div class="text-center">
-			<ul class="pagination">
-				<li><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
-			</ul>
-		</div>
 	</div>
 
 
-<!-- 	<div id="navigator">
+<div id="navigator">
 	
-	페이지 이동 링크     
+	<!-- 페이지 이동 링크   -->   
 	<a th:href="|javascript:pagingFormSubmit(${navi.currentPage - navi.pagePerGroup})|">◁◁</a>
 	<a th:href="|javascript:pagingFormSubmit(${navi.currentPage - 1})|">◀</a> 
-
+	
 	<span th:each="counter : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}"> 
 		<th:block th:if="${counter == navi.currentPage}"><b></th:block>
 			<a th:text="${counter}" th:href="|javascript:pagingFormSubmit(${counter})|"></a>&nbsp;
@@ -242,7 +233,7 @@
 	<a th:href="|javascript:pagingFormSubmit(${navi.currentPage + navi.pagePerGroup})|">▷▷</a>
 	<br><br>
 	
-	검색폼
+	<!-- 검색폼 -->
 	<form id="pagingForm" method="get" th:action="@{/board/list}">
 		<input type="hidden" name="page" id="page" />
 		<select id="type" name="type">
@@ -255,10 +246,10 @@
 		<input type="button" onclick="pagingFormSubmit(1)" value="검색">
 	</form>
 	
-	</div> -->
+	</div>
 
 </section>
-    
+
  <!--    <section class="archive-area section_padding_80">
         <div class="container">
             <div class="row">
