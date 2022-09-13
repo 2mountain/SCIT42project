@@ -52,7 +52,7 @@
 	background: rgba(255, 255, 255, 0.7);
 	z-index: 1;
 	font-size: 12px;
-	border-radius: 10px;
+	border-radius: 20px;
 }
 
 .bg_white {
@@ -411,15 +411,19 @@
 			
 					// 지도의 우측에 확대 축소 컨트롤을 추가한다
 					map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-			
+
 					// 사용자 현 위치 호출
 					getCurrentPos();
-
-					// 현재 사용자 위치를 가져오기
+					
+				    // 현재 사용자 위치를 가져오기
 					function locationLoadSuccess(pos){
 					    // 현재 위치 받아오기
-					    var currentPos = new kakao.maps.LatLng(pos.coords.latitude,pos.coords.longitude);
-					    // 지도 이동(기존 위치와 가깝다면 부드럽게 이동)
+						var currentPos = new kakao.maps.LatLng(pos.coords.latitude,pos.coords.longitude);
+						
+					    // 현재 위치 기준 주변 시설 검색 - 반경 5000m
+					    searchPlaces(currentPos);
+					    
+				    	// 지도 이동(기존 위치와 가깝다면 부드럽게 이동)
 					    map.panTo(currentPos);
 					    // 마커 생성
 					    var marker = new kakao.maps.Marker({
@@ -457,10 +461,10 @@
 					});
 
 					// 키워드로 장소를 검색합니다
-					searchPlaces();
+					// searchPlaces();
 
 					// 키워드 검색을 요청하는 함수입니다
-					function searchPlaces() {
+					function searchPlaces(currentPos) {
 
 						var keyword = document.getElementById('keyword').value;
 
@@ -468,9 +472,12 @@
 							alert('키워드를 입력해주세요!');
 							return false;
 						}
-
+						
 						// 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-						ps.keywordSearch(keyword, placesSearchCB);
+						ps.keywordSearch(keyword, placesSearchCB, 
+								{useMapBounds:false, page:1, radius:5000,
+								 location:currentPos, sort:daum.maps.services.SortBy.distance});
+								// 검색 기준(사용자 현 위치), 검색할 범위 
 					}
 
 					// 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
