@@ -14,4 +14,7 @@ public interface MemberDAO {
 	
 	// ID 중복검사
 	public Member selectOne(String memberId);
+	
+	// 닉네임 중복검사
+	public Member selectOne2(String memberNickName);
 }

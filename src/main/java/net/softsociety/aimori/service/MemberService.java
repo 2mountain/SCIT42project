@@ -8,4 +8,7 @@ public interface MemberService {
 	
 	// ID 중복확인
 	public boolean idCheck(String cId);
+	
+	// 닉네임 중복확인
+	public boolean nNCheck(String cNN);
 }
