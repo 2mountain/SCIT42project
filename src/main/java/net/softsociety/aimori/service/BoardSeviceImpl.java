@@ -57,5 +57,11 @@ public class BoardSeviceImpl implements BoardService {
 		Board board = boardDAO.boardRead(boardNumber);
 		return board;
 	}
+
+	// 글삭제
+	@Override
+	public int boardDelete(Board board) {
+		int result = boardDAO.boardDelete(board);
+		return result;	}
 	
 }

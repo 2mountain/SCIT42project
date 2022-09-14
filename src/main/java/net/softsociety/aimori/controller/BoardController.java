@@ -1,6 +1,13 @@
 package net.softsociety.aimori.controller;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,6 +15,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,8 +85,8 @@ public class BoardController {
 		
 		model.addAttribute("navi", navi);
 		model.addAttribute("boardlist", boardlist);
-//		model.addAttribute("type", type);
-//		model.addAttribute("searchWord", searchWord);
+		model.addAttribute("type", type);
+		model.addAttribute("searchWord", searchWord);
 		
 		return "/board/board";
 	}
@@ -146,5 +154,81 @@ public class BoardController {
 		
 		return "/board/boardRead";
 	}
+	
+	/**
+	 * 첨부파일 다운로드 
+	 * @param boardNumber 본문 글번호
+	 */
+	@GetMapping("download")
+	public String fileDownload(int boardNumber, Model model, HttpServletResponse response) {
+		//전달된 글 번호로 글 정보 조회
+		Board board = service.boardRead(boardNumber);
+		
+		//원래의 파일명
+		String originalfile = new String(board.getBoardImageOriginal());
+		
+		try {
+			response.setHeader("Content-Disposition", " attachment;filename="+ URLEncoder.encode(originalfile, "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		//저장된 파일 경로
+		String fullPath = uploadPath + "/" + board.getBoardImageSaved();
+		
+		//서버의 파일을 읽을 입력 스트림과 클라이언트에게 전달할 출력스트림
+		FileInputStream filein = null;
+		ServletOutputStream fileout = null;
+		
+		try {
+			filein = new FileInputStream(fullPath);
+			fileout = response.getOutputStream();
+			
+			//Spring의 파일 관련 유틸 이용하여 출력
+			FileCopyUtils.copy(filein, fileout);
+			
+			filein.close();
+			fileout.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return "redirect:/";
+	}
+	
+	/**
+	 * 글 삭제
+	 * @param boardNumber 삭제할 글 번호
+	 * @param user 인증정보
+	 */
+	@GetMapping ("delete")
+	public String boardDelete(int boardNumber, @AuthenticationPrincipal UserDetails user) {
+		
+		//해당 번호의 글 정보 조회
+		Board board = service.boardRead(boardNumber);
+		
+		if (board == null) {
+			return "redirect:/board/list";
+		}
+		
+		//첨부된 파일명 확인
+		String savedfile = board.getBoardImageSaved();
+		
+		//로그인 아이디를 board객체에 저장
+		// board.setMemberId(user.getUsername());
+		board.setMemberId("test1");
+		
+		//글 삭제
+		int result = service.boardDelete(board);
+		
+		//글 삭제 성공 and 첨부된 파일이 있는 경우 파일도 삭제
+		if (result == 1 && savedfile != null) {
+			FileService.deleteFile(uploadPath + "/" + savedfile);
+		}
+		
+		return "redirect:/board/list";
+	}
+	
+	
 
 }

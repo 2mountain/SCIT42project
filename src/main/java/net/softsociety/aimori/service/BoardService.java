@@ -13,5 +13,7 @@ public interface BoardService {
 	public ArrayList<Board> list(PageNavigator navi, String type, String searchWord);
 	// 글읽기
 	public Board boardRead(int boardNumber);
+	// 글삭제
+	public int boardDelete(Board board);
 
 }
