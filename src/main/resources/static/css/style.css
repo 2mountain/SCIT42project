@@ -364,24 +364,27 @@ li {
     color: #222;
 }
 
+/* 로그인버튼 */
 .top_header_area .signup-search-area .login a {
+	margin-left: 13px;
     margin-right: 13px;
     border-right: 2px solid #c2c2c2;
     padding-right: 13px;
 }
 
+/* 돋보기와 텍스트 사이 간격 */
 .top_header_area .signup-search-area .search_button {
-    margin-left: 54px;
+    margin-left: 20px;
+
 }
 
 #searchBtn {
     position: relative;
-    z-index: 8;
+    /* z-index: 8; */
 }
 
 .search-hidden-form {
-    position: absolute;
-    width: 100%;
+    position: relative;
     z-index: 4;
     height: 100%;
     top: 0;
@@ -391,18 +394,18 @@ li {
     -webkit-transition-duration: 500ms;
     transition-duration: 500ms;
     opacity: 0;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
     font-size: 12px;
 }
 
 .search-hidden-form.search-form-open {
     z-index: 18;
-    opacity: 1;
+	opacity: 1;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 }
 
 .search-hidden-form #search-anything {
-    width: 100%;
+    width: 300px;
     height: 30px;
     border: 1px solid #ddd;
     top: 5px;
