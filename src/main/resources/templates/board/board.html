@@ -100,7 +100,7 @@
                 <!-- Logo Area Start -->
                 <div class="col-12">
                     <div class="logo_area text-center">
-                        <a href="index.html" class="yummy-logo">AIMORI</a>
+                        <a th:href="@{/}" class="yummy-logo">AIMORI</a>
                     </div>
                 </div>
             </div>
@@ -196,11 +196,11 @@
 			<tr>
 				<th id="boardSearch" style="width:250px;">
 					<div style="width: 190px;" id="boardSearch">말머리
-					<select id="boardSearch" name="boardSearch">
-					<option value="Daily" th:selected="${boardSearch} == 'Daily'">일상</option>
-					<option value="Gather" th:selected="${boardSearch} == 'Gather'">같이해요(모집)</option>
-					<option value="Tip" th:selected="${boardSearch} == 'Tip'">Tip공유</option>
-					</select>
+						<select id="boardSearch" name="boardSearch">
+							<option value="Daily" th:selected="${boardSearch} == 'Daily'">일상</option>
+							<option value="Gather" th:selected="${boardSearch} == 'Gather'">같이해요(모집)</option>
+							<option value="Tip" th:selected="${boardSearch} == 'Tip'">Tip공유</option>
+						</select>
 					</div>
 				</th>
 				<th class="center">번호</th>
@@ -208,10 +208,10 @@
 				<th class="center">작성자</th>
 				<th style="text-align: center; width:200px">작성일</th>
 				<th style="	text-align: center; width:80px;">조회</th>
-				<th style="text-align: center; width:80px;">좋아요</th>
+				<th style="text-align: center; width:90px;">좋아요</th>
 			</tr>
 			<tr  th:each="board : ${boardlist}">
-				<td class="center"></td>
+				<td class="center" th:text="${board.boardCategory}"></td>
 				<td th:text="${board.boardNumber}" class="center"></td>
 				<td>
 					<a th:text="${board.boardTitle}" th:href="@{/board/read(boardNumber=${board.boardNumber})}"></a>
