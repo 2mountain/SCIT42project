@@ -52,7 +52,7 @@ th {
 
 td {
 	padding: 3px;
-	background-color: rgb(245, 245, 255);
+	/* background-color: rgb(245, 245, 255); */
 	text-align: left;
 }
 
@@ -75,6 +75,10 @@ td.boardWriteFormTd {
 	text-align: center;
 }
 
+.readCenter {
+	text-align: center;
+	width: 30px;
+}
 
 /* 게시판 본문 */
 pre {

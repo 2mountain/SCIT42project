@@ -124,5 +124,27 @@ public class BoardController {
 		
 		return "redirect:/board/list";
 	}
+	
+	/**
+	 * 글읽기
+	 * @param model 글객체
+	 * @param boardNumber 글번호
+	 * @return
+	 */
+	@GetMapping("read")
+	public String read(
+			Model model
+			, @RequestParam(name="boardNumber", defaultValue = "0") int boardNumber) { 
+
+		Board board = service.boardRead(boardNumber);
+		if (board == null) {
+			return "redirect:/board/list"; //글이 없으면 목록으로
+		}
+			
+		//결과를 모델에 담아서 HTML에서 출력
+		model.addAttribute("board", board);
+		
+		return "/board/boardRead";
+	}
 
 }

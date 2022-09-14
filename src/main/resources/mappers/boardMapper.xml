@@ -45,6 +45,29 @@
 	order by boardInputDate desc
 </select>
 
+<!-- 게시글 읽기 -->
+<select id="boardRead" parameterType="int" resultType="Board">
+	select
+		boardNumber
+		, memberId
+		, boardTitle
+		, memberNickName
+		, to_char(boardInputDate, 'YYYY-MM-DD') boardInputDate
+		<!-- , to_char(boardInputDate, 'YYYY-MM-DD HH24:MI:SS') boardInputDate -->
+		, boardHits
+		, boardLiked
+		, boardReport
+		, boardContents
+		, boardCategory
+		, boardImageOriginal
+		, boardImageSaved
+	from
+		Board
+
+	where 
+		boardNumber = #{boardNumber}
+</select>
+
 <!-- 전체 글 개수 (검색 필터링 후) -->
 <select id="countBoard" parameterType="map" resultType="int">
 	select 
