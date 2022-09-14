@@ -29,7 +29,17 @@
 
 	<!-- test -->
 	<link rel="stylesheet" type="text/css" th:href="@{/css/board/board.css}" />
-
+	
+	<!-- test (리플 삭제) -->
+	<script>
+	//글 삭제
+	function deleteBoard(num) {
+		if (confirm('삭제하시겠습니까?')) {
+			location.href = 'delete?boardNumber=' + num;
+		}
+	}
+	</script>
+	
 </head>
 
 <body>
@@ -139,7 +149,7 @@
     <!-- ****** Header Area End ****** -->
 
     <!-- ****** Breadcumb Area Start ****** -->
-    <div class="breadcumb-area" style="background-image: url(../img/bg-img/breadcumb.jpg);">
+    <div class="breadcumb-area" style="background-image: url(/img/bg-img/breadcumb.jpg);">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 <div class="col-12">
@@ -203,7 +213,7 @@
 		<br>
 		
 		<!-- <div th:if="${#authentication.name} == ${board.memberId}"> -->
-		<div>
+		<div class="pull-right">
 			<a class="btn btn-primary" style="background-color: rgb(220, 220, 255);" th:href="@{/board/update(boardNumber=${board.boardNumber})}">수정</a>
 			<a class="btn btn-primary" style="background-color: rgb(220, 220, 255);" th:href="|javascript:deleteBoard(${board.boardNumber})|">삭제</a>
 			<a class="btn btn-primary" style="background-color: rgb(220, 220, 255);" href="#">신고</a>
@@ -213,45 +223,6 @@
 		</form>
 	</div>
 </section>
-			
-			
-			<!-- <table class="table table-hover table-bordered">
-			<tr>
-				<th id="boardCategory" style="width:200px;" colspan="2">
-					게시판 선택
-					<select id="boardCategory" name="boardCategory">
-					<option value="Daily" th:selected="${boardCategory} == 'Daily'">일상</option>
-					<option value="Gather" th:selected="${boardCategory} == 'Gather'">같이해요(모집)</option>
-					<option value="Tip" th:selected="${boardCategory} == 'Tip'">Tip공유</option>
-					</select>
-				</th>
-			</tr>
-			<tr>
-				<th>제목</th>
-				<td class="boardWriteFormTd">
-					<input type="text" name="boardTitle" id="boardTitle" style="width: 900px;">
-				</td>
-			</tr>
-			<tr>    
-				<th>파일첨부</th>
-				<td>
-					<input type="file" name="upload">
-				</td>
-			</tr>
-			<tr>
-				<th>내용</th>
-				<td class="boardWriteFormTd">
-					<textarea name="boardContents" id="boardContents" style="width: 900px; height: 600px;"></textarea>
-				</td>
-			</tr>
-		
-			<tr>
-				<td colspan="2" class="white center">
-					<input type="submit" value="글등록">
-				</td> 
-			</tr>
-			</table> -->
-
 
 
 

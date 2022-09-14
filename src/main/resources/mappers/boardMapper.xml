@@ -32,7 +32,7 @@
 		, boardTitle
 		, memberNickName
 		, to_char(boardInputDate, 'YYYY-MM-DD') boardInputDate
-		<!-- , to_char(boardInputDate, 'YYYY-MM-DD HH24:MI:SS') boardInputDate -->
+		, to_char(boardInputDate, 'YYYY-MM-DD HH24:MI:SS') boardInputDateDetail
 		, boardHits
 		, boardLiked
 		, boardReport
@@ -42,7 +42,7 @@
 		, boardImageSaved
 	from
 		Board
-	order by boardInputDate desc
+	order by boardInputDateDetail desc
 </select>
 
 <!-- 게시글 읽기 -->
@@ -75,5 +75,14 @@
 	from 
 		Board
 </select>
+
+<!-- 글 삭제 -->
+<delete id="boardDelete" parameterType="Board">
+	delete from
+		Board
+	where
+		boardNumber = #{boardNumber}
+		<!-- and memberId = #{memberId} -->
+</delete>
 
 </mapper>

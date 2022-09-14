@@ -22,5 +22,7 @@ public interface BoardDAO {
 	public int countBoard(HashMap<String, String> map);
 	// 글 읽기
 	public Board boardRead(int boardNumber);
+	// 글 삭제
+	public int boardDelete(Board board);
 
 }
