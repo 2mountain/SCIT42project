@@ -56,6 +56,25 @@ public class MemberController {
 		return "/member/idCheck";
 	}
 	
+	@GetMapping("/nNCheck")
+	public String nNCheck() {
+		return "/member/nNCheck";
+	}
+	
+	@PostMapping("/nNCheck")
+	public String nNCheck(String cNN, Model model) {
+		log.debug("검색학 닉네임 : {}", cNN);
+		
+		boolean result = service.nNCheck(cNN);
+		
+		model.addAttribute("result", result);
+		model.addAttribute("cNN", cNN);
+		
+		log.debug("사용가능 여부 : {}", result);
+		
+		return "/member/nNCheck";
+	}
+	
 	@GetMapping("/logIn")
 	public String logIn() {
 		return "/member/logIn";
