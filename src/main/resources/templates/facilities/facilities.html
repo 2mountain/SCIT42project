@@ -212,6 +212,22 @@ html {
 	color: #777;
 }
 </style>
+
+<script>
+/* 	window.onload = function(){
+		let keyword = document.getElementById('keyword');
+		let btn = document.getElementsByClassName('sTheme');
+		
+		// 검색 주제 버튼 클릭 시 해당 버튼의 값으로 검색 
+		for(let i = 0; i < btn.length; i++){
+			btn[i].onclick = function(){
+				keyword.value = btn[i].value;
+				searchPlaces();
+			}
+		}
+	} */
+</script>
+
 </head>
 
 <body>
@@ -371,29 +387,26 @@ html {
 				<div class="kakaoMap_radius">
 					<div class="map_wrap mt-4">
 						<div class="map_wrap">
-							<div id="map" style="width: 100%; height: 100%; 
-								 position: relative; overflow: hidden;"></div>
-							
+							<div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
 						</div>
 					</div>
 				</div>
 
 				<div class="d-flex flex-row justify-content-center">
-					<button type="button" class="btn btn-lg btn-primary mr-3">운동장</button>
-					<button type="button" class="btn btn-lg btn-primary mr-3">동물병원</button>
-					<button type="button" class="btn btn-lg btn-primary mr-3">애완동물용품</button>
-					<button type="button" class="btn btn-lg btn-primary mr-3">애견카페</button>
-					<button type="button" class="btn btn-lg btn-primary mr-3">식당</button>
-					<button type="button" class="btn btn-lg btn-primary mr-3">동물호텔</button>
-					<button type="button" class="btn btn-lg btn-primary mr-3">운동장</button>
+					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="운동장">
+					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="동물병원">
+					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="공원">
+					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="애견카페">
+					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="식당">
+					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="동물호텔">
 				</div>
 
 				<div id="menu_wrap" class="bg_white">
 					<div class="option">
 						<div>
-							<form onsubmit="searchPlaces(); return false;">
+							<form th:action="@{/facilities}" method="post" id="themeSearch" onsubmit="searchPlaces(); return false;">
 								<!-- onchange로 변경? -->
-								키워드 : <input type="text" value="애완동물" id="keyword" size="15">
+								키워드 : <input type="text" th:value="${place}" name="place" id="keyword" size="15">
 								<button type="submit">검색하기</button>
 							</form>
 						</div>
@@ -488,6 +501,19 @@ html {
 							alert('키워드를 입력해주세요!');
 							return false;
 						}
+						
+						// 검색어 바꾸기
+						let btn = document.getElementsByClassName('sTheme');
+						let searchWord = document.getElementById('keyword');
+						
+						console.log(searchWord);
+						// 검색 주제 버튼 클릭 시 해당 버튼의 값으로 검색 
+						for (let i = 0; i < btn.length; i++) {
+							btn[i].onclick = function() {
+								searchWord.value = btn[i].value;
+								document.forms["themeSearch"].submit();
+							}
+						}
 
 						// 현재 지도의 범위
 						var bounds = map.getBounds();
@@ -500,13 +526,14 @@ html {
 						ps.keywordSearch(keyword, placesSearchCB, {
 							useMapBounds : true,
 							page : 1,
-							radius : 2000,
+							radius : 3000,
 							location : new kakao.maps.LatLng(lat, lon),
 							sort : daum.maps.services.SortBy.distance
 						});
 						// 검색 기준(사용자 현 위치), 검색할 범위 2000
 					}
 
+					// 스크롤 이동
 					setTimeout(function() {
 						window.scrollTo(0, 585);
 					}, 250);
