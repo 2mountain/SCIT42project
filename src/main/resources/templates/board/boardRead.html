@@ -99,7 +99,7 @@
                 <!-- Logo Area Start -->
                 <div class="col-12">
                     <div class="logo_area text-center">
-                        <a href="index.html" class="yummy-logo">AIMORI</a>
+                        <a th:href="@{/}" class="yummy-logo">AIMORI</a>
                     </div>
                 </div>
             </div>
@@ -149,7 +149,7 @@
     <!-- ****** Header Area End ****** -->
 
     <!-- ****** Breadcumb Area Start ****** -->
-    <div class="breadcumb-area" style="background-image: url(/img/bg-img/breadcumb.jpg);">
+    <div class="breadcumb-area" style="background-image: url(../img/bg-img/breadcumb.jpg);">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 <div class="col-12">
@@ -209,16 +209,20 @@
 				<th style="text-align: center;">파일첨부</th>
 				<td><a th:href="@{/board/download(boardNumber=${board.boardNumber})}" th:text="${board.boardImageOriginal}"></a></td>
 			</tr>
+			<tr>
+				<th colspan="2" style="background-color: white;">
+				<div class="pull-right">
+					<a class="btn btn-primary" style="background-color: rgb(220, 220, 255);" th:href="@{/board/update(boardNumber=${board.boardNumber})}">수정</a>
+					<a class="btn btn-primary" style="background-color: rgb(220, 220, 255);" th:href="|javascript:deleteBoard(${board.boardNumber})|">삭제</a>
+					<a class="btn btn-danger" style="background-color: rgb(255, 200, 200);" href="#">신고</a>
+				</div>
+				</th>
+			</tr>
 		</table>
 		<br>
 		
 		<!-- <div th:if="${#authentication.name} == ${board.memberId}"> -->
-		<div class="pull-right">
-			<a class="btn btn-primary" style="background-color: rgb(220, 220, 255);" th:href="@{/board/update(boardNumber=${board.boardNumber})}">수정</a>
-			<a class="btn btn-primary" style="background-color: rgb(220, 220, 255);" th:href="|javascript:deleteBoard(${board.boardNumber})|">삭제</a>
-			<a class="btn btn-primary" style="background-color: rgb(220, 220, 255);" href="#">신고</a>
-		</div>
-		<br>
+
 		
 		</form>
 	</div>
@@ -240,7 +244,7 @@
         <!-- Instagram Item -->
         <div class="instagram_gallery_item">
             <!-- Instagram Thumb -->
-            <img src="/img/instagram-img/1.jpg" alt="">
+            <img th:src="@{/img/instagram-img/1.jpg}" alt="">
             <!-- Hover -->
             <div class="hover_overlay">
                 <div class="yummy-table">
@@ -256,7 +260,7 @@
         <!-- Instagram Item -->
         <div class="instagram_gallery_item">
             <!-- Instagram Thumb -->
-            <img src="/img/instagram-img/2.jpg" alt="">
+            <img th:src="@{/img/instagram-img/2.jpg}" alt="">
             <!-- Hover -->
             <div class="hover_overlay">
                 <div class="yummy-table">
@@ -272,7 +276,7 @@
         <!-- Instagram Item -->
         <div class="instagram_gallery_item">
             <!-- Instagram Thumb -->
-            <img src="/img/instagram-img/3.jpg" alt="">
+            <img th:src="@{/img/instagram-img/3.jpg}" alt="">
             <!-- Hover -->
             <div class="hover_overlay">
                 <div class="yummy-table">
@@ -288,7 +292,7 @@
         <!-- Instagram Item -->
         <div class="instagram_gallery_item">
             <!-- Instagram Thumb -->
-            <img src="/img/instagram-img/4.jpg" alt="">
+            <img th:src="@{/img/instagram-img/4.jpg}" alt="">
             <!-- Hover -->
             <div class="hover_overlay">
                 <div class="yummy-table">
@@ -304,7 +308,7 @@
         <!-- Instagram Item -->
         <div class="instagram_gallery_item">
             <!-- Instagram Thumb -->
-            <img src="/img/instagram-img/5.jpg" alt="">
+            <img th:src="@{/img/instagram-img/5.jpg}" alt="">
             <!-- Hover -->
             <div class="hover_overlay">
                 <div class="yummy-table">
@@ -320,7 +324,7 @@
         <!-- Instagram Item -->
         <div class="instagram_gallery_item">
             <!-- Instagram Thumb -->
-            <img src="/img/instagram-img/6.jpg" alt="">
+            <img th:src="@{/img/instagram-img/6.jpg}" alt="">
             <!-- Hover -->
             <div class="hover_overlay">
                 <div class="yummy-table">
@@ -336,7 +340,7 @@
         <!-- Instagram Item -->
         <div class="instagram_gallery_item">
             <!-- Instagram Thumb -->
-            <img src="/img/instagram-img/1.jpg" alt="">
+            <img th:src="@{/img/instagram-img/1.jpg}" alt="">
             <!-- Hover -->
             <div class="hover_overlay">
                 <div class="yummy-table">
@@ -352,7 +356,7 @@
         <!-- Instagram Item -->
         <div class="instagram_gallery_item">
             <!-- Instagram Thumb -->
-            <img src="/img/instagram-img/2.jpg" alt="">
+            <img th:src="@{/img/instagram-img/2.jpg}" alt="">
             <!-- Hover -->
             <div class="hover_overlay">
                 <div class="yummy-table">
