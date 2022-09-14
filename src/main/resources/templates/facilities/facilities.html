@@ -211,21 +211,34 @@ html {
 	cursor: default;
 	color: #777;
 }
+#pageTop {
+	padding : 10px 10px;
+	width: 50px;
+	position: fixed;
+	bottom: 15%;
+	z-index: 9999;
+	cursor: pointer;
+	height: 50px;
+    right: 0;
+    color: #fff;
+	font-size: 12px;
+	line-height: 50px;
+	text-align: center;
+	text-transform: uppercase;
+    letter-spacing: 1px;
+    -webkit-transition-duration: 500ms;
+            transition-duration: 500ms;
+}
 </style>
 
 <script>
-/* 	window.onload = function(){
-		let keyword = document.getElementById('keyword');
-		let btn = document.getElementsByClassName('sTheme');
+	window.onload = function(){
+		let pageTop = document.getElementById("pageTop");
 		
-		// 검색 주제 버튼 클릭 시 해당 버튼의 값으로 검색 
-		for(let i = 0; i < btn.length; i++){
-			btn[i].onclick = function(){
-				keyword.value = btn[i].value;
-				searchPlaces();
-			}
+		pageTop.onclick = function(){
+			window.scrollTo(0, 630);
 		}
-	} */
+	}
 </script>
 
 </head>
@@ -378,9 +391,10 @@ html {
 	<!-- ****** Breadcumb Area End ****** -->
 
 	<!-- ****** Archive Area Start ****** -->
-	<section class="archive-area section_padding_80">
+	<section class="archive-area mt-4">
 		<div class="container">
 			<h2>내 위치 주변 반려동물 시설</h2>
+			<p class="ml-5 mt-3">- 반경 3km</p>
 
 			<!-- KAKAOMAP API - 카카오맵 -->
 			<div class="single-post wow fadeInUp" data-wow-delay="0.1s">
@@ -391,32 +405,37 @@ html {
 						</div>
 					</div>
 				</div>
-
 				<div class="d-flex flex-row justify-content-center">
 					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="운동장">
 					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="동물병원">
 					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="공원">
 					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="애견카페">
-					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="식당">
-					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="동물호텔">
+					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="동반식당">
+					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="동물">
 				</div>
 
 				<div id="menu_wrap" class="bg_white">
 					<div class="option">
 						<div>
-							<form th:action="@{/facilities}" method="post" id="themeSearch" onsubmit="searchPlaces(); return false;">
+							<form th:action="@{/facilities}" method="post" 
+								id="themeSearch" onsubmit="searchPlaces(); return false;" hidden="hidden">
 								<!-- onchange로 변경? -->
 								키워드 : <input type="text" th:value="${place}" name="place" id="keyword" size="15">
 								<button type="submit">검색하기</button>
 							</form>
+							<div id="pagination"></div>
 						</div>
 					</div>
 					<hr>
 					<ul id="placesList"></ul>
-					<div id="pagination"></div>
+					
+					<div class="col-12">
+						<img id ="pageTop" class="btn btn-lg btn-primary mr-3" 
+						th:src="@{/img/moveToTop.png}" alt="moveToTop">
+					</div>
 				</div>
-
-
+				
+				<!-- 카카오 맵 key -->
 				<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=55e688743df1e863a655f7fbc174445a&libraries=services"></script>
 
 				<script>
@@ -448,7 +467,7 @@ html {
 						var currentPos = new kakao.maps.LatLng(
 								pos.coords.latitude, pos.coords.longitude);
 
-						// 현재 위치 기준 주변 시설 검색 - 반경 2000m
+						// 현재 위치 기준 주변 시설 검색 - 반경 3000m
 						searchPlaces(currentPos);
 
 						// 지도 이동(기존 위치와 가깝다면 부드럽게 이동)
@@ -527,15 +546,18 @@ html {
 							useMapBounds : true,
 							page : 1,
 							radius : 3000,
+							size : 10,
 							location : new kakao.maps.LatLng(lat, lon),
 							sort : daum.maps.services.SortBy.distance
 						});
-						// 검색 기준(사용자 현 위치), 검색할 범위 2000
+						// 검색 기준(사용자 현 위치), 검색할 범위 3000
+						
+						map.panTo(currentPos);
 					}
 
 					// 스크롤 이동
 					setTimeout(function() {
-						window.scrollTo(0, 585);
+						window.scrollTo(0, 630);
 					}, 250);
 
 					// 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
@@ -716,7 +738,7 @@ html {
 								el.onclick = (function(i) {
 									return function() {
 										setTimeout(function() {
-											window.scrollTo(0, 1245);
+											window.scrollTo(0, 630);
 										}, 250);
 										pagination.gotoPage(i);
 									}
