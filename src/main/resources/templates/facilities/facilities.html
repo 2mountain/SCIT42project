@@ -22,6 +22,10 @@
 <link th:href="@{/css/responsive/responsive.css}" rel="stylesheet">
 
 <style>
+html {
+	scroll-behavior: smooth
+}
+
 .map_wrap, .map_wrap * {
 	margin: 0;
 	padding: 0;
@@ -387,9 +391,9 @@
 				<div id="menu_wrap" class="bg_white">
 					<div class="option">
 						<div>
-							<form onsubmit="searchPlaces(); return false;" hidden="hidden">
+							<form onsubmit="searchPlaces(); return false;">
 								<!-- onchange로 변경? -->
-								키워드 : <input type="text" value="애견카페" id="keyword" size="15">
+								키워드 : <input type="text" value="애완동물" id="keyword" size="15">
 								<button type="submit">검색하기</button>
 							</form>
 						</div>
@@ -422,8 +426,13 @@
 					// 지도의 우측에 확대 축소 컨트롤을 추가한다
 					map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
-					// 사용자 현 위치 호출
-					getCurrentPos();
+					window.onload = function(){
+						// 사용자 현 위치 호출
+						getCurrentPos();
+						setTimeout(function() {
+							window.scrollTo(0, 585);
+						}, 250);
+					}
 					
 				    // 현재 사용자 위치를 가져오기
 					function locationLoadSuccess(pos){
@@ -462,6 +471,7 @@
 					
 					/********************** 장소 검색 **********************/	
 					
+					
 					// 장소 검색 객체를 생성합니다
 					var ps = new kakao.maps.services.Places();
 
@@ -470,6 +480,8 @@
 						zIndex : 1
 					});
 
+					// searchPlaces(currentPos);
+					
 					// 키워드 검색을 요청하는 함수입니다
 					function searchPlaces(currentPos) {
 
@@ -480,11 +492,18 @@
 							return false;
 						}
 						
+						// 현재 지도의 범위
+						var bounds = map.getBounds();
+						
+					 	let latlon = Object.values(currentPos);
+					 	let lon = latlon[0];
+					 	let lat = latlon[1];
+					 							
 						// 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
 						ps.keywordSearch(keyword, placesSearchCB, 
-								{useMapBounds:false, page:1, radius:2000,
-								 location:currentPos, sort:daum.maps.services.SortBy.distance});
-								// 검색 기준(사용자 현 위치), 검색할 범위 
+								{useMapBounds:true, page:1, radius:2000,
+								 location:new kakao.maps.LatLng(lat, lon), sort:daum.maps.services.SortBy.distance});
+								// 검색 기준(사용자 현 위치), 검색할 범위 2000
 					}
 					
 					// 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
