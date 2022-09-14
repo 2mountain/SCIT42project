@@ -21,6 +21,7 @@ public class BoardSeviceImpl implements BoardService {
     @Autowired
     private BoardDAO boardDAO;
 
+    //
 	@Override
 	public PageNavigator getPageNavigator(
 			int pagePerGroup, int countPerPage, int page, String type, String searchWord) {
@@ -35,6 +36,7 @@ public class BoardSeviceImpl implements BoardService {
 		return navi;
 	}
 
+	// 글목록 출력
 	@Override
 	public ArrayList<Board> list(PageNavigator navi, String type, String searchWord) {
 		
@@ -46,6 +48,14 @@ public class BoardSeviceImpl implements BoardService {
 		ArrayList<Board> boardlist = boardDAO.boardList(map, rb); 
 		
 		return boardlist;
+	}
+
+	// 글읽기
+	@Override
+	public Board boardRead(int boardNumber) {
+//		int result = boardDAO.updateHits(boardNumber);
+		Board board = boardDAO.boardRead(boardNumber);
+		return board;
 	}
 	
 }

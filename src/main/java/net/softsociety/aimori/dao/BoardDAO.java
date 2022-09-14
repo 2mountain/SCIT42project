@@ -20,5 +20,7 @@ public interface BoardDAO {
 	public ArrayList<Board> boardList(HashMap<String, String> map, RowBounds rb);
 	// 전체 글 개수
 	public int countBoard(HashMap<String, String> map);
+	// 글 읽기
+	public Board boardRead(int boardNumber);
 
 }

@@ -184,7 +184,7 @@
 	<div class="container">
 		<table class="table table-hover table-bordered table-striped">
 			<tr>
-				<td class="white">
+				<td style="text-align: center; background-color: white;">
 					전체 <span></span>
 				</td>
 				<td class="white" colspan="6">
@@ -203,7 +203,7 @@
 						</select>
 					</div>
 				</th>
-				<th class="center">번호</th>
+				<th style="width: 100px;" class="center">번호</th>
 				<th class="center" style="width:400px;">제목</th>
 				<th class="center">작성자</th>
 				<th style="text-align: center; width:200px">작성일</th>
@@ -256,7 +256,7 @@
 			<option value="all" th:selected="${type} == 'all'">전체</option>
 		</select>
 		<input type="text"  name="searchWord" th:value="${searchWord}">
-		<input type="button" onclick="pagingFormSubmit(1)" value="검색">
+		<input type="button" id="saveBtn" onclick="pagingFormSubmit(1)" value="검색">
 	</form>
 	
 	</div>

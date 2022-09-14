@@ -11,5 +11,7 @@ public interface BoardService {
 	public PageNavigator getPageNavigator(int pagePerGroup, int countPerPage, int page, String type, String searchWord);
 	//현재 페이지 글 목록
 	public ArrayList<Board> list(PageNavigator navi, String type, String searchWord);
+	// 글읽기
+	public Board boardRead(int boardNumber);
 
 }
