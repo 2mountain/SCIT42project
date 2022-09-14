@@ -139,7 +139,7 @@
     <!-- ****** Header Area End ****** -->
 
     <!-- ****** Breadcumb Area Start ****** -->
-    <div class="breadcumb-area" style="background-image: url(img/bg-img/breadcumb.jpg);">
+    <div class="breadcumb-area" style="background-image: url(../img/bg-img/breadcumb.jpg);">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 <div class="col-12">
@@ -150,81 +150,79 @@
             </div>
         </div>
     </div>
-    <div class="breadcumb-nav">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a th:href="@{/}"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Aimori Community</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="breadcumb-nav">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a th:href="@{/home}"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
+							<li class="breadcrumb-item active" aria-current="page">Aimori Community</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
     <!-- ****** Breadcumb Area End ****** -->
 
     <!-- ****** Archive Area Start ****** -->
     
     <section>
 	<!-- 글목록 출력 영역 -->
-	<table>
-		<tr>
-			<td class="white">
-				전체 <span></span>
-			</td>
-			<td class="white" colspan="4">
-			</td>
-			<td class="white"><a th:href="@{/board/write}">이미지</td>
-			<td class="white" colspan="2" style="width:130px;">
-				<a th:href="@{/board/write}">전체글</a>
-				/
-				<a th:href="@{/board/write}">인기글</a>
-			</td>
-		</tr>
-		<tr>
-			<th id="boardSearch" style="width:250px;">
-				<div id="boardSearch">말머리
-				<select id="boardSearch" name="boardSearch">
-				<option value="Daily" th:selected="${boardSearch} == 'Daily'">일상</option>
-				<option value="Gather" th:selected="${boardSearch} == 'Gather'">같이해요(모집)</option>
-				<option value="Tip" th:selected="${boardSearch} == 'Tip'">Tip공유</option>
-				</select>
-				</div>
-			</th>
-			<th>번호</th>
-			<th style="width:220px;">제목</th>
-			<th>작성자</th>
-			<th>작성일</th>
-			<th>조회</th>
-			<th>좋아요</th>
-		</tr>
-		<tr  th:each="board : ${boardlist}">
-			<td th:text="${board.boardNumber}" class="center"></td>
-			<td>
-				<a th:text="${board.boardTitle}" th:href="@{/board/read(boardNumber=${board.boardNumber})}"></a>
-			</td>
-			<td class="center"></td>
-			<td class="center"></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td class="white" colspan="6"></td>
-			<td class="white"><a th:href="@{/board/write}">글쓰기</a></td>
-		</tr>
-	</table>
+	<div class="container">
+		<table class="table table-hover table-bordered table-striped">
+			<tr>
+				<td class="white">
+					전체 <span></span>
+				</td>
+				<td class="white" colspan="6">
+					<a th:href="@{/board/write}">이미지</a>
+					|<a th:href="@{/board/write}">전체글</a>
+					|<a th:href="@{/board/write}">인기글</a>
+				</td>
+			</tr>
+			<tr>
+				<th id="boardSearch" style="width:250px;">
+					<div id="boardSearch">말머리
+					<select id="boardSearch" name="boardSearch">
+					<option value="Daily" th:selected="${boardSearch} == 'Daily'">일상</option>
+					<option value="Gather" th:selected="${boardSearch} == 'Gather'">같이해요(모집)</option>
+					<option value="Tip" th:selected="${boardSearch} == 'Tip'">Tip공유</option>
+					</select>
+					</div>
+				</th>
+				<th>번호</th>
+				<th style="width:220px;">제목</th>
+				<th>작성자</th>
+				<th>작성일</th>
+				<th>조회</th>
+				<th>좋아요</th>
+			</tr>
+			<tr  th:each="board : ${boardlist}">
+				<td th:text="${board.boardNumber}" class="center"></td>
+				<td>
+					<a th:text="${board.boardTitle}" th:href="@{/board/read(boardNumber=${board.boardNumber})}"></a>
+				</td>
+				<td class="center"></td>
+				<td class="center"></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+		<div class="text-right">
+		<a class="btn btn-light" style="background-color: rgb(220, 220, 255);" colspan="6" th:href="@{/board/write}">글쓰기</a>
+		</div>
+	</div>
 
 
-<!-- 	<div id="navigator">
+<div id="navigator">
 	
-	페이지 이동 링크     
+	<!-- 페이지 이동 링크   -->   
 	<a th:href="|javascript:pagingFormSubmit(${navi.currentPage - navi.pagePerGroup})|">◁◁</a>
 	<a th:href="|javascript:pagingFormSubmit(${navi.currentPage - 1})|">◀</a> 
-
+	
 	<span th:each="counter : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}"> 
 		<th:block th:if="${counter == navi.currentPage}"><b></th:block>
 			<a th:text="${counter}" th:href="|javascript:pagingFormSubmit(${counter})|"></a>&nbsp;
@@ -235,7 +233,7 @@
 	<a th:href="|javascript:pagingFormSubmit(${navi.currentPage + navi.pagePerGroup})|">▷▷</a>
 	<br><br>
 	
-	검색폼
+	<!-- 검색폼 -->
 	<form id="pagingForm" method="get" th:action="@{/board/list}">
 		<input type="hidden" name="page" id="page" />
 		<select id="type" name="type">
@@ -248,10 +246,10 @@
 		<input type="button" onclick="pagingFormSubmit(1)" value="검색">
 	</form>
 	
-	</div> -->
+	</div>
 
 </section>
-    
+
  <!--    <section class="archive-area section_padding_80">
         <div class="container">
             <div class="row">
@@ -261,7 +259,7 @@
                     <div class="single-post wow fadeInUp" data-wow-delay="0.1s">
                         Post Thumb
                         <div class="post-thumb">
-                            <img src="../img/blog-img/2.jpg" alt="">
+                            <img src="/img/blog-img/2.jpg" alt="">
                         </div>
                         Post Content
                         <div class="post-content">
@@ -304,7 +302,7 @@
                     <div class="single-post wow fadeInUp" data-wow-delay="0.2s">
                         Post Thumb
                         <div class="post-thumb">
-                            <img src="../img/blog-img/3.jpg" alt="">
+                            <img src="/img/blog-img/3.jpg" alt="">
                         </div>
                         Post Content
                         <div class="post-content">
@@ -347,7 +345,7 @@
                     <div class="single-post wow fadeInUp" data-wow-delay="0.3s">
                         Post Thumb
                         <div class="post-thumb">
-                            <img src="../img/blog-img/4.jpg" alt="">
+                            <img src="/img/blog-img/4.jpg" alt="">
                         </div>
                         Post Content
                         <div class="post-content">
@@ -390,7 +388,7 @@
                     <div class="single-post wow fadeInUp" data-wow-delay="0.4s">
                         Post Thumb
                         <div class="post-thumb">
-                            <img src="../img/blog-img/5.jpg" alt="">
+                            <img src="/img/blog-img/5.jpg" alt="">
                         </div>
                         Post Content
                         <div class="post-content">
@@ -433,7 +431,7 @@
                     <div class="single-post wow fadeInUp" data-wow-delay="0.5s">
                         Post Thumb
                         <div class="post-thumb">
-                            <img src="../img/blog-img/2.jpg" alt="">
+                            <img src="/img/blog-img/2.jpg" alt="">
                         </div>
                         Post Content
                         <div class="post-content">
@@ -476,7 +474,7 @@
                     <div class="single-post wow fadeInUp" data-wow-delay="0.6s">
                         Post Thumb
                         <div class="post-thumb">
-                            <img src="../img/blog-img/3.jpg" alt="">
+                            <img src="/img/blog-img/3.jpg" alt="">
                         </div>
                         Post Content
                         <div class="post-content">
@@ -519,7 +517,7 @@
                     <div class="single-post wow fadeInUp" data-wow-delay="0.7s">
                         Post Thumb
                         <div class="post-thumb">
-                            <img src="../img/blog-img/4.jpg" alt="">
+                            <img src="/img/blog-img/4.jpg" alt="">
                         </div>
                         Post Content
                         <div class="post-content">
@@ -562,7 +560,7 @@
                     <div class="single-post wow fadeInUp" data-wow-delay="0.8s">
                         Post Thumb
                         <div class="post-thumb">
-                            <img src="../img/blog-img/5.jpg" alt="">
+                            <img src="/img/blog-img/5.jpg" alt="">
                         </div>
                         Post Content
                         <div class="post-content">
@@ -605,7 +603,7 @@
                     <div class="single-post wow fadeInUp" data-wow-delay="0.9s">
                         Post Thumb
                         <div class="post-thumb">
-                            <img src="../img/blog-img/2.jpg" alt="">
+                            <img src="/img/blog-img/2.jpg" alt="">
                         </div>
                         Post Content
                         <div class="post-content">
@@ -648,7 +646,7 @@
                     <div class="single-post wow fadeInUp" data-wow-delay="1s">
                         Post Thumb
                         <div class="post-thumb">
-                            <img src="../img/blog-img/3.jpg" alt="">
+                            <img src="/img/blog-img/3.jpg" alt="">
                         </div>
                         Post Content
                         <div class="post-content">
@@ -691,7 +689,7 @@
                     <div class="single-post wow fadeInUp" data-wow-delay="1.1s">
                         Post Thumb
                         <div class="post-thumb">
-                            <img src="../img/blog-img/4.jpg" alt="">
+                            <img src="/img/blog-img/4.jpg" alt="">
                         </div>
                         Post Content
                         <div class="post-content">
@@ -734,7 +732,7 @@
                     <div class="single-post wow fadeInUp" data-wow-delay="1.2s">
                         Post Thumb
                         <div class="post-thumb">
-                            <img src="../img/blog-img/5.jpg" alt="">
+                            <img src="/img/blog-img/5.jpg" alt="">
                         </div>
                         Post Content
                         <div class="post-content">
@@ -811,7 +809,7 @@
         <!-- Instagram Item -->
         <div class="instagram_gallery_item">
             <!-- Instagram Thumb -->
-            <img src="../img/instagram-img/1.jpg" alt="">
+            <img th:src="@{/img/instagram-img/1.jpg}" alt="">
             <!-- Hover -->
             <div class="hover_overlay">
                 <div class="yummy-table">
@@ -827,7 +825,7 @@
         <!-- Instagram Item -->
         <div class="instagram_gallery_item">
             <!-- Instagram Thumb -->
-            <img src="../img/instagram-img/2.jpg" alt="">
+            <img th:src="@{/img/instagram-img/2.jpg}" alt="">
             <!-- Hover -->
             <div class="hover_overlay">
                 <div class="yummy-table">
@@ -843,7 +841,7 @@
         <!-- Instagram Item -->
         <div class="instagram_gallery_item">
             <!-- Instagram Thumb -->
-            <img src="../img/instagram-img/3.jpg" alt="">
+            <img th:src="@{/img/instagram-img/3.jpg}" alt="">
             <!-- Hover -->
             <div class="hover_overlay">
                 <div class="yummy-table">
@@ -859,7 +857,7 @@
         <!-- Instagram Item -->
         <div class="instagram_gallery_item">
             <!-- Instagram Thumb -->
-            <img src="../img/instagram-img/4.jpg" alt="">
+            <img th:src="@{/img/instagram-img/4.jpg}" alt="">
             <!-- Hover -->
             <div class="hover_overlay">
                 <div class="yummy-table">
@@ -875,7 +873,7 @@
         <!-- Instagram Item -->
         <div class="instagram_gallery_item">
             <!-- Instagram Thumb -->
-            <img src="../img/instagram-img/5.jpg" alt="">
+            <img th:src="@{/img/instagram-img/5.jpg}" alt="">
             <!-- Hover -->
             <div class="hover_overlay">
                 <div class="yummy-table">
@@ -891,7 +889,7 @@
         <!-- Instagram Item -->
         <div class="instagram_gallery_item">
             <!-- Instagram Thumb -->
-            <img src="../img/instagram-img/6.jpg" alt="">
+            <img th:src="@{/img/instagram-img/6.jpg}" alt="">
             <!-- Hover -->
             <div class="hover_overlay">
                 <div class="yummy-table">
@@ -907,7 +905,7 @@
         <!-- Instagram Item -->
         <div class="instagram_gallery_item">
             <!-- Instagram Thumb -->
-            <img src="../img/instagram-img/1.jpg" alt="">
+            <img th:src="@{/img/instagram-img/1.jpg}" alt="">
             <!-- Hover -->
             <div class="hover_overlay">
                 <div class="yummy-table">
@@ -923,7 +921,7 @@
         <!-- Instagram Item -->
         <div class="instagram_gallery_item">
             <!-- Instagram Thumb -->
-            <img src="../img/instagram-img/2.jpg" alt="">
+            <img th:src="@{/img/instagram-img/2.jpg}" alt="">
             <!-- Hover -->
             <div class="hover_overlay">
                 <div class="yummy-table">
@@ -1029,12 +1027,12 @@
     <!-- ****** Footer Menu Area End ****** -->
 
     <!-- Jquery-2.2.4 js -->
-    <script th:src="@{../js/jquery/jquery-2.2.4.min.js}"></script>
+    <script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
     <!-- Popper js -->
-    <script th:src="@{../js/bootstrap/popper.min.js}"></script>
+    <script th:src="@{/js/bootstrap/popper.min.js}"></script>
     <!-- All Plugins JS -->
-    <script th:src="@{../js/others/plugins.js}"></script>
+    <script th:src="@{/js/others/plugins.js}"></script>
     <!-- Active JS -->
-    <script th:src="@{../js/active.js}"></script>
+    <script th:src="@{/js/active.js}"></script>
     <!--  type="application/js" -->
 </body>

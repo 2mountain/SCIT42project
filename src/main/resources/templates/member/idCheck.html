@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ID 중복검사</title>
+<script>
+function inputId(id) {
+	opener.document.getElementById('memberId').value = id;
+	this.close();
+}
+</script>
+</head>
+<body>
+<h2 style="text-align : center;">【 ID 중복검사 】</h2>
+<section>
+<form action="idCheck" method="post">
+	<label for="cId">희망 ID</label>
+		<input id="cId" type="text" name="cId" required="required" maxlength="20" style="width:190px;">
+		<input id="checkbtn2" type="submit" value="검색">	
+</form>
+
+	<div th:if="${cId != null}">
+		<div th:if="${result}">
+			<p>등록 가능한 ID입니다.</p>
+			<input id="checkbtn3" type="submit" value="ID 사용" th:id="${cId}" onclick="inputId(this.getAttribute('id'))">	
+		</div>
+		<div th:if="${not result}">
+			<p>이미 사용중인 ID입니다.</p>
+		</div>
+	</div>
+
+</section>
+</body>
+</html>
