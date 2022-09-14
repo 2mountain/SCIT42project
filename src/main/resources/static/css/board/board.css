@@ -75,6 +75,10 @@ td.boardWriteFormTd {
 	text-align: center;
 }
 
+.centerDate {
+
+}
+
 /* 게시판 본문 */
 pre {
 	font-size: 12pt;

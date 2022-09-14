@@ -22,6 +22,17 @@
     
 	<!-- test -->
 	<link rel="stylesheet" type="text/css" th:href="@{/css/board/board.css}" />
+	
+	<!-- test (페이지 함수) -->
+	<script>
+	function pagingFormSubmit(currentPage) {
+		var form = document.getElementById('pagingForm');
+		var page = document.getElementById('page');
+		page.value = currentPage;
+		form.submit();
+	}
+	</script>
+	
 </head>
 
 <body>
@@ -102,7 +113,7 @@
                         <div class="collapse navbar-collapse justify-content-center" id="yummyfood-nav">
                             <ul class="navbar-nav" id="yummy-nav">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="#">커뮤니티 <span class="sr-only">(current)</span></a>
+                                    <a class="nav-link"  th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
@@ -184,7 +195,7 @@
 			</tr>
 			<tr>
 				<th id="boardSearch" style="width:250px;">
-					<div id="boardSearch">말머리
+					<div style="width: 190px;" id="boardSearch">말머리
 					<select id="boardSearch" name="boardSearch">
 					<option value="Daily" th:selected="${boardSearch} == 'Daily'">일상</option>
 					<option value="Gather" th:selected="${boardSearch} == 'Gather'">같이해요(모집)</option>
@@ -192,23 +203,25 @@
 					</select>
 					</div>
 				</th>
-				<th>번호</th>
-				<th style="width:220px;">제목</th>
-				<th>작성자</th>
-				<th>작성일</th>
-				<th>조회</th>
-				<th>좋아요</th>
+				<th class="center">번호</th>
+				<th class="center" style="width:400px;">제목</th>
+				<th class="center">작성자</th>
+				<th style="text-align: center; width:200px">작성일</th>
+				<th style="	text-align: center; width:80px;">조회</th>
+				<th style="text-align: center; width:80px;">좋아요</th>
 			</tr>
 			<tr  th:each="board : ${boardlist}">
+				<td class="center"></td>
 				<td th:text="${board.boardNumber}" class="center"></td>
 				<td>
 					<a th:text="${board.boardTitle}" th:href="@{/board/read(boardNumber=${board.boardNumber})}"></a>
 				</td>
-				<td class="center"></td>
-				<td class="center"></td>
-				<td></td>
-				<td></td>
-				<td></td>
+				<td class="center">
+					 <a th:text="${board.memberId}" th:href="@{/board/read(boardNumber=${board.boardNumber})}"></a>
+				</td>
+				<td style="text-align: center" th:text="${board.boardInputDate}"></td>
+				<td style="text-align: center;" th:text="${board.boardHits}"></td>
+				<td style="text-align: center;" th:text="${board.boardLiked}"></td>
 			</tr>
 		</table>
 		<div class="text-right">

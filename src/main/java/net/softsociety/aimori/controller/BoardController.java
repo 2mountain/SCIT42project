@@ -99,9 +99,12 @@ public class BoardController {
 	 * @param upload 첨부 파일
 	 */
 	@PostMapping("write")
-	public String write(Board board, @AuthenticationPrincipal UserDetails user, MultipartFile upload) {
+	public String write(Board board
+			, @AuthenticationPrincipal UserDetails user
+			, MultipartFile upload) {
 
-		log.debug("저장할 글정보 : {}", board); log.debug("파일 업로드 경로: {}", uploadPath);
+		log.debug("저장할 글정보 : {}", board);
+		log.debug("파일 업로드 경로: {}", uploadPath);
 		log.debug("파일 정보: {}", upload);
 
 //		board.setMemberId(user.getUsername());
@@ -118,6 +121,7 @@ public class BoardController {
 		log.debug("set 처리 후 board : {}", board);
 
 		int result = boardDAO.insertBoard(board);
+		
 		return "redirect:/board/list";
 	}
 
