@@ -26,7 +26,9 @@ public class FacilitiesController {
 	}
 	
 	@PostMapping({"", "/"})
-	public String placeSave(Model model, @RequestParam(name="place", defaultValue="애완동물") String place) {
+	public String placeSave(Model model, 
+			@RequestParam(name="place", defaultValue="애완동물") String place,
+			@RequestParam(name="radius", defaultValue="3000") int radius) {
 		log.debug("[FacilitiesController] placeSave - parameter : {}", place);
 
 		model.addAttribute("place", place);
