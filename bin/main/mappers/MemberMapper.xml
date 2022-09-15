@@ -10,16 +10,20 @@
 		memberId,
 		memberPassword,
 		memberNickName,
+		memberPostCode,
 		memberAddress,
+		memberDetailAddress,
 		memberEmail,
-		memberBirthDay,
+		memberBirthDay
 	)
 	VALUES
 	(
 		#{memberId}
 		, #{memberPassword}
 		, #{memberNickName}
+		, #{memberPostCode}
 		, #{memberAddress}
+		, #{memberDetailAddress}
 		, #{memberEmail}
 		, #{memberBirthDay}
 	)

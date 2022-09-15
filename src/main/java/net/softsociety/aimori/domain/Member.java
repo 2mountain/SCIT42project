@@ -23,9 +23,11 @@ public class Member implements UserDetails {
 	String memberId;		// 회원 아이디
 	String memberPassword;	// 회원 비밀번호
 	String memberNickName;	// 회원 닉네임
+	String memberPostCode;	// 회원 우편번호
 	String memberAddress;	// 회원 주소
+	String memberDetailAddress;	// 회원 상세주소
 	String memberEmail; 	// 회원 이메일
-	String memberBirtyDay;	// 회원 생년월일
+	String memberBirthDay;	// 회원 생년월일
 	int memberPoint;		// 회원 포인트
 	String memberRoleName;	// 회원 역할
 	int memberEnabled;		// 회원 차단 여부
