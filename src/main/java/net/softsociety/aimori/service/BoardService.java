@@ -7,6 +7,8 @@ import net.softsociety.aimori.util.PageNavigator;
 
 public interface BoardService {
 
+	// 글 저장
+	public int boardInsert(Board board);
 	//페이징 정보
 	public PageNavigator getPageNavigator(int pagePerGroup, int countPerPage, int page, String type, String searchWord);
 	//현재 페이지 글 목록

@@ -211,6 +211,13 @@
 			</tr>
 			<tr>
 				<th colspan="2" style="background-color: white;">
+					<div class="pull-right">
+						<a class="btn btn-danger" style="background-color: pink;">좋아요~</a>
+					</div>
+				</th>
+			</tr>
+			<tr>
+				<th colspan="2" style="background-color: white;">
 				<div class="pull-right">
 					<a class="btn btn-primary" style="background-color: rgb(220, 220, 255);" th:href="@{/board/update(boardNumber=${board.boardNumber})}">수정</a>
 					<a class="btn btn-primary" style="background-color: rgb(220, 220, 255);" th:href="|javascript:deleteBoard(${board.boardNumber})|">삭제</a>
@@ -470,4 +477,15 @@
     <!-- Active JS -->
     <script th:src="@{/js/active.js}"></script>
     <!--  type="application/js" -->
+    
+    
+    <!-- 게시판 디자인 ck editor -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+    <script>
+		ClassicEditor.create( document.querySelector( '#editor' ),
+			{language: "ko"}
+		);
+      
+    </script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
 </body>

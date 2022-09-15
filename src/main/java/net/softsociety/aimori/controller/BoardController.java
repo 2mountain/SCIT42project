@@ -49,9 +49,6 @@ public class BoardController {
 	@Autowired
 	BoardService service;
 	
-	@Autowired
-	BoardDAO boardDAO;
-	
 	/**
 	 * 커뮤니티 메인 화면
 	 * 
@@ -80,9 +77,7 @@ public class BoardController {
 		PageNavigator navi = service.getPageNavigator(pagePerGroup, countPerPage, page, type, searchWord);
 		
 		ArrayList<Board> boardlist = service.list(navi, type, searchWord);
-		
-		log.debug("boardlist : {}", boardlist);
-		
+				
 		model.addAttribute("navi", navi);
 		model.addAttribute("boardlist", boardlist);
 		model.addAttribute("type", type);
@@ -107,7 +102,8 @@ public class BoardController {
 	 * @param upload 첨부 파일
 	 */
 	@PostMapping("write")
-	public String write(Board board
+	public String write(
+			Board board
 			, @AuthenticationPrincipal UserDetails user
 			, MultipartFile upload) {
 
@@ -128,7 +124,7 @@ public class BoardController {
 		
 		log.debug("set 처리 후 board : {}", board);
 
-		int result = boardDAO.insertBoard(board);
+		int result = service.boardInsert(board);
 		
 		return "redirect:/board/list";
 	}
@@ -231,7 +227,6 @@ public class BoardController {
 		/* board.setMemberId(user.getUsername()); */
 		board.setMemberId("test1");
 
-		
 		Board oldBoard = null;
 		String oldSavedfile = null;
 		String savedfile = null;

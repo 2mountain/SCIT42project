@@ -15,13 +15,15 @@ import net.softsociety.aimori.util.PageNavigator;
 @Mapper
 public interface BoardDAO {
     // 글 저장
-	public int insertBoard(Board board);
+	public int boardInsert(Board board);
 	// 현재 페이지 글 목록
 	public ArrayList<Board> boardList(HashMap<String, String> map, RowBounds rb);
 	// 전체 글 개수
 	public int countBoard(HashMap<String, String> map);
 	// 글 읽기
 	public Board boardRead(int boardNumber);
+	//조회수 증가
+	public int updateHits(int boardNumber);
 	// 글 삭제
 	public int boardDelete(Board board);
 	// 글 수정
