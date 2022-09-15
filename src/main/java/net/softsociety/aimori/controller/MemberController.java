@@ -1,11 +1,15 @@
 package net.softsociety.aimori.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
 import net.softsociety.aimori.domain.Member;
@@ -26,7 +30,7 @@ public class MemberController {
 	}
 	
 	@PostMapping("/signIn")
-	public String signIn(Member member) {
+	public String signIn(Member member, Model model) {
 		log.debug("전달된 객체 : {}", member);
 		
 		int result = service.signInMember(member);
@@ -34,6 +38,7 @@ public class MemberController {
 		if(result == 0) {
 			return "redirect:/signIn";
 		}
+		
 		return "redirect:/";
 	}
 	
@@ -63,7 +68,7 @@ public class MemberController {
 	
 	@PostMapping("/nNCheck")
 	public String nNCheck(String cNN, Model model) {
-		log.debug("검색학 닉네임 : {}", cNN);
+		log.debug("검색할 닉네임 : {}", cNN);
 		
 		boolean result = service.nNCheck(cNN);
 		
@@ -73,6 +78,24 @@ public class MemberController {
 		log.debug("사용가능 여부 : {}", result);
 		
 		return "/member/nNCheck";
+	}
+	
+	@PostMapping("/member/email")
+	private int sendEmail(HttpServletRequest request, String memberEmail) {
+		log.debug("hsr : {}", request);
+		HttpSession session = request.getSession();
+		log.debug("이메일 : {}", memberEmail);
+		service.mailSend(session, memberEmail);
+		log.debug("이메일 : {}", memberEmail);
+		return 123;
+	}
+	
+	@PostMapping("/member/email/certification")
+	private boolean emailCertification(HttpServletRequest request, String memberEmail, String inputCode) {
+		HttpSession session = request.getSession();
+		boolean result = service.emailCertification(session, memberEmail, Integer.parseInt(inputCode));
+		
+		return result;
 	}
 	
 	@GetMapping("/logIn")

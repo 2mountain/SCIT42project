@@ -5,7 +5,7 @@
 <title>Aimori</title>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-    function sample6_execDaumPostcode() {
+    function DaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -22,16 +22,16 @@
                 }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample6_postcode').value = data.zonecode;
-                document.getElementById("sample6_address").value = addr;
+                document.getElementById('memberPostCode').value = data.zonecode;
+                document.getElementById("memberAddress").value = addr;
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("sample6_detailAddress").focus();
+                document.getElementById("memberDetailAddress").focus();
             }
         }).open();
     }
     
     function emailSend(){
-    	let clientEmail = document.getElementById( elementId == 'emailText').value;
+    	let clientEmail = document.getElementById('memberEmail').value;
     	let emailYN = isEmail(clientEmail);
     	
     	console.log('입력 이메일' + clientEmail);
@@ -41,7 +41,7 @@
     		
     		$.ajax({
     			type:"POST",
-    			url:"/member/signIn",
+    			url:"/member/email",
     			data:{memberEmail:clienEmail},
     			success : function(data){
     			},error : function(e){
@@ -54,6 +54,37 @@
     	}
     }
     
+    function isEmail(asValue) {
+    	var regExp = /^[0-9-zA-Z]([-_|.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_|.]?[0-9a-zA-Z])*|.[a-zA-Z]{2,3}$/i;
+    	return regExp.test(asValue);
+    }
+    
+    function emailCertification() {
+    	let clientEmail = document.getElementById('memberEmail').value;
+    	let inputCode = document.getElementById('certificationNumber').value;
+    	
+    	console.log('이메일' + clientEmail);
+    	console.log('인증코드' + inputCode);
+    	
+    	$.ajax({
+    		type:"POST",
+    		url:"/member/email/certification",
+    		data:{memberEmail:clientEmail, inputCode:inputCode},
+    		sucess : function(result){
+    			console.log(result);
+    			if(result==true){
+    				alert('인증완료');
+    				document.getElementById('certificationYN').value = "true";
+    				clientEmail.onchange = function() {
+    					document.getElementById('certificationYN').value = "false";
+    				}
+    			}else{
+    				alert('재시도');
+    			}
+    		}
+    	});
+    }
+    
     function idCheckForm() {
     	window.open('idCheck', 'newWindow', 'left=550, top=200, width=350, height=200, menubar=no');
     }
@@ -62,10 +93,6 @@
     	window.open('nNCheck', 'newWindow', 'left=550, top=200, width=350, height=200, menubar=no');
     }
     
-    function isEmail(asValue) {
-    	var regExp = /^[0-9-zA-Z]([-_|.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_|.]?[0-9a-zA-Z])*|.[a-zA-Z]{2,3}$/i;
-    	return regExp.test(asValue);
-    }
 </script>
 <style>
 @import url('https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700|Quicksand:300,400,500,700|Shadows+Into+Light+Two');
@@ -237,32 +264,32 @@ color:#fff
         <div class="field api">
             <b>아이디</b>
             <div>
-            <input id="memberId" type="text" required="required" maxlength="40" readonly="readonly">
+            <input id="memberId" name="memberId" type="text" required="required" maxlength="40" readonly="readonly">
             <input id="checkbtn" type="button" value="ID 중복검사" onclick="idCheckForm()">
 			</div>
         </div>
         
         <div class="field">
             <b>비밀번호</b>
-            <input id="memberPassword" type="password" required="required" maxlength="40">
+            <input id="memberPassword" name="memberPassword" type="password" required="required" maxlength="40">
         </div>
         
         <div class="field">
             <b>비밀번호 재확인</b>
-            <input id="memberPassword" type="password" required="required" maxlength="40">
+            <input id="memberPassword" name="memberPassword" type="password" required="required" maxlength="40">
         </div>
         
         <div class="field birth">
             <b>생년월일</b>
             <div>
-                <input id="memberBirthDay" type="date" required="required">
+                <input id="memberBirthDay" name="memberBirthDay" type="date" required="required">
             </div>
         </div>
         
         <div class="field api">
             <b>닉네임</b>
             <div>
-            <input id="memberNickName" type="text" required="required" maxlength="40" readonly="readonly">
+            <input id="memberNickName" name="memberNickName" type="text" required="required" maxlength="40" readonly="readonly">
             <input id="checkbtn2" type="button" value="닉네임 중복검사" onclick="nNCheckForm()">
             </div>
         </div>
@@ -270,24 +297,24 @@ color:#fff
         <div class="field api">
             <b>이메일</b>
             <div>
-                <input id="memberEmail" type="text" placeholder="이메일 입력" required="required" maxlength="40">
-                <button id="emailCheck" onclick="emailSand()">인증번호 받기</button>
+                <input id="memberEmail" name="memberEmail" type="email" placeholder="이메일 입력" required="required" maxlength="40">
+                <button id="emailCheck" onclick="emailSend()">인증번호 받기</button>
             </div>
             <div>
-            	<input type="text" placeholder="인증번호를 입력하세요">
+            	<input id="certificationNumber" name="certificationNumber" type="text" placeholder="인증번호를 입력하세요">
             	<button id="crtificationBtn" onclick="emailCertification()">인증하기</button>
-            	<input type="hidden" id="certificationYN" value="false">
+            	<input type="hidden" name="certificationNumber" id="certificationYN" value="false">
             </div>
         </div>
         
         <div class="field api">
             <b>주소</b>
             <div>
-            	<input id="sample6_postcode" type="text" placeholder="우편번호">
-            	<input type="button" value="우편번호 찾기" onclick="sample6_execDaumPostcode()">
+            	<input id="memberPostCode" name="memberPostCode" type="text" placeholder="우편번호">
+            	<input type="button" value="우편번호 찾기" onclick="DaumPostcode()">
             </div> 
-            	<input type="text" id="sample6_address" placeholder="주소" readonly="readonly"><br>
-				<input type="text" id="sample6_detailAddress" placeholder="상세주소">
+            	<input type="text" id="memberAddress" name="memberAddress" placeholder="주소" readonly="readonly"><br>
+				<input type="text" id="memberDetailAddress" name="memberDetailAddress" placeholder="상세주소">
         </div>
 
         <input type="submit" value="가입하기">
