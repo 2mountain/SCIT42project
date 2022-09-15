@@ -41,7 +41,7 @@ html {
 .map_wrap {
 	position: relative;
 	width: 100%;
-	height: 500px;
+	height: 350px;
 }
 
 #menu_wrap {
@@ -235,9 +235,10 @@ html {
 <script>
 	window.onload = function() {
 		let pageTop = document.getElementById("pageTop");
-
+		let mapExplain = document.getElementById('mapExplain').offsetTop;
+		
 		pageTop.onclick = function() {
-			window.scrollTo(0, 630);
+			window.scrollTo(0, mapExplain - 5);
 		}
 	}
 </script>
@@ -393,8 +394,10 @@ html {
 	<!-- ****** Archive Area Start ****** -->
 	<section class="archive-area mt-4">
 		<div class="container">
-			<h2>내 위치 주변 반려동물 시설</h2>
-			<p class="ml-5 mt-3">- 반경 3km</p>
+			<h2 id="mapExplain">내 위치 주변 반려동물 시설</h2>
+			<div>- 현재 검색 반경 : 
+				<p id="currentRadius"class="ml-5 mt-3" th:text=${radius}>(기본 검색반경) 3</p> km
+			</div>
 
 			<!-- KAKAOMAP API - 카카오맵 -->
 			<div class="single-post wow fadeInUp" data-wow-delay="0.1s">
@@ -402,7 +405,7 @@ html {
 					<div class="map_wrap mt-4">
 						<div class="map_wrap">
 							<div id="map"
-								style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
+								style="width: 100%; height: 350px; position: relative; overflow: hidden;"></div>
 						</div>
 					</div>
 				</div>
@@ -434,6 +437,7 @@ html {
 								키워드 : <input type="text" th:value="${place}" name="place"
 									id="keyword" size="15">
 								<button type="submit">검색하기</button>
+								<p hidden="hidden">asdf</p>
 							</form>
 							<div id="pagination"></div>
 						</div>
@@ -538,24 +542,11 @@ html {
 						// 검색어 바꾸기
 						let btn = document.getElementsByClassName('sTheme');
 						let searchWord = document.getElementById('keyword');
-<<<<<<< HEAD
 
-=======
-						// 현재 검색 키워드와 동일 키워드를 검색하는지 판단
-						let searchedWord = searchWord.value;
-						
->>>>>>> 87499588d2bf236727ce018f78b0f8637a2bbe55
 						// 검색 주제 버튼 클릭 시 해당 버튼의 값으로 검색 
 						for (let i = 0; i < btn.length; i++) {
 							btn[i].onclick = function() {
 								searchWord.value = btn[i].value;
-
-								// 현재 검색 키워드와 동일 키워드를 검색하는지 판단
-								if(searchedWord === searchWord.value){
-									alert("현재 검색 결과와 동일합니다!");
-									return;
-								}
-								
 								document.forms["themeSearch"].submit();
 							}
 						}
@@ -571,13 +562,11 @@ html {
 						let radiusNumber = 3000;
 						
 						// 검색 반경 변경
-						let changeRadius = document.getElementsByClassName('radiusChange');
-						console.log(changeRadius.value);
+						let chR = document.getElementsByClassName('radiusChange');
 						
-						for (let i = 0; i < changeRadius.length; i++) {
-								changeRadius.onclick = function() {
-									radiusNumber = changeRadius[i].value;
-									console.log(`rn : ${radiusNumber}`);
+						for (let i = 0; i < chR.length; i++) {
+								chR[i].onclick = function() {
+									radiusNumber = chR[i].value;
 								}
 							}
 
@@ -595,9 +584,11 @@ html {
 						map.panTo(currentPos);
 					}
 
+					let mapExplain = document.getElementById('mapExplain').offsetTop;
+
 					// 스크롤 이동
 					setTimeout(function() {
-						window.scrollTo(0, 630);
+						window.scrollTo(0, mapExplain - 5);
 					}, 250);
 
 					// 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
@@ -777,8 +768,12 @@ html {
 							} else {
 								el.onclick = (function(i) {
 									return function() {
+										// '내 위치 주변 시설' 태그 위치
+										let mapExplain = document
+												.getElementById('mapExplain').offsetTop;
+
 										setTimeout(function() {
-											window.scrollTo(0, 630);
+											window.scrollTo(0, mapExplain - 5);
 										}, 250);
 										pagination.gotoPage(i);
 									}
