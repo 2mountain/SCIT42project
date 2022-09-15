@@ -63,5 +63,12 @@ public class BoardSeviceImpl implements BoardService {
 	public int boardDelete(Board board) {
 		int result = boardDAO.boardDelete(board);
 		return result;	}
+
+	// 글수정
+	@Override
+	public int boardUpdate(Board board) {
+		int result = boardDAO.boardUpdate(board);
+		return result;
+	}
 	
 }

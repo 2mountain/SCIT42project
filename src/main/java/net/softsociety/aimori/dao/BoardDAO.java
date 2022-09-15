@@ -24,5 +24,7 @@ public interface BoardDAO {
 	public Board boardRead(int boardNumber);
 	// 글 삭제
 	public int boardDelete(Board board);
+	// 글 수정
+	public int boardUpdate(Board board);
 
 }

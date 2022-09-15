@@ -20,18 +20,13 @@
     <!-- Responsive CSS -->
     <link th:href="@{/css/responsive/responsive.css}" rel="stylesheet">
     
-   <!-- BootStrap4 added by San-->
-   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">   
-   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-
 	<!-- test -->
 	<link rel="stylesheet" type="text/css" th:href="@{/css/board/board.css}" />
-
+	
+	<!-- test (페이지 함수) -->
+	
 	<script>
-	//글쓰기폼 확인
+	//글수정폼 유효성 검사
 	function validation() {
 		let title = document.getElementById('title');
 		let contents = document.getElementById('contents');
@@ -51,7 +46,7 @@
 		return true;
 	}
 	</script>
-
+	
 </head>
 
 <body>
@@ -172,71 +167,75 @@
             </div>
         </div>
     </div>
-    <div class="breadcumb-nav">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a th:href="@{/}"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Aimori Community</li>
-                        </ol>
-                        <br>
-                        <ol><li><h5 id="temp1" colspan="2">글쓰기</h5></li></ol>
-                        <hr>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="breadcumb-nav">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a th:href="@{/home}"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
+							<li class="breadcrumb-item active" aria-current="page">Aimori Community</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
     <!-- ****** Breadcumb Area End ****** -->
 
     <!-- ****** Archive Area Start ****** -->
     
     <section>
     <div class="container">
-		<form th:action="@{/board/write}"  method="post" 
-			enctype="multipart/form-data" onsubmit="return validation();">
-			<table class="table table-hover table-bordered">
-			<tr>
-				<th id="boardCategory" style="width:200px;" colspan="2">
-					게시판 선택
-					<select id="boardCategory" name="boardCategory">
-					<option value="Daily" th:selected="${boardCategory} == 'Daily'">일상</option>
-					<option value="Gather" th:selected="${boardCategory} == 'Gather'">같이해요(모집)</option>
-					<option value="Tip" th:selected="${boardCategory} == 'Tip'">Tip공유</option>
-					</select>
-				</th>
-			</tr>
-			<tr>
-				<th>제목</th>
-				<td class="boardWriteFormTd">
-					<input type="text" name="boardTitle" id="boardTitle" style="width: 900px;">
-				</td>
-			</tr>
-			<tr>    
-				<th>파일첨부</th>
-				<td>
-					<input type="file" name="upload">
-				</td>
-			</tr>
-			<tr>
-				<th>내용</th>
-				<td class="boardWriteFormTd">
-					<textarea name="boardContents" id="boardContents" style="width: 900px; height: 600px;"></textarea>
-				</td>
-			</tr>
+<!-- 바이너리 데이터 포함되는 폼. enctype 반드시 정확히 지정 -->
+	<form th:action="@{/board/update}"  method="post" 
+		enctype="multipart/form-data" onsubmit="return validation();">
 		
-			<tr>
-				<td colspan="2" class="white center">
-					<input type="submit" value="글등록">
-				</td> 
-			</tr>
-			</table>
-		</form>
+		<input type="hidden" name="boardNumber" th:value="${board.boardNumber}">
+		
+		<table class="table table-hover table-bordered">
+		<tr>
+			<th id="boardCategory" style="width:200px;" colspan="2">
+				게시판 변경
+				<select id="boardCategory" name="boardCategory">
+				<option value="Daily" th:selected="${boardCategory} == 'Daily'">일상</option>
+				<option value="Gather" th:selected="${boardCategory} == 'Gather'">같이해요(모집)</option>
+				<option value="Tip" th:selected="${boardCategory} == 'Tip'">Tip공유</option>
+				</select>
+			</th>
+		</tr>
+		<tr>
+			<th>제목</th>
+			<td class="boardUpdateFormTd">
+				<input type="text" name="boardTitle" id="title" th:value="${board.boardTitle}" style="width: 900px;">
+			</td>
+		</tr>
+		<tr>
+			<th>내용</th> 
+			<td class="boardUpdateFormTd">
+				<textarea name="boardContents" id="contents" th:text="${board.boardContents}" style="width: 900px; height: 600px;"></textarea>
+			</td>
+		</tr>
+		<tr>
+			<th>파일첨부</th> 
+			<td>
+				<input type="file" name="upload">
+				<span th:text="${board.boardImageOriginal}"></span>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="white center">
+				<input type="submit" value="수정">
+			</td> 
+		</tr>
+		</table>
+	</form>
+
 	</div>
 
 </section>
+
+
 
 
 
@@ -302,7 +301,7 @@
         <!-- Instagram Item -->
         <div class="instagram_gallery_item">
             <!-- Instagram Thumb -->
-            <img th:src="@{/instagram-img/4.jpg}" alt="">
+            <img th:src="@{/img/instagram-img/4.jpg}" alt="">
             <!-- Hover -->
             <div class="hover_overlay">
                 <div class="yummy-table">

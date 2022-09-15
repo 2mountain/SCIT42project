@@ -69,6 +69,10 @@ td.boardWriteFormTd {
 	text-align: center;
 	width: 900;
 }
+td.boardUpdateFormTd {
+	text-align: center;
+	width: 900;
+}
 
 /* 게시판 가운데 정렬 열 */
 .center {

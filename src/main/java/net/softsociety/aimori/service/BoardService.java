@@ -15,5 +15,7 @@ public interface BoardService {
 	public Board boardRead(int boardNumber);
 	// 글삭제
 	public int boardDelete(Board board);
+	// 글 수정
+	public int boardUpdate(Board board);
 
 }
