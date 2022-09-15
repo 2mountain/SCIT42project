@@ -76,6 +76,22 @@
 		Board
 </select>
 
+<!-- 글 수정 -->
+<update id="boardUpdate" parameterType="Board">
+	update
+		Board
+	set
+		boardTitle = #{boardTitle}
+		, boardContents = #{boardContents}
+		<if test="boardImageOriginal != null and boardImageSaved != null">
+		, boardImageOriginal = #{boardImageOriginal}
+		, boardImageSaved = #{boardImageSaved}
+		</if>
+	where
+		boardNumber = #{boardNumber}
+		<!-- and memberid = #{memberid} -->
+</update>
+
 <!-- 글 삭제 -->
 <delete id="boardDelete" parameterType="Board">
 	delete from

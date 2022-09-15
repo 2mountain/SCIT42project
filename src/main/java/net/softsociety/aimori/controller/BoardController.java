@@ -197,6 +197,67 @@ public class BoardController {
 	}
 	
 	/**
+	 * 글수정 폼으로 이동
+	 * @param boardNumber 수정할 글번호
+	 * @param user
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("update")
+	public String update(int boardNumber, Model model) {
+		
+		Board board = service.boardRead(boardNumber);
+		model.addAttribute("board", board);
+		
+		return "/board/boardUpdateForm";
+	}
+	
+	/**
+	 * 글 수정 
+	 * @param board 수정할 글내용
+	 * @param user 인증정보
+	 * @param upload 첨부파일 정보
+	 */
+	@PostMapping("update")
+	public String update(
+			Board board
+			, @AuthenticationPrincipal UserDetails user
+			, MultipartFile upload) {
+		
+		log.debug("저장할 글정보 : {}", board);
+		log.debug("파일 정보: {}", upload);
+		
+		//작성자 아이디 추가
+		/* board.setMemberId(user.getUsername()); */
+		board.setMemberId("test1");
+
+		
+		Board oldBoard = null;
+		String oldSavedfile = null;
+		String savedfile = null;
+		
+		//첨부파일이 있는 경우 기존파일 삭제 후 새 파일 저장
+		if (upload != null && !upload.isEmpty()) {
+			oldBoard = service.boardRead(board.getBoardNumber());
+			oldSavedfile = oldBoard == null ? null : oldBoard.getBoardImageSaved();
+			
+			savedfile = FileService.saveFile(upload, uploadPath);
+			board.setBoardImageOriginal(upload.getOriginalFilename());
+			board.setBoardImageSaved(savedfile);
+			log.debug("새파일:{}, 구파일:{}", savedfile, oldSavedfile);
+		}
+		
+		int result = service.boardUpdate(board);
+		
+		//글 수정 성공 and 첨부된 파일이 있는 경우 파일도 삭제
+		if (result == 1 && savedfile != null) {
+			FileService.deleteFile(uploadPath + "/" + oldSavedfile);
+		}
+		
+		return "redirect:/board/read?boardNumber=" + board.getBoardNumber();
+	}
+	
+	/**
 	 * 글 삭제
 	 * @param boardNumber 삭제할 글 번호
 	 * @param user 인증정보
