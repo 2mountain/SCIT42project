@@ -5,7 +5,7 @@
 <mapper namespace="net.softsociety.aimori.dao.BoardDAO">
 
 <!-- 게시글 저장 -->
-<insert id="insertBoard" parameterType="Board">
+<insert id="boardInsert" parameterType="Board">
 	insert into BOARD (
 		boardNumber
 		, memberId
@@ -67,6 +67,16 @@
 	where 
 		boardNumber = #{boardNumber}
 </select>
+
+<!-- 조회수 1 증가 -->
+<update id="updateHits" parameterType="int">
+	update
+		Board
+	set
+		boardHits = boardHits + 1
+	where
+		boardNumber = #{boardNumber}
+</update>
 
 <!-- 전체 글 개수 (검색 필터링 후) -->
 <select id="countBoard" parameterType="map" resultType="int">
