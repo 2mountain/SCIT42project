@@ -29,9 +29,11 @@ public class FacilitiesController {
 	public String placeSave(Model model, 
 			@RequestParam(name="place", defaultValue="애완동물") String place,
 			@RequestParam(name="radius", defaultValue="3000") int radius) {
-		log.debug("[FacilitiesController] placeSave - parameter : {}", place);
+		log.debug("[FacilitiesController] placeSave - parameter1 : {}", place);
+		log.debug("[FacilitiesController] placeSave - parameter2 : {}", radius);
 
 		model.addAttribute("place", place);
+		model.addAttribute("radius", radius);
 		
 		return "/facilities/facilities";
 	}
