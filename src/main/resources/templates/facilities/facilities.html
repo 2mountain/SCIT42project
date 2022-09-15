@@ -211,36 +211,36 @@ html {
 	cursor: default;
 	color: #777;
 }
+
 #pageTop {
-	padding : 10px 10px;
+	padding: 10px 10px;
 	width: 50px;
 	position: fixed;
 	bottom: 15%;
 	z-index: 9999;
 	cursor: pointer;
 	height: 50px;
-    right: 0;
-    color: #fff;
+	right: 0;
+	color: #fff;
 	font-size: 12px;
 	line-height: 50px;
 	text-align: center;
 	text-transform: uppercase;
-    letter-spacing: 1px;
-    -webkit-transition-duration: 500ms;
-            transition-duration: 500ms;
+	letter-spacing: 1px;
+	-webkit-transition-duration: 500ms;
+	transition-duration: 500ms;
 }
 </style>
 
 <script>
-	window.onload = function(){
+	window.onload = function() {
 		let pageTop = document.getElementById("pageTop");
-		
-		pageTop.onclick = function(){
+
+		pageTop.onclick = function() {
 			window.scrollTo(0, 630);
 		}
 	}
 </script>
-
 </head>
 
 <body>
@@ -401,26 +401,38 @@ html {
 				<div class="kakaoMap_radius">
 					<div class="map_wrap mt-4">
 						<div class="map_wrap">
-							<div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
+							<div id="map"
+								style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
 						</div>
 					</div>
 				</div>
 				<div class="d-flex flex-row justify-content-center">
-					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="운동장">
-					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="동물병원">
-					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="공원">
-					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="애견카페">
-					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="동반식당">
+					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="운동장"> 
+					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="동물병원"> 
+					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="공원"> 
+					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="애견카페"> 
+					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="동반식당"> 
 					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="동물">
+				</div>
+				
+				<div class="d-flex flex-row justify-content-center">
+					<input class="btn btn-sm btn-info mr-3 mt-2" value="검색 반경 변경" disabled="disabled">
+					<input type="button" class="btn btn-sm btn-success mr-3 mt-2 radiusChange" value="1000"> 
+					<input type="button" class="btn btn-sm btn-success mr-3 mt-2 radiusChange" value="2000"> 
+					<input type="button" class="btn btn-sm btn-success mr-3 mt-2 radiusChange" value="3000"> 
+					<input type="button" class="btn btn-sm btn-success mr-3 mt-2 radiusChange" value="4000"> 
+					<input type="button" class="btn btn-sm btn-success mr-3 mt-2 radiusChange" value="5000"> 
+					<input type="button" class="btn btn-sm btn-success mr-3 mt-2 radiusChange" value="10000">
 				</div>
 
 				<div id="menu_wrap" class="bg_white">
 					<div class="option">
 						<div>
-							<form th:action="@{/facilities}" method="post" 
-								id="themeSearch" onsubmit="searchPlaces(); return false;" hidden="hidden">
+							<form th:action="@{/facilities}" method="post" id="themeSearch"
+								onsubmit="searchPlaces(); return false;" hidden="hidden">
 								<!-- onchange로 변경? -->
-								키워드 : <input type="text" th:value="${place}" name="place" id="keyword" size="15">
+								키워드 : <input type="text" th:value="${place}" name="place"
+									id="keyword" size="15">
 								<button type="submit">검색하기</button>
 							</form>
 							<div id="pagination"></div>
@@ -428,35 +440,37 @@ html {
 					</div>
 					<hr>
 					<ul id="placesList"></ul>
-					
+
 					<div class="col-12">
-						<img id ="pageTop" class="btn btn-lg btn-primary mr-3" 
-						th:src="@{/img/moveToTop.png}" alt="moveToTop">
+						<img id="pageTop" class="btn btn-lg btn-primary mr-3"
+							th:src="@{/img/moveToTop.png}" alt="moveToTop">
 					</div>
 				</div>
-				
+
 				<!-- 카카오 맵 key -->
-				<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=55e688743df1e863a655f7fbc174445a&libraries=services"></script>
+				<script
+					src="//dapi.kakao.com/v2/maps/sdk.js?appkey=55e688743df1e863a655f7fbc174445a&libraries=services"></script>
 
 				<script>
 					// 마커를 담을 배열입니다
 					var markers = [];
-				
+
 					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-					    mapOption = {
-					        center: new kakao.maps.LatLng(37.56765, 126.97920), // 지도의 중심좌표
-					        level: 4, // 지도의 확대 레벨
-					        // mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
-					    }; 
-			
+					mapOption = {
+						center : new kakao.maps.LatLng(37.56765, 126.97920), // 지도의 중심좌표
+						level : 4, // 지도의 확대 레벨
+					// mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
+					};
+
 					// 지도를 생성한다 
-					var map = new kakao.maps.Map(mapContainer, mapOption); 
-					
- 					// 지도에 확대 축소 컨트롤을 생성한다
+					var map = new kakao.maps.Map(mapContainer, mapOption);
+
+					// 지도에 확대 축소 컨트롤을 생성한다
 					var zoomControl = new kakao.maps.ZoomControl();
-			
+
 					// 지도의 우측에 확대 축소 컨트롤을 추가한다
-					map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+					map.addControl(zoomControl,
+							kakao.maps.ControlPosition.RIGHT);
 
 					// 사용자 현 위치 호출
 					getCurrentPos();
@@ -520,12 +534,11 @@ html {
 							alert('키워드를 입력해주세요!');
 							return false;
 						}
-						
+
 						// 검색어 바꾸기
 						let btn = document.getElementsByClassName('sTheme');
 						let searchWord = document.getElementById('keyword');
-						
-						console.log(searchWord);
+
 						// 검색 주제 버튼 클릭 시 해당 버튼의 값으로 검색 
 						for (let i = 0; i < btn.length; i++) {
 							btn[i].onclick = function() {
@@ -535,23 +548,37 @@ html {
 						}
 
 						// 현재 지도의 범위
-						var bounds = map.getBounds();
+						// var bounds = map.getBounds();
 
 						let latlon = Object.values(currentPos);
 						let lon = latlon[0];
 						let lat = latlon[1];
+						
+						// 기본 검색 반경
+						let radiusNumber = 3000;
+						
+						// 검색 반경 변경
+						let changeRadius = document.getElementsByClassName('radiusChange');
+						console.log(changeRadius.value);
+						
+						for (let i = 0; i < changeRadius.length; i++) {
+								changeRadius.onclick = function() {
+									radiusNumber = changeRadius[i].value;
+									console.log(`rn : ${radiusNumber}`);
+								}
+							}
 
 						// 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
 						ps.keywordSearch(keyword, placesSearchCB, {
 							useMapBounds : true,
 							page : 1,
-							radius : 3000,
+							radius : radiusNumber,
 							size : 10,
 							location : new kakao.maps.LatLng(lat, lon),
 							sort : daum.maps.services.SortBy.distance
 						});
 						// 검색 기준(사용자 현 위치), 검색할 범위 3000
-						
+
 						map.panTo(currentPos);
 					}
 
@@ -769,7 +796,7 @@ html {
 				</script>
 			</div>
 			<!-- KAKAO MAP API END -->
-<!-- 			
+			<!-- 			
 			List
 			<div class="row">
 				Single Post
@@ -1345,7 +1372,7 @@ html {
 				</div>
 
 			</div> -->
-		</div> 
+		</div>
 	</section>
 	<!-- ****** Archive Area End ****** -->
 
