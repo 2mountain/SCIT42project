@@ -184,7 +184,7 @@
     <section>
     <div class="container">			
 			
-		<table class="table table-hover table-bordered">
+		<table class="table table-hover">
 			<tr>
 				<th class="readCenter">작성자</th>
 				<td th:text="${board.memberId}" style="width: 600px;"></td>
@@ -202,17 +202,17 @@
 				<td th:text="${board.boardTitle}"></td>
 			</tr>
 			<tr>
-				<th class="readCenter">내용</th>
-				<td><pre th:text="${board.boardContents}"></pre></td>
-			</tr>
-			<tr>
 				<th style="text-align: center;">파일첨부</th>
 				<td><a th:href="@{/board/download(boardNumber=${board.boardNumber})}" th:text="${board.boardImageOriginal}"></a></td>
 			</tr>
 			<tr>
+				<th class="readCenter">내용</th>
+				<td style="height: 500px;"><pre th:text="${board.boardContents}"></pre></td>
+			</tr>
+			<tr>
 				<th colspan="2" style="background-color: white;">
 					<div class="pull-right">
-						<a class="btn btn-danger" style="background-color: pink;">좋아요~</a>
+						<a class="btn btn-danger" style="background-color: pink;">좋아요</a>
 					</div>
 				</th>
 			</tr>
