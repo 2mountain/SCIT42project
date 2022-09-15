@@ -38,4 +38,16 @@ public class MemberServiceImpl implements MemberService{
 		
 		return result;
 	}
+	
+	@Override
+	public boolean nNCheck(String cNN) {
+		
+		boolean result = false;
+		
+		Member member = memberDAO.selectOne2(cNN);
+		log.debug("?:{} ",member);
+		result = member == null ? true : false;
+		
+		return result;
+	}
 }

@@ -538,11 +538,24 @@ html {
 						// 검색어 바꾸기
 						let btn = document.getElementsByClassName('sTheme');
 						let searchWord = document.getElementById('keyword');
+<<<<<<< HEAD
 
+=======
+						// 현재 검색 키워드와 동일 키워드를 검색하는지 판단
+						let searchedWord = searchWord.value;
+						
+>>>>>>> 87499588d2bf236727ce018f78b0f8637a2bbe55
 						// 검색 주제 버튼 클릭 시 해당 버튼의 값으로 검색 
 						for (let i = 0; i < btn.length; i++) {
 							btn[i].onclick = function() {
 								searchWord.value = btn[i].value;
+
+								// 현재 검색 키워드와 동일 키워드를 검색하는지 판단
+								if(searchedWord === searchWord.value){
+									alert("현재 검색 결과와 동일합니다!");
+									return;
+								}
+								
 								document.forms["themeSearch"].submit();
 							}
 						}

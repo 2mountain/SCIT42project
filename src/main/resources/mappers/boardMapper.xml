@@ -32,6 +32,27 @@
 		, boardTitle
 		, memberNickName
 		, to_char(boardInputDate, 'YYYY-MM-DD') boardInputDate
+		, to_char(boardInputDate, 'YYYY-MM-DD HH24:MI:SS') boardInputDateDetail
+		, boardHits
+		, boardLiked
+		, boardReport
+		, boardContents
+		, boardCategory
+		, boardImageOriginal
+		, boardImageSaved
+	from
+		Board
+	order by boardInputDateDetail desc
+</select>
+
+<!-- 게시글 읽기 -->
+<select id="boardRead" parameterType="int" resultType="Board">
+	select
+		boardNumber
+		, memberId
+		, boardTitle
+		, memberNickName
+		, to_char(boardInputDate, 'YYYY-MM-DD') boardInputDate
 		<!-- , to_char(boardInputDate, 'YYYY-MM-DD HH24:MI:SS') boardInputDate -->
 		, boardHits
 		, boardLiked
@@ -42,7 +63,9 @@
 		, boardImageSaved
 	from
 		Board
-	order by boardInputDate desc
+
+	where 
+		boardNumber = #{boardNumber}
 </select>
 
 <!-- 전체 글 개수 (검색 필터링 후) -->
@@ -52,5 +75,14 @@
 	from 
 		Board
 </select>
+
+<!-- 글 삭제 -->
+<delete id="boardDelete" parameterType="Board">
+	delete from
+		Board
+	where
+		boardNumber = #{boardNumber}
+		<!-- and memberId = #{memberId} -->
+</delete>
 
 </mapper>

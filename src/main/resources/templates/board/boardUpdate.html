@@ -33,6 +33,28 @@
 	}
 	</script>
 	
+	<script>
+	//글수정폼 유효성 검사
+	function validation() {
+		let title = document.getElementById('title');
+		let contents = document.getElementById('contents');
+		
+		if (title.value.length < 5) {
+			alert("제목을 입력하세요.");
+			title.focus();
+			title.select();
+			return false;
+		}
+		if (contents.value.length < 5) {
+			alert("내용을 입력하세요.");
+			contents.focus();
+			contents.select();
+			return false;
+		}
+		return true;
+	}
+	</script>
+	
 </head>
 
 <body>
@@ -182,7 +204,42 @@
     <section>
 	<!-- 글목록 출력 영역 -->
 	<div class="container">
-		<table class="table table-hover table-bordered table-striped">
+	<form th:action="@{/board/update}"  method="post" 
+	enctype="multipart/form-data" onsubmit="return validation();">
+	
+	<input type="hidden" name="boardNumber" th:value="${board.boardNumber}">
+	
+	<table>
+	<tr>
+		<th>제목</th>
+		<td>
+			<input type="text" name="title" id="title" style="width:400px;" th:value="${board.boardTitle}">
+		</td>
+	</tr>
+	<tr>
+		<th>내용</th> 
+		<td>
+			<textarea name="contents" id="contents" th:text="${board.boardContents}"></textarea>
+		</td>
+	</tr>
+	<tr>
+		<th>파일첨부</th> 
+		<td>
+			<input type="file" name="upload">
+			<span th:text="${board.boardImageOriginal}"></span>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" class="white center">
+			<input type="submit" value="수정">
+		</td> 
+	</tr>
+	</table>
+</form>
+
+
+
+		<!-- <table class="table table-hover table-bordered table-striped">
 			<tr>
 				<td style="text-align: center; background-color: white;">
 					전체 <span></span>
@@ -226,7 +283,7 @@
 		</table>
 		<div class="text-right">
 		<a class="btn btn-light" style="background-color: rgb(220, 220, 255);" colspan="6" th:href="@{/board/write}">글쓰기</a>
-		</div>
+		</div> -->
 	</div>
 
 

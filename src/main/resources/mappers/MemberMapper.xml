@@ -5,7 +5,7 @@
 <!-- DAO인터페이스와 매핑 -->
 <mapper namespace="net.softsociety.aimori.dao.MemberDAO">
 <insert id="signInMember" parameterType="Member">
-	INSERT INTO MEMBER
+	INSERT INTO MEMBERS
 	(
 		memberId,
 		memberPassword,
@@ -26,8 +26,14 @@
 </insert>
 
 <select id="selectOne" parameterType="String" resultType="Member">
-	SELECT * FROM MEMBER
+	SELECT * FROM MEMBERS
 	WHERE
 	memberId = #{memberId}
+</select>
+
+<select id="selectOne2" parameterType="String" resultType="Member">
+	SELECT * FROM MEMBERS
+	WHERE
+	memberNickName = #{memberNickName}
 </select>
 </mapper>

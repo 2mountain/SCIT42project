@@ -10,7 +10,7 @@
 
 <body>
 <h2>current weather</h2>
-<h2 class="time">현재 시간: </h3>
+<h3 class="time">현재 시간: </h3>
 <h3 class="ctemp">현재 온도: </h3>
 <h3 class="lowtemp">최저 온도: </h3>
 <h3 class="hightemp">최고 온도: </h3>
@@ -26,14 +26,41 @@
 		var wiconUrl = '<img src="https://openweathermap.org/img/wn/'+result.weather[0].icon+'.png" alt="'+result.weather[0].description+'">'
 		$('.icon').append(wiconUrl);
 		
+	
+		function handleGeoSucces(position){
+			    const latitude =  position.coords.latitude;
+			    const longitude = position.coords.longitude;
+			    const coordsObj = {
+			      latitude,
+			      longitude
+			    };
+			    saveCoords(coordsObj);
+			    getWeather(latitude, longitude);
+			  }
+
+			  function handleGeoError(position){
+			    console.log('Cant get your position.');
+			  }
+			  
+			  
+			  
+		//현재시간 가져오기
 		var ct = result.dt;
-		function converTime(ct){
-			var originalTime 
-		}
 		
+		function convertTime(t){
+			var originalTime = new Date(t*1000);
+			//Tue Sep 13 2022 09:34:07 GMT+0900 (한국 표준시)
+			//너무 길어서 쪼개서 출력한다
+			var hr = originalTime.getHours();
+			var m = originalTime.getMinutes();
+			var s = originalTime.getSeconds();
+			
+			return hr + ':' + m + ':' + s
+			
+		} 
 		
-		var currentTime = convertMilisec()
-		$('.time').append(result.main.temp);
+		var currentTime = convertTime(ct)
+		$('.time').append(currentTime);
 	});
 	
 	
