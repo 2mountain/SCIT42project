@@ -460,32 +460,19 @@ html {
 						class="btn btn-sm btn-success mr-3 mt-2 radiusChange"
 						value="10 km">
 				</div>
-				
-				<!-- 시설 리뷰 탭 ★-->
-				<div id="facilitiesReview" style="display:none">
-					<div>
-						<hr>
-						<h3 id="selectedFacilityName">가게명</h3>
-						<h3 id="selectedFacilityAddress">가게명</h3>
-						<h3 id="selectedFacilityDetailAddress">가게명</h3>
-						<h3 id="selectedFacilityPhoneNumber">가게명</h3>
-					</div>
-				</div>
 
-				<!-- 지도 위치로 페이지 이동 버튼 -->
 				<div class="col-12">
 					<img id="pageTop" class="btn btn-lg btn-primary mr-3"
 						th:src="@{/img/moveToTop.png}" alt="moveToTop">
 				</div>
 
 				<!-- 카카오 맵 key -->
-				<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=55e688743df1e863a655f7fbc174445a&libraries=services"></script>
-				
+				<script
+					src="//dapi.kakao.com/v2/maps/sdk.js?appkey=55e688743df1e863a655f7fbc174445a&libraries=services"></script>
 				<script>
 					// 마커를 담을 배열입니다
 					var markers = [];
 					let presentPosition;
-					let facilitySearcedList;
 
 					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 					mapOption = {
@@ -641,10 +628,6 @@ html {
 					// 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
 					function placesSearchCB(data, status, pagination) {
 						if (status === kakao.maps.services.Status.OK) {
-							
-							// 검색 결과 15개의 정보를 담은 변수 ==> 지도 상의 마커 선택 시 사용
-							facilitySearcedList = data;
-							// 마커의 위도, 경도가 facilitySearchedList의 목록 중 일치하는 것의 정보를 선택하기
 
 							// 정상적으로 검색이 완료됐으면
 							// 검색 목록과 마커를 표출합니다
@@ -716,7 +699,7 @@ html {
 							})(marker, places[i].place_name);
 
 					        // 마커와 검색 결과를 클릭했을때 좌표를 가져온다
-					        // 지도 상의 마커, 목록 클릭 시 경로 찾기 ★
+					        // 지도 상의 마커, 목록 클릭 시 경로 찾기★
 					        (function(marker, title) {
 					        	let popupWidth = 800;
 					        	let popupHeight = 600;
@@ -729,37 +712,28 @@ html {
 					        	
 					        	let option = 'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY;
 									
-					       		 // 마커 클릭시
 					                kakao.maps.event.addListener(marker, 'click', function() {
 					                searchDetailAddrFromCoords(presentPosition, function(result, status) {
-					                	
-					                	// 선택한 마커에 해당하는 시설의 상세 정보를 화면 하단에 출력
-					                	printFacilityDetailInfo(marker);   
+					                	// 구글 플레이스 api 사용하기
+					                	let answer = confirm('해당 위치까지의 경로를 찾으시겠습니까? \n(새 창으로 열림)');
+					                    if (answer === true && status === kakao.maps.services.Status.OK) {
+					                        detailAddr = !!result[0].road_address ? result[0].road_address.address_name : result[0].address.address_name;
+					                        // 경로 찾기 -- 카카오맵 검색을 위해 이동할 url
+					                        let url = "https://map.kakao.com/?sName="+detailAddr+"&eName="+title
+					                        		
+					                        window.open(url, '카카오맵', option);
+					                        // location.href = "https://map.kakao.com/?sName="+detailAddr+"&eName="+title                                            
+					                    }  
 					                });
 					            })
 					 
 					            // 목록 눌렀을 때 경로 찾기
 					            itemEl.onclick =  function () {
 					                searchDetailAddrFromCoords(presentPosition, function(result, status) {
-					                	
-					                	printFacilityDetailInfo(marker); 
-					                	
-					                	// 경로 찾기
-					                	// let answer = confirm('해당 위치까지의 경로를 찾으시겠습니까? \n(새 창으로 열림)');
-					                    if (status === kakao.maps.services.Status.OK) { // answer === true && 
+					                    if (status === kakao.maps.services.Status.OK) {
+					                    	// 구글 플레이스 api 사용하기
 					                        detailAddr = !!result[0].road_address ? result[0].road_address.address_name : result[0].address.address_name;
-					                        
-					                        // 경로 찾기 -- 카카오맵 검색을 위해 이동할 url
-					                        let url = "https://map.kakao.com/?sName="+detailAddr+"&eName="+title
-					                        		
-					                        // window.open(url, '카카오맵', option);
-					                        // location.href = "https://map.kakao.com/?sName="+detailAddr+"&eName="+title                                            
-					                    }
-					                	
-					                	if (status === kakao.maps.services.Status.OK) {
-					                        detailAddr = !!result[0].road_address ? result[0].road_address.address_name : result[0].address.address_name;
-					                        // 경로 찾기
-					                        // location.href = "https://map.kakao.com/?sName="+detailAddr+"&eName="+title                                            
+					                        location.href = "https://map.kakao.com/?sName="+detailAddr+"&eName="+title                                            
 					                    }   
 					                });
 					            };
@@ -787,80 +761,42 @@ html {
 						var el = document.createElement('li'), itemStr = '<span class="markerbg marker_'
 								+ (index + 1)
 								+ '"></span>'
-								+ '<div class="info mb-0" id=details'
+								+ '<div class="info mb-0">'
+								+ '<h5 id=details'
 								+ index
-								+ '>'
-								+ '<h5>'
+								+ ' num='
+								+ index
+								+ ' onclick=copy_to_clipboard(getAttribute("num"))>'
 								+ places.place_name + '</h5>';
 
 						if (places.road_address_name) {
-							itemStr += '   <span>' + places.road_address_name
+							itemStr += '    <span>' + places.road_address_name
 									+ '</span>'
 									+ '   <span class="jibun gray">'
 									+ places.address_name + '</span>';
 						} else {
-							itemStr += '   <span>' + places.address_name
+							itemStr += '    <span>' + places.address_name
 									+ '</span>';
 						}
 
-						itemStr += '   <span class="tel">' + places.phone
+						itemStr += '  <span class="tel">' + places.phone
 								+ '</span>' + '</div>';
 
 						el.innerHTML = itemStr;
 						el.className = 'item';
-						
+
 						return el;
 					}
 					
-					// 삭제 해야하나?
-					let selectedFacilityInfo;
-					
-					// 사용자가 선택한 시설의 html 태그 포함 모든 정보
-					let facilityName;
-					let facilityAddress;
-					let facilityDetailAddress;
-					let facilityPhoneNumber;
-					
-					// 목록에서 선택한 시설 정보 복사
 					function copy_to_clipboard(index){
 						  let copyText = document.getElementById('details' + index);
-						  // 삭제해야하나?
-						  selectedFacilityInfo = copyText;
-						  
-						  // html 태그를 제외한 시설 전체 정보
-					      let splitWords = copyText.textContent;
-					      
-					      let splitWordsResult = splitWords.split('   ');
-					      for(let i = 0; i < splitWords.length; i++){
-					    	  facilityName = splitWordsResult[0];
-					    	  facilityAddress = splitWordsResult[1];
-							  facilityDetailAddress = splitWordsResult[2];
-							  facilityPhoneNumber = splitWordsResult[3];
-					      }
-					      
-					   // 선택된 마커의 시설의 리뷰
-		                	fname = document.getElementById('selectedFacilityName');
-		                	faddress = document.getElementById('selectedFacilityAddress');
-		                	fdetailsAddress = document.getElementById('selectedFacilityDetailAddress');
-		                	fphoneNumber = document.getElementById('selectedFacilityPhoneNumber');
-		                	
-		                	 //fname.innerHTML = facilityName;
-		                	
-		                	fname.innerHTML = facilityName;
-		                	faddress.innerHTML = facilityAddress;
-		                	fdetailsAddress.innerHTML = facilityDetailAddress;
-		                	fphoneNumber.innerHTML = facilityPhoneNumber;
-						  
-						// 선택한 내용(textContent)을 클립보드에 복사한다.
-					   /*    window.navigator.clipboard.writeText(copyText.textContent).then(() => {
+							console.log(copyText);	
+						  // div의 내용(textContent)을 복사한다.
+					      window.navigator.clipboard.writeText(copyText.textContent).then(() => {
 					         // 복사가 완료되면 호출된다.
 					         alert("복사 되었습니다");
-					       }); */
-					       
-		                	let showIt = document.getElementById('facilitiesReview');
-							showIt.setAttribute('style', 'display:visible');
+					       });
 					}
-					
 
 					// 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
 					function addMarker(position, idx, title) {
@@ -916,11 +852,10 @@ html {
 									return function() {
 										// '내 위치 주변 시설' 태그 위치
 										let mapExplain = document.getElementById('mapExplain').offsetTop;
-										// 해당 태그 위치로 이동
+
 										setTimeout(function() {
 											window.scrollTo(0, mapExplain - 5);
 										}, 250);
-										
 										pagination.gotoPage(i);
 									}
 								})(i);
@@ -947,101 +882,585 @@ html {
 							el.removeChild(el.lastChild);
 						}
 					}
-					
-					// 사용자가 선택한 마커에 해당하는 시설의 상세 정보를 화면 하단에 출력
-					function printFacilityDetailInfo(marker){
-						// 사용자가 선택한 마커의 위도와 경도
-						let selectedLng = marker.getPosition().getLng();
-	                	let selectedLat = marker.getPosition().getLat();
-	                	
-	                	// x 또는 y 좌표들을 담을 배열
-	                	let numbers = [];
-	                	
-	                	// 지도 상 마커의 위도 경도와 실제 찾아진 결과의 위도 경도가 미묘하게 틀리므로 가장 유사한 값 찾음 
-		                	// 배열에 x 좌표들만 담음
-		                	for(let i = 0; i < facilitySearcedList.length; i++){
-		                		numbers.push(facilitySearcedList[i].x);
-		                	}
-		                	for(let i = 0; i < facilitySearcedList.length; i++){
-		                		numbers.push(facilitySearcedList[i].y);
-		                	}
-		                	
-			                // 가장 가까운 수를 찾는 함수
-			                let findedLng = findNearestNumber(numbers, selectedLng);
-		                	let findedLat = findNearestNumber(numbers, selectedLat);
-		                	
-
-		                	// 위도, 경도가 일치하는 값을 넣을 변수
-		                	let selectedFacility;
-		                	// 위에서 찾은 위도 경도와 일치하는 데이터를 찾는 반복문
-		                	for(let i = 0; i < facilitySearcedList.length; i++){
-		                		if(facilitySearcedList[i].x === findedLng && facilitySearcedList[i].y === findedLat){
-		                			selectedFacility = facilitySearcedList[i];
-			                		 break;
-			                	}
-		                	}
-		                	
-		                	// 찾은 값 변수에 대입
-		                	facilityName = selectedFacility.place_name;
-		                	facilityAddress = selectedFacility.road_address_name;
-		                	facilityDetailAddress = selectedFacility.address_name;
-		                	facilityPhoneNumber = selectedFacility.phone;
-	                	
-		                	// 찾은 값 대입할 elemets
-	                		fname = document.getElementById('selectedFacilityName');
-		                	faddress = document.getElementById('selectedFacilityAddress');
-		                	fdetailsAddress = document.getElementById('selectedFacilityDetailAddress');
-		                	fphoneNumber = document.getElementById('selectedFacilityPhoneNumber');
-		                	
-		                	// 찾은 값 대입
-		                	fname.innerHTML = facilityName;
-		                	faddress.innerHTML = facilityAddress;
-		                	fdetailsAddress.innerHTML = facilityDetailAddress;
-		                	fphoneNumber.innerHTML = facilityPhoneNumber;
-	                		
-		                	// 찾은 값을 출력할 element
-		                	let showIt = document.getElementById('facilitiesReview');
-		                	
-		                	// 찾은 값 출력할 element의 속성 변경
-							showIt.setAttribute('style', 'display:visible');
-	                	
-	                	// 경로 찾기
-	                	// let answer = confirm('해당 위치까지의 경로를 찾으시겠습니까? \n(새 창으로 열림)');
-	                    if (status === kakao.maps.services.Status.OK) { // answer === true && 
-	                        detailAddr = !!result[0].road_address ? result[0].road_address.address_name : result[0].address.address_name;
-	                        
-	                        // 경로 찾기 -- 카카오맵 검색을 위해 이동할 url
-	                        let url = "https://map.kakao.com/?sName="+detailAddr+"&eName="+title
-	                        		
-	                        // window.open(url, '카카오맵', option);
-	                        // location.href = "https://map.kakao.com/?sName="+detailAddr+"&eName="+title                                            
-	                    }
-	                    
-	                    window.scrollTo(0, 1000);
-					}
-					
-					// 가장 가까운 수를 찾는 함수
-					function findNearestNumber(numbers, number){
-						var data = numbers;
-						var target = number; // 가장 가까운값을 찾을 목표 수
-						var near = 0;
-						var abs = number; // target
-						var min = 9999; // 해당 범위에서 가장 큰 값
-
-						for (var i = 0; i < data.length; i++) {
-						  abs = ((data[i] - target) < 0) ? -(data[i] - target) : (data[i] - target);
-						  
-						  if (abs < min) {
-						    min = abs; //MIN
-						    near = data[i] // 가까운 값
-						  }
-						}
-						
-						return near;
-					}
 				</script>
 			</div>
 			<!-- KAKAO MAP API END -->
+			<!-- 			
+			List
+			<div class="row">
+				Single Post
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="single-post wow fadeInUp" data-wow-delay="0.1s">
+						Post Thumb
+						<div class="post-thumb">
+							<img src="img/blog-img/2.jpg" alt="">
+						</div>
+						Post Content
+						<div class="post-content">
+							<div class="post-meta d-flex">
+								<div class="post-author-date-area d-flex">
+									Post Author
+									<div class="post-author">
+										<a href="#">By Marian</a>
+									</div>
+									Post Date
+									<div class="post-date">
+										<a href="#">May 19, 2017</a>
+									</div>
+								</div>
+								Post Comment & Share Area
+								<div class="post-comment-share-area d-flex">
+									Post Favourite
+									<div class="post-favourite">
+										<a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i>
+											10</a>
+									</div>
+									Post Comments
+									<div class="post-comments">
+										<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i>
+											12</a>
+									</div>
+									Post Share
+									<div class="post-share">
+										<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+									</div>
+								</div>
+							</div>
+							<a href="#">
+								<h4 class="post-headline">Where To Get The Best Sunday
+									Roast In The Cotswolds</h4>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				Single Post
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="single-post wow fadeInUp" data-wow-delay="0.2s">
+						Post Thumb
+						<div class="post-thumb">
+							<img src="img/blog-img/3.jpg" alt="">
+						</div>
+						Post Content
+						<div class="post-content">
+							<div class="post-meta d-flex">
+								<div class="post-author-date-area d-flex">
+									Post Author
+									<div class="post-author">
+										<a href="#">By Marian</a>
+									</div>
+									Post Date
+									<div class="post-date">
+										<a href="#">May 19, 2017</a>
+									</div>
+								</div>
+								Post Comment & Share Area
+								<div class="post-comment-share-area d-flex">
+									Post Favourite
+									<div class="post-favourite">
+										<a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i>
+											10</a>
+									</div>
+									Post Comments
+									<div class="post-comments">
+										<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i>
+											12</a>
+									</div>
+									Post Share
+									<div class="post-share">
+										<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+									</div>
+								</div>
+							</div>
+							<a href="#">
+								<h4 class="post-headline">The Top Breakfast And Brunch
+									Spots In Hove, Brighton</h4>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				Single Post
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="single-post wow fadeInUp" data-wow-delay="0.3s">
+						Post Thumb
+						<div class="post-thumb">
+							<img src="img/blog-img/4.jpg" alt="">
+						</div>
+						Post Content
+						<div class="post-content">
+							<div class="post-meta d-flex">
+								<div class="post-author-date-area d-flex">
+									Post Author
+									<div class="post-author">
+										<a href="#">By Marian</a>
+									</div>
+									Post Date
+									<div class="post-date">
+										<a href="#">May 19, 2017</a>
+									</div>
+								</div>
+								Post Comment & Share Area
+								<div class="post-comment-share-area d-flex">
+									Post Favourite
+									<div class="post-favourite">
+										<a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i>
+											10</a>
+									</div>
+									Post Comments
+									<div class="post-comments">
+										<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i>
+											12</a>
+									</div>
+									Post Share
+									<div class="post-share">
+										<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+									</div>
+								</div>
+							</div>
+							<a href="#">
+								<h4 class="post-headline">The 10 Best Pubs In The Lake
+									District, Cumbria</h4>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				Single Post
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="single-post wow fadeInUp" data-wow-delay="0.4s">
+						Post Thumb
+						<div class="post-thumb">
+							<img src="img/blog-img/5.jpg" alt="">
+						</div>
+						Post Content
+						<div class="post-content">
+							<div class="post-meta d-flex">
+								<div class="post-author-date-area d-flex">
+									Post Author
+									<div class="post-author">
+										<a href="#">By Marian</a>
+									</div>
+									Post Date
+									<div class="post-date">
+										<a href="#">May 19, 2017</a>
+									</div>
+								</div>
+								Post Comment & Share Area
+								<div class="post-comment-share-area d-flex">
+									Post Favourite
+									<div class="post-favourite">
+										<a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i>
+											10</a>
+									</div>
+									Post Comments
+									<div class="post-comments">
+										<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i>
+											12</a>
+									</div>
+									Post Share
+									<div class="post-share">
+										<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+									</div>
+								</div>
+							</div>
+							<a href="#">
+								<h4 class="post-headline">The 10 Best Brunch Spots In
+									Newcastle, England</h4>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				Single Post
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="single-post wow fadeInUp" data-wow-delay="0.5s">
+						Post Thumb
+						<div class="post-thumb">
+							<img src="img/blog-img/2.jpg" alt="">
+						</div>
+						Post Content
+						<div class="post-content">
+							<div class="post-meta d-flex">
+								<div class="post-author-date-area d-flex">
+									Post Author
+									<div class="post-author">
+										<a href="#">By Marian</a>
+									</div>
+									Post Date
+									<div class="post-date">
+										<a href="#">May 19, 2017</a>
+									</div>
+								</div>
+								Post Comment & Share Area
+								<div class="post-comment-share-area d-flex">
+									Post Favourite
+									<div class="post-favourite">
+										<a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i>
+											10</a>
+									</div>
+									Post Comments
+									<div class="post-comments">
+										<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i>
+											12</a>
+									</div>
+									Post Share
+									<div class="post-share">
+										<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+									</div>
+								</div>
+							</div>
+							<a href="#">
+								<h4 class="post-headline">Where To Get The Best Sunday
+									Roast In The Cotswolds</h4>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				Single Post
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="single-post wow fadeInUp" data-wow-delay="0.6s">
+						Post Thumb
+						<div class="post-thumb">
+							<img src="img/blog-img/3.jpg" alt="">
+						</div>
+						Post Content
+						<div class="post-content">
+							<div class="post-meta d-flex">
+								<div class="post-author-date-area d-flex">
+									Post Author
+									<div class="post-author">
+										<a href="#">By Marian</a>
+									</div>
+									Post Date
+									<div class="post-date">
+										<a href="#">May 19, 2017</a>
+									</div>
+								</div>
+								Post Comment & Share Area
+								<div class="post-comment-share-area d-flex">
+									Post Favourite
+									<div class="post-favourite">
+										<a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i>
+											10</a>
+									</div>
+									Post Comments
+									<div class="post-comments">
+										<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i>
+											12</a>
+									</div>
+									Post Share
+									<div class="post-share">
+										<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+									</div>
+								</div>
+							</div>
+							<a href="#">
+								<h4 class="post-headline">The Top Breakfast And Brunch
+									Spots In Hove, Brighton</h4>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				Single Post
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="single-post wow fadeInUp" data-wow-delay="0.7s">
+						Post Thumb
+						<div class="post-thumb">
+							<img src="img/blog-img/4.jpg" alt="">
+						</div>
+						Post Content
+						<div class="post-content">
+							<div class="post-meta d-flex">
+								<div class="post-author-date-area d-flex">
+									Post Author
+									<div class="post-author">
+										<a href="#">By Marian</a>
+									</div>
+									Post Date
+									<div class="post-date">
+										<a href="#">May 19, 2017</a>
+									</div>
+								</div>
+								Post Comment & Share Area
+								<div class="post-comment-share-area d-flex">
+									Post Favourite
+									<div class="post-favourite">
+										<a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i>
+											10</a>
+									</div>
+									Post Comments
+									<div class="post-comments">
+										<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i>
+											12</a>
+									</div>
+									Post Share
+									<div class="post-share">
+										<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+									</div>
+								</div>
+							</div>
+							<a href="#">
+								<h4 class="post-headline">The 10 Best Pubs In The Lake
+									District, Cumbria</h4>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				Single Post
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="single-post wow fadeInUp" data-wow-delay="0.8s">
+						Post Thumb
+						<div class="post-thumb">
+							<img src="img/blog-img/5.jpg" alt="">
+						</div>
+						Post Content
+						<div class="post-content">
+							<div class="post-meta d-flex">
+								<div class="post-author-date-area d-flex">
+									Post Author
+									<div class="post-author">
+										<a href="#">By Marian</a>
+									</div>
+									Post Date
+									<div class="post-date">
+										<a href="#">May 19, 2017</a>
+									</div>
+								</div>
+								Post Comment & Share Area
+								<div class="post-comment-share-area d-flex">
+									Post Favourite
+									<div class="post-favourite">
+										<a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i>
+											10</a>
+									</div>
+									Post Comments
+									<div class="post-comments">
+										<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i>
+											12</a>
+									</div>
+									Post Share
+									<div class="post-share">
+										<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+									</div>
+								</div>
+							</div>
+							<a href="#">
+								<h4 class="post-headline">The 10 Best Brunch Spots In
+									Newcastle, England</h4>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				Single Post
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="single-post wow fadeInUp" data-wow-delay="0.9s">
+						Post Thumb
+						<div class="post-thumb">
+							<img src="img/blog-img/2.jpg" alt="">
+						</div>
+						Post Content
+						<div class="post-content">
+							<div class="post-meta d-flex">
+								<div class="post-author-date-area d-flex">
+									Post Author
+									<div class="post-author">
+										<a href="#">By Marian</a>
+									</div>
+									Post Date
+									<div class="post-date">
+										<a href="#">May 19, 2017</a>
+									</div>
+								</div>
+								Post Comment & Share Area
+								<div class="post-comment-share-area d-flex">
+									Post Favourite
+									<div class="post-favourite">
+										<a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i>
+											10</a>
+									</div>
+									Post Comments
+									<div class="post-comments">
+										<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i>
+											12</a>
+									</div>
+									Post Share
+									<div class="post-share">
+										<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+									</div>
+								</div>
+							</div>
+							<a href="#">
+								<h4 class="post-headline">Where To Get The Best Sunday
+									Roast In The Cotswolds</h4>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				Single Post
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="single-post wow fadeInUp" data-wow-delay="1s">
+						Post Thumb
+						<div class="post-thumb">
+							<img src="img/blog-img/3.jpg" alt="">
+						</div>
+						Post Content
+						<div class="post-content">
+							<div class="post-meta d-flex">
+								<div class="post-author-date-area d-flex">
+									Post Author
+									<div class="post-author">
+										<a href="#">By Marian</a>
+									</div>
+									Post Date
+									<div class="post-date">
+										<a href="#">May 19, 2017</a>
+									</div>
+								</div>
+								Post Comment & Share Area
+								<div class="post-comment-share-area d-flex">
+									Post Favourite
+									<div class="post-favourite">
+										<a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i>
+											10</a>
+									</div>
+									Post Comments
+									<div class="post-comments">
+										<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i>
+											12</a>
+									</div>
+									Post Share
+									<div class="post-share">
+										<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+									</div>
+								</div>
+							</div>
+							<a href="#">
+								<h4 class="post-headline">The Top Breakfast And Brunch
+									Spots In Hove, Brighton</h4>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				Single Post
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="single-post wow fadeInUp" data-wow-delay="1.1s">
+						Post Thumb
+						<div class="post-thumb">
+							<img src="img/blog-img/4.jpg" alt="">
+						</div>
+						Post Content
+						<div class="post-content">
+							<div class="post-meta d-flex">
+								<div class="post-author-date-area d-flex">
+									Post Author
+									<div class="post-author">
+										<a href="#">By Marian</a>
+									</div>
+									Post Date
+									<div class="post-date">
+										<a href="#">May 19, 2017</a>
+									</div>
+								</div>
+								Post Comment & Share Area
+								<div class="post-comment-share-area d-flex">
+									Post Favourite
+									<div class="post-favourite">
+										<a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i>
+											10</a>
+									</div>
+									Post Comments
+									<div class="post-comments">
+										<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i>
+											12</a>
+									</div>
+									Post Share
+									<div class="post-share">
+										<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+									</div>
+								</div>
+							</div>
+							<a href="#">
+								<h4 class="post-headline">The 10 Best Pubs In The Lake
+									District, Cumbria</h4>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				Single Post
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="single-post wow fadeInUp" data-wow-delay="1.2s">
+						Post Thumb
+						<div class="post-thumb">
+							<img src="img/blog-img/5.jpg" alt="">
+						</div>
+						Post Content
+						<div class="post-content">
+							<div class="post-meta d-flex">
+								<div class="post-author-date-area d-flex">
+									Post Author
+									<div class="post-author">
+										<a href="#">By Marian</a>
+									</div>
+									Post Date
+									<div class="post-date">
+										<a href="#">May 19, 2017</a>
+									</div>
+								</div>
+								Post Comment & Share Area
+								<div class="post-comment-share-area d-flex">
+									Post Favourite
+									<div class="post-favourite">
+										<a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i>
+											10</a>
+									</div>
+									Post Comments
+									<div class="post-comments">
+										<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i>
+											12</a>
+									</div>
+									Post Share
+									<div class="post-share">
+										<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+									</div>
+								</div>
+							</div>
+							<a href="#">
+								<h4 class="post-headline">The 10 Best Brunch Spots In
+									Newcastle, England</h4>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-12">
+					<div class="pagination-area d-sm-flex mt-15">
+						<nav aria-label="#">
+							<ul class="pagination">
+								<li class="page-item active"><a class="page-link" href="#">1
+										<span class="sr-only">(current)</span>
+								</a></li>
+								<li class="page-item"><a class="page-link" href="#">2</a></li>
+								<li class="page-item"><a class="page-link" href="#">3</a></li>
+								<li class="page-item"><a class="page-link" href="#">Next
+										<i class="fa fa-angle-double-right" aria-hidden="true"></i>
+								</a></li>
+							</ul>
+						</nav>
+						<div class="page-status">
+							<p>Page 1 of 60 results</p>
+						</div>
+					</div>
+				</div>
+
+			</div> -->
 		</div>
 	</section>
 	<!-- ****** Archive Area End ****** -->
