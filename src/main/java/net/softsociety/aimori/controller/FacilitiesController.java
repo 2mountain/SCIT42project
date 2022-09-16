@@ -16,6 +16,8 @@ public class FacilitiesController {
 	
 	@GetMapping({"", "/"})
 	public String facilities(Model model) {
+		
+		//이부분에다가 값을 바꿔주면 처음 띄울 때 값이 바뀐다!
 		String place = "애완동물";
 		
 		model.addAttribute("place", place);
