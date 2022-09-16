@@ -13,6 +13,10 @@
 		, memberNickName
 		, boardContents
 		, boardCategory
+		<if test="boardImageOriginal != null and boardImageSaved != null">
+		, boardImageOriginal
+		, boardImageSaved
+		</if>
 		)
 	values (
 		boardNumber_seq.nextval
@@ -21,6 +25,10 @@
 		, #{memberNickName}
 		, #{boardContents}
 		, #{boardCategory}
+		<if test="boardImageOriginal != null and boardImageSaved != null">
+		, #{boardImageOriginal}
+		, #{boardImageSaved}
+		</if>
 		)
 </insert>
 
