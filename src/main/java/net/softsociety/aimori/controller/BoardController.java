@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.slf4j.Slf4j;
@@ -285,6 +286,26 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
+	/**
+	 * 게시글 좋아요 누르기
+	 * @param board 불러온 게시글
+	 * @param boardNumber 불러온 게시글의 글번호
+	 * @param user 사용자 계정
+	 * @return
+	 */
+	@ResponseBody
+	@GetMapping ("recommend")
+	public int boardRecommend(
+			Board board,
+			int boardNumber,
+			@AuthenticationPrincipal UserDetails user) {
+		
+		int boardLiked = 0;
+		service.boardRecommend(boardNumber);
+		boardLiked = service.boardSelectRecommend(boardNumber);
+		
+		return boardLiked;
+	}
 	
 
 }

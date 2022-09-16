@@ -78,6 +78,23 @@
 		boardNumber = #{boardNumber}
 </update>
 
+<!-- 좋아요 1 추가 -->
+<update id="boardRecommend" parameterType="int">
+	update
+		Board
+	set
+		boardLiked = boardLiked + 1
+	where
+		boardNumber = #{boardNumber}
+</update>
+
+<!-- 좋아요 출력 -->
+<select id="boardSelectRecommend" parameterType="int" resultType="int">
+	select boardLiked
+	from Board
+	where boardNumber = #{boardNumber}
+</select>
+
 <!-- 전체 글 개수 (검색 필터링 후) -->
 <select id="countBoard" parameterType="map" resultType="int">
 	select 

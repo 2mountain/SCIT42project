@@ -28,5 +28,9 @@ public interface BoardDAO {
 	public int boardDelete(Board board);
 	// 글 수정
 	public int boardUpdate(Board board);
+	// 좋아요 추가
+	public int boardRecommend(int boardNumber);
+	// 좋아요 조회
+	public int boardSelectRecommend(int boardNumber);
 
 }
