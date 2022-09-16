@@ -215,7 +215,11 @@
 				<td class="center" th:text="${board.boardCategory}"></td>
 				<td th:text="${board.boardNumber}" class="center"></td>
 				<td>
+					<div th:if = "${board.boardImageSaved != null}">
 					<a th:text="${board.boardTitle}" th:href="@{/board/read(boardNumber=${board.boardNumber})}"></a>
+					<img th:src="@{/img/board-img/blankImage.png}" width="20">
+					</div>
+					
 				</td>
 				<td class="center">
 					 <a th:text="${board.memberId}" th:href="@{/board/read(boardNumber=${board.boardNumber})}"></a>

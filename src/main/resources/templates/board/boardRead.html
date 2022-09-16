@@ -198,12 +198,13 @@
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a th:href="@{/}"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Aimori Community</li>
-                            <div class="pull-right">
-							<li><a th:href="@{/board/list}">글목록</a></li>
-							</div>
                         </ol>
+                        <div class="pull-right">
+							<a th:href="@{/board/list}">글목록</a>
+						</div>
+						<br>
                         <hr>
-                        <ol><li><h5 colspan="2" th:text="${board.boardTitle}" style="text-align: center;"></h5></li></ol>
+                        <ol><li><h5 th:text="${board.boardTitle}" style="text-align: center;"></h5></li></ol>
                         <hr>
                     </nav>
                 </div>
@@ -270,8 +271,6 @@
 		
 		<!-- <div th:if="${#authentication.name} == ${board.memberId}"> -->
 
-		
-		</form>
 	</div>
 </section>
 

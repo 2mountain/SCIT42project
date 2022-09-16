@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.slf4j.Slf4j;
-import net.softsociety.aimori.dao.BoardDAO;
 import net.softsociety.aimori.domain.Board;
 import net.softsociety.aimori.util.FileService;
 import net.softsociety.aimori.util.PageNavigator;
@@ -148,7 +147,7 @@ public class BoardController {
 			
 		//결과를 모델에 담아서 HTML에서 출력
 		model.addAttribute("board", board);
-		
+				
 		return "/board/boardRead";
 	}
 	
