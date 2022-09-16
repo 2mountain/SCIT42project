@@ -211,7 +211,7 @@
 				<th style="	text-align: center; width:100px;">조회</th>
 				<th style="text-align: center; width:110px;">좋아요<img th:src="@{/img/board-img/heart1.png}" width="20"></th>
 			</tr>
-			<tr  th:each="board : ${boardlist}">
+			<tr th:each="board : ${boardlist}">
 				<td class="center" th:text="${board.boardCategory}"></td>
 				<td th:text="${board.boardNumber}" class="center"></td>
 				<td>
@@ -219,7 +219,9 @@
 					<a th:text="${board.boardTitle}" th:href="@{/board/read(boardNumber=${board.boardNumber})}"></a>
 					<img th:src="@{/img/board-img/blankImage.png}" width="20">
 					</div>
-					
+					<div th:if = "${board.boardImageSaved == null}">
+					<a th:text="${board.boardTitle}" th:href="@{/board/read(boardNumber=${board.boardNumber})}"></a>
+					</div>
 				</td>
 				<td class="center">
 					 <a th:text="${board.memberId}" th:href="@{/board/read(boardNumber=${board.boardNumber})}"></a>

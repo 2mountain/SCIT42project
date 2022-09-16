@@ -147,6 +147,8 @@ public class BoardController {
 			
 		//결과를 모델에 담아서 HTML에서 출력
 		model.addAttribute("board", board);
+		
+		log.debug("board 읽어오기, {}", board);
 				
 		return "/board/boardRead";
 	}
