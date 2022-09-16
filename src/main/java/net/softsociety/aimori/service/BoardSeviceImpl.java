@@ -76,5 +76,19 @@ public class BoardSeviceImpl implements BoardService {
 		int result = boardDAO.boardUpdate(board);
 		return result;
 	}
+
+	// 좋아요 추가
+	@Override
+	public int boardRecommend(int boardNumber) {
+		int result = boardDAO.boardRecommend(boardNumber);
+		return result;
+	}
+
+	// 좋아요 조회
+	@Override
+	public int boardSelectRecommend(int boardNumber) {
+		int result = boardDAO.boardSelectRecommend(boardNumber);
+		return result;
+	}
 	
 }

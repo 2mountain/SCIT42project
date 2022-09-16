@@ -50,6 +50,26 @@
 	}
 	</script>
 	
+	<script>
+	$(document).ready(function() {
+		
+		$('#recommendbtn').click(function() {
+			$.ajax({
+				url: 'recommend',
+				method: 'get',
+				data: {boardNumber: $(this).attr('boardNumber')},
+				success: function(n) {
+					$('#liked').html(n);
+				},
+				error: function() {
+					alert('error');
+				}
+			});
+		});
+	});
+	
+	</script>
+	
 </head>
 
 <body>
@@ -194,7 +214,7 @@
     <section>
     <div class="container">			
 			
-		<table class="table table-hover table-bordered">
+		<table class="table table-hover">
 			<tr>
 				<th class="readCenter">작성자</th>
 				<td th:text="${board.memberId}" style="width: 600px;"></td>
@@ -222,7 +242,18 @@
 			<tr>
 				<th colspan="2" style="background-color: white;">
 					<div class="pull-right">
-						<a class="btn btn-danger" style="background-color: pink;">좋아요</a>
+						<!-- <input type="button" class="btn btn-danger"
+						 value="좋아요"
+						 style="background-color: pink; color: black;"> -->
+					<a>
+					<img th:src="@{/img/board-img/goodSmall.png}" width="50"
+							type="button" id="recommendbtn" th:boardNumber="${board.boardNumber}">
+					</a>
+						<span id="liked" style="font-size: 25px;" th:text="${board.boardLiked}">0</span>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<a>
+					<img th:src="@{/img/board-img/report.png}" width="50">					
+					</a>
 					</div>
 				</th>
 			</tr>
@@ -230,7 +261,6 @@
 			<div class="pull-right">
 				<a class="btn btn-primary" style="background-color: rgb(220, 220, 255);" th:href="@{/board/update(boardNumber=${board.boardNumber})}">수정</a>
 				<a class="btn btn-primary" style="background-color: rgb(220, 220, 255);" th:href="|javascript:deleteBoard(${board.boardNumber})|">삭제</a>
-				<a class="btn btn-danger" style="background-color: rgb(255, 200, 200);" href="#">신고</a>
 			</div>
 		<br>
 		
