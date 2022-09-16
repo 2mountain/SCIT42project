@@ -184,7 +184,7 @@
 	<div class="container">
 		<table class="table table-hover" style="border-color : black;">
 			<tr>
-				<td style="text-align: center; background-color: white;">
+				<td style="text-align: center;">
 					전체글 :  <span th:text="${navi.totalRecordsCount}"></span>
 				</td>
 				<td class="white" colspan="6">
@@ -193,7 +193,7 @@
 					|<a th:href="@{/board/write}">인기글</a>
 				</td>
 			</tr>
-			<tr>
+			<tr style="background-color: rgb(228, 228, 228);">
 				<th id="boardSearch" style="width:250px;">
 					<div style="width: 190px;" id="boardSearch">말머리
 						<select id="boardSearch" name="boardSearch">
