@@ -25,23 +25,7 @@
 		//result.weather[0].icon 현재 날씨 가져오기
 		var wiconUrl = '<img src="https://openweathermap.org/img/wn/'+result.weather[0].icon+'.png" alt="'+result.weather[0].description+'">'
 		$('.icon').append(wiconUrl);
-		
 	
-		function handleGeoSucces(position){
-			    const latitude =  position.coords.latitude;
-			    const longitude = position.coords.longitude;
-			    const coordsObj = {
-			      latitude,
-			      longitude
-			    };
-			    saveCoords(coordsObj);
-			    getWeather(latitude, longitude);
-			  }
-
-			  function handleGeoError(position){
-			    console.log('Cant get your position.');
-			  }
-			  
 			  
 			  
 		//현재시간 가져오기
