@@ -110,6 +110,7 @@
 	set
 		boardTitle = #{boardTitle}
 		, boardContents = #{boardContents}
+		, boardCategory = #{boardCategory}
 		<if test="boardImageOriginal != null and boardImageSaved != null">
 		, boardImageOriginal = #{boardImageOriginal}
 		, boardImageSaved = #{boardImageSaved}
