@@ -30,6 +30,16 @@
 	<!-- test -->
 	<link rel="stylesheet" type="text/css" th:href="@{/css/board/board.css}" />
 	
+	<style>
+	.ck-editor__editable {
+		height: 400px;
+	}
+	
+	.ck-content {
+		font-size: 12px;
+	}
+	</style>
+	
 	<!-- test (리플 삭제) -->
 	<script>
 	//글 삭제
@@ -184,7 +194,7 @@
     <section>
     <div class="container">			
 			
-		<table class="table table-hover">
+		<table class="table table-hover table-bordered">
 			<tr>
 				<th class="readCenter">작성자</th>
 				<td th:text="${board.memberId}" style="width: 600px;"></td>
@@ -206,7 +216,7 @@
 				<td><a th:href="@{/board/download(boardNumber=${board.boardNumber})}" th:text="${board.boardImageOriginal}"></a></td>
 			</tr>
 			<tr>
-				<th class="readCenter">내용</th>
+				<th class="readCenter" id="boardReadContents">내용</th>
 				<td style="height: 500px;"><pre th:text="${board.boardContents}"></pre></td>
 			</tr>
 			<tr>
@@ -216,16 +226,12 @@
 					</div>
 				</th>
 			</tr>
-			<tr>
-				<th colspan="2" style="background-color: white;">
-				<div class="pull-right">
-					<a class="btn btn-primary" style="background-color: rgb(220, 220, 255);" th:href="@{/board/update(boardNumber=${board.boardNumber})}">수정</a>
-					<a class="btn btn-primary" style="background-color: rgb(220, 220, 255);" th:href="|javascript:deleteBoard(${board.boardNumber})|">삭제</a>
-					<a class="btn btn-danger" style="background-color: rgb(255, 200, 200);" href="#">신고</a>
-				</div>
-				</th>
-			</tr>
 		</table>
+			<div class="pull-right">
+				<a class="btn btn-primary" style="background-color: rgb(220, 220, 255);" th:href="@{/board/update(boardNumber=${board.boardNumber})}">수정</a>
+				<a class="btn btn-primary" style="background-color: rgb(220, 220, 255);" th:href="|javascript:deleteBoard(${board.boardNumber})|">삭제</a>
+				<a class="btn btn-danger" style="background-color: rgb(255, 200, 200);" href="#">신고</a>
+			</div>
 		<br>
 		
 		<!-- <div th:if="${#authentication.name} == ${board.memberId}"> -->
@@ -488,4 +494,10 @@
       
     </script>
     <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
+    
+    <!-- test -->
+	<script th:src="@{/ckeditor/build/ckeditor.js}"></script>
+	<script>
+		ClassicEditor.create(document.querySelector('#contents'));
+	</script>
 </body>
