@@ -472,6 +472,7 @@ html {
 				<script>
 					// 마커를 담을 배열입니다
 					var markers = [];
+					let presentPosition;
 
 					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 					mapOption = {
@@ -499,6 +500,8 @@ html {
 						var currentPos = new kakao.maps.LatLng(
 								pos.coords.latitude, pos.coords.longitude);
 
+						presentPosition = currentPos;
+						
 						// 현재 위치 기준 주변 시설 검색 - 반경 3000m
 						searchPlaces(currentPos);
 
@@ -695,6 +698,47 @@ html {
 								};
 							})(marker, places[i].place_name);
 
+					        // 마커와 검색 결과를 클릭했을때 좌표를 가져온다
+					        // 지도 상의 마커 클릭 시 경로 찾기
+					        (function(marker, title) {
+					        	let popupWidth = 800;
+					        	let popupHeight = 600;
+
+ 					        	let popupX = (window.screen.width - popupWidth) / 2;
+					        	// 만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
+
+					        	let popupY= (window.screen.height - popupHeight) / 2;
+					        	// 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
+					        	
+					        	let option = 'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY;
+									
+					                kakao.maps.event.addListener(marker, 'click', function() {
+					                searchDetailAddrFromCoords(presentPosition, function(result, status) {
+					                	// 구글 플레이스 api 사용하기
+					                	let answer = confirm('해당 위치까지의 경로를 찾으시겠습니까? \n(새 창으로 열림)');
+					                    if (answer === true && status === kakao.maps.services.Status.OK) {
+					                        detailAddr = !!result[0].road_address ? result[0].road_address.address_name : result[0].address.address_name;
+					                        // 경로 찾기 -- 카카오맵 검색을 위해 이동할 url
+					                        let url = "https://map.kakao.com/?sName="+detailAddr+"&eName="+title
+					                        		
+					                        window.open(url, '카카오맵', option);
+					                        // location.href = "https://map.kakao.com/?sName="+detailAddr+"&eName="+title                                            
+					                    }  
+					                });
+					            })
+					 
+					            // 목록 눌렀을 때 경로 찾기
+					            itemEl.onclick =  function () {
+					                searchDetailAddrFromCoords(presentPosition, function(result, status) {
+					                    if (status === kakao.maps.services.Status.OK) {
+					                    	// 구글 플레이스 api 사용하기
+					                        detailAddr = !!result[0].road_address ? result[0].road_address.address_name : result[0].address.address_name;
+					                        location.href = "https://map.kakao.com/?sName="+detailAddr+"&eName="+title                                            
+					                    }   
+					                });
+					            };
+					        })(marker, places[i].place_name);
+							
 							fragment.appendChild(itemEl);
 						}
 
@@ -704,6 +748,12 @@ html {
 
 						// 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
 						map.setBounds(bounds);
+					}
+					
+					// 좌표 -> 주소
+					var geocoder = new kakao.maps.services.Geocoder();
+					function searchDetailAddrFromCoords(coords, callback) {
+					    geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
 					}
 
 					// 검색결과 항목을 Element로 반환하는 함수입니다

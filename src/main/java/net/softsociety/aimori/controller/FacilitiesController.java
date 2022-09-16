@@ -18,7 +18,7 @@ public class FacilitiesController {
 	public String facilities(Model model) {
 		String place = "애완동물";
 		int radius = 3000;
-		
+		 
 		model.addAttribute("place", place);
 		model.addAttribute("radius", radius);
 		
