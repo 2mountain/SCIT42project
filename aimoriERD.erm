@@ -10,9 +10,9 @@
 		<right_margin>30</right_margin>
 	</page_setting>
 	<category_index>0</category_index>
-	<zoom>0.75</zoom>
-	<x>110</x>
-	<y>-9</y>
+	<zoom>1.0</zoom>
+	<x>688</x>
+	<y>-12</y>
 	<default_color>
 		<r>128</r>
 		<g>128</g>
@@ -135,7 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2022-08-31 11:38:54</creation_date>
-			<updated_date>2022-09-16 12:57:20</updated_date>
+			<updated_date>2022-09-16 14:02:56</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -595,13 +595,29 @@
 			<binary>false</binary>
 			<args></args>
 			<char_semantics>false</char_semantics>
-			<description>가게에 유저가 단 댓글 번호</description>
+			<description>가게에 유저가 단 댓글 번호&#x0D;&#x0A;&#x0D;&#x0A;facilitesEvaluationNumber_seq</description>
 			<logical_name>facilitesEvaluationNumber</logical_name>
 			<physical_name>facilitesEvaluationNumber</physical_name>
 			<type>decimal</type>
 		</word>
 		<word>
 			<id>27</id>
+			<length>100</length>
+			<decimal>null</decimal>
+			<array>false</array>
+			<array_dimension>null</array_dimension>
+			<unsigned>false</unsigned>
+			<zerofill>false</zerofill>
+			<binary>false</binary>
+			<args></args>
+			<char_semantics>false</char_semantics>
+			<description>가게 이름</description>
+			<logical_name>facilitiesName</logical_name>
+			<physical_name>facilitiesName</physical_name>
+			<type>varchar(n)</type>
+		</word>
+		<word>
+			<id>28</id>
 			<length>null</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -617,7 +633,7 @@
 			<type>decimal</type>
 		</word>
 		<word>
-			<id>28</id>
+			<id>29</id>
 			<length>1000</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -633,7 +649,7 @@
 			<type>varchar(n)</type>
 		</word>
 		<word>
-			<id>29</id>
+			<id>30</id>
 			<length>null</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -649,7 +665,7 @@
 			<type>date</type>
 		</word>
 		<word>
-			<id>30</id>
+			<id>31</id>
 			<length>null</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -663,22 +679,6 @@
 			<logical_name>facilitiesStar</logical_name>
 			<physical_name>facilitiesStar</physical_name>
 			<type>decimal</type>
-		</word>
-		<word>
-			<id>31</id>
-			<length>100</length>
-			<decimal>null</decimal>
-			<array>false</array>
-			<array_dimension>null</array_dimension>
-			<unsigned>false</unsigned>
-			<zerofill>false</zerofill>
-			<binary>false</binary>
-			<args></args>
-			<char_semantics>false</char_semantics>
-			<description>가게 이름</description>
-			<logical_name>facilityName</logical_name>
-			<physical_name>facilityName</physical_name>
-			<type>varchar(n)</type>
 		</word>
 		<word>
 			<id>32</id>
@@ -4869,7 +4869,7 @@
 			<option></option>
 			<columns>
 				<normal_column>
-					<word_id>27</word_id>
+					<word_id>28</word_id>
 					<id>83</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -4902,7 +4902,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>31</word_id>
+					<word_id>27</word_id>
 					<id>84</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -5111,7 +5111,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>28</word_id>
+					<word_id>29</word_id>
 					<id>88</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -5144,7 +5144,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>30</word_id>
+					<word_id>31</word_id>
 					<id>89</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -5177,7 +5177,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>29</word_id>
+					<word_id>30</word_id>
 					<id>90</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
