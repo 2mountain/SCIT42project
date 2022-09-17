@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.slf4j.Slf4j;
 import net.softsociety.aimori.domain.Board;
+import net.softsociety.aimori.domain.BoardLiked;
 import net.softsociety.aimori.util.FileService;
 import net.softsociety.aimori.util.PageNavigator;
 import net.softsociety.aimori.service.BoardService;
@@ -75,6 +76,8 @@ public class BoardController {
 		, String searchWord) {
 		
 		PageNavigator navi = service.getPageNavigator(pagePerGroup, countPerPage, page, type, searchWord);
+		
+		
 		
 		ArrayList<Board> boardlist = service.list(navi, type, searchWord);
 				
@@ -140,13 +143,21 @@ public class BoardController {
 			Model model
 			, @RequestParam(name="boardNumber", defaultValue = "0") int boardNumber) { 
 
+		//게시글 객체 하나 조회
 		Board board = service.boardRead(boardNumber);
+		
+		//해당 게시글에 대한 좋아요 개수
+		int boardliked = service.boardSelectRecommend(boardNumber);
+		
 		if (board == null) {
 			return "redirect:/board/list"; //글이 없으면 목록으로
 		}
+				
+		log.debug("boardliked 값: {}", boardliked);
 			
 		//결과를 모델에 담아서 HTML에서 출력
 		model.addAttribute("board", board);
+		model.addAttribute("boardLikedData", boardliked);
 		
 		log.debug("board 읽어오기, {}", board);
 				
@@ -296,17 +307,18 @@ public class BoardController {
 	 */
 	@ResponseBody
 	@GetMapping ("recommend")
-	public int boardRecommend(
-			Board board,
+	public void boardRecommend(
 			int boardNumber,
 			@AuthenticationPrincipal UserDetails user) {
 		
-		int boardLiked = 0;
-		service.boardRecommend(boardNumber);
-		boardLiked = service.boardSelectRecommend(boardNumber);
+		//String id = user.getUsername();
 		
-		return boardLiked;
+		log.debug("recommend 호출됨!!!");
+		
+		BoardLiked boardLiked = new BoardLiked(boardNumber, "test1");
+		
+		service.boardRecommend(boardLiked);
+				
 	}
 	
-
 }

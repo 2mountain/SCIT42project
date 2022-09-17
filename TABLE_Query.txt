@@ -126,8 +126,6 @@ CREATE TABLE BOARD
     boardHits number DEFAULT 0,
 		/* 글 조회수 */
     boardLiked number DEFAULT 0,
-		/* 글 추천수 */
-    boardReport number DEFAULT 0,
 		/* 글 신고수 */
     boardContents varchar2(4000) NOT NULL,
 		/* 글 내용 */
@@ -145,10 +143,12 @@ create table boardLikedData
 (
     boardLikedNumber number primary key not null,
     memberId varchar2(40) references members(memberId),
-    boardNumber number references board(boardNumber)
+    boardNumber number references board(boardNumber),
 );
 
 create sequence boardLikedNumber_seq;
+drop table boardLikedData;
+drop sequence boardLikedNumber_seq;
 
 
 

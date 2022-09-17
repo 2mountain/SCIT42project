@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import net.softsociety.aimori.dao.BoardDAO;
 import net.softsociety.aimori.domain.Board;
+import net.softsociety.aimori.domain.BoardLiked;
 import net.softsociety.aimori.util.PageNavigator;
 
 @Transactional
@@ -79,8 +80,11 @@ public class BoardSeviceImpl implements BoardService {
 
 	// 좋아요 추가
 	@Override
-	public int boardRecommend(int boardNumber) {
-		int result = boardDAO.boardRecommend(boardNumber);
+	public int boardRecommend(BoardLiked boardLiked) {
+		int result = boardDAO.boardRecommend(boardLiked);
+		
+		log.debug("라이크 객체 : {}", boardLiked);
+		
 		return result;
 	}
 

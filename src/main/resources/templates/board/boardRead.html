@@ -65,17 +65,21 @@
 		
 		
 		$('#recommendbtn').click(function() {
+			
+			let likeCount = $("#liked").text();
+			let boardNumber = $(this).attr('boardNumber');
+			
 			$.ajax({
 				url : 'recommend',
 				method : 'get',
 				data : {
-					boardNumber : $(this).attr('boardNumber')
+					boardNumber : boardNumber
 				},
-				success : function(n) {
-					$('#liked').html(n);
+				success : function() {
+					$("#liked").text(Number(likeCount)+ 1);				
 				},
-				error : function() {
-					alert('error');
+				error : function(request, status, error) {
+					alert("status : " + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
 				}
 			});
 		});
@@ -242,7 +246,7 @@
 
 		<div class="container">
 
-			<table class="table table-hover">
+			<table class="table">
 				<tr>
 					<th class="readCenter">작성자</th>
 					<td th:text="${board.memberId}" style="width: 600px;"></td>
@@ -276,14 +280,11 @@
 				<tr>
 					<th colspan="2" style="background-color: white;">
 						<div class="pull-right">
-							<!-- <input type="button" class="btn btn-danger"
-						 value="좋아요"
-						 style="background-color: pink; color: black;"> -->
 							<a> <img th:src="@{/img/board-img/goodIcon.png}" width="50"
 								type="button" id="recommendbtn"
 								th:boardNumber="${board.boardNumber}">
 							</a> <span id="liked" style="font-size: 25px;"
-								th:text="${board.boardLiked}">0</span>
+								th:text="${boardLikedData}"></span>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a>
 								<img th:src="@{/img/board-img/report.png}" width="50">
 							</a>
