@@ -141,6 +141,16 @@ CREATE TABLE BOARD
 
 create sequence boardNumber_seq;
 
+create table boardLikedData
+(
+    boardLikedNumber number primary key not null,
+    memberId varchar2(40) references members(memberId),
+    boardNumber number references board(boardNumber)
+);
+
+create sequence boardLikedNumber_seq;
+
+
 
 CREATE TABLE reply
 (
