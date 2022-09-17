@@ -86,6 +86,8 @@ public class BoardController {
 		model.addAttribute("type", type);
 		model.addAttribute("searchWord", searchWord);
 		
+		log.debug("searchWord 출력! :{}", searchWord);
+		
 		return "/board/board";
 	}
 
