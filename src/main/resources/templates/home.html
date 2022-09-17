@@ -38,11 +38,10 @@
 		}
 		.weather-text {
 			position: absolute;
-			top : 10%;
+			top : 5%;
 			width: 100%;
 			font-size: 5px;
 			text-align:center;
-			color: white;
 		}
 	</style>
 
@@ -259,7 +258,7 @@
 			<div class="row">
 				<div class="col-12 col-md-6 col-lg-4">
 					<div class="single_catagory wow fadeInUp" data-wow-delay=".3s">
-						<img src="img/catagory-img/goout.jpg" alt="">
+						<img src="img/catagory-img/goout.jpg" width="393" height="294"alt="">
 
 						<div class="catagory-title">
 							<a href="#">
@@ -273,7 +272,7 @@
 				</div>
 				<div class="col-12 col-md-6 col-lg-4">
 					<div class="single_catagory wow fadeInUp" data-wow-delay=".6s">
-						<img src="img/catagory-img/2.jpg" alt="">
+						<img src="img/catagory-img/ch2.jpg" width="393" height="294" alt="">
 						<div class="catagory-title">
 							<a href="#">
 								<h5>challenge</h5>
@@ -805,22 +804,25 @@
 						</div>
 
 
-						<!-- Single Widget weather Area -->
+						<!-- weather search Area -->
 						<div class="weather-wrap">
 							<div class="weather-image">
-								<img src="img/sidebar-img/weathermain.jpg" alt="">
+								<img src="img/sidebar-img/weathermain1.jpg" alt="">
 							</div>
 
-							<div class="weather-text">
-								<h2>Today's weather</h2>
-								<h2>current weather</h2>
-								<h3 class="time">현재 시간:</h3>
-								<h3 class="ctemp">현재 온도:</h3>
-								<h3 class="lowtemp">최저 온도:</h3>
-								<h3 class="hightemp">최고 온도:</h3>
+							<div class="weather-text" >
+								<h2 style="color:white; font-size:20px;">Today's weather</h2>
+								<h3 class="ctemp" style="color:white; font-size:15px;">현재 온도 : </h3>
+								<h3 class="lowtemp" style="color:white; font-size:15px;">최저 온도 : </h3>
+								<h3 class="hightemp" style="color:white; font-size:15px;">최고 온도 : </h3>
 								<h3 class="icon"></h3>
-								<p><button type="button" class="btn btn-success btn-sm">어디로 갈까요?</button></p>
+								
+								<form id="weatherform" th:action="@{/weather/goOut}" method="get">
+								<input type="hidden" id="weather" name="weather">
+								<p><button class="btn btn-success btn-sm" type="submit" id="weathersubmit">어디로 갈까요?</button></p>
+								</form>
 							</div>
+							
 						</div>
 
 	</section>
@@ -1047,7 +1049,11 @@
 			//result.weather[0].icon 현재 날씨 가져오기
 			var wiconUrl = '<img src="https://openweathermap.org/img/wn/' + result.weather[0].icon + '.png" alt="' + result.weather[0].description + '">'
 			$('.icon').append(wiconUrl);
+		
+			$("#weather").val(result.weather[0].description);		
 			
+			console.log(result.weather[0].icon);
+			console.log(result.weather[0].description);
 				  
 		//현재시간 가져오기
 		var ct = result.dt;
