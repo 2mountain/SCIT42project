@@ -234,6 +234,10 @@ html {
 .radiusChange {
 	width : 8vh;
 }
+
+#needMargin {
+	margin-top: 100px;
+}
 </style>
 
 <script>
@@ -279,21 +283,7 @@ html {
 				</div>
 				<!--  Login Register Area -->
 				<div class="col-7 col-sm-6">
-					<div
-						class="signup-search-area d-flex align-items-center justify-content-end">
-						<div class="login_register_area d-flex">
-							<div class="login">
-								<a href="register.html">로그인</a>
-							</div>
-							<div class="register">
-								<a href="register.html">회원가입</a>
-							</div>
-						</div>
-						<!-- Search Button Area -->
-						<div class="search_button">
-							<a class="searchBtn" href="#"><i class="fa fa-search"
-								aria-hidden="true"></i></a>
-						</div>
+					<div class="signup-search-area d-flex align-items-center justify-content-end">
 						<!-- Search Form -->
 						<div class="search-hidden-form">
 							<form action="#" method="get">
@@ -302,6 +292,20 @@ html {
 									value="" class="d-none"> <span class="searchBtn"><i
 									class="fa fa-times" aria-hidden="true"></i></span>
 							</form>
+						</div>
+						<!-- Search Button Area -->
+						<div class="search_button">
+							<a class="searchBtn" href="#"><i class="fa fa-search"
+								aria-hidden="true"></i></a>
+						</div>
+					
+						<div class="login_register_area d-flex">
+							<div class="login">
+								<a href="register.html">로그인</a>
+							</div>
+							<div class="register">
+								<a href="register.html">회원가입</a>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -466,9 +470,9 @@ html {
 					<div>
 						<hr>
 						<h3 id="selectedFacilityName">가게명</h3>
-						<h3 id="selectedFacilityAddress">가게명</h3>
-						<h3 id="selectedFacilityDetailAddress">가게명</h3>
-						<h3 id="selectedFacilityPhoneNumber">가게명</h3>
+						<h3 id="selectedFacilityAddress">가게 주소</h3>
+						<h3 id="selectedFacilityDetailAddress">가게 지번 주소</h3>
+						<h3 id="selectedFacilityPhoneNumber">가게 전화 번호</h3>
 					</div>
 				</div>
 
@@ -1045,7 +1049,9 @@ html {
 		</div>
 	</section>
 	<!-- ****** Archive Area End ****** -->
-
+	
+	<div id="needMargin"></div>
+	
 	<!-- ****** Instagram Area Start ****** -->
 	<div
 		class="instargram_area owl-carousel section_padding_100_0 clearfix"

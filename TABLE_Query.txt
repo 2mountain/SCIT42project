@@ -224,8 +224,14 @@ CREATE TABLE facilities
 (
 	facilitiesNumber   NUMBER CONSTRAINT facilities_facilitiesNumber_pk PRIMARY KEY,
                 -- 시설 번호
-	facilitiesName      VARCHAR2(100) CONSTRAINT facilities_faciliteisName_NN NOT NULL
+	facilitiesName      VARCHAR2(100) CONSTRAINT facilities_faciliteisName_NN NOT NULL,
                 -- 시설 이름
+    facilitiesAddress VARCHAR2(300),
+                -- 시설 도로명 주소
+    facilitiesDetailAddress VARCHAR2(300),
+                -- 시설 지번 주소
+    facilitiesPhoneNumber VARCHAR2(40)
+                -- 시설 전화번호
 );
 
 CREATE TABLE faclitiesEvaluation
