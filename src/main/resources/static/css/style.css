@@ -1157,6 +1157,14 @@ li {
 /* --------------------
 :: 13.0 Contact Area CSS
 -------------------- */
+.facilityInfo:hover {
+	transition-duration: 500ms;
+	color: #fc6c3f;
+}
+
+th.facilityInfo, #findWayButton {
+	text-align: center;
+}
 
 .contact-form .form-control,
 .comment-form .form-control {
@@ -1196,6 +1204,33 @@ li {
     background-position: center center;
 }
 
+.sanBtn1 {
+    width: 160px;
+    height: 31px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+    background-color: #fc6c3f;
+    border-radius: 30px;
+    text-align : center;
+}
+
+.shorter {
+	width: 30px;
+	padding : 0;
+    background-color: #818f9d;
+}
+
+.sanBtn2 {
+    width: 80px;
+    height: 31px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+    background-color: #218838;
+    border-radius: 30px;
+    text-align : center;
+}
 /* -------------------- 
 :: 14.0 Single Blog CSS
 -------------------- */
