@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
 import net.softsociety.aimori.domain.Board;
+import net.softsociety.aimori.domain.BoardLiked;
 import net.softsociety.aimori.util.PageNavigator;
 
 /**
@@ -29,7 +30,7 @@ public interface BoardDAO {
 	// 글 수정
 	public int boardUpdate(Board board);
 	// 좋아요 추가
-	public int boardRecommend(int boardNumber);
+	public int boardRecommend(BoardLiked boardLiked);
 	// 좋아요 조회
 	public int boardSelectRecommend(int boardNumber);
 
