@@ -254,12 +254,41 @@ html {
 		let showIt = document.getElementsByClassName('writeFacilityReview');
 		showIt[0].setAttribute('style', 'display:visible');
 		showIt[1].setAttribute('style', 'display:visible');
+		window.scrollTo(0, 1200);
 	}
 	
 	function showOff(){
 		let showIt = document.getElementsByClassName('writeFacilityReview');
 		showIt[0].setAttribute('style', 'display:none');
 		showIt[1].setAttribute('style', 'display:none');
+		window.scrollTo(0, 1000);
+	}
+	
+
+	window.onload = function() {
+		let getClickedStar = document.getElementsByClassName('starClick');
+		let selectedStar = document.getElementById('selectdStar');
+		console.log(event.target);
+
+		function clickedStar(event) {
+			if (event.target.classList[1] === "clicked") {
+				event.target.classList.remove("clicked");
+			} else {
+				for (var i = 0; i < getClickedStar.length; i++) {
+					getClickedStar[i].classList.remove("clicked");
+				}
+
+				event.target.classList.add("clicked");
+				selectedStar.value = event.target.value;
+			}
+		}
+
+		function init() {
+			for (var i = 0; i < getClickedStar.length; i++) {
+				getClickedStar[i].addEventListener("click", clickedStar);
+			}
+		}
+		init();
 	}
 </script>
 </head>
@@ -516,18 +545,35 @@ html {
 								<!-- 후기 남기기 Form -->
 								<form action="#" class="writeFacilityReview" method="post" style="display: none">
 									<div class="form-group">
+										현재 로그인한 유저 닉네임
 										<input type="text" class="form-control" id="contact-name"
 											placeholder="Name">
 									</div>
 									<div class="form-group">
-										<input type="email" class="form-control" id="contact-email"
-											placeholder="Email">
+										평점 선택 
+										<input type="text" id="selectdStar" hidden="hidden" name="facilitiesStar" value="">
+										<!-- 에 사용자가 누른 별점 버튼의 value를 보내서 여기에 ~.value로 입력 -->
+										
+							~ㄻㄴㅇㄹㅁㄴㅇㄻㄴㅇㄹ	<!-- 사용자가 누른 버튼 색상 변경하기 -->
+										<input type="button" class="btn sanBtn1 mt-2 writeFacilityReview shorter starClick"
+													value="0">
+										<input type="button" class="btn sanBtn1 mt-2 writeFacilityReview shorter starClick" 
+													value="1">
+										<input type="button" class="btn sanBtn1 mt-2 writeFacilityReview shorter starClick" 
+													value="2">
+										<input type="button" class="btn sanBtn1 mt-2 writeFacilityReview shorter starClick" 
+													value="3">
+										<input type="button" class="btn sanBtn1 mt-2 writeFacilityReview shorter starClick" 
+													value="4">
+										<input type="button" class="btn sanBtn1 mt-2 writeFacilityReview shorter starClick" 
+													value="5">
 									</div>
 									<div class="form-group">
 										<input type="text" class="form-control" id="contact-website"
 											placeholder="Website">
 									</div>
 									<div class="form-group">
+										후기 내용
 										<textarea class="form-control" name="message" id="message"
 											cols="30" rows="10" placeholder="Message"></textarea>
 									</div>
