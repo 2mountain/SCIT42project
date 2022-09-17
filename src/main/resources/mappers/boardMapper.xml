@@ -36,37 +36,61 @@
 
 	<!-- 전체 게시글 읽기 -->
 	<select id="boardList" parameterType="map" resultType="Board">
-		select COUNT(l.boardNumber) as boardCount,
-		b.boardNumber boardNumber
-		,
-		b.memberId memberId
-		, b.boardTitle boardTitle
-		,
-		b.memberNickName
-		memberNickName
-		, to_char(b.boardInputDate,
-		'YYYY-MM-DD') boardInputDate
-		, to_char(b.boardInputDate, 'YYYY-MM-DD
-		HH24:MI:SS')
-		boardInputDateDetail
-		, b.boardHits boardHits
-		, b.boardReport boardReport
-		, b.boardCategory boardCategory
-		,
-		b.boardImageSaved
-		boardImageSaved
+	
+	 	select COUNT(l.boardNumber) as boardCount,
+			b.boardNumber boardNumber
+			, b.memberId memberId
+			, b.boardTitle boardTitle
+			, b.memberNickName memberNickName
+			, to_char(b.boardInputDate, 'YYYY-MM-DD') boardInputDate
+			, to_char(b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS') boardInputDateDetail
+			, b.boardHits boardHits
+			, b.boardReport boardReport
+			, b.boardCategory boardCategory
+			, b.boardImageSaved boardImageSaved
 		from boardLikedData l, board b
-		where b.boardNumber =
-		l.boardNumber(+)
+
+		where b.boardNumber = l.boardNumber(+)
+		<if test="type != null and searchWord != null">
+			<if test="type == 'boardTitle'">
+				and boardTitle like '%' || #{searchWord} || '%'
+			</if>	
+			<if test="type == 'boardContents'">
+				and boardContents like '%' || #{searchWord} || '%'
+			</if>	
+			<if test="type == 'memberId'">
+				and b.memberId like '%' || #{searchWord} || '%'
+			</if>	
+			<if test="type == 'all'">
+				and boardTitle like '%' || #{searchWord} || '%'
+				or boardContents like '%' || #{searchWord} || '%'
+				or b.memberId like '%' || #{searchWord} || '%'
+			</if>	
+		</if>
 		group by b.boardNumber, b.memberId, b.boardTitle, b.memberNickName,
-		to_char(b.boardInputDate, 'YYYY-MM-DD'),
-		b.boardInputDate, 'YYYY-MM-DD', to_char(b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS'),
-		b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS',
-		b.boardHits, b.boardReport, b.boardCategory, b.boardImageSaved,
-		to_char(b.boardInputDate, 'YYYY-MM-DD
-		HH24:MI:SS')
-		ORDER BY
-		boardInputDateDetail DESC
+				to_char(b.boardInputDate, 'YYYY-MM-DD'), b.boardInputDate, 'YYYY-MM-DD', to_char(b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS'),
+				b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS', b.boardHits, b.boardReport, b.boardCategory, b.boardImageSaved,
+				to_char(b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS')
+		ORDER BY boardInputDateDetail DESC
+	
+ 		<!-- select COUNT(l.boardNumber) as boardCount,
+			b.boardNumber boardNumber
+			, b.memberId memberId
+			, b.boardTitle boardTitle
+			, b.memberNickName memberNickName
+			, to_char(b.boardInputDate, 'YYYY-MM-DD') boardInputDate
+			, to_char(b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS') boardInputDateDetail
+			, b.boardHits boardHits
+			, b.boardReport boardReport
+			, b.boardCategory boardCategory
+			, b.boardImageSaved boardImageSaved
+		from boardLikedData l, board b
+		where b.boardNumber = l.boardNumber(+)
+		group by b.boardNumber, b.memberId, b.boardTitle, b.memberNickName,
+				to_char(b.boardInputDate, 'YYYY-MM-DD'), b.boardInputDate, 'YYYY-MM-DD', to_char(b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS'),
+				b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS', b.boardHits, b.boardReport, b.boardCategory, b.boardImageSaved,
+				to_char(b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS')
+		ORDER BY boardInputDateDetail DESC -->
 	</select>
 
 	<!-- 한 개 게시글 읽기 -->
@@ -134,9 +158,27 @@
 	<!-- 전체 글 개수 (검색 필터링 후) -->
 	<select id="countBoard" parameterType="map" resultType="int">
 		select
-		count(boardNumber)
+			count(boardNumber)
 		from
-		Board
+			Board
+			<if test="type != null and searchWord != null">
+	<where>
+		<if test="type == 'boardTitle'">
+			boardTitle like '%' || #{searchWord} || '%'
+		</if>	
+		<if test="type == 'boardContents'">
+			boardContents like '%' || #{searchWord} || '%'
+		</if>	
+		<if test="type == 'memberId'">
+			memberId like '%' || #{searchWord} || '%'
+		</if>	
+		<if test="type == 'all'">
+			boardTitle like '%' || #{searchWord} || '%'
+			or boardContents like '%' || #{searchWord} || '%'
+			or memberId like '%' || #{searchWord} || '%'
+		</if>
+	</where> 
+	</if>
 	</select>
 
 	<!-- 글 수정 -->
