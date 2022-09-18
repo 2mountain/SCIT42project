@@ -196,6 +196,10 @@
 							<li class="breadcrumb-item active" aria-current="page">Aimori
 								Community</li>
 						</ol>
+						<div class="pull-right">
+							<a th:href="@{/board/list}">글목록</a>
+						</div>
+						<br>
 					</nav>
 				</div>
 			</div>
@@ -214,22 +218,22 @@
 				<input type="hidden" name="boardNumber"
 					th:value="${board.boardNumber}">
 
-				<table class="table table-hover">
+				<table class="table">
 					<tr>
 						<th id="boardCategory" style="width: 200px;" colspan="2">게시판
 							변경 <select id="boardCategory" name="boardCategory">
-								<option value="Daily" th:selected="${boardCategory} == 'Daily'">일상</option>
-								<option value="Gather"
-									th:selected="${boardCategory} == 'Gather'">같이해요(모집)</option>
+								<option value="전체" th:selected="${boardCategory} == '전체'">전체</option>
+								<option value="일상" th:selected="${boardCategory} == '일상'">일상</option>
+								<option value="모임" th:selected="${boardCategory} == '모임'">같이해요(모집)</option>
 								<option value="Tip" th:selected="${boardCategory} == 'Tip'">Tip공유</option>
 						</select>
 						</th>
 					</tr>
 					<tr>
-						<th>제목</th>
+						<th style="width: 30px;">제목</th>
 						<td class="boardUpdateFormTd"><input type="text"
 							name="boardTitle" id="title" th:value="${board.boardTitle}"
-							style="width: 900px;"></td>
+							style="width: 990px;"></td>
 					</tr>
 					<tr>
 						<th>내용</th>

@@ -39,7 +39,7 @@
 /* --------------------
 :: 1.0 Base CSS
 -------------------- */
-
+      
 * {
     margin: 0;
     padding: 0;
@@ -1157,6 +1157,14 @@ li {
 /* --------------------
 :: 13.0 Contact Area CSS
 -------------------- */
+.facilityInfo:hover {
+	transition-duration: 500ms;
+	color: #fc6c3f;
+}
+
+th.facilityInfo, #findWayButton {
+	text-align: center;
+}
 
 .contact-form .form-control,
 .comment-form .form-control {
@@ -1186,6 +1194,18 @@ li {
     border-radius: 30px;
 }
 
+.san-ok-btn {
+    margin-top: 1px;
+    width: 160px;
+    height: 40px;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #fff;
+    background-color: #0080ff;
+    border-radius: 30px;
+}
+
 .contact-btn:hover {
     color: #fff;
     background-color: #d43f10;
@@ -1194,6 +1214,40 @@ li {
 .contact-form-sidebar {
     background-size: cover;
     background-position: center center;
+}
+
+.sanBtn1 {
+    width: 160px;
+    height: 31px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+    background-color: #218838;
+    border-radius: 30px;
+    text-align : center;
+}
+
+.sanBtn2 {
+    width: 80px;
+    height: 31px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+    background-color: #218838;
+    border-radius: 30px;
+    text-align : center;
+}
+
+.shorter {
+	width: 30px;
+	padding : 0;
+    background-color: #818f9d;
+}
+
+.shorter2 {
+	width: 30px;
+	padding : 0;
+    background-color: #218838;
 }
 
 /* -------------------- 

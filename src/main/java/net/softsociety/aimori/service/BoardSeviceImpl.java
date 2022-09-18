@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import net.softsociety.aimori.dao.BoardDAO;
 import net.softsociety.aimori.domain.Board;
+import net.softsociety.aimori.domain.BoardLiked;
 import net.softsociety.aimori.util.PageNavigator;
 
 @Transactional
@@ -75,6 +76,36 @@ public class BoardSeviceImpl implements BoardService {
 	public int boardUpdate(Board board) {
 		int result = boardDAO.boardUpdate(board);
 		return result;
+	}
+
+	// 좋아요 추가
+	@Override
+	public int boardRecommend(BoardLiked boardLiked) {
+		int result = boardDAO.boardRecommend(boardLiked);
+		
+		log.debug("라이크 객체 : {}", boardLiked);
+		
+		return result;
+	}
+
+	// 좋아요 수 카운트
+	@Override
+	public int boardSelectRecommend(int boardNumber) {
+		int result = boardDAO.boardSelectRecommend(boardNumber);
+		return result;
+	}
+
+	// 좋아요 체크
+	@Override
+	public BoardLiked getBoardLiked(BoardLiked boardLiked) {
+		BoardLiked boardliked = boardDAO.getBoardLiked(boardLiked);
+		return boardliked;
+	}
+
+	// 좋아요 취소
+	@Override
+	public void deleteRecommend(int BoardLikedNumber) {
+		boardDAO.deleteRecommend(BoardLikedNumber);
 	}
 	
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE mapper
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -10,4 +11,18 @@
 		values
 		(#{string})
 	</insert>
+=======
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DAO인터페이스와 매핑 -->
+<mapper namespace="net.softsociety.aimori.dao.AimoriDAO">
+	<insert id="test" parameterType="string">
+		insert into test
+		(test)
+		values
+		(#{string})
+	</insert>
+>>>>>>> d4e06de82319739db0968b3d300578b7658f1f5a
 </mapper>

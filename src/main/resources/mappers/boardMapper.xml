@@ -4,111 +4,228 @@
 
 <mapper namespace="net.softsociety.aimori.dao.BoardDAO">
 
-<!-- 게시글 저장 -->
-<insert id="boardInsert" parameterType="Board">
-	insert into BOARD (
+	<!-- 게시글 저장 -->
+	<insert id="boardInsert" parameterType="Board">
+		insert into BOARD (
 		boardNumber
 		, memberId
 		, boardTitle
 		, memberNickName
-		, boardContents
+		,
+		boardContents
 		, boardCategory
+		<if test="boardImageOriginal != null and boardImageSaved != null">
+			, boardImageOriginal
+			, boardImageSaved
+		</if>
 		)
-	values (
+		values (
 		boardNumber_seq.nextval
 		, #{memberId}
 		, #{boardTitle}
-		, #{memberNickName}
+		,
+		#{memberNickName}
 		, #{boardContents}
 		, #{boardCategory}
+		<if test="boardImageOriginal != null and boardImageSaved != null">
+			, #{boardImageOriginal}
+			, #{boardImageSaved}
+		</if>
 		)
-</insert>
+	</insert>
 
-<!-- 게시글 읽기 -->
-<select id="boardList" parameterType="map" resultType="Board">
-	select
+	<!-- 전체 게시글 읽기 -->
+	<select id="boardList" parameterType="map" resultType="Board">
+	
+	 	select COUNT(l.boardNumber) as boardCount,
+			b.boardNumber boardNumber
+			, b.memberId memberId
+			, b.boardTitle boardTitle
+			, b.memberNickName memberNickName
+			, to_char(b.boardInputDate, 'YYYY-MM-DD') boardInputDate
+			, to_char(b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS') boardInputDateDetail
+			, b.boardHits boardHits
+			, b.boardReport boardReport
+			, b.boardCategory boardCategory
+			, b.boardImageSaved boardImageSaved
+		from boardLikedData l, board b
+
+		where b.boardNumber = l.boardNumber(+)
+		<if test="type != null and searchWord != null">
+			<if test="type == 'boardTitle'">
+				and boardTitle like '%' || #{searchWord} || '%'
+			</if>	
+			<if test="type == 'boardContents'">
+				and boardContents like '%' || #{searchWord} || '%'
+			</if>	
+			<if test="type == 'memberId'">
+				and b.memberId like '%' || #{searchWord} || '%'
+			</if>	
+			<if test="type == 'all'">
+				and boardTitle like '%' || #{searchWord} || '%'
+				or boardContents like '%' || #{searchWord} || '%'
+				or b.memberId like '%' || #{searchWord} || '%'
+			</if>	
+		</if>
+		group by b.boardNumber, b.memberId, b.boardTitle, b.memberNickName,
+				to_char(b.boardInputDate, 'YYYY-MM-DD'), b.boardInputDate, 'YYYY-MM-DD', to_char(b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS'),
+				b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS', b.boardHits, b.boardReport, b.boardCategory, b.boardImageSaved,
+				to_char(b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS')
+		ORDER BY boardInputDateDetail DESC
+	
+ 		<!-- select COUNT(l.boardNumber) as boardCount,
+			b.boardNumber boardNumber
+			, b.memberId memberId
+			, b.boardTitle boardTitle
+			, b.memberNickName memberNickName
+			, to_char(b.boardInputDate, 'YYYY-MM-DD') boardInputDate
+			, to_char(b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS') boardInputDateDetail
+			, b.boardHits boardHits
+			, b.boardReport boardReport
+			, b.boardCategory boardCategory
+			, b.boardImageSaved boardImageSaved
+		from boardLikedData l, board b
+		where b.boardNumber = l.boardNumber(+)
+		group by b.boardNumber, b.memberId, b.boardTitle, b.memberNickName,
+				to_char(b.boardInputDate, 'YYYY-MM-DD'), b.boardInputDate, 'YYYY-MM-DD', to_char(b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS'),
+				b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS', b.boardHits, b.boardReport, b.boardCategory, b.boardImageSaved,
+				to_char(b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS')
+		ORDER BY boardInputDateDetail DESC -->
+	</select>
+
+	<!-- 한 개 게시글 읽기 -->
+	<select id="boardRead" parameterType="int" resultType="Board">
+		select
 		boardNumber
 		, memberId
 		, boardTitle
 		, memberNickName
-		, to_char(boardInputDate, 'YYYY-MM-DD') boardInputDate
-		, to_char(boardInputDate, 'YYYY-MM-DD HH24:MI:SS') boardInputDateDetail
-		, boardHits
-		, boardLiked
-		, boardReport
-		, boardContents
-		, boardCategory
-		, boardImageOriginal
-		, boardImageSaved
-	from
-		Board
-	order by boardInputDateDetail desc
-</select>
-
-<!-- 게시글 읽기 -->
-<select id="boardRead" parameterType="int" resultType="Board">
-	select
-		boardNumber
-		, memberId
-		, boardTitle
-		, memberNickName
-		, to_char(boardInputDate, 'YYYY-MM-DD') boardInputDate
+		,
+		to_char(boardInputDate, 'YYYY-MM-DD') boardInputDate
 		<!-- , to_char(boardInputDate, 'YYYY-MM-DD HH24:MI:SS') boardInputDate -->
 		, boardHits
-		, boardLiked
 		, boardReport
 		, boardContents
 		, boardCategory
-		, boardImageOriginal
+		,
+		boardImageOriginal
 		, boardImageSaved
-	from
+		from
 		Board
 
-	where 
+		where
+		boardNumber =
+		#{boardNumber}
+	</select>
+
+	<!-- 조회수 1 증가 -->
+	<update id="updateHits" parameterType="int">
+		update
+		Board
+		set
+		boardHits =
+		boardHits + 1
+		where
 		boardNumber = #{boardNumber}
-</select>
+	</update>
 
-<!-- 조회수 1 증가 -->
-<update id="updateHits" parameterType="int">
-	update
-		Board
-	set
-		boardHits = boardHits + 1
-	where
-		boardNumber = #{boardNumber}
-</update>
+	<!-- 좋아요 1 추가 -->
+	<update id="boardRecommend" parameterType="BoardLiked">
+		insert into boardLikedData
+		(
+		boardLikedNumber,
+		boardNumber,
+		memberId
+		)
+		values (
+		boardLikedNumber_seq.nextval
+		, #{boardNumber}
+		, #{memberId}
+		)
 
-<!-- 전체 글 개수 (검색 필터링 후) -->
-<select id="countBoard" parameterType="map" resultType="int">
-	select 
-		count(boardNumber)
-	from 
-		Board
-</select>
+		<!-- update Board set boardLiked = boardLiked + 1 where boardNumber = #{boardNumber} -->
+	</update>
 
-<!-- 글 수정 -->
-<update id="boardUpdate" parameterType="Board">
-	update
-		Board
-	set
-		boardTitle = #{boardTitle}
-		, boardContents = #{boardContents}
-		<if test="boardImageOriginal != null and boardImageSaved != null">
-		, boardImageOriginal = #{boardImageOriginal}
-		, boardImageSaved = #{boardImageSaved}
+	<!-- 좋아요 출력 -->
+	<select id="boardSelectRecommend" parameterType="int"
+		resultType="int">
+		SELECT COUNT(*) as count
+		FROM boardLikedData l, board b
+		WHERE l.boardNumber = b.boardNumber
+		AND b.boardNumber = #{boardNumber}
+	</select>
+	
+	<!-- 좋아요 체크 -->
+	<select id="getBoardLiked" parameterType="BoardLiked" resultType="BoardLiked">
+		select
+			boardLikedNumber,
+			boardNumber,
+			memberId
+		from boardLikedData
+		where boardNumber=#{boardNumber}
+			and memberId='test1'
+	</select>
+	
+	<!-- 좋아요 취소 -->
+	<delete id="deleteRecommend" parameterType="int">
+		delete
+		from boardLikedData
+		where boardLikedNumber=#{boardLikedNumber}
+	</delete>
+
+	<!-- 전체 글 개수 (검색 필터링 후) -->
+	<select id="countBoard" parameterType="map" resultType="int">
+		select
+			count(boardNumber)
+		from
+			Board
+			<if test="type != null and searchWord != null">
+	<where>
+		<if test="type == 'boardTitle'">
+			boardTitle like '%' || #{searchWord} || '%'
+		</if>	
+		<if test="type == 'boardContents'">
+			boardContents like '%' || #{searchWord} || '%'
+		</if>	
+		<if test="type == 'memberId'">
+			memberId like '%' || #{searchWord} || '%'
+		</if>	
+		<if test="type == 'all'">
+			boardTitle like '%' || #{searchWord} || '%'
+			or boardContents like '%' || #{searchWord} || '%'
+			or memberId like '%' || #{searchWord} || '%'
 		</if>
-	where
+	</where> 
+	</if>
+	</select>
+
+	<!-- 글 수정 -->
+	<update id="boardUpdate" parameterType="Board">
+		update
+		Board
+		set
+		boardTitle = #{boardTitle}
+		, boardContents =
+		#{boardContents}
+		,
+		boardCategory = #{boardCategory}
+		<if test="boardImageOriginal != null and boardImageSaved != null">
+			, boardImageOriginal = #{boardImageOriginal}
+			,
+			boardImageSaved = #{boardImageSaved}
+		</if>
+		where
 		boardNumber = #{boardNumber}
 		<!-- and memberid = #{memberid} -->
-</update>
+	</update>
 
-<!-- 글 삭제 -->
-<delete id="boardDelete" parameterType="Board">
-	delete from
+	<!-- 글 삭제 -->
+	<delete id="boardDelete" parameterType="Board">
+		delete from
 		Board
-	where
+		where
 		boardNumber = #{boardNumber}
 		<!-- and memberId = #{memberId} -->
-</delete>
+	</delete>
 
 </mapper>

@@ -126,12 +126,10 @@ CREATE TABLE BOARD
     boardHits number DEFAULT 0,
 		/* 글 조회수 */
     boardLiked number DEFAULT 0,
-		/* 글 추천수 */
-    boardReport number DEFAULT 0,
 		/* 글 신고수 */
     boardContents varchar2(4000) NOT NULL,
 		/* 글 내용 */
-    boardCategory varchar2(20) default 'Daily' CHECK (boardCategory IN ('Daily', 'Gather', 'Tip')),
+    boardCategory varchar2(20) default '전체' CHECK (boardCategory IN ('전체', '일상', '모임', 'Tip')),
 		/* 글 말머리 */
     boardImageOriginal varchar2(300),
 		/* 게시글 이미지 첨부파일*/
@@ -140,6 +138,18 @@ CREATE TABLE BOARD
 );
 
 create sequence boardNumber_seq;
+
+create table boardLikedData
+(
+    boardLikedNumber number primary key not null,
+    memberId varchar2(40) references members(memberId),
+    boardNumber number references board(boardNumber),
+);
+
+create sequence boardLikedNumber_seq;
+drop table boardLikedData;
+drop sequence boardLikedNumber_seq;
+
 
 
 CREATE TABLE reply
@@ -214,8 +224,14 @@ CREATE TABLE facilities
 (
 	facilitiesNumber   NUMBER CONSTRAINT facilities_facilitiesNumber_pk PRIMARY KEY,
                 -- 시설 번호
-	facilitiesName      VARCHAR2(100) CONSTRAINT facilities_faciliteisName_NN NOT NULL
+	facilitiesName      VARCHAR2(100) CONSTRAINT facilities_faciliteisName_NN NOT NULL,
                 -- 시설 이름
+    facilitiesAddress VARCHAR2(300),
+                -- 시설 도로명 주소
+    facilitiesDetailAddress VARCHAR2(300),
+                -- 시설 지번 주소
+    facilitiesPhoneNumber VARCHAR2(40)
+                -- 시설 전화번호
 );
 
 CREATE TABLE faclitiesEvaluation
