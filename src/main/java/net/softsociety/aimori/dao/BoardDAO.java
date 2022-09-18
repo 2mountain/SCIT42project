@@ -33,5 +33,9 @@ public interface BoardDAO {
 	public int boardRecommend(BoardLiked boardLiked);
 	// 좋아요 조회
 	public int boardSelectRecommend(int boardNumber);
+	// 좋아요 불러와서 체크
+	public BoardLiked getBoardLiked(BoardLiked boardLiked);
+	// 좋아요 취소
+	public void deleteRecommend(int boardLikedNumber);
 
 }

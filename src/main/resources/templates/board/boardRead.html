@@ -75,8 +75,16 @@
 				data : {
 					boardNumber : boardNumber
 				},
-				success : function() {
-					$("#liked").text(Number(likeCount)+ 1);				
+				success : function(isLiked) {
+					
+					if(isLiked == 0){
+						$("#liked").text(Number(likeCount) - 1);
+						$("#recommendbtn").attr("src", "../img/board-img/heartEmpty.png");
+					} else {
+						$("#liked").text(Number(likeCount)+ 1);		
+						$("#recommendbtn").attr("src", "../img/board-img/heartFull.png");
+					}
+					
 				},
 				error : function(request, status, error) {
 					alert("status : " + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
@@ -267,25 +275,36 @@
 					<th class="readCenter" id="boardReadContents">내용</th>
 					<td><textarea name="boardContents"
 							style="width: 900px; height: 600px;" id="contents"
-							th:text="${board.boardContents}" readonly></textarea></td>
+							th:text="${board.boardContents}" readonly></textarea>
+					</td>
 				</tr>
 				<tr>
 					<th style="text-align: center;">파일첨부</th>
 					<td><a
 						th:href="@{/board/download(boardNumber=${board.boardNumber})}"
-						th:text="${board.boardImageOriginal}"></a> <!-- temp --> <img
-						th:src="@{/img/boardSave-img/} + ${board.boardImageSaved}"
-						width="100"></td>
+						th:text="${board.boardImageOriginal}"></a>
+						<!-- temp -->
+						<img th:src="@{/img/boardSave-img/} + ${board.boardImageSaved}" width="100">
+					</td>
 				</tr>
 				<tr>
 					<th colspan="2" style="background-color: white;">
 						<div class="pull-right">
-							<a> <img th:src="@{/img/board-img/goodIcon.png}" width="50"
+							<a th:if="${boardLiked2.boardLikedNumber == null}">
+							<img th:src="@{/img/board-img/heartEmpty.png}" width="50"
 								type="button" id="recommendbtn"
 								th:boardNumber="${board.boardNumber}">
-							</a> <span id="liked" style="font-size: 25px;"
+							</a>
+				
+							<a th:if="${boardLiked2.boardLikedNumber != null}">
+							<img th:src="@{/img/board-img/heartFull.png}" width="50"
+								type="button" id="recommendbtn"
+								th:boardNumber="${board.boardNumber}">
+							</a>
+							<span id="liked" style="font-size: 25px;"
 								th:text="${boardLikedData}"></span>
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<a>
 								<img th:src="@{/img/board-img/report.png}" width="50">
 							</a>
 						</div>
