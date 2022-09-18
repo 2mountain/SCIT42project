@@ -1,6 +1,10 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html lang="en" xmlns:th="http://thymeleaf.org"
 				xmlns:sec="http://thymeleaf.org/extras/spring-security">
+=======
+<html lang="en" xmlns:th="http://thymeleaf.org">
+>>>>>>> d4e06de82319739db0968b3d300578b7658f1f5a
 
 <head>
 <meta charset="UTF-8">
@@ -269,10 +273,15 @@ html {
 	window.onload = function() {
 		let getClickedStar = document.getElementsByClassName('starClick');
 		let selectedStar = document.getElementById('selectdStar');
+<<<<<<< HEAD
+=======
+		console.log(event.target);
+>>>>>>> d4e06de82319739db0968b3d300578b7658f1f5a
 
 		function clickedStar(event) {
 			if (event.target.classList[1] === "clicked") {
 				event.target.classList.remove("clicked");
+<<<<<<< HEAD
 				getClickedStar[i].setAttribute('class', 'btn sanBtn1 writeFacilityReview shorter starClick');
 			} else {
 				for (var i = 0; i < getClickedStar.length; i++) {
@@ -283,6 +292,15 @@ html {
 				event.target.classList.add("clicked");
 				selectedStar.value = event.target.value;
 				event.target.setAttribute('class', 'btn sanBtn1 writeFacilityReview shorter2 starClick');
+=======
+			} else {
+				for (var i = 0; i < getClickedStar.length; i++) {
+					getClickedStar[i].classList.remove("clicked");
+				}
+
+				event.target.classList.add("clicked");
+				selectedStar.value = event.target.value;
+>>>>>>> d4e06de82319739db0968b3d300578b7658f1f5a
 			}
 		}
 
@@ -537,16 +555,23 @@ html {
 												<input type="button" class="btn sanBtn2 mr-3 mt-2" value="길찾기" onclick="findWay()">
 											</th>
 											<td>
+<<<<<<< HEAD
 												<input type="button" class="btn sanBtn1 mt-2" value="후기 남기기" onclick="showNow()" 
 													> <!-- sec:authorize="isAuthenticated()" -->
 												<input type="button" class="btn sanBtn1 mt-2 writeFacilityReview shorter" 
 													value="Ⅹ" style="display: none" onclick="showOff()"> <!-- sec:authorize="isAuthenticated()" -->
+=======
+												<input type="button" class="btn sanBtn1 mt-2" value="후기 남기기" onclick="showNow()">
+												<input type="button" class="btn sanBtn1 mt-2 writeFacilityReview shorter" 
+													value="Ⅹ" style="display: none" onclick="showOff()">
+>>>>>>> d4e06de82319739db0968b3d300578b7658f1f5a
 											</td>
 										</tr>
 									</table>
 								</div>
 								
 								<!-- 후기 남기기 Form -->
+<<<<<<< HEAD
 								<form class="writeFacilityReview" style="display: none">
 									<div class="form-group"><!-- sec:authorize="isAuthenticated()" -->
 										<span>ID : <span sec:authentication="name"></span></span>
@@ -576,6 +601,44 @@ html {
 											cols="30" rows="10" placeholder="리뷰를 작성해주세요"></textarea>
 									</div>
 									<input type="button" class="btn float-right san-ok-btn" value="확인">
+=======
+								<form action="#" class="writeFacilityReview" method="post" style="display: none">
+									<div class="form-group">
+										현재 로그인한 유저 닉네임
+										<input type="text" class="form-control" id="contact-name"
+											placeholder="Name">
+									</div>
+									<div class="form-group">
+										평점 선택 
+										<input type="text" id="selectdStar" hidden="hidden" name="facilitiesStar" value="">
+										<!-- 에 사용자가 누른 별점 버튼의 value를 보내서 여기에 ~.value로 입력 -->
+										
+							~ㄻㄴㅇㄹㅁㄴㅇㄻㄴㅇㄹ	<!-- 사용자가 누른 버튼 색상 변경하기 -->
+										<input type="button" class="btn sanBtn1 mt-2 writeFacilityReview shorter starClick"
+													value="0">
+										<input type="button" class="btn sanBtn1 mt-2 writeFacilityReview shorter starClick" 
+													value="1">
+										<input type="button" class="btn sanBtn1 mt-2 writeFacilityReview shorter starClick" 
+													value="2">
+										<input type="button" class="btn sanBtn1 mt-2 writeFacilityReview shorter starClick" 
+													value="3">
+										<input type="button" class="btn sanBtn1 mt-2 writeFacilityReview shorter starClick" 
+													value="4">
+										<input type="button" class="btn sanBtn1 mt-2 writeFacilityReview shorter starClick" 
+													value="5">
+									</div>
+									<div class="form-group">
+										<input type="text" class="form-control" id="contact-website"
+											placeholder="Website">
+									</div>
+									<div class="form-group">
+										후기 내용
+										<textarea class="form-control" name="message" id="message"
+											cols="30" rows="10" placeholder="Message"></textarea>
+									</div>
+									<button type="submit" class="btn contact-btn">Send
+										Message</button>
+>>>>>>> d4e06de82319739db0968b3d300578b7658f1f5a
 								</form>
 							</div>
 						</div>
@@ -700,13 +763,23 @@ html {
 						let lat = latlon[1];
 
 						// 검색 반경 변경 버튼(1 km, 2 km, 3 km, 4 km, 5 km, 10 km)
+<<<<<<< HEAD
 						let chR = document.getElementsByClassName('radiusChange');
+=======
+						let chR = document
+								.getElementsByClassName('radiusChange');
+>>>>>>> d4e06de82319739db0968b3d300578b7658f1f5a
 
 						// chR[i].value의 숫자와 문자를 분리하기 위한 변수 
 						const regex = /[^0-9]/g;
 
 						// controller로 변경된 radius 값을 보내기 위한 변수 ==> 지도 상단의 현재 반경 값
+<<<<<<< HEAD
 						let chRhtml = document.getElementsByClassName('currentRadius');
+=======
+						let chRhtml = document
+								.getElementsByClassName('currentRadius');
+>>>>>>> d4e06de82319739db0968b3d300578b7658f1f5a
 
 						// 누른 검색 반경 버튼 인식
 						for (let i = 0; i < chR.length; i++) {
@@ -1086,6 +1159,7 @@ html {
 						let showIt = document
 								.getElementById('facilitiesReview');
 
+<<<<<<< HEAD
 						// 찾은 값 출력할 element의 속성 보이게 변경
 						showIt.setAttribute('style', 'display:visible');
 						// 스크롤 이동
@@ -1095,6 +1169,13 @@ html {
 						// 없다면 시설 데이터를 서비스에서 insert
 						findFacilitiesData(facilityName, facilityAddress, facilityDetailAddress, facilityPhoneNumber);
 						
+=======
+						// 찾은 값 출력할 element의 속성 변경
+						showIt.setAttribute('style', 'display:visible');
+
+						window.scrollTo(0, 1000);
+
+>>>>>>> d4e06de82319739db0968b3d300578b7658f1f5a
 						// 경로 찾기
 						if (status === kakao.maps.services.Status.OK) {
 							detailAddr = !!result[0].road_address ? result[0].road_address.address_name
@@ -1109,6 +1190,7 @@ html {
 							findWayTitle = title;
 						}
 					}
+<<<<<<< HEAD
 					//
 					// 찾은 데이터가 facilities 테이블에 있는지 확인 후, 있다면 리뷰를 가져오고, 없다면 데이터를 insert하는 함수
 					function findFacilitiesData(facilityName, facilityAddress, facilityDetailAddress, facilityPhoneNumber){
@@ -1145,6 +1227,8 @@ html {
 							}
 						});
 					}
+=======
+>>>>>>> d4e06de82319739db0968b3d300578b7658f1f5a
 					
 					// 가장 가까운 수를 찾는 함수
 					function findNearestNumber(numbers, number) {

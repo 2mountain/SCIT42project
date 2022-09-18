@@ -1,25 +1,36 @@
 package net.softsociety.aimori.controller;
 
+<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
+=======
+>>>>>>> d4e06de82319739db0968b3d300578b7658f1f5a
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
 import net.softsociety.aimori.domain.Facilities;
 import net.softsociety.aimori.domain.FacilitiesValuation;
 import net.softsociety.aimori.service.FacilitiesService;
+=======
+
+import lombok.extern.slf4j.Slf4j;
+>>>>>>> d4e06de82319739db0968b3d300578b7658f1f5a
 
 @Slf4j
 @RequestMapping("facilities")
 @Controller
 public class FacilitiesController {
+<<<<<<< HEAD
 	@Autowired
 	FacilitiesService service;
+=======
+>>>>>>> d4e06de82319739db0968b3d300578b7658f1f5a
 	
 	@GetMapping({"", "/"})
 	public String facilities(Model model) {
@@ -48,6 +59,7 @@ public class FacilitiesController {
 		
 		return "facilities/facilities";
 	}
+<<<<<<< HEAD
 	
 	// 시설 선택시 해당 시설이 DB에 있는지 확인 / 있다면 해당 시설 리뷰 return / 없다면 해당 시설 DB에 insert
 	@ResponseBody
@@ -96,4 +108,6 @@ public class FacilitiesController {
 		
 		return result;
 	}
+=======
+>>>>>>> d4e06de82319739db0968b3d300578b7658f1f5a
 }
