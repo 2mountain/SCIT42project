@@ -1194,6 +1194,21 @@ th.facilityInfo, #findWayButton {
     border-radius: 30px;
 }
 
+<<<<<<< HEAD
+.san-ok-btn {
+    margin-top: 1px;
+    width: 160px;
+    height: 40px;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #fff;
+    background-color: #0080ff;
+    border-radius: 30px;
+}
+
+=======
+>>>>>>> d4e06de82319739db0968b3d300578b7658f1f5a
 .contact-btn:hover {
     color: #fff;
     background-color: #d43f10;
@@ -1210,17 +1225,24 @@ th.facilityInfo, #findWayButton {
     font-size: 12px;
     font-weight: 500;
     color: #fff;
+<<<<<<< HEAD
+    background-color: #218838;
+=======
     background-color: #fc6c3f;
+>>>>>>> d4e06de82319739db0968b3d300578b7658f1f5a
     border-radius: 30px;
     text-align : center;
 }
 
+<<<<<<< HEAD
+=======
 .shorter {
 	width: 30px;
 	padding : 0;
     background-color: #818f9d;
 }
 
+>>>>>>> d4e06de82319739db0968b3d300578b7658f1f5a
 .sanBtn2 {
     width: 80px;
     height: 31px;
@@ -1231,6 +1253,22 @@ th.facilityInfo, #findWayButton {
     border-radius: 30px;
     text-align : center;
 }
+<<<<<<< HEAD
+
+.shorter {
+	width: 30px;
+	padding : 0;
+    background-color: #818f9d;
+}
+
+.shorter2 {
+	width: 30px;
+	padding : 0;
+    background-color: #218838;
+}
+
+=======
+>>>>>>> d4e06de82319739db0968b3d300578b7658f1f5a
 /* -------------------- 
 :: 14.0 Single Blog CSS
 -------------------- */
