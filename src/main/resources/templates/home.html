@@ -36,13 +36,13 @@
 			width: 100%;
 			position: relative;
 		}
+
 		.weather-text {
 			position: absolute;
-			top : 10%;
+			top: 5%;
 			width: 100%;
 			font-size: 5px;
-			text-align:center;
-			color: white;
+			text-align: center;
 		}
 	</style>
 
@@ -259,7 +259,7 @@
 			<div class="row">
 				<div class="col-12 col-md-6 col-lg-4">
 					<div class="single_catagory wow fadeInUp" data-wow-delay=".3s">
-						<img src="img/catagory-img/goout.jpg" alt="">
+						<img src="img/catagory-img/goout.jpg" width="393" height="294" alt="">
 
 						<div class="catagory-title">
 							<a href="#">
@@ -273,7 +273,7 @@
 				</div>
 				<div class="col-12 col-md-6 col-lg-4">
 					<div class="single_catagory wow fadeInUp" data-wow-delay=".6s">
-						<img src="img/catagory-img/2.jpg" alt="">
+						<img src="img/catagory-img/ch2.jpg" width="393" height="294" alt="">
 						<div class="catagory-title">
 							<a href="#">
 								<h5>challenge</h5>
@@ -738,8 +738,12 @@
 								<h6>About Me</h6>
 							</div>
 							<div class="about-me-widget-thumb">
-								<img src="img/about-img/1.jpg" alt="">
+								<a href="https://naver.com">
+								
+									<img src="img/about-img/1.jpg" alt="">
+								</a>
 							</div>
+
 							<h4 class="font-shadow-into-light">Shopia Bernard</h4>
 							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
 								sed do eiusmod tempor incididunt</p>
@@ -805,22 +809,26 @@
 						</div>
 
 
-						<!-- Single Widget weather Area -->
+						<!-- weather search Area -->
 						<div class="weather-wrap">
 							<div class="weather-image">
-								<img src="img/sidebar-img/weathermain.jpg" alt="">
+								<img src="img/sidebar-img/mainondo.jpg" alt="">
 							</div>
 
 							<div class="weather-text">
-								<h2>Today's weather</h2>
-								<h2>current weather</h2>
-								<h3 class="time">현재 시간:</h3>
-								<h3 class="ctemp">현재 온도:</h3>
-								<h3 class="lowtemp">최저 온도:</h3>
-								<h3 class="hightemp">최고 온도:</h3>
+								<h2 style="color:white; font-size:30px;">Today's weather</h2>
+								<h3 class="ctemp" style="color:white; font-size:25px;">현재 온도 : </h3>
+								<h3 class="lowtemp" style="color:blue; font-size:20px;">최저 온도 : </h3>
+								<h3 class="hightemp" style="color:red; font-size:20px;">최고 온도 : </h3>
 								<h3 class="icon"></h3>
-								<p><button type="button" class="btn btn-success btn-sm">어디로 갈까요?</button></p>
+
+								<form id="weatherform" th:action="@{/weather/goOut}" method="get">
+									<input type="hidden" id="weather" name="weather">
+									<p><button class="btn btn-success btn-sm" type="submit" id="weathersubmit">어디로
+											갈까요?</button></p>
+								</form>
 							</div>
+
 						</div>
 
 	</section>
@@ -977,9 +985,9 @@
 					<div class="footer-content">
 						<!-- Logo Area Start -->
 						<div class="footer-logo-area text-center">
-						<img src="img/bg-img/petlogo.jpg" alt="">
-						<a href="home.html" class="yummy-logo"></a>
-							
+							<img src="img/bg-img/petlogo.jpg" alt="">
+							<a href="home.html" class="yummy-logo"></a>
+
 						</div>
 						<!-- Menu Area Start -->
 						<nav class="navbar navbar-expand-lg">
@@ -1047,27 +1055,42 @@
 			//result.weather[0].icon 현재 날씨 가져오기
 			var wiconUrl = '<img src="https://openweathermap.org/img/wn/' + result.weather[0].icon + '.png" alt="' + result.weather[0].description + '">'
 			$('.icon').append(wiconUrl);
-			
-				  
-		//현재시간 가져오기
-		var ct = result.dt;
-		
-		function convertTime(t){
-			var originalTime = new Date(t*1000);
-			//Tue Sep 13 2022 09:34:07 GMT+0900 (한국 표준시)
-			//너무 길어서 쪼개서 출력한다
-			var hr = originalTime.getHours();
-			var m = originalTime.getMinutes();
-			var s = originalTime.getSeconds();
-			
-			return hr + ':' + m + ':' + s
-			
-		} 
-		
-		var currentTime = convertTime(ct)
-		$('.time').append(currentTime);
-			
+
+			$("#weather").val(result.weather[0].description);
+
+			console.log(result.weather[0].icon);
+			console.log(result.weather[0].description);
+
+			//현재시간 가져오기
+			var ct = result.dt;
+
+			function convertTime(t) {
+				var originalTime = new Date(t * 1000);
+				//Tue Sep 13 2022 09:34:07 GMT+0900 (한국 표준시)
+				//너무 길어서 쪼개서 출력한다
+				var hr = originalTime.getHours();
+				var m = originalTime.getMinutes();
+				var s = originalTime.getSeconds();
+
+				return hr + ':' + m + ':' + s
+
+			}
+
+			var currentTime = convertTime(ct)
+			$('.time').append(currentTime);
+
 		});
 	</script>
+
+	<script>
+
+		$(document).ready(function () {
+
+			$('[data-toggle="tooltip"]').tooltip();
+
+		});
+
+	</script>
+
 
 </body>
