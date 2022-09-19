@@ -447,9 +447,12 @@ html {
 	<section class="archive-area mt-4">
 		<div class="container">
 			<h3 id="mapExplain">내 위치 주변 반려동물 시설</h3>
-			<div class="ml-5 mt-1">- 현재 검색 반경 : 
+			<span class="ml-5 mt-1">- 현재 검색 반경 : 
 				<span class="mt-3 currentRadius" th:text="${radius/1000}">(기본 검색반경) 3</span> km
-			</div>
+			</span>
+			<span class="ml-5 mt-1">- 현재 검색 테마 : 
+				<span class="mt-3 currentRadius" th:text="${place}">현재 검색어</span>
+			</span>
 
 			<!-- KAKAOMAP API - 카카오맵 -->
 			<div class="single-post wow fadeInUp" data-wow-delay="0.1s">
@@ -485,8 +488,7 @@ html {
 					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="동물병원"> 
 					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="공원"> 
 					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="애견카페"> 
-					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="킹콩백화점"> 
-					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="동물">
+					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="애견호텔"> 
 				</div>
 				
 				<div class="d-flex flex-row justify-content-center">
@@ -503,7 +505,7 @@ html {
 				<div id="facilitiesReview" style="display: none">
 					<div>
 						<hr>
-						<div class="col-12 col-md-10 item">
+						<div class="col-12 col-md-5 item">
 							<div class="contact-form wow fadeInUpBig" data-wow-delay="0.1s">
 								<h2 class="contact-form-title mb-30 mt-5 facilityInfo" id="selectedFacilityName">가게명</h2>
 								<div class="mt-4 mb-5">
@@ -550,6 +552,7 @@ html {
 								<form class="writeFacilityReview" style="display: none">
 									<div class="form-group"><!-- sec:authorize="isAuthenticated()" -->
 										<span>ID : <span sec:authentication="name"></span></span>
+										닉네임으로 수정? - 타임리프?
 									</div>
 									<div class="form-group">
 										<div class="mb-2">평점 선택</div> 
@@ -639,7 +642,7 @@ html {
 						// 마커에 클릭 이벤트를 등록한다 (우클릭 : rightclick)
 						kakao.maps.event.addListener(marker, 'click',
 								function() {
-									alert('마커를 클릭했습니다!');
+									alert('현위치');
 								});
 
 						// 기존에 마커가 있다면 제거
