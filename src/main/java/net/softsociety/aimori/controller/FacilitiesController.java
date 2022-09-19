@@ -1,6 +1,8 @@
 package net.softsociety.aimori.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,7 +55,6 @@ public class FacilitiesController {
 	@ResponseBody
 	@PostMapping("/findFacilitiesData")
 	public FacilitiesValuation findFacilitiesData(Facilities facilities) {
-		log.debug("★ findFacilitiesData");
 		log.debug("[FacilitiesController] findFacilitiesData - parameter : {}", facilities);
 
 		// parameter와 일치하는 시설이 있는지 확인하는 메소드
@@ -86,14 +87,86 @@ public class FacilitiesController {
 	}
 	
 	/**
+	 * 시설의 평점을 찾는 메소드
+	 * @param facilities
+	 * @return 시설 평점
+	 */
+	@ResponseBody
+	@PostMapping("/findFacilitiesStar")
+	public double findFacilitiesStar(Facilities facilities) {
+		log.debug("findFacilitiesStar : {}", facilities);
+		
+		int facilitesNumber = service.findFacilitiesNumber(facilities);
+		log.debug("facilitesNumber : {}", facilitesNumber);
+		
+		double result = service.findFacilitiesStar(facilitesNumber);
+		log.debug("result : {}", result);
+		
+		if(result > 5) {
+			return 0;
+		}
+		
+		
+		return result;
+	}
+	
+	/**
 	 * parameter로 받은 시설 정보를 facilities테이블에 넣는 메소드
 	 * @param facilities
 	 * @return 0 || 1
 	 */
 	public int insertFacilities(Facilities facilities) {
 		
+		if(facilities.getFacilitiesAddress().length() <= 0) {
+			facilities.setFacilitiesAddress("없음");
+		}
+		if(facilities.getFacilitiesDetailAddress().length() <= 0) {
+			facilities.setFacilitiesDetailAddress("없음");
+		}
+		if(facilities.getFacilitiesPhoneNumber().length() <= 0) {
+			facilities.setFacilitiesPhoneNumber("없음");
+		}
+		
 		int result = service.insertFacilities(facilities);
 		
 		return result;
 	}
+	
+	/**
+	 * 시설에 리뷰 작성 insert
+	 * @param facilities
+	 * @param fv
+	 * @param user
+	 * @return 0 || 1
+	 */
+	@ResponseBody
+	@PostMapping("/insertFacilitiesReview")
+	public int insertFacilitiesReview(Facilities facilities 
+									 , FacilitiesValuation fv 
+									 // , @AuthenticationPrincipal UserDetails user
+									 ) {
+		log.debug("writeFacilitiesReview");
+		log.debug("[FacilitiesController] "
+				+ "writeFacilitiesReview - parameter : {} / {} / {}", 
+				facilities, fv);
+		
+		// parameter로 전달받은 시설의 DB등록 번호를 찾는 메소드
+		int facilitiesNumber = service.findFacilitiesNumber(facilities);
+		log.debug("{}", facilitiesNumber);
+		
+		// 시설 번호 등록
+		fv.setFacilitiesNumber(facilitiesNumber);
+		// 회원 아이디 등록
+		// fv.setMemberId(user.getUsername()); 
+
+		// (테스트용)삭제할 것
+		fv.setMemberId("san"); 
+
+		log.debug("ing : {}", fv);
+		// FacilitiesValuation 테이블에 값을 넣는 메소드
+		int result = service.insertFacilitiesReview(fv);
+		
+		return result;
+	}
+
 }
