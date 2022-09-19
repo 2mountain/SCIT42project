@@ -290,12 +290,12 @@
 				<tr>
 					<th colspan="2" style="background-color: white;">
 						<div class="pull-right">
-							<a th:if="${boardLiked2.boardLikedNumber == null}">
+							<a th:if="${ifLiked.boardLikedNumber == 0}">
 							<img th:src="@{/img/board-img/heartEmpty.png}" width="50"
 								type="button" id="recommendbtn"
 								th:boardNumber="${board.boardNumber}">
 							</a>
-							<a th:if="${boardLiked2.boardLikedNumber != null}">
+							<a th:if="${ifLiked.boardLikedNumber != 0}">
 							<img th:src="@{/img/board-img/heartFull.png}" width="50"
 								type="button" id="recommendbtn"
 								th:boardNumber="${board.boardNumber}">

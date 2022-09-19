@@ -338,7 +338,7 @@ public class BoardController {
 		BoardLiked boardLiked2 = service.getBoardLiked(boardLiked);
 
 		log.debug("새롭게 얻은 boardLiked:{}", boardLiked2);
-
+		
 		// 좋아요가 되어 있지 않다면(객체가 null)이라면
 		if (boardLiked2 == null) {
 			// insert
