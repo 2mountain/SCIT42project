@@ -22,6 +22,7 @@ public class Member implements UserDetails {
 
 	String memberId;		// 회원 아이디
 	String memberPassword;	// 회원 비밀번호
+	String memberPassword2;	// 회원 비밀번호 일치 여부를 확인하기 위한 변수
 	String memberNickName;	// 회원 닉네임
 	String memberPostCode;	// 회원 우편번호
 	String memberAddress;	// 회원 주소
