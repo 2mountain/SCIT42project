@@ -164,7 +164,7 @@ public class BoardController {
 		}
 		
 		log.debug("좋아요 여부 :{}", boardLiked2 );
-
+		
 		log.debug("boardliked 값: {}", boardliked);
 
 		// 결과를 모델에 담아서 HTML에서 출력
@@ -309,7 +309,7 @@ public class BoardController {
 		if (result == 1 && savedfile != null) {
 			FileService.deleteFile(uploadPath + "/" + savedfile);
 		}
-
+		
 		return "redirect:/board/list";
 	}
 
