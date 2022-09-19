@@ -2,7 +2,7 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Aimori</title>
+<title>회원가입</title>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script th:src="@{/js/jquery/jquery-3.6.0.js}"></script>
 <!-- 이메일 인증 -->
@@ -41,15 +41,32 @@
 	function checkCode() {
 		let checkBox = document.getElementById("checkBox").value;
 		if(checkBox != inputCode){
-			alert("인증번호가 일치하지 않습니다.")
+			alert("인증번호가 일치하지 않습니다.");
 			return false;
 		}else{
-			alert("인증번호가 일치합니다.")
+			alert("인증번호가 일치합니다.");
 			return true;
 		}
 	}
 	
-	<!-- 주소 찾기 -->
+	function passwordCheck() {
+		var p1 = document.getElementById('memberPassword').value;
+		var p2 = document.getElementById('memberPassword2').value;
+		
+		if(p1.length < 8) {
+			alert('비밀번호는 8~20자 이내로 입력해주세요.');
+			return false;
+		}
+		
+		if( p1 != p2 ) {
+			alert('비밀번호가 일치하지 않습니다.');
+			return false;
+		} else {
+			alert('비밀번호가 일치합니다.');
+			return true;
+		}
+	}
+	
     function DaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -83,31 +100,23 @@
     	window.open('nNCheck', 'newWindow', 'left=550, top=200, width=350, height=200, menubar=no');
     }
     
-    function check(event) {
-    	
-    	event.preventDefault();
+    function check() {
+    	alert('check');
+    	//event.preventDefault();
     	
     	var result = true;
         
         let memberId = document.getElementById("memberId");
-        let	memberPassword = document.getElementById("memberPassword");
         let memberNickName = document.getElementById("memberNickName");
         let memberEmail = document.getElementById("memberEmail");
         let memberPostCode = document.getElementById("memberPostCode");
-        let memberAddress = document.getElementsByName("memberAddress");
-        let memberDetailAddress = document.getElementsByName("memberDetailAddress");
+        let memberAddress = document.getElementById("memberAddress");
+        let memberDetailAddress = document.getElementById("memberDetailAddress");
 
         if(!(memberId.value.length >= 8 && memberId.value.length <= 20)) {
             alert("아이디는 8~20자 이내로 입력해주세요.");
             memberId.select();
             memberId.focus();
-            return false;
-        }
-        
-        if(!(memberPassword.value.length >= 8 && memberPassword.value.length <= 20)) {
-            alert("비밀번호는 8~20자 이내로 입력해주세요.");
-            memberPassword.select();
-            memberPassword.focus();
             return false;
         }
 
@@ -145,10 +154,9 @@
             memberEmail.focus();
             return false;
         }
+        alert("${memberNickName.value} 님 가입을 환영합니다.");
         
         return result;
-
-        alert("${memberNickName.value} 님 가입을 환영합니다.");
     }
 </script>
 <style>
@@ -316,7 +324,7 @@ color:#fff
 	</header>
 	
 <h2 style="text-align : center;">【 회원가입 】</h2>
-<form action="signIn" method="post">
+<form action="signIn" method="post" onsubmit="return check();">
     <div class="member">
         <div class="field api">
             <b>아이디</b>
@@ -331,9 +339,12 @@ color:#fff
             <input id="memberPassword" name="memberPassword" type="password" required="required" maxlength="40">
         </div>
         
-        <div class="field">
+        <div class="field api">
             <b>비밀번호 재확인</b>
-            <input id="memberPassword" name="memberPassword" type="password" required="required" maxlength="40">
+            <div>
+            <input id="memberPassword2" name="memberPassword2" type="password" required="required" maxlength="40">
+            <input type="button" onclick="passwordCheck()" value="비밀번호 확인">
+       		</div>
         </div>
         
         <div class="field birth">
