@@ -4,7 +4,52 @@
 <meta charset="UTF-8">
 <title>Aimori</title>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script th:src="@{/js/jquery/jquery-3.6.0.js}"></script>
+<!-- 이메일 인증 -->
+<script type="text/javascript"
+   src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
+<script type="text/javascript">
+        (function(){
+           
+           console.log('init 실행');
+            // emailJS 유저 ID
+           emailjs.init("d6Sms6uT5puaE2rA1");
+        })();
+</script>
 <script>
+	var inputCode = Math.random() * 100000 | 0;
+	function sendEmail() {
+		let memberEmail = document.getElementById("memberEmail").value;
+		   console.log(memberEmail);
+		   var templateParams = {
+		         
+		         memberEmail : memberEmail,
+		         inputCode : inputCode
+		         
+		   }
+		   console.log(templateParams);
+		   console.log(inputCode);
+		    // 서비스 id, 이메일 템플릿
+		    emailjs.send('service_ppgkb35', 'template_0by6k6q', templateParams)
+		   .then(function(response){
+		      alert("인증번호 전송 성공!");
+		   }, function(error){
+		      alert("인증번호 전송 실패!");
+		   });
+	}
+	
+	function checkCode() {
+		let checkBox = document.getElementById("checkBox").value;
+		if(checkBox != inputCode){
+			alert("인증번호가 일치하지 않습니다.")
+			return false;
+		}else{
+			alert("인증번호가 일치합니다.")
+			return true;
+		}
+	}
+	
+	<!-- 주소 찾기 -->
     function DaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -23,66 +68,11 @@
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('memberPostCode').value = data.zonecode;
-                document.getElementById("memberAddress").value = addr;
+                document.getElementById('memberAddress').value = addr;
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("memberDetailAddress").focus();
+                document.getElementById('memberDetailAddress').focus();
             }
         }).open();
-    }
-    
-    function emailSend(){
-    	let clientEmail = document.getElementById('memberEmail').value;
-    	let emailYN = isEmail(clientEmail);
-    	
-    	console.log('입력 이메일' + clientEmail);
-    	
-    	if(emailYN == true){
-    		alert('이메일 형식입니다');
-    		
-    		$.ajax({
-    			type:"POST",
-    			url:"/member/email",
-    			data:{memberEmail:clienEmail},
-    			success : function(data){
-    			},error : function(e){
-    				alert('오류입니다. 잠시 후 다시 시도해주세요.');
-    			}
-    		});
-    	
-    	}else{
-    		alert('이메일 형식에 알맞게 입력해주세요 xxx@xxx.com');
-    	}
-    }
-    
-    function isEmail(asValue) {
-    	var regExp = /^[0-9-zA-Z]([-_|.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_|.]?[0-9a-zA-Z])*|.[a-zA-Z]{2,3}$/i;
-    	return regExp.test(asValue);
-    }
-    
-    function emailCertification() {
-    	let clientEmail = document.getElementById('memberEmail').value;
-    	let inputCode = document.getElementById('certificationNumber').value;
-    	
-    	console.log('이메일' + clientEmail);
-    	console.log('인증코드' + inputCode);
-    	
-    	$.ajax({
-    		type:"POST",
-    		url:"/member/email/certification",
-    		data:{memberEmail:clientEmail, inputCode:inputCode},
-    		sucess : function(result){
-    			console.log(result);
-    			if(result==true){
-    				alert('인증완료');
-    				document.getElementById('certificationYN').value = "true";
-    				clientEmail.onchange = function() {
-    					document.getElementById('certificationYN').value = "false";
-    				}
-    			}else{
-    				alert('재시도');
-    			}
-    		}
-    	});
     }
     
     function idCheckForm() {
@@ -93,6 +83,73 @@
     	window.open('nNCheck', 'newWindow', 'left=550, top=200, width=350, height=200, menubar=no');
     }
     
+    function check(event) {
+    	
+    	event.preventDefault();
+    	
+    	var result = true;
+        
+        let memberId = document.getElementById("memberId");
+        let	memberPassword = document.getElementById("memberPassword");
+        let memberNickName = document.getElementById("memberNickName");
+        let memberEmail = document.getElementById("memberEmail");
+        let memberPostCode = document.getElementById("memberPostCode");
+        let memberAddress = document.getElementsByName("memberAddress");
+        let memberDetailAddress = document.getElementsByName("memberDetailAddress");
+
+        if(!(memberId.value.length >= 8 && memberId.value.length <= 20)) {
+            alert("아이디는 8~20자 이내로 입력해주세요.");
+            memberId.select();
+            memberId.focus();
+            return false;
+        }
+        
+        if(!(memberPassword.value.length >= 8 && memberPassword.value.length <= 20)) {
+            alert("비밀번호는 8~20자 이내로 입력해주세요.");
+            memberPassword.select();
+            memberPassword.focus();
+            return false;
+        }
+
+        if(memberNickName.value.length == 0) {
+            alert("닉네임은 필수 입력 항목입니다.");
+            memberNickName.select();
+            memberNickName.focus();
+            return false;
+        }
+
+        if(memberPostCode.value.length == 0) {
+            alert("우편번호는 필수 입력 항목입니다.");
+            memberPostCode.select();
+            memberPostCode.focus();
+            return false;
+        }
+        
+        if(memberAddress.value.length == 0) {
+            alert("주소는 필수 입력 항목입니다.");
+            memberAddress.select();
+            memberAddress.focus();
+            return false;
+        }
+        
+        if(memberDetailAddress.value.length == 0) {
+            alert("상세주소는 필수 입력 항목입니다.");
+            memberDetailAddress.select();
+            memberDetailAddress.focus();
+            return false;
+        }
+        
+        if(memberEmail.value.length == 0) {
+            alert("이메일은 필수 입력 항목입니다.");
+            memberEmail.select();
+            memberEmail.focus();
+            return false;
+        }
+        
+        return result;
+
+        alert("${memberNickName.value} 님 가입을 환영합니다.");
+    }
 </script>
 <style>
 @import url('https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700|Quicksand:300,400,500,700|Shadows+Into+Light+Two');
@@ -264,7 +321,7 @@ color:#fff
         <div class="field api">
             <b>아이디</b>
             <div>
-            <input id="memberId" name="memberId" type="text" required="required" maxlength="40" readonly="readonly">
+            <input id="memberId" name="memberId" type="text" required="required" maxlength="40" placeholder="ID 중복검사를 해주세요">
             <input id="checkbtn" type="button" value="ID 중복검사" onclick="idCheckForm()">
 			</div>
         </div>
@@ -289,23 +346,24 @@ color:#fff
         <div class="field api">
             <b>닉네임</b>
             <div>
-            <input id="memberNickName" name="memberNickName" type="text" required="required" maxlength="40" readonly="readonly">
+            <input id="memberNickName" name="memberNickName" type="text" required="required" maxlength="40" placeholder="닉네임 중복검사를 해주세요">
             <input id="checkbtn2" type="button" value="닉네임 중복검사" onclick="nNCheckForm()">
             </div>
         </div>
         
-        <div class="field api">
+		<div class="field api">
             <b>이메일</b>
             <div>
                 <input id="memberEmail" name="memberEmail" type="email" placeholder="이메일 입력" required="required" maxlength="40">
-                <button id="emailCheck" onclick="emailSend()">인증번호 받기</button>
+                <input type="button" value="인증번호 받기" onclick="sendEmail()">
             </div>
             <div>
-            	<input id="certificationNumber" name="certificationNumber" type="text" placeholder="인증번호를 입력하세요">
-            	<button id="crtificationBtn" onclick="emailCertification()">인증하기</button>
-            	<input type="hidden" name="certificationNumber" id="certificationYN" value="false">
+				<input id="checkBox" name="checkBox" type="text" placeholder="인증번호 입력" required="required" maxlength="40">
+				<!-- required="required" -->
+				<input type="button" value="인증번호 확인" onclick="checkCode()">
             </div>
         </div>
+        
         
         <div class="field api">
             <b>주소</b>
