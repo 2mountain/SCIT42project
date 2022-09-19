@@ -1,0 +1,68 @@
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DAO인터페이스와 매핑 -->
+<mapper namespace="net.softsociety.aimori.dao.FacilitiesDAO">
+	<select id="findFacilities" parameterType="Facilities" resultType="Facilities">
+		SELECT *
+		FROM facilities
+		WHERE facilitiesName = #{facilitiesName}
+	</select>
+	
+	<select id="findFacilitiesStar" parameterType="int" resultType="double">
+		SELECT ROUND(SUM(facilitiesStar)/COUNT(facilitiesStar), 2)
+		FROM facilitiesEvaluation
+		WHERE facilitiesNumber = #{facilitiesNumber}
+	</select>
+	
+	<insert id="insertFacilities" parameterType="Facilities">
+		INSERT INTO facilities
+		(
+			facilitiesNumber,
+    		facilitiesName,
+    		facilitiesAddress,
+    		facilitiesDetailAddress,
+    		facilitiesPhoneNumber
+		)
+		VALUES
+		(
+			facilitiesNumber_seq.nextval,
+			#{facilitiesName},
+			#{facilitiesAddress},
+			#{facilitiesDetailAddress},
+			#{facilitiesPhoneNumber}
+		)
+	</insert>
+	
+	<select id="findFacilitiesNumber" parameterType="Facilities" resultType="int">
+		SELECT facilitiesNumber
+		FROM facilities
+		WHERE facilitiesName = #{facilitiesName}
+	</select>
+	
+	<insert id="insertFacilitiesReview" parameterType="Facilities">
+		INSERT INTO facilitiesEvaluation
+		(
+		facilitiesEvaluationNumber,
+		facilitiesNumber, 		
+		memberId, 					
+		facilitiesReview, 			
+		facilitiesStar 			
+		)
+		VALUES
+		(
+		facilitiesEvaluationNumber_seq.nextval,
+		#{facilitiesNumber},
+		#{memberId},
+		#{facilitiesReview},
+		#{facilitiesStar}
+		)
+	</insert>
+	
+	<select id="countFaciliteisStar" parameterType="int" resultType="int">
+		SELECT COUNT(facilitiesstar) 
+		FROM facilitiesEvaluation 
+		WHERE facilitiesNumber = #{facilitiesNumber}
+	</select>
+</mapper>

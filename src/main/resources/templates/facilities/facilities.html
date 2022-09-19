@@ -242,6 +242,9 @@ html {
 </style>
 
 <script>
+	// 평점 제출 후 버튼 색 원상 복귀 위한 변수
+	let selectedStarAfterSubmit = "";
+		
 	window.onload = function() {
 		let pageTop = document.getElementById("pageTop");
 		let mapExplain = document.getElementById('mapExplain').offsetTop;
@@ -249,6 +252,33 @@ html {
 		pageTop.onclick = function() {
 			window.scrollTo(0, mapExplain - 5);
 		}
+		
+		let getClickedStar = document.getElementsByClassName('starClick');
+		let selectedStar = document.getElementById('selectedStar');
+		
+		function clickedStar(event) {
+			if (event.target.classList[1] === "clicked") {
+				event.target.classList.remove("clicked");
+				getClickedStar[i].setAttribute('class', 'btn sanBtn1 writeFacilityReview shorter starClick');
+			} else {
+				for (var i = 0; i < getClickedStar.length; i++) {
+					getClickedStar[i].classList.remove("clicked");
+					getClickedStar[i].setAttribute('class', 'btn sanBtn1 writeFacilityReview shorter starClick');
+				}
+				
+				event.target.classList.add("clicked");
+				selectedStar.value = event.target.value;
+				event.target.setAttribute('class', 'btn sanBtn1 writeFacilityReview shorter2 starClick');
+				selectedStarAfterSubmit =  event.target;
+			}
+		}
+
+		function init() {
+			for (var i = 0; i < getClickedStar.length; i++) {
+				getClickedStar[i].addEventListener("click", clickedStar);
+			}
+		}
+		init();
 	}
 	
 	function showNow(){
@@ -263,35 +293,6 @@ html {
 		showIt[0].setAttribute('style', 'display:none');
 		showIt[1].setAttribute('style', 'display:none');
 		window.scrollTo(0, 1000);
-	}
-	
-
-	window.onload = function() {
-		let getClickedStar = document.getElementsByClassName('starClick');
-		let selectedStar = document.getElementById('selectdStar');
-
-		function clickedStar(event) {
-			if (event.target.classList[1] === "clicked") {
-				event.target.classList.remove("clicked");
-				getClickedStar[i].setAttribute('class', 'btn sanBtn1 writeFacilityReview shorter starClick');
-			} else {
-				for (var i = 0; i < getClickedStar.length; i++) {
-					getClickedStar[i].classList.remove("clicked");
-					getClickedStar[i].setAttribute('class', 'btn sanBtn1 writeFacilityReview shorter starClick');
-				}
-				
-				event.target.classList.add("clicked");
-				selectedStar.value = event.target.value;
-				event.target.setAttribute('class', 'btn sanBtn1 writeFacilityReview shorter2 starClick');
-			}
-		}
-
-		function init() {
-			for (var i = 0; i < getClickedStar.length; i++) {
-				getClickedStar[i].addEventListener("click", clickedStar);
-			}
-		}
-		init();
 	}
 </script>
 </head>
@@ -469,9 +470,8 @@ html {
 									<div id="pagination"></div>
 									<form th:action="@{/facilities}" method="post" id="themeSearch"
 										onsubmit="searchPlaces(); return false;" hidden="hidden">
-										키워드 : <input type="text" th:value="${place}" name="place"
-											id="keyword" size="15"> <input type="text"
-											th:value="${radius}" name="radius" class="currentRadius"
+										키워드 : <input type="text" th:value="${place}" name="place" id="keyword" size="15"> 
+											<input type="text" th:value="${radius}" name="radius" class="currentRadius"
 											hidden="hidden">
 										<button type="submit">검색하기</button>
 									</form>
@@ -502,12 +502,12 @@ html {
 				</div>
 
 				<!-- 시설 리뷰 탭 ★-->
-				<div id="facilitiesReview" style="display: none">
-					<div>
-						<hr>
-						<div class="col-12 col-md-5 item">
+				<div id="facilitiesReview" style="display: none;">
+					<hr>
+          <div class="col-12 item">
 							<div class="contact-form wow fadeInUpBig" data-wow-delay="0.1s">
 								<h2 class="contact-form-title mb-30 mt-5 facilityInfo" id="selectedFacilityName">가게명</h2>
+								<span class="ml-3"><span id="selectedFacilitiesStar" style="color : red;">아직 작성된 리뷰가 없습니다</span> / 5.0</span>
 								<div class="mt-4 mb-5">
 									<table>
 										<tr>
@@ -548,19 +548,26 @@ html {
 									</table>
 								</div>
 								
+								<span id="reviewSuccess" style="color:red; display:none;">댓글이 작성되었습니다!</span>
+								
 								<!-- 후기 남기기 Form -->
-								<form class="writeFacilityReview" style="display: none">
-									<div class="form-group"><!-- sec:authorize="isAuthenticated()" -->
-										<span>ID : <span sec:authentication="name"></span></span>
-										닉네임으로 수정? - 타임리프?
+								<form class="writeFacilityReview pl-5 pr-5" style="display: none">
+									<div hidden="hidden">
+										<!-- DB로 보낼 시설 정보 -->
+										<input type="text" id="selectedFacilityName2" 			
+												name="facilitiesName" value="">가게명
+										<input type="text" id="selectedFacilityAddress2" 		
+												name="facilitiesAddress" value="">도로명주소
+										<input type="text" id="selectedFacilityDetailAddress2" 	
+												name="facilitiesDetailAddress" value="">지번주소
+										<input type="text" id="selectedFacilityPhoneNumber2" 	
+												name="facilitiesPhoneNumber" value="">전화번호
 									</div>
 									<div class="form-group">
 										<div class="mb-2">평점 선택</div> 
-										<input type="text" id="selectdStar" hidden="hidden" name="facilitiesStar" value="">
+										<input type="text" id="selectedStar" hidden="hidden" name="facilitiesStar" value="">
 										<!-- 에 사용자가 누른 별점 버튼의 value를 보내서 여기에 ~.value로 입력 -->
 										
-							<!-- 사용자가 누른 버튼 색상 변경하기 -->
-							<!-- https://liufeier.tistory.com/22 해당 script의 이벤트에 버튼 색상 변경 부분 참고 -->
 										<input type="button" class="btn sanBtn1 writeFacilityReview shorter starClick"
 													value="0">
 										<input type="button" class="btn sanBtn1 writeFacilityReview shorter starClick" 
@@ -575,15 +582,18 @@ html {
 													value="5">
 									</div>
 									<div class="form-group">
-										<textarea class="form-control" name="message" id="message"
+										<textarea class="form-control" name="facilitiesReview" id="message"
 											cols="30" rows="10" placeholder="리뷰를 작성해주세요"></textarea>
 									</div>
-									<input type="button" class="btn float-right san-ok-btn" value="확인">
+									<input type="button" class="btn float-right san-ok-btn" value="확인" onclick="facilitiesReviewWrite()">
 								</form>
 							</div>
 						</div>
-
-					</div>
+						
+						<!-- 리뷰 출력 위치 -->
+						<div id="printFacilitiesReivew">
+							
+						</div>
 				</div>
 
 				<!-- 지도 위치로 페이지 이동 버튼 -->
@@ -922,8 +932,7 @@ html {
 						fdetailsAddress = document.getElementById('selectedFacilityDetailAddress');
 						fphoneNumber = document.getElementById('selectedFacilityPhoneNumber');
 
-						//fname.innerHTML = facilityName;
-
+						// 페이지 하단에 시설 정보 출력
 						fname.innerHTML = facilityName;
 						faddress.innerHTML = facilityAddress;
 						fdetailsAddress.innerHTML = facilityDetailAddress;
@@ -1072,12 +1081,15 @@ html {
 
 						// 찾은 값 대입할 elemets
 						fname = document.getElementById('selectedFacilityName');
-						faddress = document
-								.getElementById('selectedFacilityAddress');
-						fdetailsAddress = document
-								.getElementById('selectedFacilityDetailAddress');
-						fphoneNumber = document
-								.getElementById('selectedFacilityPhoneNumber');
+						faddress = document.getElementById('selectedFacilityAddress');
+						fdetailsAddress = document.getElementById('selectedFacilityDetailAddress');
+						fphoneNumber = document.getElementById('selectedFacilityPhoneNumber');
+
+						// 찾은 값 대입할 elemets
+						fname2 = document.getElementById('selectedFacilityName2');
+						faddress2 = document.getElementById('selectedFacilityAddress2');
+						fdetailsAddress2 = document.getElementById('selectedFacilityDetailAddress2');
+						fphoneNumber2 = document.getElementById('selectedFacilityPhoneNumber2');
 
 						// 찾은 값 대입
 						fname.innerHTML = facilityName;
@@ -1085,18 +1097,25 @@ html {
 						fdetailsAddress.innerHTML = facilityDetailAddress;
 						fphoneNumber.innerHTML = facilityPhoneNumber;
 
+						// 시설 리뷰 작성을 위한 시설 정보 -- hidden
+						fname2.value = facilityName;
+						faddress2.value = facilityAddress;
+						fdetailsAddress2.value = facilityDetailAddress;
+						fphoneNumber2.value = facilityPhoneNumber;
+
 						// 찾은 값을 출력할 element
-						let showIt = document
-								.getElementById('facilitiesReview');
+						let showIt = document.getElementById('facilitiesReview');
 
 						// 찾은 값 출력할 element의 속성 보이게 변경
 						showIt.setAttribute('style', 'display:visible');
+						
 						// 스크롤 이동
 						window.scrollTo(0, 1000);
 
 						// 찾은 값들과 일치하는 데이터가 facilities 테이블에 있는지 확인, 있다면 리뷰 가져오기, 
 						// 없다면 시설 데이터를 서비스에서 insert
 						findFacilitiesData(facilityName, facilityAddress, facilityDetailAddress, facilityPhoneNumber);
+						findFacilitiesStar(facilityName, facilityAddress, facilityDetailAddress, facilityPhoneNumber)
 						
 						// 경로 찾기
 						if (status === kakao.maps.services.Status.OK) {
@@ -1115,6 +1134,7 @@ html {
 					
 					// 찾은 데이터가 facilities 테이블에 있는지 확인 후, 있다면 리뷰를 가져오고, 없다면 데이터를 insert하는 함수
 					function findFacilitiesData(facilityName, facilityAddress, facilityDetailAddress, facilityPhoneNumber){
+						let sfs = document.getElementById('selectedFacilitiesStar');
 						
 						$.ajax({
 							url : 'facilities/findFacilitiesData',
@@ -1130,7 +1150,7 @@ html {
 								if(facilitiesReview != null){
 									// 리뷰 출력
 									console.log(facilitiesReview);
-									
+									findFacilitiesStar(facilityName, facilityAddress, facilityDetailAddress, facilityPhoneNumber);
 									/* 
 									let s = `<p> ${ob.name} </p>`;
 									s += `<p> ${ob.age} </p>`;
@@ -1147,7 +1167,37 @@ html {
 								console.log(JSON.stringify(e));
 							}
 						});
+						
 					}
+					
+					// 시설의 평점을 찾는 함수
+					function findFacilitiesStar(facilityName, facilityAddress, facilityDetailAddress, facilityPhoneNumber){
+						let sfs = document.getElementById('selectedFacilitiesStar');
+						
+						$.ajax({
+							url : 'facilities/findFacilitiesStar',
+							type : 'post',
+							data : {
+								facilitiesName : facilityName
+								, facilitiesAddress : facilityAddress
+								, facilitiesDetailAddress : facilityDetailAddress
+								, facilitiesPhoneNumber : facilityPhoneNumber
+								},
+							dataType : 'json', // text ==> return 확인용
+							success : function(facilitiesStar){
+									console.log(facilitiesStar);
+									if(facilitiesStar == 0){
+										sfs.innerHTML = "아직 후기가 10개 이하입니다";
+										return;
+									}
+									sfs.innerHTML = facilitiesStar;
+							},
+							error : function(e){
+								console.log(JSON.stringify(e));
+							}
+						});
+					}
+					
 					
 					// 가장 가까운 수를 찾는 함수
 					function findNearestNumber(numbers, number) {
@@ -1186,6 +1236,80 @@ html {
 								+ ', width=' + popupWidth + ', left=' + popupX + ', top=' + popupY;
 
 							window.open(findWayUrl, '카카오맵', option);
+					}
+					
+					// 리뷰 제출
+					function facilitiesReviewWrite() {
+						let fn = document.getElementById('selectedFacilityName2');
+						let fa = document.getElementById('selectedFacilityAddress2');
+						let fda = document.getElementById('selectedFacilityDetailAddress2');
+						let fp = document.getElementById('selectedFacilityPhoneNumber2');
+						let fs = document.getElementById('selectedStar');
+						let message = document.getElementById('message');
+						
+						// validation
+						if(fs.value.length <= 0){
+							alert("점수를 체크해주세요!");
+							return;
+						}
+						if(message.value.length <= 0){
+							alert("내용을 입력해주세요!");
+							return;
+						} else if(message.value.length < 10){
+							alert("10자 이상 입력해주세요!");
+							return;
+						}
+						
+						console.log('facilities.html');
+						
+						// 평점 버튼 색상 원상복귀
+						selectedStarAfterSubmit.setAttribute('class', 'btn sanBtn1 writeFacilityReview shorter starClick');
+
+						$.ajax({
+							url : 'facilities/insertFacilitiesReview',
+							type : 'post',
+							data : {
+								facilitiesName : fn.value,
+								facilitiesAddress : fa.value,
+								facilitiesDetailAddress : fda.value,
+								facilitiesPhoneNumber : fp.value,
+								facilitiesStar : fs.value,
+								facilitiesReview : message.value
+							},
+							dataType : 'json', // text ==> return 확인용
+							success : function(num) {
+								// 리뷰 출력
+								if(num == 1){
+									console.log('후기 작성 성공');
+									fs.value = "";
+									message.value = "";
+								} else {
+									alert('후기 작성이 실패했습니다!');
+								}
+								// 리뷰 창 숨기기
+								showOff();
+								
+								// 작성 성공 알림
+								let reviewSuccess = document.getElementById('reviewSuccess');
+								reviewSuccess.setAttribute('style', 'color:red; display:visible');									
+								setInterval(function(){
+									reviewSuccess.setAttribute('style', 'color:red; display:none');									
+								}, 2000);
+								
+								/* 
+								let s = `<p> ${ob.name} </p>`;
+								s += `<p> ${ob.age} </p>`;
+								s += `<p> ${ob.phone} </p>`;
+								// ==> 전달받은 parameter가 배열 형태이므로 값을 하나씩 빼서 연결해줌
+								$('#output2').html(s);
+								// dataType : 'json' 으로 받은 경우
+								// Key - Value 쌍 형태의 배열로 받으므로 parameter. 형태로 사용 가능
+								 */
+							},
+							error : function(e) {
+								console.log(JSON.stringify(e));
+							}
+						});
 					}
 				</script>
 			</div>

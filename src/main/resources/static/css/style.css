@@ -1250,6 +1250,10 @@ th.facilityInfo, #findWayButton {
     background-color: rgb(255, 0, 0);
 }
 
+#selectedFacilityName {
+	display: inline-block;
+}
+
 /* -------------------- 
 :: 14.0 Single Blog CSS
 -------------------- */
