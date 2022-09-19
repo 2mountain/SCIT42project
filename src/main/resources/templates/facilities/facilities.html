@@ -1170,9 +1170,19 @@ html {
 						
 					}
 					
+					let faNa;
+					let faAd;
+					let faDe;
+					let faPh;
+					
 					// 시설의 평점을 찾는 함수
 					function findFacilitiesStar(facilityName, facilityAddress, facilityDetailAddress, facilityPhoneNumber){
 						let sfs = document.getElementById('selectedFacilitiesStar');
+						
+						faNa = facilityName;
+						faAd = facilityAddress;
+						faDe = facilityDetailAddress;
+						faPh = facilityPhoneNumber;
 						
 						$.ajax({
 							url : 'facilities/findFacilitiesStar',
@@ -1295,6 +1305,7 @@ html {
 								setInterval(function(){
 									reviewSuccess.setAttribute('style', 'color:red; display:none');									
 								}, 2000);
+								findFacilitiesStar(faNa, faAd, faDe, faPh);
 								
 								/* 
 								let s = `<p> ${ob.name} </p>`;
