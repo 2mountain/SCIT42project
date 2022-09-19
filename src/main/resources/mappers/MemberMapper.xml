@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE mapper
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -41,48 +40,4 @@
 	WHERE
 	memberNickName = #{memberNickName}
 </select>
-=======
-<!DOCTYPE mapper
-	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<!-- DAO인터페이스와 매핑 -->
-<mapper namespace="net.softsociety.aimori.dao.MemberDAO">
-<insert id="signInMember" parameterType="Member">
-	INSERT INTO MEMBERS
-	(
-		memberId,
-		memberPassword,
-		memberNickName,
-		memberPostCode,
-		memberAddress,
-		memberDetailAddress,
-		memberEmail,
-		memberBirthDay
-	)
-	VALUES
-	(
-		#{memberId}
-		, #{memberPassword}
-		, #{memberNickName}
-		, #{memberPostCode}
-		, #{memberAddress}
-		, #{memberDetailAddress}
-		, #{memberEmail}
-		, #{memberBirthDay}
-	)
-</insert>
-
-<select id="selectOne" parameterType="String" resultType="Member">
-	SELECT * FROM MEMBERS
-	WHERE
-	memberId = #{memberId}
-</select>
-
-<select id="selectOne2" parameterType="String" resultType="Member">
-	SELECT * FROM MEMBERS
-	WHERE
-	memberNickName = #{memberNickName}
-</select>
->>>>>>> d4e06de82319739db0968b3d300578b7658f1f5a
 </mapper>
