@@ -1,5 +1,7 @@
 package net.softsociety.aimori.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import net.softsociety.aimori.domain.Facilities;
@@ -54,6 +56,6 @@ public interface FacilitiesDAO {
 	 * @param facilitiesNumber
 	 * @return 해당 시설 리뷰
 	 */
-	public FacilitiesValuation getFacilitiesReview(int facilitiesNumber);
+	public List<FacilitiesValuation> getFacilitiesReview(int facilitiesNumber);
 
 }

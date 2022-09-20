@@ -1,5 +1,7 @@
 package net.softsociety.aimori.service;
 
+import java.util.List;
+
 import net.softsociety.aimori.domain.Facilities;
 import net.softsociety.aimori.domain.FacilitiesValuation;
 
@@ -53,5 +55,5 @@ public interface FacilitiesService {
 	 * @param facilitiesNumber
 	 * @return 시설 리뷰
 	 */
-	FacilitiesValuation getFacilitiesReview(int facilitiesNumber);
+	List<FacilitiesValuation> getFacilitiesReview(int facilitiesNumber);
 }
