@@ -53,7 +53,9 @@ CREATE TABLE members
     			--회원 생년월일
     memberPoint 				NUMBER DEFAULT 0,
     			--회원 포인트
-    memberRoleName 				VARCHAR2(20) CONSTRAINT member_memberRoleName_ck CHECK (memberRoleName IN ('ROLE_ADMIN', 'ROLE_DOCTOR', 'ROLE_NORMAL')),
+    memberRoleName 				VARCHAR2(20) DEFAULT 'ROLE_USER'  
+			 					CONSTRAINT pmember_rolename_ck_nn CHECK(rolename IN('ROLE_USER', 'ROLE_ADMIN', 'ROLD_DOCTOR')) 
+			 					NOT NULL,
     			--회원 역할        
     memberEnabled 				NUMBER CONSTRAINT member_memberEnabled_nn_ck CHECK(memberEnabled IN(0, 1)),
     			--회원 차단 여부
