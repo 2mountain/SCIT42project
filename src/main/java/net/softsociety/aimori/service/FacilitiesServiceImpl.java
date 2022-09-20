@@ -26,6 +26,7 @@ public class FacilitiesServiceImpl implements FacilitiesService {
 	
 	@Override
 	public Facilities findFacilities(Facilities facilities) {
+		log.debug("findFacilities");
 		Facilities facility = dao.findFacilities(facilities);
 		
 		return facility;
@@ -33,12 +34,14 @@ public class FacilitiesServiceImpl implements FacilitiesService {
 
 	@Override
 	public int insertFacilities(Facilities facilities) {
+		log.debug("insertFacilities");
 		int result = dao.insertFacilities(facilities);
 		return result;
 	}
 
 	@Override
 	public int findFacilitiesNumber(Facilities facilities) {
+		log.debug("findFacilitiesNumber");
 		log.debug("[FacilitiesServiceImpl] findFacilitiesNumber - parameter : {}", facilities);
 		int result = dao.findFacilitiesNumber(facilities);
 		return result;
@@ -46,12 +49,14 @@ public class FacilitiesServiceImpl implements FacilitiesService {
 
 	@Override
 	public int insertFacilitiesReview(FacilitiesValuation fv) {
+		log.debug("insertFacilitiesReview");
 		int result = dao.insertFacilitiesReview(fv);
 		return result;
 	}
 
 	@Override
 	public double findFacilitiesStar(int facilitesNumber) {
+		log.debug("findFacilitiesStar");
 		log.debug("findFacilitiesStar - countReview : {}", countReview);
 		// 리뷰 작성자가 5명 미만인 경우 평점 출력 X
 		if(countFaciliteisStar(facilitesNumber) < countReview) {
@@ -64,14 +69,36 @@ public class FacilitiesServiceImpl implements FacilitiesService {
 
 	@Override
 	public int countFaciliteisStar(int facilitesNumber) {
+		log.debug("countFaciliteisStar");
 		int result = dao.countFaciliteisStar(facilitesNumber);
 		return result;
 	}
 
 	@Override
 	public List<FacilitiesValuation> getFacilitiesReview(int facilitiesNumber) {
+		log.debug("getFacilitiesReview");
 		List<FacilitiesValuation> fv = dao.getFacilitiesReview(facilitiesNumber);
 		return fv;
 	}
 
+	@Override
+	public int deleteFacilitiesReview(int facilitiesEvaluationNumber) {
+		log.debug("deleteFacilitiesReview");
+		int result = dao.deleteFacilitiesReview(facilitiesEvaluationNumber);
+		return result;
+	}
+
+	@Override
+	public String checkRole(String username) {
+		log.debug("checkRole");
+		String result = dao.checkRole(username);
+		return result;
+	}
+
+	@Override
+	public String checkReviewWrite(int facilitiesEvaluationNumber) {
+		log.debug("checkReviewWrite");
+		String result = dao.checkReviewWrite(facilitiesEvaluationNumber);
+		return result;
+	}
 }
