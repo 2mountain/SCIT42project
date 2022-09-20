@@ -160,7 +160,7 @@ public class FacilitiesController {
 		// fv.setMemberId(user.getUsername()); 
 
 		// (테스트용)삭제할 것
-		fv.setMemberId("san"); 
+		fv.setMemberId("sansansan"); 
 
 		log.debug("ing : {}", fv);
 		// FacilitiesValuation 테이블에 값을 넣는 메소드
