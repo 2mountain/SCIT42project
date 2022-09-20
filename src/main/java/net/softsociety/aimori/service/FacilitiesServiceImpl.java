@@ -1,5 +1,7 @@
 package net.softsociety.aimori.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,8 +63,8 @@ public class FacilitiesServiceImpl implements FacilitiesService {
 	}
 
 	@Override
-	public FacilitiesValuation getFacilitiesReview(int facilitiesNumber) {
-		FacilitiesValuation fv = dao.getFacilitiesReview(facilitiesNumber);
+	public List<FacilitiesValuation> getFacilitiesReview(int facilitiesNumber) {
+		List<FacilitiesValuation> fv = dao.getFacilitiesReview(facilitiesNumber);
 		return fv;
 	}
 

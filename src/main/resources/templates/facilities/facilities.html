@@ -1133,36 +1133,7 @@ html {
 							findWayTitle = title;
 						}
 						
-						// 여기다!!
-						// 선택된 시설의 리뷰를 불러와 화면에 출력하는 ajax
-						// 선택된 시설의 정보를 controller로 보냄 ==> 해당 시설의 정보로 DB저장 번호를 알아냄 ==> 리뷰 출력
-						// 삭제? printFacilitiesReivew(facilityName, facilityAddress, facilityDetailAddress, facilityPhoneNumber);
 					}
-					
-					// 선택된 시설의 리뷰를 불러와 화면에 출력하는 ajax
-					/* 삭제?
-						function printFacilitiesReivew(facilityName, facilityAddress, facilityDetailAddress, facilityPhoneNumber){
-						let pfr = document.getElementById('printFacilitiesReview');
-						
-						$.ajax({
-							url : 'facilities/printFacilitiesReivew',
-							type : 'post',
-							data : {
-								facilitiesName : facilityName
-								, facilitiesAddress : facilityAddress
-								, facilitiesDetailAddress : facilityDetailAddress
-								, facilitiesPhoneNumber : facilityPhoneNumber
-							},
-							dataType : 'json',
-							success : function(facilitiesReview){
-								alert(facilitiesReview);
-							},
-							error : function(e){
-								console.log(JSON.stringify(e));
-							}
-							
-						});
-					} */
 					
 					// 찾은 데이터가 facilities 테이블에 있는지 확인 후, 있다면 리뷰를 가져오고, 없다면 데이터를 insert하는 함수
 					function findFacilitiesData(facilityName, facilityAddress, facilityDetailAddress, facilityPhoneNumber){
@@ -1182,6 +1153,10 @@ html {
 								if(facilitiesReview != null){
 									// 리뷰 출력
 									findFacilitiesStar(facilityName, facilityAddress, facilityDetailAddress, facilityPhoneNumber);
+									console.log(facilitiesReview);
+									
+									// 여기다 ==> facilitiesReview 출력
+									
 									/* 
 									let s = `<p> ${ob.name} </p>`;
 									s += `<p> ${ob.age} </p>`;

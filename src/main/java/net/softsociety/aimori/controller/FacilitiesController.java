@@ -1,5 +1,9 @@
 package net.softsociety.aimori.controller;
 
+import java.util.List;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,7 +56,7 @@ public class FacilitiesController {
 	// 시설 선택시 해당 시설이 DB에 있는지 확인 / 있다면 해당 시설 리뷰 return / 없다면 해당 시설 DB에 insert
 	@ResponseBody
 	@PostMapping("/findFacilitiesData")
-	public FacilitiesValuation findFacilitiesData(Facilities facilities) {
+	public List<FacilitiesValuation> findFacilitiesData(Facilities facilities) {
 		log.debug("[FacilitiesController] findFacilitiesData - parameter : {}", facilities);
 
 		// parameter와 일치하는 시설이 있는지 확인하는 메소드
@@ -61,7 +65,7 @@ public class FacilitiesController {
 		
 		
 		// 시설의 정보가 이미 DB에 있는 경우, 리뷰를 불러와 담을 변수
-		FacilitiesValuation fv;
+		List<FacilitiesValuation> fv;
 		
 		log.debug("[FacilitiesController] facility : {}", facility);
 		
@@ -94,13 +98,13 @@ public class FacilitiesController {
 	 */
 	@ResponseBody
 	@PostMapping("/printFacilitiesReivew")
-	public FacilitiesValuation printFacilitiesReivew(Facilities facilities) {
+	public List<FacilitiesValuation> printFacilitiesReivew(Facilities facilities) {
 		log.debug("[FacilitiesController] printFacilitiesReivew");
 		int facilitiesNumber = service.findFacilitiesNumber(facilities);
 		log.debug("[FacilitiesController] printFacilitiesReivew - facilitiesNumber : {}", facilitiesNumber);
 		
 		// 시설 번호로 해당 시설의 리뷰를 가져오는 메소드
-		FacilitiesValuation fv = service.getFacilitiesReview(facilitiesNumber);
+		List<FacilitiesValuation> fv = service.getFacilitiesReview(facilitiesNumber);
 		log.debug("wow : {}", fv);
 				
 		return fv;
