@@ -121,7 +121,7 @@ CREATE TABLE BOARD
 		/* 글 작성일 */
     boardHits number DEFAULT 0,
 		/* 글 조회수 */
-    boardLiked number DEFAULT 0,
+    boardReport number DEFAULT 0,
 		/* 글 신고수 */
     boardContents varchar2(4000) NOT NULL,
 		/* 글 내용 */
@@ -146,18 +146,18 @@ create table boardLikedData
 
 CREATE TABLE reply
 (
-    replyNumber 	NUMBER CONSTRAINT reply_replyNumber_pk PRIMARY KEY,  
+    replyNumber 	NUMBER CONSTRAINT PRIMARY KEY,  
     			--댓글 번호
-    boardNumber 	NUMBER REFERENCES board(boardNumber) CONSTRAINT reply_boardNumber_nn NOT NULL, 
+    boardNumber 	NUMBER REFERENCES board(boardNumber) CONSTRAINT NOT NULL, 
     			--글 번호(외래키)
-    memberNickName 	VARCHAR2(40) CONSTRAINT reply_memberNickName_nn NOT NULL, 
+	memberId		VARCHAR2(40) NOT NULL,
+    			--댓글 작성하는 회원 아이디
+    memberNickName 	VARCHAR2(40) NOT NULL, 
     			--댓글 작성하는 회원 닉네임
-    replyContents 	VARCHAR2(4000) CONSTRAINT reply_replyContents_nn NOT NULL, 
+    replyContents 	VARCHAR2(4000) NOT NULL, 
     			--댓글 내용
     replyInputDate 	DATE DEFAULT SYSDATE,  
     			--댓글 작성 일자
-    answerAccept 	VARCHAR2(12) CONSTRAINT reply_answerAccept_ck CHECK (answerAccept IN('accepted', 'unaccepted'))
-    			--댓글 채택 여부
 );
 
 CREATE TABLE shopCoupon
