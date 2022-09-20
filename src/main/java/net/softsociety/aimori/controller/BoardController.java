@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.extern.slf4j.Slf4j;
 import net.softsociety.aimori.domain.Board;
 import net.softsociety.aimori.domain.BoardLiked;
+import net.softsociety.aimori.domain.Reply;
 import net.softsociety.aimori.service.BoardService;
 import net.softsociety.aimori.util.FileService;
 import net.softsociety.aimori.util.PageNavigator;
@@ -129,7 +130,7 @@ public class BoardController {
 	}
 
 	/**
-	 * 글읽기
+	 * 글 읽기, 댓글 목록 불러오기
 	 * 
 	 * @param model       글객체
 	 * @param boardNumber 글번호
@@ -167,12 +168,16 @@ public class BoardController {
 		
 		log.debug("boardliked 값: {}", boardliked);
 
+		// 현재 글에 달린 리플들
+		ArrayList<Reply> replylist = service.replyList(boardNumber);
+		
 		// 결과를 모델에 담아서 HTML에서 출력
 		model.addAttribute("board", board);
 		model.addAttribute("boardLikedData", boardliked);
-	
+		model.addAttribute("replylist", replylist);
 
 		log.debug("board 읽어오기, {}", board);
+		log.debug("reply 값 읽어오기, {}", replylist);
 
 		return "/board/boardRead";
 	}
@@ -355,5 +360,23 @@ public class BoardController {
 		return isLiked;
 
 	}
+	
+	// 댓글 저장
+	@PostMapping("replyInsert")
+	public String replyInsert(
+		Reply reply
+		/* , @AuthenticationPrincipal UserDetails user */) {
+		
+		/* reply.setMemberid(user.getUsername()); */
+		reply.setMemberId("test1");
+		reply.setMemberNickName("testUser");
+		
+		log.debug("저장할 리플 정보 : {}", reply);
+		int result = service.replyInsert(reply);
+		
+		return "redirect:/board/read?boardNumber=" + reply.getBoardNumber();
+	}
+	
+	
 
 }

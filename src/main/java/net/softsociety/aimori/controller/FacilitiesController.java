@@ -1,6 +1,11 @@
 package net.softsociety.aimori.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,13 +23,18 @@ import net.softsociety.aimori.service.FacilitiesService;
 @RequestMapping("facilities")
 @Controller
 public class FacilitiesController {
+	
+	// 별점은 5가 최대
+	@Value("${user.facilities.star}")
+	int star;
+	
 	@Autowired
 	FacilitiesService service;
 	
 	@GetMapping({"", "/"})
 	public String facilities(Model model) {
 		
-		//이부분에다가 값을 바꿔주면 처음 띄울 때 값이 바뀐다!
+		// 이부분에다가 값을 바꿔주면 처음 띄울 때 값이 바뀐다!
 		String place = "애완동물";
 		int radius = 3000;
 		 
@@ -52,8 +62,7 @@ public class FacilitiesController {
 	// 시설 선택시 해당 시설이 DB에 있는지 확인 / 있다면 해당 시설 리뷰 return / 없다면 해당 시설 DB에 insert
 	@ResponseBody
 	@PostMapping("/findFacilitiesData")
-	public FacilitiesValuation findFacilitiesData(Facilities facilities) {
-		log.debug("★ findFacilitiesData");
+	public List<FacilitiesValuation> findFacilitiesData(Facilities facilities) {
 		log.debug("[FacilitiesController] findFacilitiesData - parameter : {}", facilities);
 
 		// parameter와 일치하는 시설이 있는지 확인하는 메소드
@@ -62,7 +71,9 @@ public class FacilitiesController {
 		
 		
 		// 시설의 정보가 이미 DB에 있는 경우, 리뷰를 불러와 담을 변수
-		FacilitiesValuation fv;
+		List<FacilitiesValuation> fv;
+		
+		log.debug("[FacilitiesController] facility : {}", facility);
 		
 		if(facility == null) {
 			log.debug("[FacilitiesController] findFacilitiesData : facility null");
@@ -78,11 +89,55 @@ public class FacilitiesController {
 			
 			// 여기 수정 중
 			// ★★★★★★★★★★★★★★★ DB에서 받은 데이터를 fv(시설 리뷰)에 넣는 것으로 수정 ★★★★★★★★★★★★★★★★★★★★
-			fv = new FacilitiesValuation(0, 0, null, null, 0, null);
+			fv = printFacilitiesReivew(facilities);
+			log.debug("[FacilitiesController] fv : {}", fv);
 			
 		}
 		
 		return fv;
+	}
+	
+	/**
+	 * 해당 시설의 리뷰를 가져오는 메소드
+	 * @param facilities
+	 * @return 시설 리뷰
+	 */
+	@ResponseBody
+	@PostMapping("/printFacilitiesReivew")
+	public List<FacilitiesValuation> printFacilitiesReivew(Facilities facilities) {
+		log.debug("[FacilitiesController] printFacilitiesReivew");
+		int facilitiesNumber = service.findFacilitiesNumber(facilities);
+		log.debug("[FacilitiesController] printFacilitiesReivew - facilitiesNumber : {}", facilitiesNumber);
+		
+		// 시설 번호로 해당 시설의 리뷰를 가져오는 메소드
+		List<FacilitiesValuation> fv = service.getFacilitiesReview(facilitiesNumber);
+		log.debug("wow : {}", fv);
+				
+		return fv;
+	}
+	
+	/**
+	 * 시설의 평점을 찾는 메소드
+	 * @param facilities
+	 * @return 시설 평점
+	 */
+	@ResponseBody
+	@PostMapping("/findFacilitiesStar")
+	public double findFacilitiesStar(Facilities facilities) {
+		log.debug("findFacilitiesStar : {}", facilities);
+		
+		int facilitesNumber = service.findFacilitiesNumber(facilities);
+		log.debug("facilitesNumber : {}", facilitesNumber);
+		
+		double result = service.findFacilitiesStar(facilitesNumber);
+		log.debug("result : {}", result);
+		
+		if(result > star) {
+			return 0;
+		}
+		
+		
+		return result;
 	}
 	
 	/**
@@ -92,8 +147,75 @@ public class FacilitiesController {
 	 */
 	public int insertFacilities(Facilities facilities) {
 		
+		if(facilities.getFacilitiesAddress().length() <= 0) {
+			facilities.setFacilitiesAddress("없음");
+		}
+		if(facilities.getFacilitiesDetailAddress().length() <= 0) {
+			facilities.setFacilitiesDetailAddress("없음");
+		}
+		if(facilities.getFacilitiesPhoneNumber().length() <= 0) {
+			facilities.setFacilitiesPhoneNumber("없음");
+		}
+		
 		int result = service.insertFacilities(facilities);
 		
 		return result;
+	}
+	
+	/**
+	 * 시설에 리뷰 작성 insert
+	 * @param facilities
+	 * @param fv
+	 * @param user
+	 * @return 0 || 1
+	 */
+	@ResponseBody
+	@PostMapping("/insertFacilitiesReview")
+	public int insertFacilitiesReview(Facilities facilities 
+									 , FacilitiesValuation fv 
+									 , @AuthenticationPrincipal UserDetails user
+									 ) {
+		log.debug("writeFacilitiesReview");
+		log.debug("[FacilitiesController] "
+				+ "writeFacilitiesReview - parameter : {} / {} / {}", 
+				facilities, fv);
+		
+		// parameter로 전달받은 시설의 DB등록 번호를 찾는 메소드
+		int facilitiesNumber = service.findFacilitiesNumber(facilities);
+		log.debug("{}", facilitiesNumber);
+		
+		// 시설 번호 등록
+		fv.setFacilitiesNumber(facilitiesNumber);
+		
+		// 회원 아이디 등록
+		fv.setMemberId(user.getUsername()); 
+
+		log.debug("ing : {}", fv);
+		// FacilitiesValuation 테이블에 값을 넣는 메소드
+		int result = service.insertFacilitiesReview(fv);
+		
+		return result;
+	}
+	
+	@ResponseBody
+	@PostMapping("/deleteFacilitiesReview")
+	public int deleteFacilitiesReview(int facilitiesEvaluationNumber
+									,@AuthenticationPrincipal UserDetails user) {
+		log.debug("[FacilitiesController] deleteFacilitiesReview - parameters1 : {}", facilitiesEvaluationNumber);
+		log.debug("[FacilitiesController] deleteFacilitiesReview - parameters2 : {}", user);
+		
+		// Members 테이블을 통해 parameter의 user의 role이 ROLE_ADMIN인지 확인
+		int result = service.checkAdmin(user.getUsername());
+		// role이 ROLE_ADMIN이라면 삭제
+		if(result == 1) {
+			
+		}
+
+		// parameter의 user와 facilitiesEvaluationNumber를 통해 알아낸 해당 리뷰의 작성자가 일치하는지 확인
+		
+		// 일치하지 않는다면 삭제 X
+		
+		
+		return 0;
 	}
 }

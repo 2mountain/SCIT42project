@@ -11,16 +11,19 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import lombok.AllArgsConstructor;
+
 /**
  * Security 설정
  */
+
 @Configuration // 설정값을 제공하는 클래스임을 알림 
-			   // 환경설정 -- @가 있으므로 Spring이 구동시 먼저 해당 객체 생성
+//@AllArgsConstructor	// 환경설정 -- @가 있으므로 Spring이 구동시 먼저 해당 객체 생성
 public class WebSecurityConfig {
     @Autowired
     private DataSource dataSource; // DataSource == DB와의 연결 정보를 가진 객체
     							   // 				(application.properties의 ORACLE 연결 정보)
-
+    
     //설정
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -32,7 +35,10 @@ public class WebSecurityConfig {
         .antMatchers(	// antMatchers( Mapping경로 ) + .permitAll() ==> 해당 경로에 모든 사용자 접근 가능
         		"/",	// home화면 경로
         		"/board/**",
-        		"/member/**",
+        		"/member/signIn",
+        		"/member/idCheck",
+        		"/member/nNCheck",
+        		"/member/logIn",
         		"/facilities/**",
         		"/weather/**",
         		"/mypage/**",
@@ -41,18 +47,18 @@ public class WebSecurityConfig {
                 "/fonts/**",
                 "/js/**",
                 "/ckeditor/**/**").permitAll()		//설정한 리소스의 접근을 인증절차 없이 허용
- //       .antMatchers("/administrator/administrator").access("hasRole('ROLE_ADMIN')") // 관리자용 페이지, 권한 설정
+        .antMatchers("/administrator/administrator").access("hasRole('ROLE_ADMIN')") // 관리자용 페이지, 권한 설정
         .anyRequest().authenticated()   	//위의 경로 외에는 모두 로그인을 해야 함
         .and() // 논리연산자의 && 와 같은 역할
         .formLogin()						//일반적인 폼을 이용한 로그인 처리/실패 방법을 사용할 것
-        .loginPage("/")		//시큐리티에서 제공하는 기본 폼이 아닌 사용자가 만든 폼 사용
+        .loginPage("/member/logIn")			//시큐리티에서 제공하는 기본 폼이 아닌 사용자가 만든 폼 사용
         	//★ 로그인 화면의 경로 연결
-        .loginProcessingUrl("/").permitAll()	
+        .loginProcessingUrl("/member/login").permitAll()	
         	//★ 인증 처리를 하는 URL을 설정. 로그인 폼의 action으로 지정
         	//★ 로그인 폼이 전송될 경로 --> loginForm.html의 form태그의 action으로 전송 받을 경로
-        .usernameParameter("memberid")		//로그인폼의 아이디 입력란의 name
+        .usernameParameter("memberId")				//로그인폼의 아이디 입력란의 name
         	//★ loginForm.html의 form 태그 내의 input 들의 name 속성과 이름 같아야 함
-        .passwordParameter("memberpw")		//로그인폼의 비밀번호 입력란의 name
+        .passwordParameter("memberPassword")		//로그인폼의 비밀번호 입력란의 name
 	        //★ loginForm.html의 form 태그 내의 input 들의 name 속성과 이름 같아야 함
         .and()
         .logout() // 로그아웃 --> 자동으로 로그인 데이터 삭제
@@ -73,16 +79,17 @@ public class WebSecurityConfig {
         .dataSource(dataSource)
         // 인증 (로그인)
         .usersByUsernameQuery( // 사용자 정보를 DB에서 가져옴
-        		"select memberid username, memberpw password, enabled " + 
+						
+			  "select memberId username, memberPassword password, memberEnabled enabled " +
         					// memeberid, memberpw는 사용자가 지정한 변수명에 따라 변경
         					// username, password는 고정 (사용자가 지정한 변수를 넣음)
-                "from page_member " + // table명도 사용자의 테이블명에 따라 변경
-                "where memberid = ?") // DB에서 보내는 parameter ==> ?
+                "from MEMBERS " + // table명도 사용자의 테이블명에 따라 변경
+                "where memberId = ?") // DB에서 보내는 parameter ==> ?
         // 권한
         .authoritiesByUsernameQuery( // 조건에 해당하는 사용자에게 권한 부여
-        		"select memberid username, rolename role_name " +
-                "from page_member " +
-                "where memberid = ?");
+        		"select memberId username, memberRolename role_name " +
+                "from MEMBERS " +
+                "where memberId = ?");
     }
 
     // 단방향 비밀번호 암호화 --> 단방향이므로 DB관리자도 암호화된 비밀번호의 원래 값 모름

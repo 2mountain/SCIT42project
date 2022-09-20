@@ -242,6 +242,9 @@ html {
 </style>
 
 <script>
+	// 평점 제출 후 버튼 색 원상 복귀 위한 변수
+	let selectedStarAfterSubmit = "";
+		
 	window.onload = function() {
 		let pageTop = document.getElementById("pageTop");
 		let mapExplain = document.getElementById('mapExplain').offsetTop;
@@ -249,27 +252,10 @@ html {
 		pageTop.onclick = function() {
 			window.scrollTo(0, mapExplain - 5);
 		}
-	}
-	
-	function showNow(){
-		let showIt = document.getElementsByClassName('writeFacilityReview');
-		showIt[0].setAttribute('style', 'display:visible');
-		showIt[1].setAttribute('style', 'display:visible');
-		window.scrollTo(0, 1200);
-	}
-	
-	function showOff(){
-		let showIt = document.getElementsByClassName('writeFacilityReview');
-		showIt[0].setAttribute('style', 'display:none');
-		showIt[1].setAttribute('style', 'display:none');
-		window.scrollTo(0, 1000);
-	}
-	
-
-	window.onload = function() {
+		
 		let getClickedStar = document.getElementsByClassName('starClick');
-		let selectedStar = document.getElementById('selectdStar');
-
+		let selectedStar = document.getElementById('selectedStar');
+		
 		function clickedStar(event) {
 			if (event.target.classList[1] === "clicked") {
 				event.target.classList.remove("clicked");
@@ -283,6 +269,7 @@ html {
 				event.target.classList.add("clicked");
 				selectedStar.value = event.target.value;
 				event.target.setAttribute('class', 'btn sanBtn1 writeFacilityReview shorter2 starClick');
+				selectedStarAfterSubmit =  event.target;
 			}
 		}
 
@@ -293,6 +280,20 @@ html {
 		}
 		init();
 	}
+	
+	function showNow(){
+		let showIt = document.getElementsByClassName('writeFacilityReview');
+		showIt[0].setAttribute('style', 'display:visible');
+		showIt[1].setAttribute('style', 'display:visible');
+		window.scrollTo(0, 1500);
+	}
+	
+	function showOff(){
+		let showIt = document.getElementsByClassName('writeFacilityReview');
+		showIt[0].setAttribute('style', 'display:none');
+		showIt[1].setAttribute('style', 'display:none');
+		window.scrollTo(0, 1300);
+	}
 </script>
 </head>
 
@@ -302,11 +303,13 @@ html {
 		<div class="yummy-load"></div>
 	</div>
 
-	<!-- Background Pattern Swither -->
-	<div id="pattern-switcher">Bg Pattern</div>
-	<div id="patter-close">
-		<i class="fa fa-times" aria-hidden="true"></i>
-	</div>
+	<!--     Background Pattern Swither
+    <div id="pattern-switcher">
+        Bg Pattern
+    </div>
+    <div id="patter-close">
+        <i class="fa fa-times" aria-hidden="true"></i>
+    </div> -->
 
 	<!-- ****** Top Header Area Start ****** -->
 	<div class="top_header_area">
@@ -315,41 +318,45 @@ html {
 				<div class="col-5 col-sm-6">
 					<!--  Top Social bar start -->
 					<div class="top_social_bar">
-						<a href="https://facebook.com"><i class="fa fa-facebook"
-							aria-hidden="true"></i></a> <a href="https://twitter.com"><i
-							class="fa fa-twitter" aria-hidden="true"></i></a> <a
-							href="https://linkedin.com"><i class="fa fa-linkedin"
-							aria-hidden="true"></i></a> <a href="https://skype.com"><i
-							class="fa fa-skype" aria-hidden="true"></i></a> <a
-							href="https://dribbble.com"><i class="fa fa-dribbble"
-							aria-hidden="true"></i></a>
+						<a href="https://facebook.com"><i class="fa fa-facebook" aria-hidden="true"></i></a> <a
+							href="https://twitter.com"><i class="fa fa-twitter" aria-hidden="true"></i></a> <a
+							href="https://linkedin.com"><i class="fa fa-linkedin" aria-hidden="true"></i></a> <a
+							href="https://skype.com"><i class="fa fa-skype" aria-hidden="true"></i></a> <a
+							href="https://dribbble.com"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
 					</div>
 				</div>
 				<!--  Login Register Area -->
 				<div class="col-7 col-sm-6">
 					<div class="signup-search-area d-flex align-items-center justify-content-end">
+
 						<!-- Search Form -->
 						<div class="search-hidden-form">
 							<form action="#" method="get">
 								<input type="search" name="search" id="search-anything"
-									placeholder="Search Anything..."> <input type="submit"
-									value="" class="d-none"> <span class="searchBtn"><i
-									class="fa fa-times" aria-hidden="true"></i></span>
+									placeholder="Search Anything...">
+								<!-- <input type="submit" value="" class="d-none"> -->
+								<!-- <span class="searchBtn"><i class="fa fa-times" aria-hidden="true"></i></span> -->
 							</form>
 						</div>
 						<!-- Search Button Area -->
 						<div class="search_button">
-							<a class="searchBtn" href="#"><i class="fa fa-search"
-								aria-hidden="true"></i></a>
+							<a class="searchBtn" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
 						</div>
-					
 						<div class="login_register_area d-flex">
-							<div class="login">
-								<a href="register.html">로그인</a>
+							<div class="login" sec:authorize="not isAuthenticated()">
+								<a href="member/logIn">로그인</a>
 							</div>
-							<div class="register">
-								<a href="register.html">회원가입</a>
+							<div class="register" sec:authorize="not isAuthenticated()">
+								<a href="member/signIn">회원가입</a>
 							</div>
+						</div>
+						<div class="login_register_area d-flex">
+						<div class="mypage" sec:authorize="isAuthenticated()" style="margin-left:20px">
+							<a href="#">마이페이지</a>
+						</div>
+						<div class="logout" sec:authorize="isAuthenticated()" style="margin-left:10px;">
+							<a th:href="@{logout}">로그아웃</a>
+						</div>
 						</div>
 					</div>
 				</div>
@@ -365,7 +372,8 @@ html {
 				<!-- Logo Area Start -->
 				<div class="col-12">
 					<div class="logo_area text-center">
-						<a href="index.html" class="yummy-logo">AIMORI</a>
+						<img src="img/bg-img/petlogo.jpg" alt="">
+						<a href="home.html" class="yummy-logo"></a>
 					</div>
 				</div>
 			</div>
@@ -373,31 +381,26 @@ html {
 			<div class="row">
 				<div class="col-12">
 					<nav class="navbar navbar-expand-lg">
-						<button class="navbar-toggler" type="button"
-							data-toggle="collapse" data-target="#yummyfood-nav"
-							aria-controls="yummyfood-nav" aria-expanded="false"
-							aria-label="Toggle navigation">
+						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#yummyfood-nav"
+							aria-controls="yummyfood-nav" aria-expanded="false" aria-label="Toggle navigation">
 							<i class="fa fa-bars" aria-hidden="true"></i> Menu
 						</button>
 						<!-- Menu Area Start -->
-						<div class="collapse navbar-collapse justify-content-center"
-							id="yummyfood-nav">
+						<div class="collapse navbar-collapse justify-content-center" id="yummyfood-nav">
 							<ul class="navbar-nav" id="yummy-nav">
-								<li class="nav-item active"><a class="nav-link" href="#">커뮤니티
-										<span class="sr-only">(current)</span>
-								</a></li>
-								<li class="nav-item dropdown"><a
-									class="nav-link dropdown-toggle" href="#" id="yummyDropdown"
-									role="button" data-toggle="dropdown" aria-haspopup="true"
-									aria-expanded="false">Pages</a>
+								<li class="nav-item active"><a class="nav-link" th:href="@{/board/list}">커뮤니티 <span
+											class="sr-only">(current)</span></a>
+								</li>
+								<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#"
+										id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+										aria-expanded="false">Pages</a>
 									<div class="dropdown-menu" aria-labelledby="yummyDropdown">
-										<a class="dropdown-item" href="#">1</a> <a
-											class="dropdown-item" href="#">2</a> <a class="dropdown-item"
-											href="#">3</a> <a class="dropdown-item" href="#">4</a> <a
-											class="dropdown-item" href="#">5</a>
-									</div></li>
-								<li class="nav-item"><a class="nav-link"
-									th:href="@{/facilities}">시설</a></li>
+										<a class="dropdown-item" href="#">1</a> <a class="dropdown-item" href="#">2</a>
+										<a class="dropdown-item" href="#">3</a> <a class="dropdown-item" href="#">4</a>
+										<a class="dropdown-item" href="#">5</a>
+									</div>
+								</li>
+								<li class="nav-item"><a class="nav-link" th:href="@{/facilities}">시설</a></li>
 								<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
 								<li class="nav-item"><a class="nav-link" href="#">챌린지</a></li>
 								<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
@@ -447,9 +450,12 @@ html {
 	<section class="archive-area mt-4">
 		<div class="container">
 			<h3 id="mapExplain">내 위치 주변 반려동물 시설</h3>
-			<div class="ml-5 mt-1">- 현재 검색 반경 : 
+			<span class="ml-5 mt-1">- 현재 검색 반경 : 
 				<span class="mt-3 currentRadius" th:text="${radius/1000}">(기본 검색반경) 3</span> km
-			</div>
+			</span>
+			<span class="ml-5 mt-1">- 현재 검색 테마 : 
+				<span class="mt-3" th:text="${place}">현재 검색어</span>
+			</span>
 
 			<!-- KAKAOMAP API - 카카오맵 -->
 			<div class="single-post wow fadeInUp" data-wow-delay="0.1s">
@@ -466,9 +472,8 @@ html {
 									<div id="pagination"></div>
 									<form th:action="@{/facilities}" method="post" id="themeSearch"
 										onsubmit="searchPlaces(); return false;" hidden="hidden">
-										키워드 : <input type="text" th:value="${place}" name="place"
-											id="keyword" size="15"> <input type="text"
-											th:value="${radius}" name="radius" class="currentRadius"
+										키워드 : <input type="text" th:value="${place}" name="place" id="keyword" size="15"> 
+											<input type="text" th:value="${radius}" name="radius" class="currentRadius"
 											hidden="hidden">
 										<button type="submit">검색하기</button>
 									</form>
@@ -481,12 +486,11 @@ html {
 				</div>
 				
 				<div class="d-flex flex-row justify-content-center">
+					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="공원"> 
 					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="운동장"> 
 					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="동물병원"> 
-					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="공원"> 
 					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="애견카페"> 
-					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="킹콩백화점"> 
-					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="동물">
+					<input type="button" class="btn btn-lg btn-primary mr-3 sTheme" value="애견호텔"> 
 				</div>
 				
 				<div class="d-flex flex-row justify-content-center">
@@ -500,12 +504,12 @@ html {
 				</div>
 
 				<!-- 시설 리뷰 탭 ★-->
-				<div id="facilitiesReview" style="display: none">
-					<div>
-						<hr>
-						<div class="col-12 col-md-10 item">
+				<div id="facilitiesReview" style="display: none;">
+					<hr>
+          <div class="col-12 item">
 							<div class="contact-form wow fadeInUpBig" data-wow-delay="0.1s">
 								<h2 class="contact-form-title mb-30 mt-5 facilityInfo" id="selectedFacilityName">가게명</h2>
+								<span class="ml-3"><span id="selectedFacilitiesStar" style="color : red;">아직 작성된 리뷰가 없습니다</span> / 5.0</span>
 								<div class="mt-4 mb-5">
 									<table>
 										<tr>
@@ -538,28 +542,36 @@ html {
 											</th>
 											<td>
 												<input type="button" class="btn sanBtn1 mt-2" value="후기 남기기" onclick="showNow()" 
-													> <!-- sec:authorize="isAuthenticated()" -->
+													sec:authorize="isAuthenticated()">
 												<input type="button" class="btn sanBtn1 mt-2 writeFacilityReview shorter" 
-													value="Ⅹ" style="display: none" onclick="showOff()"> <!-- sec:authorize="isAuthenticated()" -->
+													value="Ⅹ" style="display: none" onclick="showOff()" sec:authorize="isAuthenticated()">
 											</td>
 										</tr>
 									</table>
 								</div>
 								
+								<span id="reviewSuccess" style="color:red; display:none;">댓글이 작성되었습니다!</span>
+								
 								<!-- 후기 남기기 Form -->
-								<form class="writeFacilityReview" style="display: none">
-									<div class="form-group"><!-- sec:authorize="isAuthenticated()" -->
-										<span>ID : <span sec:authentication="name"></span></span>
+								<form class="writeFacilityReview pl-5 pr-5" style="display: none">
+									<div hidden="hidden">
+										<!-- DB로 보낼 시설 정보 -->
+										<input type="text" id="selectedFacilityName2" 			
+												name="facilitiesName" value="">가게명
+										<input type="text" id="selectedFacilityAddress2" 		
+												name="facilitiesAddress" value="">도로명주소
+										<input type="text" id="selectedFacilityDetailAddress2" 	
+												name="facilitiesDetailAddress" value="">지번주소
+										<input type="text" id="selectedFacilityPhoneNumber2" 	
+												name="facilitiesPhoneNumber" value="">전화번호
 									</div>
 									<div class="form-group">
 										<div class="mb-2">평점 선택</div> 
-										<input type="text" id="selectdStar" hidden="hidden" name="facilitiesStar" value="">
+										<input type="text" id="selectedStar" hidden="hidden" name="facilitiesStar" value="">
 										<!-- 에 사용자가 누른 별점 버튼의 value를 보내서 여기에 ~.value로 입력 -->
 										
-							<!-- 사용자가 누른 버튼 색상 변경하기 -->
-							<!-- https://liufeier.tistory.com/22 해당 script의 이벤트에 버튼 색상 변경 부분 참고 -->
-										<input type="button" class="btn sanBtn1 writeFacilityReview shorter starClick"
-													value="0">
+										<!-- <input type="button" class="btn sanBtn1 writeFacilityReview shorter starClick"
+													value="0"> -->
 										<input type="button" class="btn sanBtn1 writeFacilityReview shorter starClick" 
 													value="1">
 										<input type="button" class="btn sanBtn1 writeFacilityReview shorter starClick" 
@@ -572,15 +584,18 @@ html {
 													value="5">
 									</div>
 									<div class="form-group">
-										<textarea class="form-control" name="message" id="message"
+										<textarea class="form-control" name="facilitiesReview" id="message"
 											cols="30" rows="10" placeholder="리뷰를 작성해주세요"></textarea>
 									</div>
-									<input type="button" class="btn float-right san-ok-btn" value="확인">
+									<input type="button" class="btn float-right san-ok-btn" value="확인" onclick="facilitiesReviewWrite()">
 								</form>
 							</div>
 						</div>
-
-					</div>
+						
+						<!-- 리뷰 출력 위치 -->
+						<div class = "wow fadeInUpBig" id="printFacilitiesReivew">
+							
+						</div>
 				</div>
 
 				<!-- 지도 위치로 페이지 이동 버튼 -->
@@ -639,7 +654,7 @@ html {
 						// 마커에 클릭 이벤트를 등록한다 (우클릭 : rightclick)
 						kakao.maps.event.addListener(marker, 'click',
 								function() {
-									alert('마커를 클릭했습니다!');
+									alert('현위치');
 								});
 
 						// 기존에 마커가 있다면 제거
@@ -683,7 +698,8 @@ html {
 						// 검색어 바꾸기
 						let btn = document.getElementsByClassName('sTheme');
 						let searchWord = document.getElementById('keyword');
-
+						
+						
 						// 검색 주제 버튼 클릭 시 해당 버튼의 값으로 검색 
 						for (let i = 0; i < btn.length; i++) {
 							btn[i].onclick = function() {
@@ -834,6 +850,7 @@ html {
 																// 선택한 마커에 해당하는 시설의 상세 정보를 화면 하단에 출력
 																printFacilityDetailInfo(marker, result, status, title);
 																showOff();
+																
 															});
 												})
 
@@ -919,8 +936,7 @@ html {
 						fdetailsAddress = document.getElementById('selectedFacilityDetailAddress');
 						fphoneNumber = document.getElementById('selectedFacilityPhoneNumber');
 
-						//fname.innerHTML = facilityName;
-
+						// 페이지 하단에 시설 정보 출력
 						fname.innerHTML = facilityName;
 						faddress.innerHTML = facilityAddress;
 						fdetailsAddress.innerHTML = facilityDetailAddress;
@@ -1069,12 +1085,15 @@ html {
 
 						// 찾은 값 대입할 elemets
 						fname = document.getElementById('selectedFacilityName');
-						faddress = document
-								.getElementById('selectedFacilityAddress');
-						fdetailsAddress = document
-								.getElementById('selectedFacilityDetailAddress');
-						fphoneNumber = document
-								.getElementById('selectedFacilityPhoneNumber');
+						faddress = document.getElementById('selectedFacilityAddress');
+						fdetailsAddress = document.getElementById('selectedFacilityDetailAddress');
+						fphoneNumber = document.getElementById('selectedFacilityPhoneNumber');
+
+						// 찾은 값 대입할 elemets
+						fname2 = document.getElementById('selectedFacilityName2');
+						faddress2 = document.getElementById('selectedFacilityAddress2');
+						fdetailsAddress2 = document.getElementById('selectedFacilityDetailAddress2');
+						fphoneNumber2 = document.getElementById('selectedFacilityPhoneNumber2');
 
 						// 찾은 값 대입
 						fname.innerHTML = facilityName;
@@ -1082,18 +1101,31 @@ html {
 						fdetailsAddress.innerHTML = facilityDetailAddress;
 						fphoneNumber.innerHTML = facilityPhoneNumber;
 
+						// 시설 리뷰 작성을 위한 시설 정보 -- hidden
+						fname2.value = facilityName;
+						faddress2.value = facilityAddress;
+						fdetailsAddress2.value = facilityDetailAddress;
+						fphoneNumber2.value = facilityPhoneNumber;
+
 						// 찾은 값을 출력할 element
-						let showIt = document
-								.getElementById('facilitiesReview');
+						let showIt = document.getElementById('facilitiesReview');
 
 						// 찾은 값 출력할 element의 속성 보이게 변경
 						showIt.setAttribute('style', 'display:visible');
+						
 						// 스크롤 이동
 						window.scrollTo(0, 1000);
+						
+						// 기존 시설 리뷰 지우기
+						let pfr = document.getElementById('printFacilitiesReivew');
+						let printIt = `<br><br><h4>사용자들의 후기</h4><br>`;
+						printIt += `<div style="color : red;">&nbsp;&nbsp;&nbsp;&nbsp;아직 후기가 없습니다</div>`;
+						pfr.innerHTML = printIt;
 
 						// 찾은 값들과 일치하는 데이터가 facilities 테이블에 있는지 확인, 있다면 리뷰 가져오기, 
 						// 없다면 시설 데이터를 서비스에서 insert
 						findFacilitiesData(facilityName, facilityAddress, facilityDetailAddress, facilityPhoneNumber);
+						findFacilitiesStar(facilityName, facilityAddress, facilityDetailAddress, facilityPhoneNumber)
 						
 						// 경로 찾기
 						if (status === kakao.maps.services.Status.OK) {
@@ -1108,10 +1140,13 @@ html {
 							findWayDetailAddr = detailAddr;
 							findWayTitle = title;
 						}
+						
 					}
 					
 					// 찾은 데이터가 facilities 테이블에 있는지 확인 후, 있다면 리뷰를 가져오고, 없다면 데이터를 insert하는 함수
 					function findFacilitiesData(facilityName, facilityAddress, facilityDetailAddress, facilityPhoneNumber){
+						let sfs = document.getElementById('selectedFacilitiesStar');
+						let pfr = document.getElementById('printFacilitiesReivew');
 						
 						$.ajax({
 							url : 'facilities/findFacilitiesData',
@@ -1124,10 +1159,31 @@ html {
 									},
 							dataType : 'json', // text ==> return 확인용
 							success : function(facilitiesReview){
-								if(facilitiesReview != null){
+								let printIt = `<br><br><h4>사용자들의 후기</h4><br>`;
+								
+								if(facilitiesReview.length != 0){
 									// 리뷰 출력
+									findFacilitiesStar(facilityName, facilityAddress, facilityDetailAddress, facilityPhoneNumber);
 									console.log(facilitiesReview);
 									
+									// 여기다!!
+									// facilitiesReview 출력
+									// 리뷰 출력
+									for(let i = 0; i < facilitiesReview.length; i++){
+										printIt += `<div><div>`;
+										printIt += `<span><b>${facilitiesReview[i].memberId}</b></span>`;
+										printIt += `<span style="color : red;">&nbsp;&nbsp;&nbsp;★&nbsp;${facilitiesReview[i].facilitiesStar} / 5</span>`;
+										printIt += `<span style="float :right">${facilitiesReview[i].facilitiesReviewDate}</span><br>`;
+										printIt += `<div style="float :right" sec:authorize="isAuthenticated()">`;
+										printIt += `<input type="button" class="deleteBtn" num=${facilitiesReview[i].facilitiesEvaluationNumber}
+													id="deleteBtn" + ${facilitiesReview[i].facilitiesEvaluationNumber} value="삭제">`; 
+													// 관리자인 경우 본인 상관없이 삭제 기능
+										printIt += `</div></div>`;
+										printIt += `<span>&nbsp;&nbsp;&nbsp;&nbsp;${facilitiesReview[i].facilitiesReview}</span>`;
+										printIt += `</div>`;
+										printIt += `<br>`;
+										printIt += `<hr>`;
+									}
 									/* 
 									let s = `<p> ${ob.name} </p>`;
 									s += `<p> ${ob.age} </p>`;
@@ -1137,14 +1193,79 @@ html {
 									// dataType : 'json' 으로 받은 경우
 									// Key - Value 쌍 형태의 배열로 받으므로 parameter. 형태로 사용 가능
 									*/
+									pfr.innerHTML = printIt;
+									
+									$('.deleteBtn').click(deleteFacilitiesReview);
+									
+								} else {
+									printIt += `<div style="color : red;">&nbsp;&nbsp;&nbsp;&nbsp;아직 후기가 없습니다</div>`;
+									pfr.innerHTML = printIt;
 								}
-								console.log('success');	
+							},
+							error : function(e){
+								console.log(JSON.stringify(e));
+							}
+						});
+						
+					}
+					
+					function deleteFacilitiesReview(){
+						console.log('deleteFacilitiesReview');
+						console.log($(this).attr('num'));
+						
+						// 클릭한 버튼 옆의 댓글 번호를 서버로 보내 삭제
+						$.ajax({
+							url : 'facilities/deleteFacilitiesReview',
+							type : 'post',
+							data : {facilitiesEvaluationNumber : $(this).attr('num')},
+							success : function(){
+								alert('success');
+								// 댓글 목록 다시 불러오기
+								findFacilitiesData(facilityName, facilityAddress, facilityDetailAddress, facilityPhoneNumber);
 							},
 							error : function(e){
 								console.log(JSON.stringify(e));
 							}
 						});
 					}
+					
+					let faNa;
+					let faAd;
+					let faDe;
+					let faPh;
+					
+					// 시설의 평점을 찾는 함수
+					function findFacilitiesStar(facilityName, facilityAddress, facilityDetailAddress, facilityPhoneNumber){
+						let sfs = document.getElementById('selectedFacilitiesStar');
+						
+						faNa = facilityName;
+						faAd = facilityAddress;
+						faDe = facilityDetailAddress;
+						faPh = facilityPhoneNumber;
+						
+						$.ajax({
+							url : 'facilities/findFacilitiesStar',
+							type : 'post',
+							data : {
+								facilitiesName : facilityName
+								, facilitiesAddress : facilityAddress
+								, facilitiesDetailAddress : facilityDetailAddress
+								, facilitiesPhoneNumber : facilityPhoneNumber
+								},
+							dataType : 'json',
+							success : function(facilitiesStar){
+									if(facilitiesStar == 0){
+										sfs.innerHTML = "아직 후기가 5개 이하입니다";
+										return;
+									}
+									sfs.innerHTML = '★ ' + facilitiesStar;
+							},
+							error : function(e){
+								console.log(JSON.stringify(e));
+							}
+						});
+					}
+					
 					
 					// 가장 가까운 수를 찾는 함수
 					function findNearestNumber(numbers, number) {
@@ -1183,6 +1304,71 @@ html {
 								+ ', width=' + popupWidth + ', left=' + popupX + ', top=' + popupY;
 
 							window.open(findWayUrl, '카카오맵', option);
+					}
+					
+					// 리뷰 제출
+					function facilitiesReviewWrite() {
+						let fn = document.getElementById('selectedFacilityName2');
+						let fa = document.getElementById('selectedFacilityAddress2');
+						let fda = document.getElementById('selectedFacilityDetailAddress2');
+						let fp = document.getElementById('selectedFacilityPhoneNumber2');
+						let fs = document.getElementById('selectedStar');
+						let message = document.getElementById('message');
+						
+						// validation
+						if(fs.value.length <= 0){
+							alert("점수를 체크해주세요!");
+							return;
+						}
+						if(message.value.length <= 0){
+							alert("내용을 입력해주세요!");
+							return;
+						} else if(message.value.length < 10){
+							alert("10자 이상 입력해주세요!");
+							return;
+						}
+						
+						// 평점 버튼 색상 원상복귀
+						selectedStarAfterSubmit.setAttribute('class', 'btn sanBtn1 writeFacilityReview shorter starClick');
+
+						$.ajax({
+							url : 'facilities/insertFacilitiesReview',
+							type : 'post',
+							data : {
+								facilitiesName : fn.value,
+								facilitiesAddress : fa.value,
+								facilitiesDetailAddress : fda.value,
+								facilitiesPhoneNumber : fp.value,
+								facilitiesStar : fs.value,
+								facilitiesReview : message.value
+							},
+							dataType : 'json', // text ==> return 확인용
+							success : function(num) {
+								// 리뷰 출력
+								if(num == 1){
+									console.log('후기 작성 성공');
+									fs.value = "";
+									message.value = "";
+								} else {
+									alert('후기 작성이 실패했습니다!');
+								}
+								// 리뷰 창 숨기기
+								showOff();
+								
+								// 작성 성공 알림
+								let reviewSuccess = document.getElementById('reviewSuccess');
+								reviewSuccess.setAttribute('style', 'color:red; display:visible');									
+								setInterval(function(){
+									reviewSuccess.setAttribute('style', 'color:red; display:none');									
+								}, 2000);
+								findFacilitiesStar(faNa, faAd, faDe, faPh);
+								findFacilitiesData(faNa, faAd, faDe, faPh);
+								
+							},
+							error : function(e) {
+								console.log(JSON.stringify(e));
+							}
+						});
 					}
 				</script>
 			</div>

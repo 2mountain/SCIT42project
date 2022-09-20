@@ -39,7 +39,7 @@
 /* --------------------
 :: 1.0 Base CSS
 -------------------- */
-      
+
 * {
     margin: 0;
     padding: 0;
@@ -1247,7 +1247,11 @@ th.facilityInfo, #findWayButton {
 .shorter2 {
 	width: 30px;
 	padding : 0;
-    background-color: #218838;
+    background-color: rgb(255, 0, 0);
+}
+
+#selectedFacilityName {
+	display: inline-block;
 }
 
 /* -------------------- 
