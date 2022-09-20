@@ -58,4 +58,24 @@ public interface FacilitiesDAO {
 	 */
 	public List<FacilitiesValuation> getFacilitiesReview(int facilitiesNumber);
 
+	/**
+	 * parameter의 리뷰번호와 일치하는 리뷰 삭제
+	 * @param facilitiesEvaluationNumber
+	 * @return 0 || 1
+	 */
+	public int deleteFacilitiesReview(int facilitiesEvaluationNumber);
+
+	/**
+	 * 해당 유저의 rolename을 확인하는 메소드
+	 * @param username
+	 * @return rolename
+	 */
+	public String checkRole(String username);
+
+	/**
+	 * 해당 시설 리뷰 작성자의 아이디 조회
+	 * @param facilitiesEvaluationNumber
+	 * @return 시설 리뷰 작성자의 아이디
+	 */
+	public String checkReviewWrite(int facilitiesEvaluationNumber);
 }

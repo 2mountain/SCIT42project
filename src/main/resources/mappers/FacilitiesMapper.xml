@@ -72,4 +72,21 @@
 		WHERE facilitiesNumber = #{facilitiesNumber}
 		ORDER BY facilitiesReviewDate DESC
 	</select>
+	
+	<delete id="deleteFacilitiesReview" parameterType="int">
+		DELETE FROM facilitiesEvaluation
+		WHERE facilitiesEvaluationNumber = #{facilitiesEvaluationNumber}
+	</delete>
+	
+	<select id="checkRole" parameterType="String" resultType="String">
+		SELECT memberrolename
+		FROM members
+		WHERE memberid = #{memberid}
+	</select>
+	
+	<select id="checkReviewWrite" parameterType="int" resultType="String">
+		SELECT memberid
+		FROM facilitiesEvaluation
+		WHERE facilitiesEvaluationNumber = #{facilitiesEvaluationNumber}
+	</select>
 </mapper>

@@ -87,8 +87,7 @@ public class FacilitiesController {
 		} else { // 해당 시설의 정보가 이미 facilities 테이블에 있는 경우
 			log.debug("[FacilitiesController] findFacilitiesData : facility not null");
 			
-			// 여기 수정 중
-			// ★★★★★★★★★★★★★★★ DB에서 받은 데이터를 fv(시설 리뷰)에 넣는 것으로 수정 ★★★★★★★★★★★★★★★★★★★★
+			// 해당 시설의 리뷰 출력
 			fv = printFacilitiesReivew(facilities);
 			log.debug("[FacilitiesController] fv : {}", fv);
 			
@@ -203,19 +202,31 @@ public class FacilitiesController {
 									,@AuthenticationPrincipal UserDetails user) {
 		log.debug("[FacilitiesController] deleteFacilitiesReview - parameters1 : {}", facilitiesEvaluationNumber);
 		log.debug("[FacilitiesController] deleteFacilitiesReview - parameters2 : {}", user);
-		
-		// Members 테이블을 통해 parameter의 user의 role이 ROLE_ADMIN인지 확인
-		int result = service.checkAdmin(user.getUsername());
-		// role이 ROLE_ADMIN이라면 삭제
-		if(result == 1) {
-			
-		}
 
-		// parameter의 user와 facilitiesEvaluationNumber를 통해 알아낸 해당 리뷰의 작성자가 일치하는지 확인
 		
-		// 일치하지 않는다면 삭제 X
+		// parameter로 현재 계정의 아이디를 보내서 현재 계정의 role가져옴
+		String checkRole = service.checkRole(user.getUsername());
 		
+		// role이 admin이면 해당 리뷰 삭제 
+		int result = 0;
+		if(checkRole.equals("ROLE_ADMIN")) {
+			// 글 번호를 보내 삭제
+			result = service.deleteFacilitiesReview(facilitiesEvaluationNumber);
+			return result;
+		}
 		
-		return 0;
+		// role이 user면 해당 리뷰의 작성자 아이디를 현재 계정의 아이디와 비교 --> 일치시 삭제, 일치X 시 삭제 X
+		if(checkRole.equals("ROLE_USER")) {
+			// 해당 글 작성자의 아이디 조회
+			String reviewWriter = service.checkReviewWrite(facilitiesEvaluationNumber);
+			log.debug(reviewWriter);
+			
+			// 글 작성자와 삭제하려는 계정의 아이디가 같은 경우 삭제
+			if(reviewWriter.equals(user.getUsername())) {
+				result = service.deleteFacilitiesReview(facilitiesEvaluationNumber);
+				return result;
+			}
+		}
+		return result;
 	}
 }
