@@ -848,6 +848,7 @@ html {
 																// 선택한 마커에 해당하는 시설의 상세 정보를 화면 하단에 출력
 																printFacilityDetailInfo(marker, result, status, title);
 																showOff();
+																
 															});
 												})
 
@@ -1131,7 +1132,37 @@ html {
 							findWayDetailAddr = detailAddr;
 							findWayTitle = title;
 						}
+						
+						// 여기다!!
+						// 선택된 시설의 리뷰를 불러와 화면에 출력하는 ajax
+						// 선택된 시설의 정보를 controller로 보냄 ==> 해당 시설의 정보로 DB저장 번호를 알아냄 ==> 리뷰 출력
+						// 삭제? printFacilitiesReivew(facilityName, facilityAddress, facilityDetailAddress, facilityPhoneNumber);
 					}
+					
+					// 선택된 시설의 리뷰를 불러와 화면에 출력하는 ajax
+					/* 삭제?
+						function printFacilitiesReivew(facilityName, facilityAddress, facilityDetailAddress, facilityPhoneNumber){
+						let pfr = document.getElementById('printFacilitiesReview');
+						
+						$.ajax({
+							url : 'facilities/printFacilitiesReivew',
+							type : 'post',
+							data : {
+								facilitiesName : facilityName
+								, facilitiesAddress : facilityAddress
+								, facilitiesDetailAddress : facilityDetailAddress
+								, facilitiesPhoneNumber : facilityPhoneNumber
+							},
+							dataType : 'json',
+							success : function(facilitiesReview){
+								alert(facilitiesReview);
+							},
+							error : function(e){
+								console.log(JSON.stringify(e));
+							}
+							
+						});
+					} */
 					
 					// 찾은 데이터가 facilities 테이블에 있는지 확인 후, 있다면 리뷰를 가져오고, 없다면 데이터를 insert하는 함수
 					function findFacilitiesData(facilityName, facilityAddress, facilityDetailAddress, facilityPhoneNumber){
@@ -1150,7 +1181,6 @@ html {
 							success : function(facilitiesReview){
 								if(facilitiesReview != null){
 									// 리뷰 출력
-									console.log(facilitiesReview);
 									findFacilitiesStar(facilityName, facilityAddress, facilityDetailAddress, facilityPhoneNumber);
 									/* 
 									let s = `<p> ${ob.name} </p>`;
@@ -1162,7 +1192,6 @@ html {
 									// Key - Value 쌍 형태의 배열로 받으므로 parameter. 형태로 사용 가능
 									*/
 								}
-								console.log('success');	
 							},
 							error : function(e){
 								console.log(JSON.stringify(e));
@@ -1194,9 +1223,8 @@ html {
 								, facilitiesDetailAddress : facilityDetailAddress
 								, facilitiesPhoneNumber : facilityPhoneNumber
 								},
-							dataType : 'json', // text ==> return 확인용
+							dataType : 'json',
 							success : function(facilitiesStar){
-									console.log(facilitiesStar);
 									if(facilitiesStar == 0){
 										sfs.innerHTML = "아직 후기가 10개 이하입니다";
 										return;
@@ -1270,8 +1298,6 @@ html {
 							alert("10자 이상 입력해주세요!");
 							return;
 						}
-						
-						console.log('facilities.html');
 						
 						// 평점 버튼 색상 원상복귀
 						selectedStarAfterSubmit.setAttribute('class', 'btn sanBtn1 writeFacilityReview shorter starClick');

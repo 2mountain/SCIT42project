@@ -65,4 +65,10 @@
 		FROM facilitiesEvaluation 
 		WHERE facilitiesNumber = #{facilitiesNumber}
 	</select>
+	
+	<select id="getFacilitiesReview" parameterType="int" resultType="FacilitiesValuation">
+		SELECT *
+		FROM facilitiesEvaluation
+		WHERE facilitiesNumber = #{facilitiesNumber}
+	</select>
 </mapper>
