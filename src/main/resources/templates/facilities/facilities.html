@@ -1170,7 +1170,7 @@ html {
 										printIt += `<div>`;
 										printIt += `<div>`;
 										printIt += `<span><b>${facilitiesReview[i].memberId}</b></span>`;
-										printIt += `<span style="color : red;">&nbsp;&nbsp;&nbsp;&nbsp;${facilitiesReview[i].facilitiesStar} / 5</span>`;
+										printIt += `<span style="color : red;">&nbsp;&nbsp;&nbsp;★&nbsp;${facilitiesReview[i].facilitiesStar} / 5</span>`;
 										printIt += `<span style="float :right">${facilitiesReview[i].facilitiesReviewDate}</span>`;
 										printIt += `</div><br>`;
 										printIt += `<span>&nbsp;&nbsp;&nbsp;&nbsp;${facilitiesReview[i].facilitiesReview}</span>`;
@@ -1227,10 +1227,10 @@ html {
 							dataType : 'json',
 							success : function(facilitiesStar){
 									if(facilitiesStar == 0){
-										sfs.innerHTML = "아직 후기가 10개 이하입니다";
+										sfs.innerHTML = "아직 후기가 5개 이하입니다";
 										return;
 									}
-									sfs.innerHTML = facilitiesStar;
+									sfs.innerHTML = '★ ' + facilitiesStar;
 							},
 							error : function(e){
 								console.log(JSON.stringify(e));

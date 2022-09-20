@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,11 @@ import net.softsociety.aimori.service.FacilitiesService;
 @RequestMapping("facilities")
 @Controller
 public class FacilitiesController {
+	
+	// 별점은 5가 최대
+	@Value("${user.facilities.star}")
+	int star;
+	
 	@Autowired
 	FacilitiesService service;
 	
@@ -126,7 +132,7 @@ public class FacilitiesController {
 		double result = service.findFacilitiesStar(facilitesNumber);
 		log.debug("result : {}", result);
 		
-		if(result > 5) {
+		if(result > star) {
 			return 0;
 		}
 		
