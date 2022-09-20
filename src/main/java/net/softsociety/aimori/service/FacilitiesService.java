@@ -47,4 +47,11 @@ public interface FacilitiesService {
 	 * @return 해당 시설을 평가한 사람 수
 	 */
 	int countFaciliteisStar(int facilitesNumber);
+
+	/**
+	 * 시설 번호로 해당 시설의 리뷰를 가져오는 메소드
+	 * @param facilitiesNumber
+	 * @return 시설 리뷰
+	 */
+	FacilitiesValuation getFacilitiesReview(int facilitiesNumber);
 }

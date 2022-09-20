@@ -1,8 +1,6 @@
 package net.softsociety.aimori.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -65,6 +63,8 @@ public class FacilitiesController {
 		// 시설의 정보가 이미 DB에 있는 경우, 리뷰를 불러와 담을 변수
 		FacilitiesValuation fv;
 		
+		log.debug("[FacilitiesController] facility : {}", facility);
+		
 		if(facility == null) {
 			log.debug("[FacilitiesController] findFacilitiesData : facility null");
 			
@@ -79,10 +79,30 @@ public class FacilitiesController {
 			
 			// 여기 수정 중
 			// ★★★★★★★★★★★★★★★ DB에서 받은 데이터를 fv(시설 리뷰)에 넣는 것으로 수정 ★★★★★★★★★★★★★★★★★★★★
-			fv = new FacilitiesValuation(0, 0, null, null, 0, null);
+			fv = printFacilitiesReivew(facilities);
+			log.debug("[FacilitiesController] fv : {}", fv);
 			
 		}
 		
+		return fv;
+	}
+	
+	/**
+	 * 해당 시설의 리뷰를 가져오는 메소드
+	 * @param facilities
+	 * @return 시설 리뷰
+	 */
+	@ResponseBody
+	@PostMapping("/printFacilitiesReivew")
+	public FacilitiesValuation printFacilitiesReivew(Facilities facilities) {
+		log.debug("[FacilitiesController] printFacilitiesReivew");
+		int facilitiesNumber = service.findFacilitiesNumber(facilities);
+		log.debug("[FacilitiesController] printFacilitiesReivew - facilitiesNumber : {}", facilitiesNumber);
+		
+		// 시설 번호로 해당 시설의 리뷰를 가져오는 메소드
+		FacilitiesValuation fv = service.getFacilitiesReview(facilitiesNumber);
+		log.debug("wow : {}", fv);
+				
 		return fv;
 	}
 	
@@ -168,5 +188,4 @@ public class FacilitiesController {
 		
 		return result;
 	}
-
 }

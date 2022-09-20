@@ -60,4 +60,10 @@ public class FacilitiesServiceImpl implements FacilitiesService {
 		return result;
 	}
 
+	@Override
+	public FacilitiesValuation getFacilitiesReview(int facilitiesNumber) {
+		FacilitiesValuation fv = dao.getFacilitiesReview(facilitiesNumber);
+		return fv;
+	}
+
 }
