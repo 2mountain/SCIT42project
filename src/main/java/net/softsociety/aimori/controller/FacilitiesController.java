@@ -87,8 +87,7 @@ public class FacilitiesController {
 		} else { // 해당 시설의 정보가 이미 facilities 테이블에 있는 경우
 			log.debug("[FacilitiesController] findFacilitiesData : facility not null");
 			
-			// 여기 수정 중
-			// ★★★★★★★★★★★★★★★ DB에서 받은 데이터를 fv(시설 리뷰)에 넣는 것으로 수정 ★★★★★★★★★★★★★★★★★★★★
+			// 해당 시설의 리뷰 출력
 			fv = printFacilitiesReivew(facilities);
 			log.debug("[FacilitiesController] fv : {}", fv);
 			
