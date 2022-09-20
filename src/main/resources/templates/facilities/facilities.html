@@ -450,9 +450,8 @@ html {
 			<h3 id="mapExplain">내 위치 주변 반려동물 시설</h3>
 			<span class="ml-5 mt-1">- 현재 검색 반경 : 
 				<span class="mt-3 currentRadius" th:text="${radius/1000}">(기본 검색반경) 3</span> km
-			</span>
-			<span class="ml-5 mt-1">- 현재 검색 테마 : 
-				<span class="mt-3 currentRadius" th:text="${place}">현재 검색어</span>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 현재 검색 테마 : 
+				<span class="mt-3" th:text="${place}">현재 검색어</span>
 			</span>
 
 			<!-- KAKAOMAP API - 카카오맵 -->
@@ -469,10 +468,10 @@ html {
 								<div>
 									<div id="pagination"></div>
 									<form th:action="@{/facilities}" method="post" id="themeSearch"
-										onsubmit="searchPlaces(); return false;" hidden="hidden">
+										onsubmit="searchPlaces(); return false;"><!-- hidden="hidden" -->
 										키워드 : <input type="text" th:value="${place}" name="place" id="keyword" size="15"> 
-											<input type="text" th:value="${radius}" name="radius" class="currentRadius"
-											hidden="hidden">
+											<input type="text" th:value="${radius}" name="radius" class="currentRadius">
+											<!-- hidden = "hidden" -->
 										<button type="submit">검색하기</button>
 									</form>
 								</div>
@@ -712,9 +711,8 @@ html {
 						let lon = latlon[0];
 						let lat = latlon[1];
 
-						// 검색 반경 변경 버튼(1 km, 2 km, 3 km, 4 km, 5 km, 10 km)
+						// 검색 반경 변경 버튼(1 km, 2 km, 3 km, 4 km, 5 km, 10 km) - 6개
 						let chR = document.getElementsByClassName('radiusChange');
-
 						// chR[i].value의 숫자와 문자를 분리하기 위한 변수 
 						const regex = /[^0-9]/g;
 
@@ -724,11 +722,17 @@ html {
 						// 누른 검색 반경 버튼 인식
 						for (let i = 0; i < chR.length; i++) {
 							chR[i].onclick = function() {
+								console.log(chR[i].value);
+								
 								let num = chR[i].value;
+								
 								const result = num.replace(regex, "");
 								const number = parseInt(result) * 1000;
-
-								chRhtml.innerHTML = number;
+								
+								chRhtml[i].innerHTML = number;
+								
+								console.log(chRhtml[i].innerHTML);
+								
 								radiusNumber = number;
 								chRhtml[0].innerHTML = number;
 								chRhtml[1].value = number;
