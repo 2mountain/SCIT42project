@@ -62,7 +62,7 @@
 	
 	<select id="countFaciliteisStar" parameterType="int" resultType="int">
 		SELECT COUNT(facilitiesstar) 
-		FROM facilitiesEvaluation 
+		FROM facilitiesEvaluation
 		WHERE facilitiesNumber = #{facilitiesNumber}
 	</select>
 	
