@@ -35,6 +35,7 @@ public class WebSecurityConfig {
         		"/member/**",
         		"/facilities/**",
         		"/weather/**",
+        		"/mypage/**",
                 "/img/**", // static 폴더의 img, css, js의 모든 폴더는 모든 사용자 접근 가능
                 "/css/**",
                 "/fonts/**",
