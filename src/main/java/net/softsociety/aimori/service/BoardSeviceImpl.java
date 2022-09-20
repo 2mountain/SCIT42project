@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.softsociety.aimori.dao.BoardDAO;
 import net.softsociety.aimori.domain.Board;
 import net.softsociety.aimori.domain.BoardLiked;
+import net.softsociety.aimori.domain.Reply;
 import net.softsociety.aimori.util.PageNavigator;
 
 @Transactional
@@ -107,5 +108,22 @@ public class BoardSeviceImpl implements BoardService {
 	public void deleteRecommend(int BoardLikedNumber) {
 		boardDAO.deleteRecommend(BoardLikedNumber);
 	}
+	
+	// 댓글 저장
+	@Override
+	public int replyInsert(Reply reply) {
+		int result = boardDAO.replyInsert(reply);
+		return result;
+	}
+	
+	// 댓글 목록
+	@Override
+	public ArrayList<Reply> replyList(int boardNumber) {
+		ArrayList<Reply> replylist = boardDAO.replyList(boardNumber);
+		return replylist;
+	}
+	
+	
+	
 	
 }
