@@ -26,7 +26,7 @@ public class FacilitiesController {
 	@GetMapping({"", "/"})
 	public String facilities(Model model) {
 		
-		//이부분에다가 값을 바꿔주면 처음 띄울 때 값이 바뀐다!
+		// 이부분에다가 값을 바꿔주면 처음 띄울 때 값이 바뀐다!
 		String place = "애완동물";
 		int radius = 3000;
 		 
@@ -160,7 +160,7 @@ public class FacilitiesController {
 		// fv.setMemberId(user.getUsername()); 
 
 		// (테스트용)삭제할 것
-		fv.setMemberId("san"); 
+		fv.setMemberId("sansansan"); 
 
 		log.debug("ing : {}", fv);
 		// FacilitiesValuation 테이블에 값을 넣는 메소드

@@ -234,9 +234,9 @@ CREATE TABLE facilitiesEvaluation
                 -- 시설 번호
 	memberId                        VARCHAR2(40) REFERENCES members(memberId),
                 -- 리뷰 작성 회원 아이디
-	facilitiesReview                VARCHAR2(1000) CONSTRAINT faclitiesEvaluation_facilitiesReview_nn NOT NULL,
+	facilitiesReview                VARCHAR2(1000) CONSTRAINT facilitiesEvaluation_facilitiesReview_nn NOT NULL,
                 -- 시설 리뷰 내용
-	facilitiesStar                  NUMBER CONSTRAINT faclitiesEvaluation_facilitiesStar_nn_ck CHECK(facilitiesStar IN(0, 1, 2, 3, 4, 5)) NOT NULL,
+	facilitiesStar                  NUMBER CONSTRAINT facilitiesEvaluation_facilitiesStar_nn_ck CHECK(facilitiesStar IN(0, 1, 2, 3, 4, 5)) NOT NULL,
                 -- 시설 평가(별점)
 	facilitiesReviewDate            DATE DEFAULT SYSDATE
                 -- 시설 리뷰 작성 일자
