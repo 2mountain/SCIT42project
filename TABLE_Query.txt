@@ -138,7 +138,7 @@ create table boardLikedData
 (
     boardLikedNumber number primary key not null,
     memberId varchar2(40) references members(memberId),
-    boardNumber number references board(boardNumber),
+    boardNumber number references board(boardNumber)
 );
 
 
