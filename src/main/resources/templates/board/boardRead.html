@@ -38,16 +38,28 @@
 <!-- test -->
 <link rel="stylesheet" type="text/css" th:href="@{/css/board/board.css}" />
 
-
-
-<!-- test (리플 삭제) -->
+<!-- test -->
 <script>
+
 	//글 삭제
 	function deleteBoard(num) {
 		if (confirm('삭제하시겠습니까?')) {
 			location.href = 'delete?boardNumber=' + num;
 		}
 	}
+	
+	//리플 작성
+	function validation() {
+		let replytext = document.getElementById('replyContents');
+		if (replytext.value.length < 3) {
+			alert('댓글 3자 이상으로 작성해주세요.');
+			return false;
+		}
+		return true;
+	}
+	
+
+	
 </script>
 
 <script>
@@ -323,6 +335,58 @@
 			<!-- <div th:if="${#authentication.name} == ${board.memberId}"> -->
 
 		</div>
+		
+		<!-- 리플 작성 폼 -->
+		<div style="height: 100px;">
+		</div>
+		
+		
+		
+		
+			
+		
+		
+		
+		
+		<div class="container">
+		<hr>
+			<div class="card-body" style="padding-left: 200px;">
+				<form class="form-horizontal" th:action="@{/board/replyInsert}" method="post" onsubmit="return validation();">
+				<input type="hidden" name="boardNumber" th:value="${board.boardNumber}">
+					<div class="row">
+						<div class="form-group col-sm-10">
+							<textarea class="form-control input-sm" type="text" id="replyContents" name="replyContents" placeholder="댓글 입력..." style="height : 100px; border: solid 1px gray;"></textarea>
+						</div>
+						<div style="padding-top: 10px">
+							<input class="btn btn-primary btn-sm" type="submit" value="등록">
+						</div>
+					</div>
+				</form>
+			</div>
+		<hr>
+		
+		
+		
+		<!-- 리플 목록 출력 시작 -->
+			<table class="reply">
+				<tr th:each="reply : ${replylist}">
+					<td class="memberId" th:text="${reply.memberId}"></td>
+					<td class="replyContents" th:text="${reply.replyContents}"></td>
+					<td class="replyInputDate" th:text="${reply.replyInputDate}"></td>
+					<!-- <td class="white">
+						<span th:if="${#authentication.name} == ${reply.memberId}">
+							<a th:href="|javascript:deleteReply(${reply.replyNumber}, ${reply.boardNumber})|">
+								<img th:src="@{/image/icon_delete_24.png}">
+							</a>
+						</span>
+					</td> -->
+				</tr>	
+			</table>
+		
+		
+		
+		</div>
+                        
 	</section>
 
 
@@ -583,7 +647,6 @@
 	<!-- Active JS -->
 	<script th:src="@{/js/active.js}"></script>
 	<!--  type="application/js" -->
-
 
 	<!-- 게시판 디자인 ck editor -->
 

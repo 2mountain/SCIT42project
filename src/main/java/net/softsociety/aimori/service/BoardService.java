@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import net.softsociety.aimori.domain.Board;
 import net.softsociety.aimori.domain.BoardLiked;
+import net.softsociety.aimori.domain.Reply;
 import net.softsociety.aimori.util.PageNavigator;
 
 public interface BoardService {
@@ -28,5 +29,11 @@ public interface BoardService {
 	public BoardLiked getBoardLiked(BoardLiked boardLiked);
 	// 좋아요 취소
 	public void deleteRecommend(int BoardLikedNumber);
+	// 댓글 목록
+	public ArrayList<Reply> replyList(int boardNumber);
+	// 댓글 저장
+	public int replyInsert(Reply reply);
+	// 댓글 수정
+	// 댓글 삭제
 
 }

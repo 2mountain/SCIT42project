@@ -227,5 +227,42 @@
 		boardNumber = #{boardNumber}
 		<!-- and memberId = #{memberId} -->
 	</delete>
+	
+	<!-- 댓글 저장 -->
+	<insert id="replyInsert" parameterType="Reply">
+		insert into reply
+		(
+			replyNumber
+			, boardNumber
+			, memberId
+			, memberNickName
+			, replyContents
+		)
+		values
+		(
+			reply_seq.nextval
+			, #{boardNumber}
+			, #{memberId}
+			, #{memberNickName}
+			, #{replyContents}
+		)
+	</insert>
+	
+	<!-- 댓글 목록 출력하기 -->
+	<select id="replyList" parameterType="int" resultType="Reply">
+		select
+			replyNumber
+			, boardNumber
+			, memberId
+			, memberNickName
+			, replyContents
+			, to_char(replyInputDate, 'yy.mm.dd HH:MM:SS') replyInputDate
+		from
+			reply
+		where
+			boardNumber=#{boardNumber}
+		order by
+			replyNumber
+	</select>
 
 </mapper>
