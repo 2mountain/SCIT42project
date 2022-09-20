@@ -31,10 +31,11 @@ public class Member implements UserDetails {
 	String memberBirthDay;	// 회원 생년월일
 	int memberPoint;		// 회원 포인트
 	String memberRoleName;	// 회원 역할
-	int memberEnabled;		// 회원 차단 여부
-	String memberJoinDate;	// 회원 가입일
+	boolean memberEnabled; // 회원 차단 여부
+ 	String memberJoinDate;	// 회원 가입일
 	String memberImageOriginalFile;	// 대표 이미지의 원래 이름
 	String memberImageSavedFile;	//이미지 첨부파일 서버에 저장된 이름
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
@@ -43,32 +44,32 @@ public class Member implements UserDetails {
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.getMemberPassword();
 	}
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.getMemberId();
 	}
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 	@Override
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 	@Override
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return false;
+		return this.memberEnabled;
 	}
 
 }
