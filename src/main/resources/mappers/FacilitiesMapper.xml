@@ -70,5 +70,6 @@
 		SELECT *
 		FROM facilitiesEvaluation
 		WHERE facilitiesNumber = #{facilitiesNumber}
+		ORDER BY facilitiesReviewDate DESC
 	</select>
 </mapper>

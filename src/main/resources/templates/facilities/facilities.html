@@ -1151,7 +1151,7 @@ html {
 									},
 							dataType : 'json', // text ==> return 확인용
 							success : function(facilitiesReview){
-								let printIt = `<h4>사용자들의 후기</h4><br>`;
+								let printIt = `<br><br><h4>사용자들의 후기</h4><br>`;
 								
 								if(facilitiesReview.length != 0){
 									// 리뷰 출력
@@ -1161,14 +1161,15 @@ html {
 									// facilitiesReview 출력
 									// 리뷰 출력
 									for(let i = 0; i < facilitiesReview.length; i++){
-										printIt += `<div>`
-										printIt += `<div>`
+										printIt += `<div>`;
+										printIt += `<div>`;
 										printIt += `<span><b>${facilitiesReview[i].memberId}</b></span>`;
 										printIt += `<span style="color : red;">&nbsp;&nbsp;&nbsp;&nbsp;${facilitiesReview[i].facilitiesStar} / 5</span>`;
 										printIt += `<span style="float :right">${facilitiesReview[i].facilitiesReviewDate}</span>`;
-										printIt += `</div><br>`
+										printIt += `</div><br>`;
 										printIt += `<span>&nbsp;&nbsp;&nbsp;&nbsp;${facilitiesReview[i].facilitiesReview}</span>`;
-										printIt += `</div>`
+										printIt += `</div>`;
+										printIt += `<br>`;
 										printIt += `<hr>`;
 									}
 									/* 
