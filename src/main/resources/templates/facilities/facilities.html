@@ -591,7 +591,7 @@ html {
 						</div>
 						
 						<!-- 리뷰 출력 위치 -->
-						<div id="printFacilitiesReivew">
+						<div class = "wow fadeInUpBig" id="printFacilitiesReivew">
 							
 						</div>
 				</div>
@@ -1138,6 +1138,7 @@ html {
 					// 찾은 데이터가 facilities 테이블에 있는지 확인 후, 있다면 리뷰를 가져오고, 없다면 데이터를 insert하는 함수
 					function findFacilitiesData(facilityName, facilityAddress, facilityDetailAddress, facilityPhoneNumber){
 						let sfs = document.getElementById('selectedFacilitiesStar');
+						let pfr = document.getElementById('printFacilitiesReivew');
 						
 						$.ajax({
 							url : 'facilities/findFacilitiesData',
@@ -1150,13 +1151,26 @@ html {
 									},
 							dataType : 'json', // text ==> return 확인용
 							success : function(facilitiesReview){
-								if(facilitiesReview != null){
+								let printIt = `<h4>사용자들의 후기</h4><br>`;
+								
+								if(facilitiesReview.length != 0){
 									// 리뷰 출력
 									findFacilitiesStar(facilityName, facilityAddress, facilityDetailAddress, facilityPhoneNumber);
 									console.log(facilitiesReview);
 									
-									// 여기다 ==> facilitiesReview 출력
-									
+									// facilitiesReview 출력
+									// 리뷰 출력
+									for(let i = 0; i < facilitiesReview.length; i++){
+										printIt += `<div>`
+										printIt += `<div>`
+										printIt += `<span><b>${facilitiesReview[i].memberId}</b></span>`;
+										printIt += `<span style="color : red;">&nbsp;&nbsp;&nbsp;&nbsp;${facilitiesReview[i].facilitiesStar} / 5</span>`;
+										printIt += `<span style="float :right">${facilitiesReview[i].facilitiesReviewDate}</span>`;
+										printIt += `</div><br>`
+										printIt += `<span>&nbsp;&nbsp;&nbsp;&nbsp;${facilitiesReview[i].facilitiesReview}</span>`;
+										printIt += `</div>`
+										printIt += `<hr>`;
+									}
 									/* 
 									let s = `<p> ${ob.name} </p>`;
 									s += `<p> ${ob.age} </p>`;
@@ -1166,6 +1180,11 @@ html {
 									// dataType : 'json' 으로 받은 경우
 									// Key - Value 쌍 형태의 배열로 받으므로 parameter. 형태로 사용 가능
 									*/
+									pfr.innerHTML = printIt;
+									
+								} else {
+									printIt += `<div style="color : red;">&nbsp;&nbsp;&nbsp;&nbsp;아직 후기가 없습니다</div>`;
+									pfr.innerHTML = printIt;
 								}
 							},
 							error : function(e){
