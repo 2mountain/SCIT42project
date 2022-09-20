@@ -3,6 +3,7 @@ package net.softsociety.aimori.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,11 @@ import net.softsociety.aimori.domain.FacilitiesValuation;
 @Transactional
 @Service
 public class FacilitiesServiceImpl implements FacilitiesService {
+	
+	// 시설 리뷰가 5개 미만이면 평점 return X
+	@Value("${user.facilities.count}")
+	int countReview;
+	
 	@Autowired
 	FacilitiesDAO dao;
 	
@@ -46,9 +52,9 @@ public class FacilitiesServiceImpl implements FacilitiesService {
 
 	@Override
 	public double findFacilitiesStar(int facilitesNumber) {
-		
-		// 리뷰 작성자가 10명 미만인 경우 평점 출력 X
-		if(countFaciliteisStar(facilitesNumber) < 10) {
+		log.debug("findFacilitiesStar - countReview : {}", countReview);
+		// 리뷰 작성자가 5명 미만인 경우 평점 출력 X
+		if(countFaciliteisStar(facilitesNumber) < countReview) {
 			return 99.0;
 		}
 		
