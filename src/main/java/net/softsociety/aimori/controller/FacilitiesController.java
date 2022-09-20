@@ -2,10 +2,10 @@ package net.softsociety.aimori.controller;
 
 import java.util.List;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -173,7 +173,7 @@ public class FacilitiesController {
 	@PostMapping("/insertFacilitiesReview")
 	public int insertFacilitiesReview(Facilities facilities 
 									 , FacilitiesValuation fv 
-									 // , @AuthenticationPrincipal UserDetails user
+									 , @AuthenticationPrincipal UserDetails user
 									 ) {
 		log.debug("writeFacilitiesReview");
 		log.debug("[FacilitiesController] "
@@ -186,16 +186,36 @@ public class FacilitiesController {
 		
 		// 시설 번호 등록
 		fv.setFacilitiesNumber(facilitiesNumber);
+		
 		// 회원 아이디 등록
-		// fv.setMemberId(user.getUsername()); 
-
-		// (테스트용)삭제할 것
-		fv.setMemberId("sansansan"); 
+		fv.setMemberId(user.getUsername()); 
 
 		log.debug("ing : {}", fv);
 		// FacilitiesValuation 테이블에 값을 넣는 메소드
 		int result = service.insertFacilitiesReview(fv);
 		
 		return result;
+	}
+	
+	@ResponseBody
+	@PostMapping("/deleteFacilitiesReview")
+	public int deleteFacilitiesReview(int facilitiesEvaluationNumber
+									,@AuthenticationPrincipal UserDetails user) {
+		log.debug("[FacilitiesController] deleteFacilitiesReview - parameters1 : {}", facilitiesEvaluationNumber);
+		log.debug("[FacilitiesController] deleteFacilitiesReview - parameters2 : {}", user);
+		
+		// Members 테이블을 통해 parameter의 user의 role이 ROLE_ADMIN인지 확인
+		int result = service.checkAdmin(user.getUsername());
+		// role이 ROLE_ADMIN이라면 삭제
+		if(result == 1) {
+			
+		}
+
+		// parameter의 user와 facilitiesEvaluationNumber를 통해 알아낸 해당 리뷰의 작성자가 일치하는지 확인
+		
+		// 일치하지 않는다면 삭제 X
+		
+		
+		return 0;
 	}
 }
