@@ -4,6 +4,13 @@
 	margin: auto;
 	text-align: center;
 } */
+.parent{
+	display: flex;
+}
+.child{
+	flex: 1;
+}
+
 section {
 	margin: auto;
 	text-align: center;
