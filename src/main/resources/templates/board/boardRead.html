@@ -41,14 +41,14 @@
 <!-- test -->
 <script>
 
-	//글 삭제
+	// 글 삭제
 	function deleteBoard(num) {
 		if (confirm('삭제하시겠습니까?')) {
 			location.href = 'delete?boardNumber=' + num;
 		}
 	}
 	
-	//리플 작성
+	// 댓글 작성
 	function validation() {
 		let replytext = document.getElementById('replyContents');
 		if (replytext.value.length < 3) {
@@ -58,7 +58,18 @@
 		return true;
 	}
 	
-
+	// 댓글 수정
+	function replyUpdate(replyNumber, boardNumber) {
+		alert(replyNumber);
+		$('#re' + replyNumber).html('alskdjflekjf');
+	}
+	
+	// 댓글 삭제
+	function replyDelete(replyNumber, boardNumber) {
+		if (confirm('삭제하시겠습니까?')) {
+			location.href = 'replyDelete?replyNumber=' + replyNumber + '&boardNumber=' + boardNumber;
+		}
+	}
 	
 </script>
 
@@ -74,7 +85,6 @@
 		console.log(convertedContents);
 		
 		$("#contents").val(convertedContents);
-		
 		
 		$('#recommendbtn').click(function() {
 			
@@ -103,7 +113,11 @@
 				}
 			});
 		});
+		
+		
+
 	});
+
 </script>
 
 </head>
@@ -337,17 +351,11 @@
 		</div>
 		
 		<!-- 리플 작성 폼 -->
-		<div style="height: 100px;">
+		<div style="height: 30px;">
 		</div>
-		
-		
-		
-		
-			
-		
-		
-		
-		
+
+
+
 		<div class="container">
 		<hr>
 			<div class="card-body" style="padding-left: 200px;">
@@ -368,11 +376,24 @@
 		
 		
 		<!-- 리플 목록 출력 시작 -->
+		<div class="pull-left" style="padding-left: 200px; font-size: 20px; height: 60px;">
+		<a th:text="'댓글' + '[' + ${board.replyCount} + ']'" ></a>
+		</div>
+		<div class="container" style="padding-left: 210px;">
 			<table class="reply">
+			
 				<tr th:each="reply : ${replylist}">
 					<td class="memberId" th:text="${reply.memberId}"></td>
-					<td class="replyContents" th:text="${reply.replyContents}"></td>
-					<td class="replyInputDate" th:text="${reply.replyInputDate}"></td>
+					<td class="replyContents" th:text="${reply.replyContents}" th:id="'re'+${reply.replyNumber}"></td>
+					<td class="replyInputDate" th:text="${reply.replyInputDate}" style="width: 200px;"></td>
+					<td>
+						<a class="btn btn-secondary btn-sm" style="color: white;"
+						th:href="|javascript:replyUpdate(${reply.replyNumber}, ${reply.boardNumber})|">
+						수정</a>
+						<a  class="btn btn-secondary btn-sm" style="color: white;"
+						th:href="|javascript:replyDelete(${reply.replyNumber}, ${reply.boardNumber})|">
+						삭제</a>
+					</td>
 					<!-- <td class="white">
 						<span th:if="${#authentication.name} == ${reply.memberId}">
 							<a th:href="|javascript:deleteReply(${reply.replyNumber}, ${reply.boardNumber})|">
@@ -381,7 +402,9 @@
 						</span>
 					</td> -->
 				</tr>	
+
 			</table>
+		</div>
 		
 		
 		

@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 import net.softsociety.aimori.domain.Member;
@@ -88,16 +89,6 @@ public class MemberController {
 	@GetMapping("/logIn")
 	public String logIn() {
 		return "/member/logIn";
-	}
-	
-	@GetMapping("/findId")
-	public String findId() {
-		return "/member/findId";
-	}
-	
-	@GetMapping("/findPassword")
-	public String findPassword() {
-		return "/member/findPassword";
 	}
 
 }

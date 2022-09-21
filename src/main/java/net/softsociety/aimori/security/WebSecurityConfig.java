@@ -11,8 +11,6 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import lombok.AllArgsConstructor;
-
 /**
  * Security 설정
  */
@@ -38,6 +36,7 @@ public class WebSecurityConfig {
         		"/member/signIn",
         		"/member/idCheck",
         		"/member/nNCheck",
+        		"/challenge/**",
         		"/member/logIn",
         		"/facilities/**",
         		"/weather/**",

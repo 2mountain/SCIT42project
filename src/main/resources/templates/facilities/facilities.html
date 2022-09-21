@@ -215,7 +215,7 @@ html {
 
 #pageTop {
 	border-radius : 50px;
-	padding: 10px 10px;
+	padding: 5px 5px;
 	width: 50px;
 	position: fixed;
 	bottom: 15%;
@@ -235,6 +235,8 @@ html {
 
 .radiusChange {
 	width : 8vh;
+	-webkit-transition-duration: 500ms;
+	transition-duration: 500ms;
 }
 
 #needMargin {
@@ -245,8 +247,36 @@ html {
 	border : 0; 
 	outline : 0; 
 	color : blue; 
-	background-color : white;
+	background-color: transparent;
 	cursor: pointer;
+}
+.reviewBackground {
+	margin-left : 80px;
+	margin-right : 80px;
+	margin-bottom : 7px;
+	border-radius : 40px;
+	padding : 25px 25px 30px 25px; 
+	background-color: #fff8ea;
+}
+.reviewBackground:hover {
+	background-color: #ffdebf;
+}
+.noReview {
+	color : red; 
+	text-align : center;
+}
+
+.facilitiesDetailsBackground{
+	margin-bottom : 7px;
+	border-radius : 40px;
+	padding : 10px 20px 10px 40px; 
+	background-color: #fff8ea;
+}
+.facilitiesDetailsBackground:hover{
+	background-color: #ffdebf;
+}
+.reviewTitle{
+	padding-left : 90px; 
 }
 </style>
 
@@ -259,7 +289,7 @@ html {
 		let mapExplain = document.getElementById('mapExplain').offsetTop;
 		
 		pageTop.onclick = function() {
-			window.scrollTo(0, mapExplain - 5);
+			window.scrollTo(0, mapExplain);
 		}
 		
 		let getClickedStar = document.getElementsByClassName('starClick');
@@ -312,23 +342,16 @@ html {
 		<div class="yummy-load"></div>
 	</div>
 
+
 	<!-- ****** Top Header Area Start ****** -->
 	<div class="top_header_area">
 		<div class="container">
 			<div class="row">
-				<div class="col-5 col-sm-6">
-					<!--  Top Social bar start -->
-					<div class="top_social_bar">
-						<a href="https://facebook.com"><i class="fa fa-facebook" aria-hidden="true"></i></a> <a
-							href="https://twitter.com"><i class="fa fa-twitter" aria-hidden="true"></i></a> <a
-							href="https://linkedin.com"><i class="fa fa-linkedin" aria-hidden="true"></i></a> <a
-							href="https://skype.com"><i class="fa fa-skype" aria-hidden="true"></i></a> <a
-							href="https://dribbble.com"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
-					</div>
-				</div>
+				<div class="col-5 col-sm-6"></div>
 				<!--  Login Register Area -->
 				<div class="col-7 col-sm-6">
-					<div class="signup-search-area d-flex align-items-center justify-content-end">
+					<div
+						class="signup-search-area d-flex align-items-center justify-content-end">
 
 						<!-- Search Form -->
 						<div class="search-hidden-form">
@@ -341,7 +364,8 @@ html {
 						</div>
 						<!-- Search Button Area -->
 						<div class="search_button">
-							<a class="searchBtn" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
+							<a class="searchBtn" href="#"><i class="fa fa-search"
+								aria-hidden="true"></i></a>
 						</div>
 						<div class="login_register_area d-flex">
 							<div class="login" sec:authorize="not isAuthenticated()">
@@ -352,12 +376,14 @@ html {
 							</div>
 						</div>
 						<div class="login_register_area d-flex">
-						<div class="mypage" sec:authorize="isAuthenticated()" style="margin-left:20px">
-							<a href="#">마이페이지</a>
-						</div>
-						<div class="logout" sec:authorize="isAuthenticated()" style="margin-left:10px;">
-							<a th:href="@{logout}">로그아웃</a>
-						</div>
+							<div class="mypage" sec:authorize="isAuthenticated()"
+								style="margin-left: 20px">
+								<a href="#">마이페이지</a>
+							</div>
+							<div class="logout" sec:authorize="isAuthenticated()"
+								style="margin-left: 10px;">
+								<a th:href="@{logout}">로그아웃</a>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -372,34 +398,39 @@ html {
 			<div class="row">
 				<!-- Logo Area Start -->
 				<div class="col-12">
-					<div class="logo_area text-center">
-						<a th:href="@{/}" class="yummy-logo"><img src="img/bg-img/petlogo.jpg" alt=""></a>
-					</div>
+					<a th:href="@{/}" class="yummy-logo">
+						<img src="img/bg-img/toplogo.jpg" alt=""> 
+					</a>
 				</div>
 			</div>
+		</div>
 
-			<div class="row">
-				<div class="col-12">
-					<nav class="navbar navbar-expand-lg">
-						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#yummyfood-nav"
-							aria-controls="yummyfood-nav" aria-expanded="false" aria-label="Toggle navigation">
-							<i class="fa fa-bars" aria-hidden="true"></i> Menu
-						</button>
-						<!-- Menu Area Start -->
-						<div class="collapse navbar-collapse justify-content-center" id="yummyfood-nav">
-							<ul class="navbar-nav" id="yummy-nav">
-								<li class="nav-item active"><a class="nav-link" th:href="@{/board/list}">커뮤니티 <span
-											class="sr-only">(current)</span></a>
-								</li>
-								<li class="nav-item"><a class="nav-link" th:href="@{/facilities}">시설</a></li>
-								<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
-								<li class="nav-item"><a class="nav-link" href="#">챌린지</a></li>
-								<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
-								</li>
-							</ul>
-						</div>
-					</nav>
-				</div>
+		<div class="row">
+			<div class="col-12">
+				<nav class="navbar navbar-expand-lg">
+					<button class="navbar-toggler" type="button" data-toggle="collapse"
+						data-target="#yummyfood-nav" aria-controls="yummyfood-nav"
+						aria-expanded="false" aria-label="Toggle navigation">
+						<i class="fa fa-bars" aria-hidden="true"></i> Menu
+					</button>
+					<!-- Menu Area Start -->
+					<div class="collapse navbar-collapse justify-content-center"
+						id="yummyfood-nav">
+						<ul class="navbar-nav" id="yummy-nav">
+							<li class="nav-item active"><a class="nav-link"
+								th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
+							</li>
+
+
+							<li class="nav-item"><a class="nav-link"
+								th:href="@{/facilities}">시설</a></li>
+							<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
+							<li class="nav-item"><a class="nav-link" href="#">챌린지</a></li>
+							<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
+							</li>
+						</ul>
+					</div>
+				</nav>
 			</div>
 		</div>
 	</header>
@@ -495,93 +526,92 @@ html {
 				<!-- 시설 리뷰 탭 ★-->
 				<div id="facilitiesReview" style="display: none;">
 					<hr>
-          <div class="col-12 item">
-							<div class="contact-form wow fadeInUpBig" data-wow-delay="0.1s">
-								<h2 class="contact-form-title mb-30 mt-5 facilityInfo" id="selectedFacilityName">가게명</h2>
-								<span class="ml-3"><span id="selectedFacilitiesStar" style="color : red;">아직 작성된 리뷰가 없습니다</span> / 5.0</span>
+					<div class="col-12 item">
+						<div class="contact-form wow fadeInUpBig" data-wow-delay="0.1s">
+							<div class="facilitiesDetailsBackground">
+								<h2 class="contact-form-title mb-30 mt-5 facilityInfo"
+									id="selectedFacilityName">가게명</h2>
+								<span class="ml-3"><span id="selectedFacilitiesStar"
+									style="color: red;"> 작성된 리뷰가 없습니다</span> / 5.0</span>
 								<div class="mt-4 mb-5">
 									<table>
 										<tr>
 											<th class="font-weight-bold pl-4 pr-4 facilityInfo">
 												<h5>도로명 주소</h5>
 											</th>
-											<td id="selectedFacilityAddress">
-												가게 주소
-											</td>
+											<td id="selectedFacilityAddress">가게 주소</td>
 										</tr>
 										<tr>
 											<th class="font-weight-bold pl-4 pr-4 facilityInfo">
 												<h5>지번 주소</h5>
 											</th>
-											<td id="selectedFacilityDetailAddress">
-												가게 지번 주소
-											</td>
+											<td id="selectedFacilityDetailAddress">가게 지번 주소</td>
 										</tr>
 										<tr>
 											<th class="font-weight-bold pl-4 pr-4 facilityInfo">
 												<h5>전화번호</h5>
 											</th>
-											<td id="selectedFacilityPhoneNumber">
-												가게 전화 번호
-											</td>
+											<td id="selectedFacilityPhoneNumber">가게 전화 번호</td>
 										</tr>
 										<tr>
-											<th id="findWayButton">
-												<input type="button" class="btn sanBtn2 mr-3 mt-2" value="길찾기" onclick="findWay()">
-											</th>
-											<td>
-												<input type="button" class="btn sanBtn1 mt-2" value="후기 남기기" onclick="showNow()" 
-													sec:authorize="isAuthenticated()">
-												<input type="button" class="btn sanBtn1 mt-2 writeFacilityReview shorter" 
-													value="Ⅹ" style="display: none" onclick="showOff()" sec:authorize="isAuthenticated()">
-											</td>
+											<th id="findWayButton"><input type="button"
+												class="btn sanBtn2 mr-3 mt-2" value="길찾기"
+												onclick="findWay()"></th>
+											<td><input type="button" class="btn sanBtn1 mt-2"
+												value="후기 남기기" onclick="showNow()"
+												sec:authorize="isAuthenticated()"> <input
+												type="button"
+												class="btn sanBtn1 mt-2 writeFacilityReview shorter"
+												value="Ⅹ" style="display: none" onclick="showOff()"
+												sec:authorize="isAuthenticated()"></td>
 										</tr>
 									</table>
 								</div>
-								
-								<span id="reviewSuccess" style="color:red; display:none;">댓글이 작성되었습니다!</span>
-								
-								<!-- 후기 남기기 Form -->
-								<form class="writeFacilityReview pl-5 pr-5" style="display: none">
-									<div hidden="hidden">
-										<!-- DB로 보낼 시설 정보 -->
-										<input type="text" id="selectedFacilityName2" 			
-												name="facilitiesName" value="">가게명
-										<input type="text" id="selectedFacilityAddress2" 		
-												name="facilitiesAddress" value="">도로명주소
-										<input type="text" id="selectedFacilityDetailAddress2" 	
-												name="facilitiesDetailAddress" value="">지번주소
-										<input type="text" id="selectedFacilityPhoneNumber2" 	
-												name="facilitiesPhoneNumber" value="">전화번호
-									</div>
-									<div class="form-group">
-										<div class="mb-2">평점 선택</div> 
-										<input type="text" id="selectedStar" hidden="hidden" name="facilitiesStar" value="">
-										<!-- 에 사용자가 누른 별점 버튼의 value를 보내서 여기에 ~.value로 입력 -->
-										
-										<!-- <input type="button" class="btn sanBtn1 writeFacilityReview shorter starClick"
-													value="0"> -->
-										<input type="button" class="btn sanBtn1 writeFacilityReview shorter starClick" 
-													value="1">
-										<input type="button" class="btn sanBtn1 writeFacilityReview shorter starClick" 
-													value="2">
-										<input type="button" class="btn sanBtn1 writeFacilityReview shorter starClick" 
-													value="3">
-										<input type="button" class="btn sanBtn1 writeFacilityReview shorter starClick" 
-													value="4">
-										<input type="button" class="btn sanBtn1 writeFacilityReview shorter starClick" 
-													value="5">
-									</div>
-									<div class="form-group">
-										<textarea class="form-control" name="facilitiesReview" id="message"
-											cols="30" rows="10" placeholder="리뷰를 작성해주세요"></textarea>
-									</div>
-									<input type="button" class="btn float-right san-ok-btn" value="확인" onclick="facilitiesReviewWrite()">
-								</form>
 							</div>
+
+							<span id="reviewSuccess" style="color: red; display: none;">댓글이
+								작성되었습니다!</span>
+
+							<!-- 후기 남기기 Form -->
+							<form class="writeFacilityReview pl-5 pr-5" style="display: none">
+								<div hidden="hidden">
+									<!-- DB로 보낼 시설 정보 -->
+									<input type="text" id="selectedFacilityName2"
+										name="facilitiesName" value="">가게명 <input type="text"
+										id="selectedFacilityAddress2" name="facilitiesAddress"
+										value="">도로명주소 <input type="text"
+										id="selectedFacilityDetailAddress2"
+										name="facilitiesDetailAddress" value="">지번주소 <input
+										type="text" id="selectedFacilityPhoneNumber2"
+										name="facilitiesPhoneNumber" value="">전화번호
+								</div>
+								<div class="form-group">
+									<div class="mb-2"><br>평점 선택</div>
+									<input type="text" id="selectedStar" hidden="hidden"
+										name="facilitiesStar" value="">
+									<input type="button"
+										class="btn sanBtn1 writeFacilityReview shorter starClick"
+										value="1"> <input type="button"
+										class="btn sanBtn1 writeFacilityReview shorter starClick"
+										value="2"> <input type="button"
+										class="btn sanBtn1 writeFacilityReview shorter starClick"
+										value="3"> <input type="button"
+										class="btn sanBtn1 writeFacilityReview shorter starClick"
+										value="4"> <input type="button"
+										class="btn sanBtn1 writeFacilityReview shorter starClick"
+										value="5">
+								</div>
+								<div class="form-group">
+									<textarea class="form-control" name="facilitiesReview"
+										id="message" cols="30" rows="10" placeholder="리뷰를 작성해주세요"></textarea>
+								</div>
+								<input type="button" class="btn float-right san-ok-btn"
+									value="확인" onclick="facilitiesReviewWrite()">
+							</form>
 						</div>
-						
-						<!-- 리뷰 출력 위치 -->
+					</div>
+
+					<!-- 리뷰 출력 위치 -->
 						<div class = "wow fadeInUpBig" id="printFacilitiesReivew">
 							
 						</div>
@@ -590,7 +620,7 @@ html {
 				<!-- 지도 위치로 페이지 이동 버튼 -->
 				<div class="col-12">
 					<img id="pageTop" class="btn btn-lg btn-primary mr-3"
-						th:src="@{/img/moveToTop.png}" alt="moveToTop">
+						th:src="@{/img/moveToTop.png}" alt="moveToMap">
 				</div>
 
 				<!-- 카카오 맵 key -->
@@ -750,7 +780,7 @@ html {
 
 					// 스크롤 이동
 					setTimeout(function() {
-						window.scrollTo(0, mapExplain - 5);
+						window.scrollTo(0, mapExplain);
 					}, 250);
 
 					// 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
@@ -1011,11 +1041,12 @@ html {
 						paginationEl.appendChild(fragment);
 					}
 
+					// 여기다
 					// 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
 					// 인포윈도우에 장소명을 표시합니다
 					function displayInfowindow(marker, title) {
-						var content = '<div style="padding:10px;z-index:1;">'
-								+ '&nbsp;&nbsp;&nbsp;&nbsp;' + title + '</div>';
+						var content = '<div style="z-index:1;text-align:center;width:200px;padding-top:25px;font-weight:bold;font-size:15px;">'
+								+  title + '</div>';
 
 						infowindow.setContent(content);
 						infowindow.open(map, marker);
@@ -1107,8 +1138,8 @@ html {
 						
 						// 기존 시설 리뷰 지우기
 						let pfr = document.getElementById('printFacilitiesReivew');
-						let printIt = `<br><br><h4>사용자들의 후기</h4><br>`;
-						printIt += `<div style="color : red;">&nbsp;&nbsp;&nbsp;&nbsp;아직 후기가 없습니다</div>`;
+						let printIt = `<br><br><h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;사용자들의 후기</h4><br>`;
+						printIt += `<div class="reviewBackground noReview"><b>아직 후기가 없습니다</b></div>`;
 						pfr.innerHTML = printIt;
 
 						// 찾은 값들과 일치하는 데이터가 facilities 테이블에 있는지 확인, 있다면 리뷰 가져오기, 
@@ -1148,7 +1179,7 @@ html {
 									},
 							dataType : 'json', // text ==> return 확인용
 							success : function(facilitiesReview){
-								let printIt = `<br><br><h4>사용자들의 후기</h4><br>`;
+								let printIt = `<br><br><h4 class="reviewTitle">사용자들의 후기</h4><br>`;
 								
 								if(facilitiesReview.length != 0){
 									// 리뷰 출력
@@ -1159,19 +1190,17 @@ html {
 									// facilitiesReview 출력
 									// 리뷰 출력
 									for(let i = 0; i < facilitiesReview.length; i++){
-										printIt += `<div><div>`;
+										printIt += `<div class="reviewBackground"><div>`;
 										printIt += `<span><b>${facilitiesReview[i].memberId}</b></span>`;
 										printIt += `<span style="color : red;">&nbsp;&nbsp;&nbsp;★&nbsp;${facilitiesReview[i].facilitiesStar} / 5</span>`;
 										printIt += `<span style="float :right">${facilitiesReview[i].facilitiesReviewDate}</span><br>`;
-										printIt += `<div style="float :right" sec:authorize="isAuthenticated()">`;
+										printIt += `<div style="float :right">`;
 										printIt += `<input type="button" class="deleteBtn" num=${facilitiesReview[i].facilitiesEvaluationNumber}
 													id="deleteBtn" + ${facilitiesReview[i].facilitiesEvaluationNumber} value="삭제">`; 
 													// 관리자인 경우 본인 상관없이 삭제 기능
-										printIt += `</div></div>`;
+										printIt += `</div></div><br>`;
 										printIt += `<span>&nbsp;&nbsp;&nbsp;&nbsp;${facilitiesReview[i].facilitiesReview}</span>`;
 										printIt += `</div>`;
-										printIt += `<br>`;
-										printIt += `<hr>`;
 									}
 									/* 
 									let s = `<p> ${ob.name} </p>`;
@@ -1187,7 +1216,7 @@ html {
 									$('.deleteBtn').click(deleteFacilitiesReview);
 									
 								} else {
-									printIt += `<div style="color : red;">&nbsp;&nbsp;&nbsp;&nbsp;아직 후기가 없습니다</div>`;
+									printIt += `<div class="reviewBackground noReview"><b>아직 후기가 없습니다</b></div>`;
 									pfr.innerHTML = printIt;
 								}
 							},
@@ -1255,7 +1284,7 @@ html {
 							dataType : 'json',
 							success : function(facilitiesStar){
 									if(facilitiesStar == 0){
-										sfs.innerHTML = "아직 후기가 5개 이하입니다";
+										sfs.innerHTML = "<b>아직 후기가 5개 이하입니다</b>";
 										return;
 									}
 									sfs.innerHTML = '★ ' + facilitiesStar;
@@ -1567,8 +1596,7 @@ html {
 						<div class="footer-content">
 							<!-- Logo Area Start -->
 							<div class="footer-logo-area text-center">
-								<a th:href="@{/}" class="yummy-logo"><img
-									src="img/bg-img/petlogo.jpg" alt=""></a>
+								<a th:href="@{/}" class="yummy-logo"><img src="img/bg-img/toplogo.jpg" alt=""></a>
 							</div>
 							<!-- Menu Area Start -->
 							<nav class="navbar navbar-expand-lg">

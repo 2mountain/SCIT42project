@@ -42,5 +42,15 @@ public interface BoardDAO {
 	public int replyInsert(Reply reply);
 	// 댓글 목록
 	public ArrayList<Reply> replyList(int boardNumber);
+	// 댓글 수정
+	public int replyUpdate(Reply reply);
+	// 댓글 삭제
+	public int replyDelete(Reply reply);
+	// 게시글에 달린 댓글 개수
+	public int replyCount(int boardNumber);
+	// 댓글 개수 +1
+	public int replyPlus(int boardNumber);
+	// 댓글 개수 -1
+	public int replyMinus(int boardNumber);
 
 }

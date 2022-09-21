@@ -1,7 +1,5 @@
 package net.softsociety.aimori.controller;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,6 +37,5 @@ public class MypageContrroller {
 		Member member = service.getMemberInfo(user.getUsername());
 		model.addAttribute("member", member);
 		return "/mypageView/mypageMain";
-	
 	}
 }
