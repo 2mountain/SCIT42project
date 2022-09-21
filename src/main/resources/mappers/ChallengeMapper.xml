@@ -1,0 +1,58 @@
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DAO인터페이스와 매핑 -->
+<mapper namespace="net.softsociety.aimori.dao.ChallengeDAO">
+	<insert id="writechallenge" parameterType="string">
+	</insert>
+
+	<select id="challengeList" parameterType="map"
+		resultType="Challenge">
+		select
+		challengenumber
+		,challengename
+		,challengestartdate
+		,challengeenddate
+		,challengecontents
+		,challengeregistday
+		from
+		challenge
+		where
+		challengetype='challenge'
+	</select>
+
+	<select id="confienceList" parameterType="map"
+		resultType="Challenge">
+		select
+		challengenumber
+		,challengename
+		,challengestartdate
+		,challengeenddate
+		,challengecontents
+		,challengeregistday
+		from
+		challenge
+		where
+		challengetype='confience'
+	</select>
+
+	<select id="countchallenge" parameterType="map" resultType="int">
+		select
+		count(challengenumber)
+		from
+		challenge
+		where
+		challengetype='challenge'
+	</select>
+
+	<select id="countconfience" parameterType="map" resultType="int">
+		select
+		count(challengenumber)
+		from
+		challenge
+		where
+		challengetype='confience'
+	</select>
+
+</mapper>
