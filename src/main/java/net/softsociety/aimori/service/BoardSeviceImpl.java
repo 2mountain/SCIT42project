@@ -123,6 +123,13 @@ public class BoardSeviceImpl implements BoardService {
 		return replylist;
 	}
 
+	// 댓글 수정
+	@Override
+	public int replyUpdate(Reply reply) {
+		int result = boardDAO.replyUpdate(reply);
+		return result;
+	}
+	
 	// 댓글 삭제
 	@Override
 	public int replyDelete(Reply reply) {
@@ -144,11 +151,14 @@ public class BoardSeviceImpl implements BoardService {
 		return result;
 	}
 
+	// 댓글 개수 -1
 	@Override
 	public int replyMinus(int boardNumber) {
 		int result = boardDAO.replyMinus(boardNumber);
 		return result;
 	}
+
+
 	
 	
 	

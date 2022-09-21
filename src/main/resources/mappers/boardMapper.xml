@@ -261,16 +261,28 @@
 		where
 			boardNumber=#{boardNumber}
 		order by
-			replyNumber
+			replyNumber desc
 	</select>
 	
-	<!-- 리플 삭제 -->
+	<!-- 댓글 수정 -->
+	<update id="replyUpdate" parameterType="Reply">
+	update
+		reply
+	set
+		replyContents = #{replyContents}
+
+	where
+		replyNumber = #{replyNumber}
+		<!-- and memberId = #{memberId} -->
+</update>
+	
+	<!-- 댓글 삭제 -->
 	<delete id="replyDelete" parameterType="Reply">
 		delete 
 		from 
 			reply
 		where 
-			replyNumber = #{replyNumber} 
+			replyNumber = #{replyNumber}
 			<!-- and memberId = #{memberId} -->
 	</delete>
 	
