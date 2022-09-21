@@ -29,9 +29,8 @@ public class MypageContrroller {
 	public String mypageMain(@AuthenticationPrincipal UserDetails user, Model model) {
 		log.debug("UserDetails 정보 : {}", user);
 		//Member member = service.getMemberInfo(user.getUsername());
-				//getMemberInfo(user.getUsername());
 		//model.addAttribute("member", member);
-		return "/memberView/mypageMain";
+		return "/mypageView/mypageMain";
 	}
 	
 	
