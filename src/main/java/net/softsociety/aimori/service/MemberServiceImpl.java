@@ -55,5 +55,17 @@ public class MemberServiceImpl implements MemberService{
 		
 		return result;
 	}
+
+	@Override
+	public Member getMemberInfo(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int updateMember(Member member) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 }
