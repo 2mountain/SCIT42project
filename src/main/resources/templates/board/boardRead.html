@@ -58,6 +58,12 @@
 		return true;
 	}
 	
+	// 댓글 수정
+	function replyUpdate(replyNumber, boardNumber) {
+		alert(replyNumber);
+		$('#re' + replyNumber).html('alskdjflekjf');
+	}
+	
 	// 댓글 삭제
 	function replyDelete(replyNumber, boardNumber) {
 		if (confirm('삭제하시겠습니까?')) {
@@ -79,7 +85,6 @@
 		console.log(convertedContents);
 		
 		$("#contents").val(convertedContents);
-		
 		
 		$('#recommendbtn').click(function() {
 			
@@ -108,7 +113,11 @@
 				}
 			});
 		});
+		
+		
+
 	});
+
 </script>
 
 </head>
@@ -372,9 +381,10 @@
 		</div>
 		<div class="container" style="padding-left: 210px;">
 			<table class="reply">
+			
 				<tr th:each="reply : ${replylist}">
 					<td class="memberId" th:text="${reply.memberId}"></td>
-					<td class="replyContents" th:text="${reply.replyContents}"></td>
+					<td class="replyContents" th:text="${reply.replyContents}" th:id="'re'+${reply.replyNumber}"></td>
 					<td class="replyInputDate" th:text="${reply.replyInputDate}" style="width: 200px;"></td>
 					<td>
 						<a class="btn btn-secondary btn-sm" style="color: white;"
@@ -392,6 +402,7 @@
 						</span>
 					</td> -->
 				</tr>	
+
 			</table>
 		</div>
 		

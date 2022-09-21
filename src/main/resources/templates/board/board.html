@@ -236,11 +236,13 @@
 								<a th:text="${board.boardTitle}" 
 									th:href="@{/board/read(boardNumber=${board.boardNumber})}"></a>
 								<img th:src="@{/img/board-img/blankImage.png}" width="20">
-								<a th:text="'[' + ${board.replyCount} + ']'" 
+								<a th:if="${board.replyCount != 0}" th:text="'[' + ${board.replyCount} + ']'" 
 									th:href="@{/board/read(boardNumber=${board.boardNumber})}"></a>
 							</div>
 							<div th:if="${board.boardImageSaved == null}">
 								<a th:text="${board.boardTitle}"
+									th:href="@{/board/read(boardNumber=${board.boardNumber})}"></a>
+								<a th:if="${board.replyCount != 0}" th:text="'[' + ${board.replyCount} + ']'" 
 									th:href="@{/board/read(boardNumber=${board.boardNumber})}"></a>
 							</div>
 						</td>
