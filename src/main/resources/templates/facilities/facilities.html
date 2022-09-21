@@ -283,7 +283,7 @@ html {
 		let mapExplain = document.getElementById('mapExplain').offsetTop;
 		
 		pageTop.onclick = function() {
-			window.scrollTo(0, mapExplain - 5);
+			window.scrollTo(0, mapExplain);
 		}
 		
 		let getClickedStar = document.getElementsByClassName('starClick');
@@ -774,7 +774,7 @@ html {
 
 					// 스크롤 이동
 					setTimeout(function() {
-						window.scrollTo(0, mapExplain - 5);
+						window.scrollTo(0, mapExplain);
 					}, 250);
 
 					// 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
@@ -1035,11 +1035,12 @@ html {
 						paginationEl.appendChild(fragment);
 					}
 
+					// 여기다
 					// 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
 					// 인포윈도우에 장소명을 표시합니다
 					function displayInfowindow(marker, title) {
-						var content = '<div style="padding:10px;z-index:1;">'
-								+ '&nbsp;&nbsp;&nbsp;&nbsp;' + title + '</div>';
+						var content = '<div style="z-index:1;text-align:center;width:200px;padding-top:25px;font-weight:bold;font-size:15px;">'
+								+  title + '</div>';
 
 						infowindow.setContent(content);
 						infowindow.open(map, marker);
@@ -1132,7 +1133,7 @@ html {
 						// 기존 시설 리뷰 지우기
 						let pfr = document.getElementById('printFacilitiesReivew');
 						let printIt = `<br><br><h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;사용자들의 후기</h4><br>`;
-						printIt += `<div class="reviewBackground noReview">아직 후기가 없습니다</div>`;
+						printIt += `<div class="reviewBackground noReview"><b>아직 후기가 없습니다</b></div>`;
 						pfr.innerHTML = printIt;
 
 						// 찾은 값들과 일치하는 데이터가 facilities 테이블에 있는지 확인, 있다면 리뷰 가져오기, 
@@ -1209,7 +1210,7 @@ html {
 									$('.deleteBtn').click(deleteFacilitiesReview);
 									
 								} else {
-									printIt += `<div class="reviewBackground noReview">아직 후기가 없습니다</div>`;
+									printIt += `<div class="reviewBackground noReview"><b>아직 후기가 없습니다</b></div>`;
 									pfr.innerHTML = printIt;
 								}
 							},
@@ -1277,7 +1278,7 @@ html {
 							dataType : 'json',
 							success : function(facilitiesStar){
 									if(facilitiesStar == 0){
-										sfs.innerHTML = "아직 후기가 5개 이하입니다";
+										sfs.innerHTML = "<b>아직 후기가 5개 이하입니다</b>";
 										return;
 									}
 									sfs.innerHTML = '★ ' + facilitiesStar;
