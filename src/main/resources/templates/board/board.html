@@ -233,9 +233,11 @@
 						<td th:text="${board.boardNumber}" class="center"></td>
 						<td>
 							<div th:if="${board.boardImageSaved != null}">
-								<a th:text="${board.boardTitle}"
+								<a th:text="${board.boardTitle}" 
 									th:href="@{/board/read(boardNumber=${board.boardNumber})}"></a>
 								<img th:src="@{/img/board-img/blankImage.png}" width="20">
+								<a th:text="'[' + ${board.replyCount} + ']'" 
+									th:href="@{/board/read(boardNumber=${board.boardNumber})}"></a>
 							</div>
 							<div th:if="${board.boardImageSaved == null}">
 								<a th:text="${board.boardTitle}"
@@ -256,7 +258,6 @@
 					th:href="@{/board/write}">글쓰기</a>
 			</div>
 		</div>
-
 
 		<div id="navigator">
 
@@ -291,7 +292,7 @@
 					<option value="memberId" th:selected="${type} == 'memberId'">작성자ID</option>
 					<option value="all" th:selected="${type} == 'all'">전체</option>
 				</select> <input type="text" id="searchWord" name="searchWord"
-					th:value="${searchWord}"> <button class="btn btn-primary" type="button" id="saveBtn"
+					th:value="${searchWord}"> <button class="btn btn-primary btn-sm" type="button" id="saveBtn"
 					onclick="pagingFormSubmit(1)">검색</button>
 			</form>
 
