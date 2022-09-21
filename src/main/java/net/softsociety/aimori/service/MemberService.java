@@ -17,6 +17,4 @@ public interface MemberService {
 
 	// 마이페이지 개인정보 수정
 	public int updateMember(Member member);
-	
-	
 }
