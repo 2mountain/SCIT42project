@@ -12,4 +12,5 @@ public interface BoardService {
 	//현재 페이지 글 목록
 	public ArrayList<Board> list(PageNavigator navi, String type, String searchWord);
 
+
 }

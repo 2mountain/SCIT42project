@@ -32,6 +32,7 @@ public class WebSecurityConfig {
         .antMatchers(	// antMatchers( Mapping경로 ) + .permitAll() ==> 해당 경로에 모든 사용자 접근 가능
         		"/",	// home화면 경로
         		"/board/**",
+        		"/challenge/**",
         		"/member/**",
         		"/facilities/**",
         		"/weather/**",
