@@ -47,7 +47,7 @@ public class WebSecurityConfig {
                 "/fonts/**",
                 "/js/**",
                 "/ckeditor/**/**").permitAll()		//설정한 리소스의 접근을 인증절차 없이 허용
-        .antMatchers("/administrator/administrator").access("hasRole('ROLE_ADMIN')") // 관리자용 페이지, 권한 설정
+//        .antMatchers("/administrator/administrator").access("hasRole('ROLE_ADMIN')") // 관리자용 페이지, 권한 설정
         .anyRequest().authenticated()   	//위의 경로 외에는 모두 로그인을 해야 함
         .and() // 논리연산자의 && 와 같은 역할
         .formLogin()						//일반적인 폼을 이용한 로그인 처리/실패 방법을 사용할 것
