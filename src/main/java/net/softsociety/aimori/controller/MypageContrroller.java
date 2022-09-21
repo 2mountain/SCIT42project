@@ -17,5 +17,9 @@ public class MypageContrroller {
 		return "mypageView/mypageMain";
 	}
 	
-	
+	@GetMapping("/petPage")
+	public String petPage() {
+		log.debug("성공");
+		return "mypageView/petPage";
+	}
 }
