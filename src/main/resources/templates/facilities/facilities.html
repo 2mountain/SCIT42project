@@ -247,8 +247,30 @@ html {
 	border : 0; 
 	outline : 0; 
 	color : blue; 
-	background-color : white;
+	background-color: #fff8ea;
 	cursor: pointer;
+}
+.reviewBackground {
+	margin-left : 80px;
+	margin-right : 80px;
+	margin-bottom : 7px;
+	border-radius : 40px;
+	padding : 25px 25px 30px 25px; 
+	background-color: #fff8ea;
+}
+.noReview {
+	color : red; 
+	text-align : center;
+}
+
+.facilitiesDetailsBackground{
+	margin-bottom : 7px;
+	border-radius : 40px;
+	padding : 10px 20px 10px 40px; 
+	background-color: #fff8ea;
+}
+.reviewTitle{
+	padding-left : 90px; 
 }
 </style>
 
@@ -498,93 +520,92 @@ html {
 				<!-- 시설 리뷰 탭 ★-->
 				<div id="facilitiesReview" style="display: none;">
 					<hr>
-          <div class="col-12 item">
-							<div class="contact-form wow fadeInUpBig" data-wow-delay="0.1s">
-								<h2 class="contact-form-title mb-30 mt-5 facilityInfo" id="selectedFacilityName">가게명</h2>
-								<span class="ml-3"><span id="selectedFacilitiesStar" style="color : red;">아직 작성된 리뷰가 없습니다</span> / 5.0</span>
+					<div class="col-12 item">
+						<div class="contact-form wow fadeInUpBig" data-wow-delay="0.1s">
+							<div class="facilitiesDetailsBackground">
+								<h2 class="contact-form-title mb-30 mt-5 facilityInfo"
+									id="selectedFacilityName">가게명</h2>
+								<span class="ml-3"><span id="selectedFacilitiesStar"
+									style="color: red;"> 작성된 리뷰가 없습니다</span> / 5.0</span>
 								<div class="mt-4 mb-5">
 									<table>
 										<tr>
 											<th class="font-weight-bold pl-4 pr-4 facilityInfo">
 												<h5>도로명 주소</h5>
 											</th>
-											<td id="selectedFacilityAddress">
-												가게 주소
-											</td>
+											<td id="selectedFacilityAddress">가게 주소</td>
 										</tr>
 										<tr>
 											<th class="font-weight-bold pl-4 pr-4 facilityInfo">
 												<h5>지번 주소</h5>
 											</th>
-											<td id="selectedFacilityDetailAddress">
-												가게 지번 주소
-											</td>
+											<td id="selectedFacilityDetailAddress">가게 지번 주소</td>
 										</tr>
 										<tr>
 											<th class="font-weight-bold pl-4 pr-4 facilityInfo">
 												<h5>전화번호</h5>
 											</th>
-											<td id="selectedFacilityPhoneNumber">
-												가게 전화 번호
-											</td>
+											<td id="selectedFacilityPhoneNumber">가게 전화 번호</td>
 										</tr>
 										<tr>
-											<th id="findWayButton">
-												<input type="button" class="btn sanBtn2 mr-3 mt-2" value="길찾기" onclick="findWay()">
-											</th>
-											<td>
-												<input type="button" class="btn sanBtn1 mt-2" value="후기 남기기" onclick="showNow()" 
-													sec:authorize="isAuthenticated()">
-												<input type="button" class="btn sanBtn1 mt-2 writeFacilityReview shorter" 
-													value="Ⅹ" style="display: none" onclick="showOff()" sec:authorize="isAuthenticated()">
-											</td>
+											<th id="findWayButton"><input type="button"
+												class="btn sanBtn2 mr-3 mt-2" value="길찾기"
+												onclick="findWay()"></th>
+											<td><input type="button" class="btn sanBtn1 mt-2"
+												value="후기 남기기" onclick="showNow()"
+												sec:authorize="isAuthenticated()"> <input
+												type="button"
+												class="btn sanBtn1 mt-2 writeFacilityReview shorter"
+												value="Ⅹ" style="display: none" onclick="showOff()"
+												sec:authorize="isAuthenticated()"></td>
 										</tr>
 									</table>
 								</div>
-								
-								<span id="reviewSuccess" style="color:red; display:none;">댓글이 작성되었습니다!</span>
-								
-								<!-- 후기 남기기 Form -->
-								<form class="writeFacilityReview pl-5 pr-5" style="display: none">
-									<div hidden="hidden">
-										<!-- DB로 보낼 시설 정보 -->
-										<input type="text" id="selectedFacilityName2" 			
-												name="facilitiesName" value="">가게명
-										<input type="text" id="selectedFacilityAddress2" 		
-												name="facilitiesAddress" value="">도로명주소
-										<input type="text" id="selectedFacilityDetailAddress2" 	
-												name="facilitiesDetailAddress" value="">지번주소
-										<input type="text" id="selectedFacilityPhoneNumber2" 	
-												name="facilitiesPhoneNumber" value="">전화번호
-									</div>
-									<div class="form-group">
-										<div class="mb-2">평점 선택</div> 
-										<input type="text" id="selectedStar" hidden="hidden" name="facilitiesStar" value="">
-										<!-- 에 사용자가 누른 별점 버튼의 value를 보내서 여기에 ~.value로 입력 -->
-										
-										<!-- <input type="button" class="btn sanBtn1 writeFacilityReview shorter starClick"
-													value="0"> -->
-										<input type="button" class="btn sanBtn1 writeFacilityReview shorter starClick" 
-													value="1">
-										<input type="button" class="btn sanBtn1 writeFacilityReview shorter starClick" 
-													value="2">
-										<input type="button" class="btn sanBtn1 writeFacilityReview shorter starClick" 
-													value="3">
-										<input type="button" class="btn sanBtn1 writeFacilityReview shorter starClick" 
-													value="4">
-										<input type="button" class="btn sanBtn1 writeFacilityReview shorter starClick" 
-													value="5">
-									</div>
-									<div class="form-group">
-										<textarea class="form-control" name="facilitiesReview" id="message"
-											cols="30" rows="10" placeholder="리뷰를 작성해주세요"></textarea>
-									</div>
-									<input type="button" class="btn float-right san-ok-btn" value="확인" onclick="facilitiesReviewWrite()">
-								</form>
 							</div>
+
+							<span id="reviewSuccess" style="color: red; display: none;">댓글이
+								작성되었습니다!</span>
+
+							<!-- 후기 남기기 Form -->
+							<form class="writeFacilityReview pl-5 pr-5" style="display: none">
+								<div hidden="hidden">
+									<!-- DB로 보낼 시설 정보 -->
+									<input type="text" id="selectedFacilityName2"
+										name="facilitiesName" value="">가게명 <input type="text"
+										id="selectedFacilityAddress2" name="facilitiesAddress"
+										value="">도로명주소 <input type="text"
+										id="selectedFacilityDetailAddress2"
+										name="facilitiesDetailAddress" value="">지번주소 <input
+										type="text" id="selectedFacilityPhoneNumber2"
+										name="facilitiesPhoneNumber" value="">전화번호
+								</div>
+								<div class="form-group">
+									<div class="mb-2"><br>평점 선택</div>
+									<input type="text" id="selectedStar" hidden="hidden"
+										name="facilitiesStar" value="">
+									<input type="button"
+										class="btn sanBtn1 writeFacilityReview shorter starClick"
+										value="1"> <input type="button"
+										class="btn sanBtn1 writeFacilityReview shorter starClick"
+										value="2"> <input type="button"
+										class="btn sanBtn1 writeFacilityReview shorter starClick"
+										value="3"> <input type="button"
+										class="btn sanBtn1 writeFacilityReview shorter starClick"
+										value="4"> <input type="button"
+										class="btn sanBtn1 writeFacilityReview shorter starClick"
+										value="5">
+								</div>
+								<div class="form-group">
+									<textarea class="form-control" name="facilitiesReview"
+										id="message" cols="30" rows="10" placeholder="리뷰를 작성해주세요"></textarea>
+								</div>
+								<input type="button" class="btn float-right san-ok-btn"
+									value="확인" onclick="facilitiesReviewWrite()">
+							</form>
 						</div>
-						
-						<!-- 리뷰 출력 위치 -->
+					</div>
+
+					<!-- 리뷰 출력 위치 -->
 						<div class = "wow fadeInUpBig" id="printFacilitiesReivew">
 							
 						</div>
@@ -1110,8 +1131,8 @@ html {
 						
 						// 기존 시설 리뷰 지우기
 						let pfr = document.getElementById('printFacilitiesReivew');
-						let printIt = `<br><br><h4>사용자들의 후기</h4><br>`;
-						printIt += `<div style="color : red;">&nbsp;&nbsp;&nbsp;&nbsp;아직 후기가 없습니다</div>`;
+						let printIt = `<br><br><h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;사용자들의 후기</h4><br>`;
+						printIt += `<div class="reviewBackground noReview">아직 후기가 없습니다</div>`;
 						pfr.innerHTML = printIt;
 
 						// 찾은 값들과 일치하는 데이터가 facilities 테이블에 있는지 확인, 있다면 리뷰 가져오기, 
@@ -1151,7 +1172,7 @@ html {
 									},
 							dataType : 'json', // text ==> return 확인용
 							success : function(facilitiesReview){
-								let printIt = `<br><br><h4>사용자들의 후기</h4><br>`;
+								let printIt = `<br><br><h4 class="reviewTitle">사용자들의 후기</h4><br>`;
 								
 								if(facilitiesReview.length != 0){
 									// 리뷰 출력
@@ -1162,7 +1183,7 @@ html {
 									// facilitiesReview 출력
 									// 리뷰 출력
 									for(let i = 0; i < facilitiesReview.length; i++){
-										printIt += `<div><div>`;
+										printIt += `<div class="reviewBackground"><div>`;
 										printIt += `<span><b>${facilitiesReview[i].memberId}</b></span>`;
 										printIt += `<span style="color : red;">&nbsp;&nbsp;&nbsp;★&nbsp;${facilitiesReview[i].facilitiesStar} / 5</span>`;
 										printIt += `<span style="float :right">${facilitiesReview[i].facilitiesReviewDate}</span><br>`;
@@ -1173,8 +1194,6 @@ html {
 										printIt += `</div></div><br>`;
 										printIt += `<span>&nbsp;&nbsp;&nbsp;&nbsp;${facilitiesReview[i].facilitiesReview}</span>`;
 										printIt += `</div>`;
-										printIt += `<br>`;
-										printIt += `<hr>`;
 									}
 									/* 
 									let s = `<p> ${ob.name} </p>`;
@@ -1190,7 +1209,7 @@ html {
 									$('.deleteBtn').click(deleteFacilitiesReview);
 									
 								} else {
-									printIt += `<div style="color : red;">&nbsp;&nbsp;&nbsp;&nbsp;아직 후기가 없습니다</div>`;
+									printIt += `<div class="reviewBackground noReview">아직 후기가 없습니다</div>`;
 									pfr.innerHTML = printIt;
 								}
 							},
