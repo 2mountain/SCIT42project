@@ -152,7 +152,7 @@ public class BoardController {
 		if (board == null) {
 			return "redirect:/board/list"; // 글이 없으면 목록으로
 		}
-
+		
 		// 현재 로그인 중인 회원이 해당 글에 좋아요 했는지 여부
 		BoardLiked boardLiked = new BoardLiked(boardNumber, "test1");
 		
@@ -168,8 +168,10 @@ public class BoardController {
 		
 		log.debug("boardliked 값: {}", boardliked);
 
-		// 현재 글에 달린 리플들
+		// 현재 글에 달린 댓글들
 		ArrayList<Reply> replylist = service.replyList(boardNumber);
+		
+
 		
 		// 결과를 모델에 담아서 HTML에서 출력
 		model.addAttribute("board", board);
@@ -374,9 +376,29 @@ public class BoardController {
 		log.debug("저장할 리플 정보 : {}", reply);
 		int result = service.replyInsert(reply);
 		
+		int replyPlus = service.replyPlus(reply.getBoardNumber());
+		
+		return "redirect:/board/read?boardNumber=" + reply.getBoardNumber();
+	}
+	
+	/**
+	 * 댓글 삭제
+	 * @param reply 삭제할 댓글 객체
+	 * @return 삭제 후 리다이렉트 페이지
+	 */
+	@GetMapping("replyDelete")
+	public String replyDelete(
+			Reply reply
+	/* , @AuthenticationPrincipal UserDetails user */) {
+		
+		reply.setMemberId("test1");
+		int result = service.replyDelete(reply);
+		
+		int replyMinus = service.replyMinus(reply.getBoardNumber());
+		
 		return "redirect:/board/read?boardNumber=" + reply.getBoardNumber();
 	}
 	
 	
-
+	
 }

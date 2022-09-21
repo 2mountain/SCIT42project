@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+				xmlns:sec="http://thymeleaf.org/extras/spring-security">
 
 <head>
 	<meta charset="UTF-8">
@@ -73,14 +74,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-5 col-sm-6">
-					<!--  Top Social bar start -->
-					<div class="top_social_bar">
-						<a href="https://facebook.com"><i class="fa fa-facebook" aria-hidden="true"></i></a> <a
-							href="https://twitter.com"><i class="fa fa-twitter" aria-hidden="true"></i></a> <a
-							href="https://linkedin.com"><i class="fa fa-linkedin" aria-hidden="true"></i></a> <a
-							href="https://skype.com"><i class="fa fa-skype" aria-hidden="true"></i></a> <a
-							href="https://dribbble.com"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
-					</div>
+					
 				</div>
 				<!--  Login Register Area -->
 				<div class="col-7 col-sm-6">
@@ -128,9 +122,8 @@
 			<div class="row">
 				<!-- Logo Area Start -->
 				<div class="col-12">
-					<div class="logo_area text-center">
-						<img src="img/bg-img/petlogo.jpg" alt="">
-						<a href="home.html" class="yummy-logo"></a>
+						
+						<a th:href="@{/}" class="yummy-logo"><img src="img/bg-img/toplogo.jpg" alt=""></a>
 					</div>
 				</div>
 			</div>
@@ -148,28 +141,18 @@
 								<li class="nav-item active"><a class="nav-link" th:href="@{/board/list}">커뮤니티 <span
 											class="sr-only">(current)</span></a>
 								</li>
-								<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#"
-										id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-										aria-expanded="false">Pages</a>
-									<div class="dropdown-menu" aria-labelledby="yummyDropdown">
-										<a class="dropdown-item" href="#">1</a> <a class="dropdown-item" href="#">2</a>
-										<a class="dropdown-item" href="#">3</a> <a class="dropdown-item" href="#">4</a>
-										<a class="dropdown-item" href="#">5</a>
-									</div>
-								</li>
+								
+						
 								<li class="nav-item"><a class="nav-link" th:href="@{/facilities}">시설</a></li>
 								<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
 								<li class="nav-item"><a class="nav-link" href="#">챌린지</a></li>
 								<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
-								</li>
-								<li class="nav-item"><a class="nav-link" href="#">Contact</a>
 								</li>
 							</ul>
 						</div>
 					</nav>
 				</div>
 			</div>
-		</div>
 	</header>
 	<!-- ****** Header Area End ****** -->
 
@@ -442,8 +425,7 @@
 										</div>
 									</div>
 									<a href="#">
-										<h4 class="post-headline">The Top Breakfast And Brunch
-											Spots In Hove, Brighton</h4>
+										<h4 class="post-headline">The Top Breakfast And Brunch Spots In Hove, Brighton</h4>
 									</a>
 								</div>
 							</div>
@@ -990,9 +972,7 @@
 					<div class="footer-content">
 						<!-- Logo Area Start -->
 						<div class="footer-logo-area text-center">
-							<img src="img/bg-img/petlogo.jpg" alt="">
-							<a href="home.html" class="yummy-logo"></a>
-
+							<a th:href="@{/}" class="yummy-logo"><img src="img/bg-img/toplogo.jpg" alt=""></a>
 						</div>
 						<!-- Menu Area Start -->
 						<nav class="navbar navbar-expand-lg">

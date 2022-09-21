@@ -133,8 +133,10 @@ CREATE TABLE BOARD
 		/* 글 말머리 */
     boardImageOriginal varchar2(300),
 		/* 게시글 이미지 첨부파일*/
-    boardImageSaved varchar2(100)
+    boardImageSaved varchar2(100),
 		/* 서버에 저장된 첨부파일 이름*/
+	replyCount number
+		-- 게시글에 달린 전체 댓글 개수
 );
 
 
@@ -142,7 +144,7 @@ create table boardLikedData
 (
     boardLikedNumber number primary key not null,
     memberId varchar2(40) references members(memberId),
-    boardNumber number references board(boardNumber),
+    boardNumber number references board(boardNumber)
 );
 
 
@@ -152,7 +154,7 @@ CREATE TABLE reply
 (
     replyNumber 	NUMBER CONSTRAINT PRIMARY KEY,  
     			--댓글 번호
-    boardNumber 	NUMBER REFERENCES board(boardNumber) CONSTRAINT NOT NULL, 
+    boardNumber 	boardNumber NUMBER REFERENCES board(boardNumber) on delete cascade, 
     			--글 번호(외래키)
 	memberId		VARCHAR2(40) NOT NULL,
     			--댓글 작성하는 회원 아이디

@@ -32,4 +32,7 @@ public class Board {
 	
 	//좋아요 카운트
 	int boardCount;
+	
+	// 게시글에 좋아요 개수
+	int replyCount;
 }

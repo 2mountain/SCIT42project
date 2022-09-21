@@ -11,9 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("weather")
 @Controller
 public class WeatherController {
+	
 	/**
-	 * 날씨 api를 우선 가져와서 뿌려보는 목록(하는 중)
-	 * 
+	 * 날씨 api를 가져와서 뿌립니다
 	 * @return
 	 */
 

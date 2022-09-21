@@ -122,6 +122,33 @@ public class BoardSeviceImpl implements BoardService {
 		ArrayList<Reply> replylist = boardDAO.replyList(boardNumber);
 		return replylist;
 	}
+
+	// 댓글 삭제
+	@Override
+	public int replyDelete(Reply reply) {
+		int result = boardDAO.replyDelete(reply);
+		return result;
+	}
+
+	// 게시글에 달린 댓글 개수
+	@Override
+	public int replyCount(int boardNumber) {
+		int result = boardDAO.replyCount(boardNumber);
+		return result;
+	}
+
+	// 댓글 개수 +1
+	@Override
+	public int replyPlus(int boardNumber) {
+		int result = boardDAO.replyPlus(boardNumber);
+		return result;
+	}
+
+	@Override
+	public int replyMinus(int boardNumber) {
+		int result = boardDAO.replyMinus(boardNumber);
+		return result;
+	}
 	
 	
 	
