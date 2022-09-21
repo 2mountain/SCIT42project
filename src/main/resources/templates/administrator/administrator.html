@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Aimori 관리자</title>
+        <title>Aimori 관리자 페이지</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link th:href="@{/css/stylesAdmin.css}" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
@@ -33,7 +33,7 @@
                         <li><a class="dropdown-item" href="#!">Settings</a></li>
                         <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                        <li><a class="dropdown-item" th:href="@{logout}">Logout</a></li>
                     </ul>
                 </li>
             </ul>
