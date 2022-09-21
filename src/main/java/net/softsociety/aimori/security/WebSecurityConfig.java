@@ -36,6 +36,7 @@ public class WebSecurityConfig {
         		"/member/signIn",
         		"/member/idCheck",
         		"/member/nNCheck",
+        		"/challenge/**",
         		"/member/logIn",
         		"/facilities/**",
         		"/weather/**",
