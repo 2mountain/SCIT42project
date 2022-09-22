@@ -8,7 +8,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
 import net.softsociety.aimori.domain.Member;
@@ -51,4 +54,30 @@ public class AdministratorController {
 		return "administrator/administrator";
 	}
 	
+	/**
+	 * 해당 회원의 차단 여부 변경
+	 * @param value
+	 * @param memberId
+	 * @param user
+	 * @return
+	 */
+	@ResponseBody
+	@PostMapping("/changeBlock") 
+	public int changeBlock(String value, String memberId, 
+							@AuthenticationPrincipal UserDetails user){
+		log.debug("[AdministratorController] changeBlock - param : {} / {}", value, memberId);
+
+		// 현재 접속한 계정의 role을 가져옴
+		String currentUserRole = fService.checkRole(user.getUsername());
+		log.debug("[AdministratorController] changeBlock - currentUserRole : {}", currentUserRole);
+
+		// 관리자 여부 확인
+		if(!currentUserRole.equals("ROLE_ADMIN")) {
+			log.debug("[AdministratorController] changeBlock - NOT ADMIN");
+			return Integer.parseInt(value);
+		}
+		
+		return 0;
+	}
+	 
 }

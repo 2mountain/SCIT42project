@@ -57,7 +57,7 @@ CREATE TABLE members
 			 					CONSTRAINT pmember_rolename_ck_nn CHECK(rolename IN('ROLE_USER', 'ROLE_ADMIN', 'ROLD_DOCTOR')) 
 			 					NOT NULL,
     			--회원 역할        
-    memberEnabled 				NUMBER CONSTRAINT member_memberEnabled_nn_ck CHECK(memberEnabled IN(0, 1)),
+    memberEnabled 				NUMBER DEFAULT 1 CONSTRAINT member_memberEnabled_nn_ck CHECK(memberEnabled IN(0, 1)),
     			--회원 차단 여부
     memberJoinDate 				DATE DEFAULT SYSDATE,
     			--회원 가입일
