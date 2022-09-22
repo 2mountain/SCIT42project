@@ -215,8 +215,46 @@
                                             <td th:text="${memberList.memberBirthDay}">생일</td>
                                             <td th:text="${memberList.memberJoinDate}">가입일자</td>
                                             <td th:text="${memberList.memberPoint}">포인트</td>
-                                            <td th:text="${memberList.memberRoleName}">권한</td>
-                                            <td th:text="${memberList.memberEnabled}">차단</td>
+                                            <td>
+                                            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+												<li class="nav-item dropdown">
+													<a class="dropdown-toggle noUnderline" id="navbarDropdown" href="#" role="button" 
+														data-bs-toggle="dropdown" aria-expanded="false">
+														<span th:if="${memberList.memberRoleName.equals('ROLE_USER')}" style="color:black;">일반</span>
+														<span th:if="${memberList.memberRoleName.equals('ROLE_ADMIN')}" style="color:red;"><b>관리자</b></span>
+														<span th:if="${memberList.memberRoleName.equals('ROLE_DOCTOR')}" >의사</span>
+													</a>
+													<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+														<li style="text-align: center;">
+															<li>
+																<a class="dropdown-item noUnderline" th:if="${!memberList.memberRoleName.equals('ROLE_USER')}">일반</a>
+																<li><hr th:if="${!memberList.memberRoleName.equals('ROLE_USER')}" class="dropdown-divider noUnderline" /></li>
+															</li>
+															<li>
+																<a class="dropdown-item noUnderline" th:if="${!memberList.memberRoleName.equals('ROLE_ADMIN')}" style="color:red;">관리자</a>
+																<li><hr th:if="${!memberList.memberRoleName.equals('ROLE_ADMIN')}" class="dropdown-divider noUnderline" /></li>
+															</li>
+															<li><a class="dropdown-item noUnderline" th:if="${!memberList.memberRoleName.equals('ROLE_DOCTOR')}">의사</a></li>
+													</ul></li>
+											</ul>
+											</td>
+                                            <td>
+                                            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+												<li class="nav-item dropdown">
+													<a class="dropdown-toggle noUnderline" id="navbarDropdown" href="#" role="button" 
+														data-bs-toggle="dropdown" aria-expanded="false">
+														<span th:if="${memberList.memberEnabled}" style="color:black;">Ⅹ</span>
+														<span th:if="${!memberList.memberEnabled}" style="color:red;"><b>○</b></span>
+													</a>
+													<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+														<li style="text-align: center;">
+															<li><a class="dropdown-item noUnderline" style="color:black;" th:if="${!memberList.memberEnabled}">Ⅹ</a></li>
+															<li><a class="dropdown-item noUnderline" style="color:red;" th:if="${memberList.memberEnabled}">O</a></li>
+															<li><hr class="dropdown-divider noUnderline" /></li>
+															<li><a class="dropdown-item noUnderline" style="color:red;">탈퇴</a></li>
+													</ul></li>
+											</ul>
+											</td>
                                         </tr>
                                     </tbody>
                                 </table>
