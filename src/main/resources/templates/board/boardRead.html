@@ -61,7 +61,7 @@
 	// 댓글 수정
 	function replyUpdate(replyNumber, boardNumber) {
 		alert(replyNumber);
-		$('#re' + replyNumber).html('alskdjflekjf');
+		$('#re' + replyNumber).html('');
 	}
 	
 	// 댓글 삭제
@@ -389,10 +389,12 @@
 					<td>
 						<a class="btn btn-secondary btn-sm" style="color: white;"
 						th:href="|javascript:replyUpdate(${reply.replyNumber}, ${reply.boardNumber})|">
-						수정</a>
+						수정
+						</a>
 						<a  class="btn btn-secondary btn-sm" style="color: white;"
 						th:href="|javascript:replyDelete(${reply.replyNumber}, ${reply.boardNumber})|">
-						삭제</a>
+						삭제
+						</a>
 					</td>
 					<!-- <td class="white">
 						<span th:if="${#authentication.name} == ${reply.memberId}">
@@ -401,7 +403,7 @@
 							</a>
 						</span>
 					</td> -->
-				</tr>	
+				</tr>
 
 			</table>
 		</div>
