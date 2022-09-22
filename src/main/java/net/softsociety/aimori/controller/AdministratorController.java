@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AdministratorController {
 	@GetMapping({"","/"})
 	public String Administrator() {
-		// return "administrator/administrator";
+		log.debug("[AdministratorController] administrator : Hello!");
 		return "administrator/administrator";
 	}
 	
