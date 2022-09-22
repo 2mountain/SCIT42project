@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -56,17 +55,16 @@ public class AdministratorController {
 	
 	/**
 	 * 해당 회원의 차단 여부 변경
-	 * @param value
-	 * @param memberId
+	 * @param member
 	 * @param user
-	 * @return
+	 * @return boolean
 	 */
 	@ResponseBody
 	@PostMapping("/changeBlock") 
-	public int changeBlock(String value, String memberId, 
+	public int changeBlock(Member member, 
 							@AuthenticationPrincipal UserDetails user){
-		log.debug("[AdministratorController] changeBlock - param : {} / {}", value, memberId);
-
+		log.debug("[AdministratorController] changeBlock - param : {}", member);
+		
 		// 현재 접속한 계정의 role을 가져옴
 		String currentUserRole = fService.checkRole(user.getUsername());
 		log.debug("[AdministratorController] changeBlock - currentUserRole : {}", currentUserRole);
@@ -74,10 +72,34 @@ public class AdministratorController {
 		// 관리자 여부 확인
 		if(!currentUserRole.equals("ROLE_ADMIN")) {
 			log.debug("[AdministratorController] changeBlock - NOT ADMIN");
-			return Integer.parseInt(value);
+			 return -1; 
 		}
 		
-		return 0;
+		// 회원의 차단 여부 변경
+		int result = aService.changeBlock(member);
+		
+		return result;
 	}
-	 
+	
+	@ResponseBody
+	@PostMapping("/changeRole") 
+	public int changeRole(Member member, 
+							@AuthenticationPrincipal UserDetails user){
+		log.debug("[AdministratorController] changeBlock - param : {}", member);
+		
+		// 현재 접속한 계정의 role을 가져옴
+		String currentUserRole = fService.checkRole(user.getUsername());
+		log.debug("[AdministratorController] changeBlock - currentUserRole : {}", currentUserRole);
+
+		// 관리자 여부 확인
+		if(!currentUserRole.equals("ROLE_ADMIN")) {
+			log.debug("[AdministratorController] changeBlock - NOT ADMIN");
+			 return -1; 
+		}
+		
+		// 회원의 권한 변경
+		int result = aService.changeRole(member);
+	
+		return result;
+	}
 }
