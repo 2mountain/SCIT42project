@@ -378,6 +378,10 @@ html {
 						<div class="login_register_area d-flex">
 							<div class="mypage" sec:authorize="isAuthenticated()"
 								style="margin-left: 20px">
+								<a sec:authorize="hasRole('ADMIN')" th:href="@{/administrator}"><b>관리자 페이지</b></a>
+							</div>
+							<div class="mypage" sec:authorize="isAuthenticated()"
+								style="margin-left: 20px">
 								<a href="#">마이페이지</a>
 							</div>
 							<div class="logout" sec:authorize="isAuthenticated()"
