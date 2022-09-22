@@ -10,4 +10,18 @@ public interface AdministratorService {
 	 * @return 회원들 정보 목록
 	 */
 	public List<Member> getMemberList();
+
+	/**
+	 * 해당 회원의 차단 여부 변경
+	 * @param member
+	 * @return 0 || 1
+	 */
+	public int changeBlock(Member member);
+
+	/**
+	 * 해당 회원의 권한 변경
+	 * @param member
+	 * @return 0 || 1
+	 */
+	public int changeRole(Member member);
 }

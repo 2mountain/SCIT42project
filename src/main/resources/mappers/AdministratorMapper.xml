@@ -8,4 +8,16 @@
 		SELECT *
 		FROM Members
 	</select>
+	
+	<update id="changeBlock" parameterType="member">
+		UPDATE Members
+		SET memberEnabled = #{memberEnabled}
+		WHERE memberId = #{memberId}
+	</update>
+
+	<update id="changeRole" parameterType="member">
+		UPDATE Members
+		SET memberRoleName = #{memberRoleName}
+		WHERE memberId = #{memberId}
+	</update>
 </mapper>
