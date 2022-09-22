@@ -11703,3 +11703,7 @@ body {
 .noUnderline {
 	text-decoration : none;
 }
+
+.fontRed {
+	color : red;
+}
