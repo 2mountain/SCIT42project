@@ -1,51 +1,57 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-				xmlns:sec="http://thymeleaf.org/extras/spring-security">
+	xmlns:sec="http://thymeleaf.org/extras/spring-security">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="description" content="">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-	<!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta charset="UTF-8">
+<meta name="description" content="">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-	<!-- Title -->
-	<title>Aimori</title>
+<!-- Title -->
+<title>Aimori</title>
 
-	<!-- Favicon -->
-	<link rel="icon" th:href="@{/img/core-img/favicon.ico}">
+<!-- Favicon -->
+<link rel="icon" th:href="@{/img/core-img/favicon.ico}">
 
-	<!-- Core Stylesheet -->
-	<link rel="stylesheet" th:href="@{/css/style.css}">
+<!-- Core Stylesheet -->
+<link rel="stylesheet" th:href="@{/css/style.css}">
 
-	<!-- Responsive CSS -->
-	<link th:href="@{/css/responsive/responsive.css}" rel="stylesheet">
+<!-- Responsive CSS -->
+<link th:href="@{/css/responsive/responsive.css}" rel="stylesheet">
 
-	<style>
-		@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap');
-	</style>
+<style>
+@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap')
+	;
+</style>
 
-	<style>
-		@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100&display=swap');
+<style>
+@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100&display=swap')
+	;
 
-		*:not(i) {
-			font-family: NotoSans;
-		}
+*:not(i) {
+	font-family: NotoSans;
+}
 
-		.weather-wrap {
-			width: 100%;
-			position: relative;
-		}
+.weather-wrap {
+	width: 100%;
+	position: relative;
+}
 
-		.weather-text {
-			position: absolute;
-			top: 5%;
-			width: 100%;
-			font-size: 5px;
-			text-align: center;
-		}
-	</style>
+.weather-text {
+	position: absolute;
+	top: 5%;
+	width: 100%;
+	font-size: 5px;
+	text-align: center;
+}
+</style>
 
 
 
@@ -73,15 +79,14 @@
 	<div class="top_header_area">
 		<div class="container">
 			<div class="row">
-				<div class="col-5 col-sm-6">
-
-				</div>
+				<div class="col-5 col-sm-6"></div>
 				<!--  Login Register Area -->
 				<div class="col-7 col-sm-6">
-					<div class="signup-search-area d-flex align-items-center justify-content-end">
+					<div
+						class="signup-search-area d-flex align-items-center justify-content-end">
 
-						
-						
+
+
 						<div class="login_register_area d-flex">
 							<div class="login" sec:authorize="not isAuthenticated()">
 								<a href="member/logIn">로그인</a>
@@ -93,12 +98,15 @@
 						<div class="login_register_area d-flex">
 							<div class="mypage" sec:authorize="isAuthenticated()"
 								style="margin-left: 20px">
-								<a sec:authorize="hasRole('ADMIN')" th:href="@{/administrator}"><b>관리자 페이지</b></a>
+								<a sec:authorize="hasRole('ADMIN')" th:href="@{/administrator}"><b>관리자
+										페이지</b></a>
 							</div>
-							<div class="mypage" sec:authorize="isAuthenticated()" style="margin-left: 20px">
+							<div class="mypage" sec:authorize="isAuthenticated()"
+								style="margin-left: 20px">
 								<a href="#">마이페이지</a>
 							</div>
-							<div class="logout" sec:authorize="isAuthenticated()" style="margin-left: 10px;">
+							<div class="logout" sec:authorize="isAuthenticated()"
+								style="margin-left: 10px;">
 								<a th:href="@{logout}">로그아웃</a>
 							</div>
 						</div>
@@ -115,36 +123,48 @@
 			<div class="row">
 				<!-- Logo Area Start -->
 				<div class="col-12">
-						<a th:href="@{/}" class="yummy-logo"><img src="img/bg-img/toplogo.jpg" alt=""></a>
-					</div>
+					<a th:href="@{/}" class="yummy-logo"><img
+						src="img/bg-img/toplogo.jpg" alt=""></a>
 				</div>
 			</div>
+		</div>
 
-			<div class="row">
-				<div class="col-12">
-					<nav class="navbar navbar-expand-lg">
-						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#yummyfood-nav"
-							aria-controls="yummyfood-nav" aria-expanded="false" aria-label="Toggle navigation">
-							<i class="fa fa-bars" aria-hidden="true"></i> Menu
-						</button>
-						<!-- Menu Area Start -->
-						<div class="collapse navbar-collapse justify-content-center" id="yummyfood-nav">
-							<ul class="navbar-nav" id="yummy-nav">
-								<li class="nav-item active"><a class="nav-link" th:href="@{/board/list}">커뮤니티 <span
-											class="sr-only">(current)</span></a>
-								</li>
-								
-						
-								<li class="nav-item"><a class="nav-link" th:href="@{/facilities}">시설</a></li>
-								<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
-								<li class="nav-item"><a class="nav-link" th:href="@{/challenge/main}">챌린지</a></li>
-								<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
-								</li>
-							</ul>
-						</div>
-					</nav>
-				</div>
+		<div class="row">
+			<div class="col-12">
+				<nav class="navbar navbar-expand-lg">
+					<button class="navbar-toggler" type="button" data-toggle="collapse"
+						data-target="#yummyfood-nav" aria-controls="yummyfood-nav"
+						aria-expanded="false" aria-label="Toggle navigation">
+						<i class="fa fa-bars" aria-hidden="true"></i> Menu
+					</button>
+					<!-- Menu Area Start -->
+					<div class="collapse navbar-collapse justify-content-center"
+						id="yummyfood-nav">
+						<ul class="navbar-nav" id="yummy-nav">
+							<li class="nav-item active"><a class="nav-link"
+								th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
+							</li>
+
+
+							<li class="nav-item"><a class="nav-link"
+								th:href="@{/facilities}">시설</a></li>
+							<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
+							<li>
+							<div class="dropdown">
+								<span class="dropbtn">챌린지</span>
+								<div class="dropdown-content">
+									<a th:href="@{/challenge/challengelist}">도전과제</a>
+									 <a th:href="@{/challenge/contestlist}">대회</a>
+								</div>
+							</div>
+							</li>
+							<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
+							</li>
+						</ul>
+					</div>
+				</nav>
 			</div>
+		</div>
 	</header>
 	<!-- ****** Header Area End ****** -->
 
@@ -173,7 +193,8 @@
 			<!-- Overlay Text -->
 			<div class="project_title">
 				<div class="post-date-commnents d-flex">
-					<a th:href="@{/weather/list}">Today's Weather</a> <a th:href="@{/weather/list}">5 Comment</a>
+					<a th:href="@{/weather/list}">Today's Weather</a> <a
+						th:href="@{/weather/list}">5 Comment</a>
 
 					<!--<a th:href="@{/home}">
                    
@@ -241,7 +262,8 @@
 			<div class="row">
 				<div class="col-12 col-md-6 col-lg-4">
 					<div class="single_catagory wow fadeInUp" data-wow-delay=".3s">
-						<img src="img/catagory-img/goout.jpg" width="393" height="294" alt="">
+						<img src="img/catagory-img/goout.jpg" width="393" height="294"
+							alt="">
 
 						<div class="catagory-title">
 							<a href="#">
@@ -255,7 +277,8 @@
 				</div>
 				<div class="col-12 col-md-6 col-lg-4">
 					<div class="single_catagory wow fadeInUp" data-wow-delay=".6s">
-						<img src="img/catagory-img/ch2.jpg" width="393" height="294" alt="">
+						<img src="img/catagory-img/ch2.jpg" width="393" height="294"
+							alt="">
 						<div class="catagory-title">
 							<a href="#">
 								<h5>challenge</h5>
@@ -314,11 +337,13 @@
 											</div>
 											<!-- Post Comments -->
 											<div class="post-comments">
-												<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
+												<a href="#"><i class="fa fa-comment-o"
+													aria-hidden="true"></i> 12</a>
 											</div>
 											<!-- Post Share -->
 											<div class="post-share">
-												<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+												<a href="#"><i class="fa fa-share-alt"
+													aria-hidden="true"></i></a>
 											</div>
 										</div>
 									</div>
@@ -363,11 +388,13 @@
 											</div>
 											<!-- Post Comments -->
 											<div class="post-comments">
-												<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
+												<a href="#"><i class="fa fa-comment-o"
+													aria-hidden="true"></i> 12</a>
 											</div>
 											<!-- Post Share -->
 											<div class="post-share">
-												<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+												<a href="#"><i class="fa fa-share-alt"
+													aria-hidden="true"></i></a>
 											</div>
 										</div>
 									</div>
@@ -408,16 +435,19 @@
 											</div>
 											<!-- Post Comments -->
 											<div class="post-comments">
-												<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
+												<a href="#"><i class="fa fa-comment-o"
+													aria-hidden="true"></i> 12</a>
 											</div>
 											<!-- Post Share -->
 											<div class="post-share">
-												<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+												<a href="#"><i class="fa fa-share-alt"
+													aria-hidden="true"></i></a>
 											</div>
 										</div>
 									</div>
 									<a href="#">
-										<h4 class="post-headline">The Top Breakfast And Brunch Spots In Hove, Brighton</h4>
+										<h4 class="post-headline">The Top Breakfast And Brunch
+											Spots In Hove, Brighton</h4>
 									</a>
 								</div>
 							</div>
@@ -452,11 +482,13 @@
 											</div>
 											<!-- Post Comments -->
 											<div class="post-comments">
-												<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
+												<a href="#"><i class="fa fa-comment-o"
+													aria-hidden="true"></i> 12</a>
 											</div>
 											<!-- Post Share -->
 											<div class="post-share">
-												<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+												<a href="#"><i class="fa fa-share-alt"
+													aria-hidden="true"></i></a>
 											</div>
 										</div>
 									</div>
@@ -497,11 +529,13 @@
 											</div>
 											<!-- Post Comments -->
 											<div class="post-comments">
-												<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
+												<a href="#"><i class="fa fa-comment-o"
+													aria-hidden="true"></i> 12</a>
 											</div>
 											<!-- Post Share -->
 											<div class="post-share">
-												<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+												<a href="#"><i class="fa fa-share-alt"
+													aria-hidden="true"></i></a>
 											</div>
 										</div>
 									</div>
@@ -517,7 +551,8 @@
 
 						<!-- Single Post -->
 						<div class="col-12">
-							<div class="list-blog single-post d-sm-flex wow fadeInUpBig" data-wow-delay=".2s">
+							<div class="list-blog single-post d-sm-flex wow fadeInUpBig"
+								data-wow-delay=".2s">
 								<!-- Post Thumb -->
 								<div class="post-thumb">
 									<img src="img/blog-img/6.jpg" alt="">
@@ -544,11 +579,13 @@
 											</div>
 											<!-- Post Comments -->
 											<div class="post-comments">
-												<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
+												<a href="#"><i class="fa fa-comment-o"
+													aria-hidden="true"></i> 12</a>
 											</div>
 											<!-- Post Share -->
 											<div class="post-share">
-												<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+												<a href="#"><i class="fa fa-share-alt"
+													aria-hidden="true"></i></a>
 											</div>
 										</div>
 									</div>
@@ -565,7 +602,8 @@
 
 						<!-- Single Post -->
 						<div class="col-12">
-							<div class="list-blog single-post d-sm-flex wow fadeInUpBig" data-wow-delay=".4s">
+							<div class="list-blog single-post d-sm-flex wow fadeInUpBig"
+								data-wow-delay=".4s">
 								<!-- Post Thumb -->
 								<div class="post-thumb">
 									<img src="img/blog-img/7.jpg" alt="">
@@ -592,11 +630,13 @@
 											</div>
 											<!-- Post Comments -->
 											<div class="post-comments">
-												<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
+												<a href="#"><i class="fa fa-comment-o"
+													aria-hidden="true"></i> 12</a>
 											</div>
 											<!-- Post Share -->
 											<div class="post-share">
-												<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+												<a href="#"><i class="fa fa-share-alt"
+													aria-hidden="true"></i></a>
 											</div>
 										</div>
 									</div>
@@ -613,7 +653,8 @@
 
 						<!-- Single Post -->
 						<div class="col-12">
-							<div class="list-blog single-post d-sm-flex wow fadeInUpBig" data-wow-delay=".6s">
+							<div class="list-blog single-post d-sm-flex wow fadeInUpBig"
+								data-wow-delay=".6s">
 								<!-- Post Thumb -->
 								<div class="post-thumb">
 									<img src="img/blog-img/8.jpg" alt="">
@@ -640,11 +681,13 @@
 											</div>
 											<!-- Post Comments -->
 											<div class="post-comments">
-												<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
+												<a href="#"><i class="fa fa-comment-o"
+													aria-hidden="true"></i> 12</a>
 											</div>
 											<!-- Post Share -->
 											<div class="post-share">
-												<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+												<a href="#"><i class="fa fa-share-alt"
+													aria-hidden="true"></i></a>
 											</div>
 										</div>
 									</div>
@@ -661,7 +704,8 @@
 
 						<!-- Single Post -->
 						<div class="col-12">
-							<div class="list-blog single-post d-sm-flex wow fadeInUpBig" data-wow-delay=".8s">
+							<div class="list-blog single-post d-sm-flex wow fadeInUpBig"
+								data-wow-delay=".8s">
 								<!-- Post Thumb -->
 								<div class="post-thumb">
 									<img src="img/blog-img/9.jpg" alt="">
@@ -688,11 +732,13 @@
 											</div>
 											<!-- Post Comments -->
 											<div class="post-comments">
-												<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
+												<a href="#"><i class="fa fa-comment-o"
+													aria-hidden="true"></i> 12</a>
 											</div>
 											<!-- Post Share -->
 											<div class="post-share">
-												<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+												<a href="#"><i class="fa fa-share-alt"
+													aria-hidden="true"></i></a>
 											</div>
 										</div>
 									</div>
@@ -719,102 +765,109 @@
 								<h6>Profile</h6>
 							</div>
 							<div class="about-me-widget-thumb">
-								<a th:href="@{/mypage/main}">
-									<img src="img/about-img/1.jpg" alt="">
+								<a th:href="@{/mypage/main}"> <img src="img/about-img/1.jpg"
+									alt="">
 								</a>
 
-							<h4 class="font-shadow-into-light">Shopia Bernard</h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-								sed do eiusmod tempor incididunt</p>
-						</div>
-
-
-
-						<!-- Single Widget Area -->
-						<div class="single-widget-area popular-post-widget">
-							<div class="widget-title text-center">
-								<h6>Populer Post</h6>
+								<h4 class="font-shadow-into-light">Shopia Bernard</h4>
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+									sed do eiusmod tempor incididunt</p>
 							</div>
-							<!-- Single Popular Post -->
-							<div class="single-populer-post d-flex">
-								<img src="img/sidebar-img/1.jpg" alt="">
-								<div class="post-content">
-									<a href="#">
-										<h6>Top Wineries To Visit In England</h6>
-									</a>
-									<p>Tuesday, October 3, 2017</p>
+
+
+
+							<!-- Single Widget Area -->
+							<div class="single-widget-area popular-post-widget">
+								<div class="widget-title text-center">
+									<h6>Populer Post</h6>
+								</div>
+								<!-- Single Popular Post -->
+								<div class="single-populer-post d-flex">
+									<img src="img/sidebar-img/1.jpg" alt="">
+									<div class="post-content">
+										<a href="#">
+											<h6>Top Wineries To Visit In England</h6>
+										</a>
+										<p>Tuesday, October 3, 2017</p>
+									</div>
+								</div>
+								<!-- Single Popular Post -->
+								<div class="single-populer-post d-flex">
+									<img src="img/sidebar-img/2.jpg" alt="">
+									<div class="post-content">
+										<a href="#">
+											<h6>The 8 Best Gastro Pubs In Bath</h6>
+										</a>
+										<p>Tuesday, October 3, 2017</p>
+									</div>
+								</div>
+								<!-- Single Popular Post -->
+								<div class="single-populer-post d-flex">
+									<img src="img/sidebar-img/3.jpg" alt="">
+									<div class="post-content">
+										<a href="#">
+											<h6>Zermatt Unplugged the best festival</h6>
+										</a>
+										<p>Tuesday, October 3, 2017</p>
+									</div>
+								</div>
+								<!-- Single Popular Post -->
+								<div class="single-populer-post d-flex">
+									<img src="img/sidebar-img/4.jpg" alt="">
+									<div class="post-content">
+										<a href="#">
+											<h6>Harrogate's Top 10 Independent Eats</h6>
+										</a>
+										<p>Tuesday, October 3, 2017</p>
+									</div>
+								</div>
+								<!-- Single Popular Post -->
+								<div class="single-populer-post d-flex">
+									<img src="img/sidebar-img/5.jpg" alt="">
+									<div class="post-content">
+										<a href="#">
+											<h6>Eating Out On A Budget In Oxford</h6>
+										</a>
+										<p>Tuesday, October 3, 2017</p>
+									</div>
 								</div>
 							</div>
-							<!-- Single Popular Post -->
-							<div class="single-populer-post d-flex">
-								<img src="img/sidebar-img/2.jpg" alt="">
-								<div class="post-content">
-									<a href="#">
-										<h6>The 8 Best Gastro Pubs In Bath</h6>
-									</a>
-									<p>Tuesday, October 3, 2017</p>
+
+
+							<!-- weather search Area -->
+							<div class="weather-wrap">
+								<div class="weather-image">
+									<img src="img/sidebar-img/mainondo.jpg" alt="">
 								</div>
-							</div>
-							<!-- Single Popular Post -->
-							<div class="single-populer-post d-flex">
-								<img src="img/sidebar-img/3.jpg" alt="">
-								<div class="post-content">
-									<a href="#">
-										<h6>Zermatt Unplugged the best festival</h6>
-									</a>
-									<p>Tuesday, October 3, 2017</p>
+
+								<div class="weather-text">
+									<h2 style="color: white; font-size: 30px;">Today's weather</h2>
+									<h3 class="ctemp" style="color: white; font-size: 25px;">현재
+										온도 :</h3>
+									<h3 class="lowtemp" style="color: blue; font-size: 20px;">최저
+										온도 :</h3>
+									<h3 class="hightemp" style="color: red; font-size: 20px;">최고
+										온도 :</h3>
+									<h3 class="icon"></h3>
+
+									<form id="weatherform" th:action="@{/weather/goOut}"
+										method="get">
+										<input type="hidden" id="weather" name="weather">
+										<p>
+											<button class="btn btn-success btn-sm" type="submit"
+												id="weathersubmit">어디로 갈까요?</button>
+										</p>
+									</form>
 								</div>
+
 							</div>
-							<!-- Single Popular Post -->
-							<div class="single-populer-post d-flex">
-								<img src="img/sidebar-img/4.jpg" alt="">
-								<div class="post-content">
-									<a href="#">
-										<h6>Harrogate's Top 10 Independent Eats</h6>
-									</a>
-									<p>Tuesday, October 3, 2017</p>
-								</div>
-							</div>
-							<!-- Single Popular Post -->
-							<div class="single-populer-post d-flex">
-								<img src="img/sidebar-img/5.jpg" alt="">
-								<div class="post-content">
-									<a href="#">
-										<h6>Eating Out On A Budget In Oxford</h6>
-									</a>
-									<p>Tuesday, October 3, 2017</p>
-								</div>
-							</div>
-						</div>
-
-
-						<!-- weather search Area -->
-						<div class="weather-wrap">
-							<div class="weather-image">
-								<img src="img/sidebar-img/mainondo.jpg" alt="">
-							</div>
-
-							<div class="weather-text">
-								<h2 style="color:white; font-size:30px;">Today's weather</h2>
-								<h3 class="ctemp" style="color:white; font-size:25px;">현재 온도 : </h3>
-								<h3 class="lowtemp" style="color:blue; font-size:20px;">최저 온도 : </h3>
-								<h3 class="hightemp" style="color:red; font-size:20px;">최고 온도 : </h3>
-								<h3 class="icon"></h3>
-
-								<form id="weatherform" th:action="@{/weather/goOut}" method="get">
-									<input type="hidden" id="weather" name="weather">
-									<p><button class="btn btn-success btn-sm" type="submit" id="weathersubmit">어디로
-											갈까요?</button></p>
-								</form>
-							</div>
-
-						</div>
-
 	</section>
 	<!-- ****** Blog Area End ****** -->
 
 	<!-- ****** Instagram Area Start ****** -->
-	<div class="instargram_area owl-carousel section_padding_100_0 clearfix" id="portfolio">
+	<div
+		class="instargram_area owl-carousel section_padding_100_0 clearfix"
+		id="portfolio">
 
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
@@ -965,23 +1018,25 @@
 						<!-- Logo Area Start -->
 						<div class="footer-logo-area text-center">
 
-							<img src="img/bg-img/toplogo.jpg" alt="">
-							<a href="home.html" class="yummy-logo"></a>
-              
+							<img src="img/bg-img/toplogo.jpg" alt=""> <a
+								href="home.html" class="yummy-logo"></a>
+
 						</div>
 						<!-- Menu Area Start -->
 						<nav class="navbar navbar-expand-lg">
-							<button class="navbar-toggler" type="button" data-toggle="collapse"
-								data-target="#yummyfood-footer-nav" aria-controls="yummyfood-footer-nav"
-								aria-expanded="false" aria-label="Toggle navigation">
+							<button class="navbar-toggler" type="button"
+								data-toggle="collapse" data-target="#yummyfood-footer-nav"
+								aria-controls="yummyfood-footer-nav" aria-expanded="false"
+								aria-label="Toggle navigation">
 								<i class="fa fa-bars" aria-hidden="true"></i> Menu
 							</button>
 							<!-- Menu Area Start -->
-							<div class="collapse navbar-collapse justify-content-center" id="yummyfood-footer-nav">
+							<div class="collapse navbar-collapse justify-content-center"
+								id="yummyfood-footer-nav">
 								<ul class="navbar-nav">
 									<li class="nav-item active"><a class="nav-link" href="#">Home
 											<span class="sr-only">(current)</span>
-										</a></li>
+									</a></li>
 									<li class="nav-item"><a class="nav-link" href="#">Features</a>
 									</li>
 									<li class="nav-item"><a class="nav-link" href="#">Categories</a>
@@ -1007,8 +1062,8 @@
 					<div class="copy_right_text text-center">
 						<p>
 							Copyright @2018 All rights reserved | This template is made with
-							<i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com"
-								target="_blank">Colorlib</a>
+							<i class="fa fa-heart-o" aria-hidden="true"></i> by <a
+								href="https://colorlib.com" target="_blank">Colorlib</a>
 						</p>
 					</div>
 				</div>
@@ -1028,48 +1083,49 @@
 	<script th:src="@{js/active.js}"></script>
 
 	<script>
-		$.getJSON('https://api.openweathermap.org/data/2.5/weather?lat=37&lon=127&appid=d31defa8e5437ce94838e8d636024afd&units=metric', function (result) {
-			$('.ctemp').append(result.main.temp);
-			$('.lowtemp').append(result.main.temp_min);
-			$('.hightemp').append(result.main.temp_max);
-			//result.weather[0].icon 현재 날씨 가져오기
-			var wiconUrl = '<img src="https://openweathermap.org/img/wn/' + result.weather[0].icon + '.png" alt="' + result.weather[0].description + '">'
-			$('.icon').append(wiconUrl);
+		$
+				.getJSON(
+						'https://api.openweathermap.org/data/2.5/weather?lat=37&lon=127&appid=d31defa8e5437ce94838e8d636024afd&units=metric',
+						function(result) {
+							$('.ctemp').append(result.main.temp);
+							$('.lowtemp').append(result.main.temp_min);
+							$('.hightemp').append(result.main.temp_max);
+							//result.weather[0].icon 현재 날씨 가져오기
+							var wiconUrl = '<img src="https://openweathermap.org/img/wn/' + result.weather[0].icon + '.png" alt="' + result.weather[0].description + '">'
+							$('.icon').append(wiconUrl);
 
-			$("#weather").val(result.weather[0].description);
+							$("#weather").val(result.weather[0].description);
 
-			console.log(result.weather[0].icon);
-			console.log(result.weather[0].description);
+							console.log(result.weather[0].icon);
+							console.log(result.weather[0].description);
 
-			//현재시간 가져오기
-			var ct = result.dt;
+							//현재시간 가져오기
+							var ct = result.dt;
 
-			function convertTime(t) {
-				var originalTime = new Date(t * 1000);
-				//Tue Sep 13 2022 09:34:07 GMT+0900 (한국 표준시)
-				//너무 길어서 쪼개서 출력한다
-				var hr = originalTime.getHours();
-				var m = originalTime.getMinutes();
-				var s = originalTime.getSeconds();
+							function convertTime(t) {
+								var originalTime = new Date(t * 1000);
+								//Tue Sep 13 2022 09:34:07 GMT+0900 (한국 표준시)
+								//너무 길어서 쪼개서 출력한다
+								var hr = originalTime.getHours();
+								var m = originalTime.getMinutes();
+								var s = originalTime.getSeconds();
 
-				return hr + ':' + m + ':' + s
+								return hr + ':' + m + ':' + s
 
-			}
+							}
 
-			var currentTime = convertTime(ct)
-			$('.time').append(currentTime);
+							var currentTime = convertTime(ct)
+							$('.time').append(currentTime);
 
-		});
+						});
 	</script>
 
 	<script>
-
-		$(document).ready(function () {
+		$(document).ready(function() {
 
 			$('[data-toggle="tooltip"]').tooltip();
 
 		});
-
 	</script>
 
 
