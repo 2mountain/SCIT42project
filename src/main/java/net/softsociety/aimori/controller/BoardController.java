@@ -111,8 +111,10 @@ public class BoardController {
 		log.debug("파일 업로드 경로: {}", uploadPath);
 		log.debug("파일 정보: {}", upload);
 
-//		board.setMemberId(user.getUsername());
-		board.setMemberId("test1");
+		board.setMemberId(user.getUsername());
+		
+		board.setMemberNickName(board.getMemberNickName());
+//		board.setMemberId("test1");
 		board.setMemberNickName("testUser");
 
 		// 첨부파일이 있는 경우 지정된 경로에 저장하고, 원본 파일명과 저장된 파일명을 Board객체에 세팅
@@ -137,45 +139,60 @@ public class BoardController {
 	 * @return
 	 */
 	@GetMapping("read")
-	public String read(Model model, @RequestParam(name = "boardNumber", defaultValue = "0") int boardNumber
-			/*@AuthenticationPrincipal UserDetails user*/) {
+	public String read(Model model
+			, @RequestParam(name = "boardNumber", defaultValue = "0") int boardNumber
+			, @AuthenticationPrincipal UserDetails user) {
 
+		
+		
 		// 현재 로그인 중인 회원 아이디 조회
-		//String id = user.getUsername();
-
+		// String id = user.getUsername();
+		
 		// 게시글 객체 하나 조회
 		Board board = service.boardRead(boardNumber);
-
-		// 해당 게시글에 대한 좋아요 개수
-		int boardliked = service.boardSelectRecommend(boardNumber);
-
+		
 		if (board == null) {
 			return "redirect:/board/list"; // 글이 없으면 목록으로
 		}
 		
-		// 현재 로그인 중인 회원이 해당 글에 좋아요 했는지 여부
-		BoardLiked boardLiked = new BoardLiked(boardNumber, "test1");
+		String id = board.getMemberId();
 		
-		BoardLiked boardLiked2 = service.getBoardLiked(boardLiked);
+		if(id != null) {
+			
+			if(user == null) {
+				
+				System.out.println("user null 가능");
+				
+			}
+			
+			// 해당 게시글에 대한 좋아요 개수
+			int boardliked = service.boardSelectRecommend(boardNumber);
+			
+			
+			// 현재 로그인 중인 회원이 해당 글에 좋아요 했는지 여부
+			BoardLiked boardLiked = new BoardLiked(boardNumber, id);
+			
+			BoardLiked boardLiked2 = service.getBoardLiked(boardLiked);
+			
+			if(boardLiked2 != null){
+				model.addAttribute("ifLiked", boardLiked2);
+			}else{
+				model.addAttribute("ifLiked", new BoardLiked());
+			}
+			
+			log.debug("좋아요 여부 :{}", boardLiked2 );
+			
+			log.debug("boardliked 값: {}", boardliked);
+			
+			model.addAttribute("boardLikedData", boardliked);
 		
-		if(boardLiked2 != null){
-			model.addAttribute("ifLiked", boardLiked2);
-		}else{
-			model.addAttribute("ifLiked", new BoardLiked());
 		}
 		
-		log.debug("좋아요 여부 :{}", boardLiked2 );
-		
-		log.debug("boardliked 값: {}", boardliked);
-
 		// 현재 글에 달린 댓글들
 		ArrayList<Reply> replylist = service.replyList(boardNumber);
 		
-
-		
 		// 결과를 모델에 담아서 HTML에서 출력
 		model.addAttribute("board", board);
-		model.addAttribute("boardLikedData", boardliked);
 		model.addAttribute("replylist", replylist);
 
 		log.debug("board 읽어오기, {}", board);
@@ -258,8 +275,8 @@ public class BoardController {
 		log.debug("파일 정보: {}", upload);
 
 		// 작성자 아이디 추가
-		/* board.setMemberId(user.getUsername()); */
-		board.setMemberId("test1");
+		board.setMemberId(user.getUsername()); 
+//		board.setMemberId("test1");
 
 		Board oldBoard = null;
 		String oldSavedfile = null;
@@ -306,8 +323,8 @@ public class BoardController {
 		String savedfile = board.getBoardImageSaved();
 
 		// 로그인 아이디를 board객체에 저장
-		// board.setMemberId(user.getUsername());
-		board.setMemberId("test1");
+		board.setMemberId(user.getUsername());
+		// board.setMemberId("test1");
 
 		// 글 삭제
 		int result = service.boardDelete(board);
@@ -334,12 +351,12 @@ public class BoardController {
 
 		int isLiked = 0;
 
-		// String id = user.getUsername();
+		String id = user.getUsername();
 
 		log.debug("recommend 호출됨!!!");
 
 		// 받아온 글번호와 로그인된 아이디가 담긴 boardliked 객체를 만든다
-		BoardLiked boardLiked = new BoardLiked(boardNumber, "test1");
+		BoardLiked boardLiked = new BoardLiked(boardNumber, id);
 
 		// 객체를 얻어온다
 		BoardLiked boardLiked2 = service.getBoardLiked(boardLiked);
@@ -367,10 +384,10 @@ public class BoardController {
 	@PostMapping("replyInsert")
 	public String replyInsert(
 		Reply reply
-		/* , @AuthenticationPrincipal UserDetails user */) {
+		, @AuthenticationPrincipal UserDetails user) {
 		
-		/* reply.setMemberid(user.getUsername()); */
-		reply.setMemberId("test1");
+		reply.setMemberId(user.getUsername());
+		// reply.setMemberId("test1");
 		reply.setMemberNickName("testUser");
 		
 		log.debug("저장할 리플 정보 : {}", reply);
@@ -389,16 +406,15 @@ public class BoardController {
 	@GetMapping("replyDelete")
 	public String replyDelete(
 			Reply reply
-	/* , @AuthenticationPrincipal UserDetails user */) {
+			, @AuthenticationPrincipal UserDetails user) {
 		
-		reply.setMemberId("test1");
+		reply.setMemberId(user.getUsername());
+		// reply.setMemberId("test1");
+		
 		int result = service.replyDelete(reply);
-		
 		int replyMinus = service.replyMinus(reply.getBoardNumber());
 		
 		return "redirect:/board/read?boardNumber=" + reply.getBoardNumber();
 	}
-	
-	
 	
 }

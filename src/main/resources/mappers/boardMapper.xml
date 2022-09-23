@@ -162,7 +162,7 @@
 			memberId
 		from boardLikedData
 		where boardNumber=#{boardNumber}
-			and memberId='test1'
+			and memberId=#{memberId}
 	</select>
 	
 	<!-- 좋아요 취소 -->
@@ -215,7 +215,7 @@
 		</if>
 		where
 		boardNumber = #{boardNumber}
-		<!-- and memberid = #{memberid} -->
+		and memberId = #{memberId}
 	</update>
 
 	<!-- 글 삭제 -->
@@ -224,7 +224,7 @@
 		Board
 		where
 		boardNumber = #{boardNumber}
-		<!-- and memberId = #{memberId} -->
+		and memberId = #{memberId}
 	</delete>
 	
 	<!-- 댓글 저장 -->
@@ -273,7 +273,7 @@
 
 	where
 		replyNumber = #{replyNumber}
-		<!-- and memberId = #{memberId} -->
+		and memberId = #{memberId}
 </update>
 	
 	<!-- 댓글 삭제 -->
@@ -283,7 +283,7 @@
 			reply
 		where 
 			replyNumber = #{replyNumber}
-			<!-- and memberId = #{memberId} -->
+			and memberId = #{memberId}
 	</delete>
 	
 	<!-- 게시글에 달린 댓글 개수 -->
@@ -312,5 +312,4 @@
 		boardNumber = #{boardNumber}
 	</update>
 	
-
 </mapper>
