@@ -14,9 +14,13 @@
 <script th:src="@{js/jquery/jquery-2.2.4.min.js}"></script>
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
+	let changingId;
+
 	// 권한, 차단여부 변경
-	function changeValue(value, memberId) { // ajax
-		console.log(value);
+	function changeValue(value, memberId, ov) { // ajax
+		changingId = memberId;
+		originalValue = ov;
+	
 		// parameter가 차단여부인 경우
 		if (value === 'true' || value === 'false') {
 			$.ajax({
@@ -31,6 +35,7 @@
 					if(result == 1){
 						alert('차단 여부가 변경되었습니다!');
 					} else {
+						// select의 값을 originalValue로 변경 / chaningId를 통해 위치 알아냄
 						alert('차단 여부 변경 실패');
 					}
 				},
@@ -52,7 +57,12 @@
 				},
 			dataType : 'json',
 			success : function(memberRoleName) {
-				alert('권한이 변경되었습니다!');
+				if(memberRoleName === value){
+					alert('권한이 변경되었습니다!');
+				} else {
+					// select의 값을 originalValue로 변경 / chaningId를 통해 위치 알아냄
+					alert("권한 변경 실패!");
+				}
 			},
 			error : function(e) {
 				alert("권한 변경 실패!");
@@ -321,20 +331,14 @@
 										<td th:text="${memberList.memberBirthDay}">생일</td>
 										<td th:text="${memberList.memberJoinDate}">가입일자</td>
 										<td th:text="${memberList.memberPoint}">포인트</td>
-										<td style="padding: 0;"><select
-											style="width: 90px; height: 40px; border: none;" name="role"
-											th:user="${memberList.memberId}"
-											onchange="changeValue(this.value, getAttribute('user'))">
-												<option
-													th:selected="${memberList.memberRoleName.equals('ROLE_USER')}"
-													value="ROLE_USER">일반</option>
-												<option class="fontRed"
-													th:selected="${memberList.memberRoleName.equals('ROLE_ADMIN')}"
-													value="ROLE_ADMIN">관리자</option>
-												<option
-													th:selected="${memberList.memberRoleName.equals('ROLE_DOCTOR')}"
-													value="ROLE_DOCTOR">의사</option>
-										</select> <!--
+										<td style="padding: 0;">
+												<select style="width: 90px; height: 40px; border: none;" name="role" th:memberRoleName="${memberList.memberRoleName}"
+														th:id="${memberList.memberId}" onchange="changeValue(this.value, getAttribute('id'), getAttribute('memberRoleName'))">
+													<option th:selected="${memberList.memberRoleName.equals('ROLE_USER')}" value="ROLE_USER">일반</option>
+													<option th:selected="${memberList.memberRoleName.equals('ROLE_ADMIN')}" value="ROLE_ADMIN" class="fontRed">관리자</option>
+													<option th:selected="${memberList.memberRoleName.equals('ROLE_DOCTOR')}" value="ROLE_DOCTOR">의사</option>
+												</select>
+														<!--
 															<span class="roleChange" th:if="${memberList.memberRoleName.equals('ROLE_USER')}" style="color:black;">일반</span>
 															<span class="roleChange" th:if="${memberList.memberRoleName.equals('ROLE_ADMIN')}" style="color:red;"><b>관리자</b></span>
 															<span class="roleChange" th:if="${memberList.memberRoleName.equals('ROLE_DOCTOR')}" >의사</span>
@@ -349,15 +353,14 @@
 																</li>
 																<li><a class="dropdown-item noUnderline roleChange" th:if="${!memberList.memberRoleName.equals('ROLE_DOCTOR')}">의사</a></li>
 														</ul></li>
-												</ul> --></td>
-										<td style="padding: 0;" onchange=""><select
-											style="width: 84px; height: 40px; border: none;" name="block"
-											th:user="${memberList.memberId}"
-											onchange="changeValue(this.value, getAttribute('user'))">
-												<option class="fontRed"
-													th:selected="${memberList.memberEnabled}" value="true">차단안됨</option>
-												<option th:selected="${!memberList.memberEnabled}"
-													value="false">차단됨</option>
+														</ul> 
+														-->
+										</td>
+										<td style="padding: 0;" onchange="">
+											<select style="width: 84px; height: 40px; border: none;" name="block" th:memberEnabled="${memberList.memberEnabled}"
+													th:id="${memberList.memberId}" onchange="changeValue(this.value, getAttribute('id'), getAttribute('memberEnabled'))">
+												<option class="fontRed" th:selected="${memberList.memberEnabled}" value="true">차단안됨</option>
+												<option th:selected="${!memberList.memberEnabled}" value="false">차단됨</option>
 										</select> <!-- <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
 													<li class="nav-item dropdown">
 														<a class="dropdown-toggle noUnderline" id="navbarDropdown" href="#" role="button" 

@@ -78,6 +78,9 @@ public class AdministratorController {
 		// 회원의 차단 여부 변경
 		int result = aService.changeBlock(member);
 		
+		// ★ 지울것
+		result = 0;
+		
 		return result;
 	}
 	
