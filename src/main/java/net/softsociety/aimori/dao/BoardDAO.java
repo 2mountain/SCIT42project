@@ -20,6 +20,8 @@ public interface BoardDAO {
 	public int boardInsert(Board board);
 	// 현재 페이지 글 목록
 	public ArrayList<Board> boardList(HashMap<String, String> map, RowBounds rb);
+	// 인기글 보기
+	public ArrayList<Board> boardHotList(HashMap<String, String> map, RowBounds rb);
 	// 전체 글 개수
 	public int countBoard(HashMap<String, String> map);
 	// 글 읽기

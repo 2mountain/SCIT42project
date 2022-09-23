@@ -371,18 +371,13 @@
 						th:href="|javascript:replyUpdate(${reply.replyNumber}, ${reply.boardNumber})|">
 						수정
 						</a>
+						<span th:if="${#authentication.name} == ${reply.memberId}">
 						<a  class="btn btn-secondary btn-sm" style="color: white;"
 						th:href="|javascript:replyDelete(${reply.replyNumber}, ${reply.boardNumber})|">
 						삭제
 						</a>
-					</td>
-					<!-- <td class="white">
-						<span th:if="${#authentication.name} == ${reply.memberId}">
-							<a th:href="|javascript:deleteReply(${reply.replyNumber}, ${reply.boardNumber})|">
-								<img th:src="@{/image/icon_delete_24.png}">
-							</a>
 						</span>
-					</td> -->
+					</td>
 				</tr>
 
 			</table>

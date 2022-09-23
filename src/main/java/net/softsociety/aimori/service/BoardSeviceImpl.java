@@ -57,6 +57,19 @@ public class BoardSeviceImpl implements BoardService {
 		
 		return boardlist;
 	}
+	
+	// 인기글 보기
+	@Override
+	public ArrayList<Board> hotList(PageNavigator navi, String type, String searchWord) {
+		HashMap<String, String> map =new HashMap<>();
+		map.put("type", type);
+		map.put("searchWord", searchWord);
+		
+		RowBounds rb = new RowBounds(navi.getStartRecord(), navi.getCountPerPage());
+		ArrayList<Board> boardlist = boardDAO.boardHotList(map, rb); 
+		
+		return boardlist;
+	}
 
 	// 글읽기
 	@Override
@@ -157,6 +170,8 @@ public class BoardSeviceImpl implements BoardService {
 		int result = boardDAO.replyMinus(boardNumber);
 		return result;
 	}
+
+
 
 
 	
