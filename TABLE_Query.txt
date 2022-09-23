@@ -85,20 +85,12 @@ CREATE TABLE pet    --Pet table
     			--애완동물 생년월일
     petWeight 				NUMBER default 0 NOT NULL, 
     			--애완동물 몸무게
-    petHeight 				NUMBER default 0 NOT NULL, 
-    			--애완동물 체고(발바닥에서 어깨 높이)
-    petFood 				VARCHAR2(50) NOT NULL, 
-    			--애완동물 사료명
-    petIntake 				NUMBER, 
-    			--사료 일일 섭취량(g)
     petNeuter 				VARCHAR2(1) CHECK(petNeuter IN('Y', 'N')), 
     			--중성화 여부
     petImageOriginalFile 	VARCHAR2(300), 
     			--애완동물 사진의 원래 이름
     petImageSavedFile 		VARCHAR2(100), 
     			--애완동물 마이페이지 사진 서버에 저장된 이름
-    petSize 				VARCHAR2(10) CHECK(petSize IN('소형견', '중형견', '대형견')) 
-    			--애완동물 사이즈 따라 분류
 );
 
 /*
