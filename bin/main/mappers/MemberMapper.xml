@@ -40,4 +40,20 @@
 	WHERE
 	memberNickName = #{memberNickName}
 </select>
+
+<!-- 회원정보 수정 -->
+<update id="update" parameterType="Member">
+	update spring5_member
+	set
+		membername = #{membername}
+		, email = #{email}
+		, phone = #{phone}
+		, address = #{address}
+		<if test="memberpw != null and memberpw != ''">
+			, memberpw = #{memberpw}
+		</if>
+	where
+		memberid = #{memberid}
+</update>
+
 </mapper>
