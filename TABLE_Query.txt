@@ -54,7 +54,7 @@ CREATE TABLE members
     memberPoint 				NUMBER DEFAULT 0,
     			--회원 포인트
     memberRoleName 				VARCHAR2(20) DEFAULT 'ROLE_USER'  
-			 					CONSTRAINT pmember_rolename_ck_nn CHECK(rolename IN('ROLE_USER', 'ROLE_ADMIN', 'ROLD_DOCTOR')) 
+			 					CONSTRAINT pmember_rolename_ck_nn CHECK(rolename IN('ROLE_USER', 'ROLE_ADMIN', 'ROLE_DOCTOR')) 
 			 					NOT NULL,
     			--회원 역할        
     memberEnabled 				NUMBER DEFAULT 1 CONSTRAINT member_memberEnabled_nn_ck CHECK(memberEnabled IN(0, 1)),

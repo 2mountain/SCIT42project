@@ -14,65 +14,101 @@
 <script th:src="@{js/jquery/jquery-2.2.4.min.js}"></script>
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
-	let changingId;
+	let changingRoleById;
+	let changingBlockByNickName;
 
 	// 권한, 차단여부 변경
-	function changeValue(value, memberId, ov) { // ajax
-		// 현재 권한, 차단여부 수정 중인 아이디
-		changingId = '\'#' + memberId + '\'';
+	function changeValue(value, memberInfo, user, ov) { // ajax
+		console.log(value, memberInfo, user, ov);
+	
+		// 현재 권한, 차단여부 수정 중인 아이디 or 닉네임
+		let memberInformation = memberInfo;
 		// 해당 아이디의 권한 or 차단여부의 원래 값
 		originalValue = ov;
 		
-		// parameter가 role인 경우
-		$.ajax({
-			url : "administrator/changeRole",
-			type : 'post',
-			data : {
-				memberRoleName : value,
-				memberId : memberId
-				},
-			dataType : 'json',
-			success : function(memberRoleName) {
-				if(memberRoleName === value){
-					alert('권한이 변경되었습니다!');
-				} else {
-					// select의 값을 originalValue로 변경 / chaningId를 통해 위치 알아냄
-					$(changingId).val('\'' + originalValue + '\'').prop("selected", true);
-					alert("권한 변경 실패!");
-				}
-			},
-			error : function(e) {
-				alert("권한 변경 실패!");
-				console.log(JSON.stringify(e));
-			}
-		});
-		
 		// parameter가 차단여부인 경우
 		if (value === 'true' || value === 'false') {
+			changingBlockByNickName = document.getElementById(memberInfo);
+			
 			$.ajax({
 				url : "administrator/changeBlock",
 				type : 'post',
 				data : {
 					memberEnabled : value,
-					memberId : memberId
+					memberId : user
 					},
 				dataType : 'json',
 				success : function(result) {
 					if(result == 1){
 						alert('차단 여부가 변경되었습니다!');
+						return;
 					} else {
 						// select의 값을 originalValue로 변경 / chaningId를 통해 위치 알아냄
-						// $('\#' + changingId + '\'').val('\'' + originalValue + '\'').prop("selected", true);
-						alert('차단 여부 변경 실패');
+						if(ov === 1){
+						// 기존 차단 여부가 1인 경우 
+							changingBlockByNickName.selectedIndex = 1;
+						} else {
+						// 기존 차단 여부가 0인 경우
+							changingBlockByNickName.selectedIndex = 0;
+						}
+						
+						alert('차단 여부 변경 실패 [s]');
 					}
+						alert('차단 여부 변경 실패 [s]');
 				},
 				error : function(e) {
+					// select의 값을 originalValue로 변경 / chaningId를 통해 위치 알아냄
+					if(ov === 1){
+						// 기존 차단 여부가 1인 경우 
+							changingBlockByNickName.selectedIndex = 1;
+						} else {
+						// 기존 차단 여부가 0인 경우
+							changingBlockByNickName.selectedIndex = 0;
+						}
+					
+					alert('차단 여부 변경 실패 [e]');
 					console.log(JSON.stringify(e));
 				}
 			});
 
 			return;
 		}
+		
+		/*************************************************************************/
+		
+		// parameter가 role인 경우
+		changingRoleById = document.getElementById(memberInfo);
+		
+		$.ajax({
+			url : "administrator/changeRole",
+			type : 'post',
+			data : {
+				memberRoleName : value,
+				memberId : user
+				},
+			dataType : 'json',
+			success : function(result) {
+				if(result == 1){
+					alert('권한이 변경되었습니다!');
+					return;
+				} else {
+					// select의 값을 originalValue로 변경 / chaningId를 통해 위치 알아냄
+					if(ov === 'ROLE_USER'){
+						changingRoleById.selectedIndex = 0;
+					} else if(ov === 'ROLE_ADMIN') {
+						changingRoleById.selectedIndex = 1;
+					} else if(ov === 'ROLE_DOCTOR') {
+						changingRoleById.selectedIndex = 2;
+					}
+					alert('권한 변경 실패 [s]');
+				}
+					alert('권한 실패 [s]');
+			},
+			error : function(e) {
+				alert("권한 변경 실패! [e]");
+				console.log(JSON.stringify(e));
+			}
+		});
 	}
 </script>
 </head>
@@ -337,7 +373,7 @@
 										<td th:text="${memberList.memberPoint}">포인트</td>
 										<td style="padding: 0;">
 												<select style="width: 90px; height: 40px; border: none;" name="role" th:memberRoleName="${memberList.memberRoleName}"
-														th:id="${memberList.memberId}" onchange="changeValue(this.value, getAttribute('id'), getAttribute('memberRoleName'))">
+														th:id="${memberList.memberId}" th:user="${memberList.memberId}" onchange="changeValue(this.value, getAttribute('id'), getAttribute('user'), getAttribute('memberRoleName'))">
 													<option th:selected="${memberList.memberRoleName.equals('ROLE_USER')}" value="ROLE_USER">일반</option>
 													<option th:selected="${memberList.memberRoleName.equals('ROLE_ADMIN')}" value="ROLE_ADMIN" class="fontRed">관리자</option>
 													<option th:selected="${memberList.memberRoleName.equals('ROLE_DOCTOR')}" value="ROLE_DOCTOR">의사</option>
@@ -360,9 +396,10 @@
 														</ul> 
 														-->
 										</td>
-										<td style="padding: 0;" onchange="">
+										<td style="padding: 0;">
 											<select style="width: 84px; height: 40px; border: none;" name="block" th:memberEnabled="${memberList.memberEnabled}"
-													th:id="${memberList.memberId}" onchange="changeValue(this.value, getAttribute('id'), getAttribute('memberEnabled'))">
+													th:id="${memberList.memberNickName}" th:user="${memberList.memberId}" 
+													onchange="changeValue(this.value, getAttribute('id'), getAttribute('user'), getAttribute('memberEnabled'))">
 												<option class="fontRed" th:selected="${memberList.memberEnabled}" value="true">차단안됨</option>
 												<option th:selected="${!memberList.memberEnabled}" value="false">차단됨</option>
 										</select> <!-- <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">

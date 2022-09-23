@@ -76,10 +76,7 @@ public class AdministratorController {
 		}
 		
 		// 회원의 차단 여부 변경
-//		int result = aService.changeBlock(member);
-		
-		// ★ 지울것
-		int result = 0;
+		int result = aService.changeBlock(member);
 		
 		return result;
 	}
@@ -88,15 +85,15 @@ public class AdministratorController {
 	@PostMapping("/changeRole") 
 	public int changeRole(Member member, 
 							@AuthenticationPrincipal UserDetails user){
-		log.debug("[AdministratorController] changeBlock - param : {}", member);
+		log.debug("[AdministratorController] changeRole - param : {}", member);
 		
 		// 현재 접속한 계정의 role을 가져옴
 		String currentUserRole = fService.checkRole(user.getUsername());
-		log.debug("[AdministratorController] changeBlock - currentUserRole : {}", currentUserRole);
+		log.debug("[AdministratorController] changeRole - currentUserRole : {}", currentUserRole);
 
 		// 관리자 여부 확인
 		if(!currentUserRole.equals("ROLE_ADMIN")) {
-			log.debug("[AdministratorController] changeBlock - NOT ADMIN");
+			log.debug("[AdministratorController] changeRole - NOT ADMIN");
 			 return -1; 
 		}
 		
