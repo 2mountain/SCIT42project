@@ -85,6 +85,7 @@ public class BoardController {
 		model.addAttribute("searchWord", searchWord);
 
 		log.debug("searchWord 출력! :{}", searchWord);
+		log.debug("boardlist 출력! : {}", boardlist);
 
 		return "/board/board";
 	}
@@ -442,5 +443,35 @@ public class BoardController {
 		
 		return "redirect:/board/read?boardNumber=" + reply.getBoardNumber();
 	}
+	
+	/**
+	 * 게시글 이미지 보기
+	 * @param model
+	 * @param page
+	 * @param type
+	 * @param searchWord
+	 * @return
+	 */
+	@GetMapping("boardImage")
+	public String boardImage(Model model, @RequestParam(name = "page", defaultValue = "1") int page, String type,
+			String searchWord) {
+
+		PageNavigator navi = service.getPageNavigator(pagePerGroup, countPerPage, page, type, searchWord);
+
+		ArrayList<Board> boardlist = service.list(navi, type, searchWord);
+
+		model.addAttribute("navi", navi);
+		model.addAttribute("boardlist", boardlist);
+		model.addAttribute("type", type);
+		model.addAttribute("searchWord", searchWord);
+
+		log.debug("searchWord 출력! : {}", searchWord);
+		log.debug("boardlist 출력! : {}", boardlist);
+
+		return "/board/boardImage";
+	}
+	
+
+	
 	
 }

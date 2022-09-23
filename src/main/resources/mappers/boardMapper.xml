@@ -41,6 +41,7 @@
 			b.boardNumber boardNumber
 			, b.memberId memberId
 			, b.boardTitle boardTitle
+			, b.boardContents boardContents
 			, b.memberNickName memberNickName
 			, to_char(b.boardInputDate, 'YYYY-MM-DD') boardInputDate
 			, to_char(b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS') boardInputDateDetail
@@ -68,7 +69,7 @@
 				or b.memberId like '%' || #{searchWord} || '%'
 			</if>	
 		</if>
-		group by b.boardNumber, b.memberId, b.boardTitle, b.memberNickName,
+		group by b.boardNumber, b.memberId, b.boardTitle, b.boardContents, b.memberNickName,
 				to_char(b.boardInputDate, 'YYYY-MM-DD'), b.boardInputDate, 'YYYY-MM-DD', to_char(b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS'),
 				b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS', b.boardHits, b.boardReport, b.boardCategory, b.boardImageSaved,
 				to_char(b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS'), replyCount
@@ -99,6 +100,7 @@
 			b.boardNumber boardNumber
 			, b.memberId memberId
 			, b.boardTitle boardTitle
+			, b.boardContents boardContents
 			, b.memberNickName memberNickName
 			, to_char(b.boardInputDate, 'YYYY-MM-DD') boardInputDate
 			, to_char(b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS') boardInputDateDetail
@@ -126,7 +128,7 @@
 				or b.memberId like '%' || #{searchWord} || '%'
 			</if>
 		</if>
-		group by b.boardNumber, b.memberId, b.boardTitle, b.memberNickName,
+		group by b.boardNumber, b.memberId, b.boardTitle, b.boardContents, b.memberNickName,
 				to_char(b.boardInputDate, 'YYYY-MM-DD'), b.boardInputDate, 'YYYY-MM-DD', to_char(b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS'),
 				b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS', b.boardHits, b.boardReport, b.boardCategory, b.boardImageSaved,
 				to_char(b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS'), replyCount
