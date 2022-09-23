@@ -17,4 +17,10 @@ public interface MemberDAO {
 	
 	// 닉네임 중복검사
 	public Member selectOne2(String memberNickName);
+
+	// 정보 수정
+	public int update(Member member);
+	
+
 }
+

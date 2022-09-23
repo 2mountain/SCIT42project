@@ -23,19 +23,23 @@ public class MypageContrroller {
 
 	/**
 	 * 마이페이지 메인 진입
-	 * @return
 	 */
-	@GetMapping("main")
+	@GetMapping("/main")
 	public String mypageMain(@AuthenticationPrincipal UserDetails user, Model model) {
 		log.debug("들어오기 성공, UserDetails 정보 : {}", user);
-		return "/mypageView/mypageMain";
-	}
-	
-	@PostMapping("main")
-	public String mypageList(@AuthenticationPrincipal UserDetails user, Model model) {
-		log.debug("UserDetails 정보 : {}", user);
 		Member member = service.getMemberInfo(user.getUsername());
 		model.addAttribute("member", member);
-		return "/mypageView/mypageMain";
+		return "mypageView/mypageMain";
+	}
+	
+	/**
+	 * 마이페이지 정보 수정
+	 */
+	@PostMapping("/user")
+	public String mypageList(@AuthenticationPrincipal UserDetails user, Model model, Member member) {
+		log.debug("수정할 정보 : {}", member);
+		member.setMemberId(user.getUsername()); 
+		int result = service.updateMember(member);
+		return "redirect:/";
 	}
 }
