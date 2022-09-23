@@ -23,6 +23,16 @@
 
 <!-- test -->
 <link rel="stylesheet" type="text/css" th:href="@{/css/board/board.css}" />
+
+<script>
+function pagingFormSubmit(currentPage) {
+	var form = document.ElementById('pagingForm');
+	var page = document.ElementById('page');
+	page.value = currentPage;
+	form.submit();
+}
+</script>
+
 </head>
 
 <body>
@@ -68,7 +78,7 @@
 						</div>
 						<!-- Search Form -->
 						<div class="search-hidden-form">
-							<form action="#" method="get">
+							<form action="#" method="">
 								<input type="search" name="search" id="search-anything"
 									placeholder="Search Anything..."> <input type="submit"
 									value="" class="d-none"> <span class="searchBtn"><i
@@ -98,7 +108,7 @@
 				<div class="col-12">
 					<nav class="navbar navbar-expand-lg">
 						<button class="navbar-toggler" type="button"
-							data-toggle="collapse" data-target="#yummyfood-nav"
+							data-toggle="collapse" data-tar="#yummyfood-nav"
 							aria-controls="yummyfood-nav" aria-expanded="false"
 							aria-label="Toggle navigation">
 							<i class="fa fa-bars" aria-hidden="true"></i> Menu
@@ -169,139 +179,72 @@
 	<!-- ****** Breadcumb Area End ****** -->
 
 	<!-- ****** Archive Area Start ****** -->
-
-	   <section>
-      <!-- 글목록 출력 영역 -->
-      <div class="container">
-         <table class="table table-hover table-bordered table-striped">
-            <tr>
-               <td class="white">도전 <span></span>
-               </td>
-            </tr>
-            <tr th:each="challenge : ${challengelist}">
-               <th>번호</th>
-               <th style="width: 220px;">제목</th>
-               <th>작성일</th>
-               <td th:text="${challenge.challengeNumber}" class="center"></td>
-               <td><a th:text="${challenge.challengeName}"
-                  th:href="@{/challenge/read(challengeNumber=${challenge.challengeNumber})}"></a>
-               </td>
-               <td th:text="${challenge.challengRegistday}" class="center"></td>
-               <td class="center"></td>
-            </tr>
-         </table>
-
-      </div>
-
-
-      <div id="navigator">
-
-         <!-- 페이지 이동 링크   -->
-         <a
-            th:href="|javascript:pagingFormSubmit(${navi.currentPage - navi.pagePerGroup})|">◁◁</a>
-         <a th:href="|javascript:pagingFormSubmit(${navi.currentPage - 1})|">◀</a>
-
-         <span
-            th:each="counter : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}">
-            <th:block th:if="${counter == navi.currentPage}">
-               <b>
-            </th:block> <a th:text="${counter}"
-            th:href="|javascript:pagingFormSubmit(${counter})|"></a>&nbsp; <th:block
-               th:if="${counter == navi.currentPage}">
-               </b>
-            </th:block>
-         </span> <a th:href="|javascript:pagingFormSubmit(${navi.currentPage + 1})|">▶</a>
-         <a
-            th:href="|javascript:pagingFormSubmit(${navi.currentPage + navi.pagePerGroup})|">▷▷</a>
-         <br>
-         <br>
-
-         <!-- 검색폼 -->
-         <form id="pagingForm" method="get"
-            th:action="@{/challenge/challengelist}">
-            <input type="hidden" name="page" id="page" /> <select id="type"
-               name="type">
-               <option value="title" th:selected="${type} == 'challengeName'">제목</option>
-               <option value="all" th:selected="${type} == 'all'">전체</option>
-            </select> <input type="text" name="searchWord" th:value="${searchWord}">
-            <input type="button" onclick="pagingFormSubmit(1)" value="검색">
-         </form>
-
-      </div>
-
-   </section>
-
-
-
-   <section>
-      <!-- 글목록 출력 영역 -->
-      <div class="container">
-         <table class="table table-hover table-bordered table-striped">
-            <tr>
-               <td class="white">도전 <span></span>
-               </td>
-            </tr>
-            <tr th:each="conference : ${conferencelist}">
-               <th>번호</th>
-               <th style="width: 220px;">제목</th>
-               <th>작성일</th>
-               <td th:text="${challenge.challengeNumber}" class="center"></td>
-               <td><a th:text="${challenge.challengeName}"
-                  th:href="@{/challenge/read(challengeNumber=${challenge.challengeNumber})}"></a>
-               </td>
-               <td th:text="${challenge.challengRegistday}" class="center"></td>
-               <td class="center"></td>
-            </tr>
-         </table>
-
-      </div>
-      <div id="navigator">
-
-         <!-- 페이지 이동 링크   -->
-         <a
-            th:href="|javascript:pagingFormSubmit(${navi.currentPage - navi.pagePerGroup})|">◁◁</a>
-         <a th:href="|javascript:pagingFormSubmit(${navi.currentPage - 1})|">◀</a>
-
-         <span
-            th:each="counter : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}">
-            <th:block th:if="${counter == navi.currentPage}">
-               <b>
-            </th:block> <a th:text="${counter}"
-            th:href="|javascript:pagingFormSubmit(${counter})|"></a>&nbsp; <th:block
-               th:if="${counter == navi.currentPage}">
-               </b>
-            </th:block>
-         </span> <a th:href="|javascript:pagingFormSubmit(${navi.currentPage + 1})|">▶</a>
-         <a
-            th:href="|javascript:pagingFormSubmit(${navi.currentPage + navi.pagePerGroup})|">▷▷</a>
-         <br>
-         <br>
-
-         <!-- 검색폼 -->
-         <form id="pagingForm" method="get"
-            th:action="@{/challenge/conferencelist}">
-            <input type="hidden" name="page" id="page" /> <select id="type"
-               name="type">
-               <option value="title" th:selected="${type} == 'challengeName'">챌린지이름</option>
-               <option value="all" th:selected="${type} == 'all'">전체</option>
-            </select> <input type="text" name="searchWord" th:value="${searchWord}">
-            <input type="button" onclick="pagingFormSubmit(1)" value="검색">
-         </form>
-
-      </div>
-
-   </section>
-
-	<div class="text-right">
-		<a class="btn btn-light" style="background-color: rgb(220, 220, 255);"
-			colspan="6" th:href="@{/challenge/write}">글쓰기</a>
+<header>
+	<h1>[ 도전과제]</h1>
+</header>
+<section>
+	<!-- 글목록 출력 영역 -->
+	<table>
+		<tr>
+			<td class="white">
+				전체 <span th:text="${chnavi.totalRecordsCount}"></span>
+			</td>
+			<td class="white" colspan="3"></td>
+			<td class="head">
+				<a sec:authorize="isAuthenticated()" th:href="@{/challenge/challengewrite}">대회 개최하기</a>
+				<a th:href="@{/}">Home</a>
+			</td>
+		</tr>
+		<tr>
+			<th>글번호</th>
+			<th style="width:220px;">제목</th>
+			<th>신청자수</th>
+			<th>작성일</th>
+			<th>대회시작일</th>
+			<th>대회종료일</th>
+		</tr>
+		<tr th:each="challenge : ${challengelist}">
+			<td th:text="${challenge.challengeNumber}" class="center"></td>
+			<td>
+				<a th:text="${challenge.challengeName}" th:href="@{/challenge/read(challengeNumber=${challenge.challengeNumber})}"></a>
+			</td>
+			<td th:text="${challenge.challengeRegistDay}" class="center"></td>
+			<td th:text="${challenge.challengeStartDate}"></td>
+			<td th:text="${challenge.challengeEndDate}"></td>
+		</tr>
+	</table>
+	<div id="navigator">
+	<!-- 페이지 이동 링크 -->     
+	<a th:href="|javascript:pagingFormSubmit(${chnavi.currentPage - chnavi.pagePerGroup})|">◁◁</a>
+	<a th:href="|javascript:pagingFormSubmit(${chnavi.currentPage - 1})|">◀</a> 
+	<span th:each="counter : ${#numbers.sequence(chnavi.startPageGroup, chnavi.endPageGroup)}"> 
+		<th:block th:if="${counter == chnavi.currentPage}"><b></th:block>
+			<a th:text="${counter}" th:href="|javascript:pagingFormSubmit(${counter})|"></a>&nbsp;
+		<th:block th:if="${counter == chnavi.currentPage}"></b></th:block>
+	</span>
+	
+	<a th:href="|javascript:pagingFormSubmit(${chnavi.currentPage + 1})|">▶</a> 
+	<a th:href="|javascript:pagingFormSubmit(${chnavi.currentPage + chnavi.pagePerGroup})|">▷▷</a>
+	<br><br>
+	
+	<!-- 검색폼 -->
+	<form id="pagingForm" method="get" th:action="@{/challenge/challengelist}">
+		<input type="hidden" name="page" id="page" />
+		<select id="type" name="type">
+			<option value="title" th:selected="${chtype} == 'title'">제목</option>
+					<option value="all" th:selected="${chtype} == 'all'">전체</option>
+		</select>
+		<input type="text"  name="searchWord" th:value="${chsearchWord}">
+		<input type="button" onclick="pagingFormSubmit(1)" value="검색">
+	</form>
+	
 	</div>
-
-	<!-- ****** Archive Area End ****** -->
+	
+</section>
+<!-- ****** Archive Area End ****** -->
 
 	<!-- ****** Instagram Area Start ****** -->
 
-	<br>
 	<br>
 	<br>
 	<br>
@@ -500,7 +443,7 @@
 						<!-- Menu Area Start -->
 						<nav class="navbar navbar-expand-lg">
 							<button class="navbar-toggler" type="button"
-								data-toggle="collapse" data-target="#yummyfood-footer-nav"
+								data-toggle="collapse" data-tar="#yummyfood-footer-nav"
 								aria-controls="yummyfood-footer-nav" aria-expanded="false"
 								aria-label="Toggle navigation">
 								<i class="fa fa-bars" aria-hidden="true"></i> Menu
@@ -538,7 +481,7 @@
 						<p>
 							Copyright @2018 All rights reserved | This template is made with
 							<i class="fa fa-heart-o" aria-hidden="true"></i> by <a
-								href="https://colorlib.com" target="_blank">Colorlib</a>
+								href="https://colorlib.com" tar="_blank">Colorlib</a>
 						</p>
 					</div>
 				</div>

@@ -19,48 +19,50 @@ public class ChallengeServiceImpl implements ChallengeService {
 	ChallengeDAO chdao;
 	
 	@Override
-	public ArrayList<Challenge> colist(PageNavigator conavi, String type, String searchWord) {
+	public ArrayList<Challenge> contestlist(PageNavigator conavi, String cotype, String cosearchWord) {
 		HashMap<String, String> map =new HashMap<>();
-		map.put("type", type);
-		map.put("searchWord", searchWord);
+		map.put("cotype", cotype);
+		map.put("cosearchWord", cosearchWord);
 		
 		RowBounds rb = new RowBounds(conavi.getStartRecord(), conavi.getCountPerPage());
-		ArrayList<Challenge> confiencelist = chdao.confienceList(map, rb); 
+		ArrayList<Challenge> contestlist = chdao.contestList(map, rb); 
 		
-		return confiencelist;
+		return contestlist;
 	}
 
 	@Override
-	public PageNavigator getCoPageNavigator(int pagePerGroup, int countPerPage, int page, String type,
-			String searchWord) {
+	public PageNavigator getCoPageNavigator(int pagePerGroup, int countPerPage, int page, String cotype,
+			String cosearchWord) {
 		HashMap<String, String> map = new HashMap<>();
-		map.put("type", type);
-		map.put("searchWord", searchWord);
+		map.put("cotype", cotype);
+		map.put("cosearchWord", cosearchWord);
 		
-		int total = chdao.countchallenge(map);
-		PageNavigator navi = new PageNavigator(pagePerGroup, countPerPage, page, total);
+		int total = chdao.countContest(map);
+		System.out.println(total);
+		PageNavigator conavi = new PageNavigator(pagePerGroup, countPerPage, page, total);
 		
-		return navi;
+		return conavi;
 	}
 
 	@Override
-	public PageNavigator getchPageNavigator(int pagePerGroup, int countPerPage, int page, String type,
-			String searchWord) {
+	public PageNavigator getchPageNavigator(int pagePerGroup, int countPerPage, int page, String chtype,
+			String chsearchWord) {
 		HashMap<String, String> map = new HashMap<>();
-		map.put("type", type);
-		map.put("searchWord", searchWord);
+		map.put("chtype", chtype);
+		map.put("chsearchWord", chsearchWord);
 		
-		int total = chdao.countconfience(map);
-		PageNavigator navi = new PageNavigator(pagePerGroup, countPerPage, page, total);
+		int total = chdao.countChallenge(map);
+		System.out.println(total);
+		PageNavigator chnavi = new PageNavigator(pagePerGroup, countPerPage, page, total);
 		
-		return navi;
+		return chnavi;
 	}
 
 	@Override
-	public ArrayList<Challenge> chlist(PageNavigator chnavi, String type, String searchWord) {
+	public ArrayList<Challenge> challengelist(PageNavigator chnavi, String chtype, String chsearchWord) {
 		HashMap<String, String> map =new HashMap<>();
-		map.put("type", type);
-		map.put("searchWord", searchWord);
+		map.put("chtype", chtype);
+		map.put("chsearchWord", chsearchWord);
 		
 		RowBounds rb = new RowBounds(chnavi.getStartRecord(), chnavi.getCountPerPage());
 		ArrayList<Challenge> challengelist = chdao.challengeList(map, rb); 

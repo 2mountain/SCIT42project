@@ -46,38 +46,46 @@ public class ChallengeController {
 	@GetMapping({"challengelist"})
 	public String challengelist(Model model
 			, @RequestParam(name = "page", defaultValue = "1") int page
-			, String type
-			, String searchWord)
+			, String chtype
+			, String chsearchWord)
 	{
-		PageNavigator chnavi = chser.getchPageNavigator(pagePerGroup, countPerPage, page, type, searchWord);
-
-		ArrayList<Challenge> challengelist = chser.chlist(chnavi, type, searchWord);
+		log.debug("challengeinner**************************");
+		PageNavigator chnavi = chser.getchPageNavigator(pagePerGroup, countPerPage, page, chtype, chsearchWord);
+		
+		System.out.println(chnavi.getTotalRecordsCount());
+		
+		ArrayList<Challenge> challengelist = chser.challengelist(chnavi, chtype, chsearchWord);
 
 		log.debug("challengelist : {}", challengelist);
+		log.debug("chnavi : {}", chnavi);
 
+		
 		model.addAttribute("chnavi", chnavi);
 		model.addAttribute("challengelist", challengelist);
-
+		model.addAttribute("chtype", chtype);
+		model.addAttribute("chsearchWord", chsearchWord);
 		return "/challenge/challengelist";
 	}
 
-	@GetMapping({"confiencelist"})
-	public String confiencelist(Model model
+	@GetMapping({"contestlist"})
+	public String contestlist(Model model
 			, @RequestParam(name = "page", defaultValue = "1") int page
-			, String type
-			, String searchWord) {
+			, String cotype
+			, String cosearchWord) {
 
-		PageNavigator conavi = chser.getCoPageNavigator(pagePerGroup, countPerPage, page, type, searchWord);
+		PageNavigator conavi = chser.getCoPageNavigator(pagePerGroup, countPerPage, page, cotype, cosearchWord);
+		System.out.println(conavi.getTotalRecordsCount());
 
-		ArrayList<Challenge> conferencelist = chser.colist(conavi, type, searchWord);
+		ArrayList<Challenge> contestlist = chser.contestlist(conavi, cotype, cosearchWord);
 
-		log.debug("conferencelist : {}", conferencelist);
+		log.debug("contest : {}", contestlist);
 
 		model.addAttribute("conavi", conavi);
-		model.addAttribute("conferencelist", conferencelist);
-
+		model.addAttribute("contestlist", contestlist);
+		model.addAttribute("chtype", cotype);
+		model.addAttribute("chsearchWord", cosearchWord);
 		
-		return "/challenge/confiencelist";
+		return "/challenge/contestlist";
 	}
 
 
