@@ -18,8 +18,7 @@
 	let changingBlockByNickName;
 
 	// 권한, 차단여부 변경
-	function changeValue(value, memberInfo, user, ov) { // ajax
-		console.log(value, memberInfo, user, ov);
+	function changeValue(value, memberInfo, user, ov) {
 	
 		// 현재 권한, 차단여부 수정 중인 아이디 or 닉네임
 		let memberInformation = memberInfo;
@@ -28,6 +27,7 @@
 		
 		// parameter가 차단여부인 경우
 		if (value === 'true' || value === 'false') {
+			// 차단여부 변경 ==> 차단 여부의 ID는 닉네임 
 			changingBlockByNickName = document.getElementById(memberInfo);
 			
 			$.ajax({
@@ -77,6 +77,7 @@
 		/*************************************************************************/
 		
 		// parameter가 role인 경우
+		// 권한 변경 ==> 권한 변경의 ID는 닉네임 
 		changingRoleById = document.getElementById(memberInfo);
 		
 		$.ajax({
