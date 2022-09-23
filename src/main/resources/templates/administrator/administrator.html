@@ -18,9 +18,35 @@
 
 	// 권한, 차단여부 변경
 	function changeValue(value, memberId, ov) { // ajax
-		changingId = memberId;
+		// 현재 권한, 차단여부 수정 중인 아이디
+		changingId = '\'#' + memberId + '\'';
+		// 해당 아이디의 권한 or 차단여부의 원래 값
 		originalValue = ov;
-	
+		
+		// parameter가 role인 경우
+		$.ajax({
+			url : "administrator/changeRole",
+			type : 'post',
+			data : {
+				memberRoleName : value,
+				memberId : memberId
+				},
+			dataType : 'json',
+			success : function(memberRoleName) {
+				if(memberRoleName === value){
+					alert('권한이 변경되었습니다!');
+				} else {
+					// select의 값을 originalValue로 변경 / chaningId를 통해 위치 알아냄
+					$(changingId).val('\'' + originalValue + '\'').prop("selected", true);
+					alert("권한 변경 실패!");
+				}
+			},
+			error : function(e) {
+				alert("권한 변경 실패!");
+				console.log(JSON.stringify(e));
+			}
+		});
+		
 		// parameter가 차단여부인 경우
 		if (value === 'true' || value === 'false') {
 			$.ajax({
@@ -36,6 +62,7 @@
 						alert('차단 여부가 변경되었습니다!');
 					} else {
 						// select의 값을 originalValue로 변경 / chaningId를 통해 위치 알아냄
+						// $('\#' + changingId + '\'').val('\'' + originalValue + '\'').prop("selected", true);
 						alert('차단 여부 변경 실패');
 					}
 				},
@@ -46,29 +73,6 @@
 
 			return;
 		}
-
-		// parameter가 role인 경우
-		$.ajax({
-			url : "administrator/changeRole",
-			type : 'post',
-			data : {
-				memberRoleName : value,
-				memberId : memberId
-				},
-			dataType : 'json',
-			success : function(memberRoleName) {
-				if(memberRoleName === value){
-					alert('권한이 변경되었습니다!');
-				} else {
-					// select의 값을 originalValue로 변경 / chaningId를 통해 위치 알아냄
-					alert("권한 변경 실패!");
-				}
-			},
-			error : function(e) {
-				alert("권한 변경 실패!");
-				console.log(JSON.stringify(e));
-			}
-		});
 	}
 </script>
 </head>
