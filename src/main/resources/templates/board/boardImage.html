@@ -252,8 +252,8 @@
 									<a href="#">
 										<h4><a th:text="${board.boardTitle}" class="post-headline"></a></h4>
 									</a>
-									<p><a th:text="${board.boardContents}"></a></p>
-									<a href="#" class="read-more">Continue Reading..</a>
+									<a th:href="@{/board/read(boardNumber=${board.boardNumber})}"
+										class="read-more">Continue Reading..</a>
 								</div>
 							</div>
 						</div>
