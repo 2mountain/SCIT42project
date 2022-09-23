@@ -88,6 +88,32 @@ public class BoardController {
 
 		return "/board/board";
 	}
+	
+	/**
+	 * 인기글 출력
+	 * @param model
+	 * @param page
+	 * @param type
+	 * @param searchWord
+	 * @return
+	 */
+	@GetMapping("hotList")
+	public String hotList(Model model, @RequestParam(name = "page", defaultValue = "1") int page, String type,
+			String searchWord) {
+
+		PageNavigator navi = service.getPageNavigator(pagePerGroup, countPerPage, page, type, searchWord);
+
+		ArrayList<Board> boardlist = service.hotList(navi, type, searchWord);
+
+		model.addAttribute("navi", navi);
+		model.addAttribute("boardlist", boardlist);
+		model.addAttribute("type", type);
+		model.addAttribute("searchWord", searchWord);
+
+		log.debug("searchWord 출력! :{}", searchWord);
+
+		return "/board/boardHot";
+	}
 
 	/**
 	 * 글쓰기 폼으로 이동
@@ -348,19 +374,19 @@ public class BoardController {
 	@ResponseBody
 	@GetMapping("recommend")
 	public int boardRecommend(int boardNumber, @AuthenticationPrincipal UserDetails user) {
-
+		
 		int isLiked = 0;
-
+		
 		String id = user.getUsername();
-
+		
 		log.debug("recommend 호출됨!!!");
-
-		// 받아온 글번호와 로그인된 아이디가 담긴 boardliked 객체를 만든다
+		
+		// 받아온 글번호와 로그인된 아이디가 담긴 boardLiked 객체를 만든다
 		BoardLiked boardLiked = new BoardLiked(boardNumber, id);
-
+		
 		// 객체를 얻어온다
 		BoardLiked boardLiked2 = service.getBoardLiked(boardLiked);
-
+		
 		log.debug("새롭게 얻은 boardLiked:{}", boardLiked2);
 		
 		// 좋아요가 되어 있지 않다면(객체가 null)이라면
@@ -375,7 +401,7 @@ public class BoardController {
 			isLiked = 0;
 			log.debug("like 취소");
 		}
-
+		
 		return isLiked;
 
 	}

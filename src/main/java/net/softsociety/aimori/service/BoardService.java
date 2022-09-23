@@ -15,6 +15,8 @@ public interface BoardService {
 	public PageNavigator getPageNavigator(int pagePerGroup, int countPerPage, int page, String type, String searchWord);
 	//현재 페이지 글 목록
 	public ArrayList<Board> list(PageNavigator navi, String type, String searchWord);
+	// 인기글 보기
+	public ArrayList<Board> hotList(PageNavigator navi, String type, String searchWord);
 	// 글읽기
 	public Board boardRead(int boardNumber);
 	// 글삭제
@@ -43,5 +45,6 @@ public interface BoardService {
 	public int replyPlus(int boardNumber);
 	// 댓글 개수 -1
 	public int replyMinus(int boardNumber);
+
 
 }
