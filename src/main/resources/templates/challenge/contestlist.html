@@ -227,8 +227,8 @@ function pagingFormSubmit(currentPage) {
       <th:block th:if="${counter == conavi.currentPage}"></b></th:block>
    </span>
    
-   <a th:href="|javascript:pagingFormSubmit(${navi.currentPage + 1})|">▶</a> 
-   <a th:href="|javascript:pagingFormSubmit(${navi.currentPage + navi.pagePerGroup})|">▷▷</a>
+   <a th:href="|javascript:pagingFormSubmit(${conavi.currentPage + 1})|">▶</a> 
+   <a th:href="|javascript:pagingFormSubmit(${conavi.currentPage + conavi.pagePerGroup})|">▷▷</a>
    <br><br>
    
    <!-- 검색폼 -->
