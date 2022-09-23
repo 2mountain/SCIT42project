@@ -472,8 +472,15 @@ function pagingFormSubmit(currentPage) {
 									</li>
 									<li class="nav-item"><a class="nav-link" href="#">Archive</a>
 									</li>
-									<li class="nav-item"><a class="nav-link" href="#">About</a>
-									</li>
+										<li>
+							<div class="dropdown">
+								<span class="dropbtn">챌린지</span>
+								<div class="dropdown-content">
+									<a th:href="@{/challenge/challengelist}">도전과제</a>
+									 <a th:href="@{/challenge/contestlist}">대회</a>
+								</div>
+							</div>
+							</li>
 									<li class="nav-item"><a class="nav-link" href="#">Contact</a>
 									</li>
 								</ul>
