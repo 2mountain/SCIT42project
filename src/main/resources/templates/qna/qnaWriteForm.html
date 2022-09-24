@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org"
- xmlns:sec="http://thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 
 <head>
 <meta charset="UTF-8">
@@ -34,92 +33,42 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 
-
-
 <!-- test -->
 <link rel="stylesheet" type="text/css" th:href="@{/css/board/board.css}" />
 
-<!-- test -->
-<script>
+<style>
+.ck-editor__editable {
+	height: 400px;
+}
 
-	// 글 삭제
-	function deleteBoard(num) {
-		if (confirm('삭제하시겠습니까?')) {
-			location.href = 'delete?boardNumber=' + num;
-		}
-	}
-	
-	// 댓글 작성
+.ck-content {
+	font-size: 12px;
+}
+</style>
+
+<script>
+	//글쓰기폼 확인
 	function validation() {
-		let replytext = document.getElementById('replyContents');
-		if (replytext.value.length < 3) {
-			alert('댓글 3자 이상으로 작성해주세요.');
+		let title = document.getElementById('boardTitle');
+		let contents = document.getElementById('boardContents');
+
+		if (title.value.length < 2) {
+			alert("제목을 입력하세요.");
+			title.focus();
+			title.select();
+			return false;
+		}
+		if (contents.value.length < 2) {
+			alert("내용을 입력하세요.");
+			contents.focus();
+			contents.select();
 			return false;
 		}
 		return true;
 	}
-	
-	// 댓글 수정
-	function replyUpdate(replyNumber, boardNumber) {
-		alert(replyNumber);
-		$('#re' + replyNumber).html('');
-	}
-	
-	// 댓글 삭제
-	function replyDelete(replyNumber, boardNumber) {
-		if (confirm('삭제하시겠습니까?')) {
-			location.href = 'replyDelete?replyNumber=' + replyNumber + '&boardNumber=' + boardNumber;
-		}
-	}
-	
 </script>
 
-<script>
-	$(document).ready(function() {
-		
-		let contents = $("#contents").val();
-		
-		console.log(contents);
-		
-		let convertedContents = contents.replace(/(<([^>]+)>)/ig,"");
-		
-		console.log(convertedContents);
-		
-		$("#contents").val(convertedContents);
-		
-		$('#recommendbtn').click(function() {
-			
-			let likeCount = $("#liked").text();
-			let boardNumber = $(this).attr('boardNumber');
-			
-			$.ajax({
-				url : 'recommend',
-				method : 'get',
-				data : {
-					boardNumber : boardNumber
-				},
-				success : function(isLiked) {
-					
-					if(isLiked == 0){
-						$("#liked").text(Number(likeCount) - 1);
-						$("#recommendbtn").attr("src", "../img/board-img/heartEmpty.png");
-					} else {
-						$("#liked").text(Number(likeCount)+ 1);		
-						$("#recommendbtn").attr("src", "../img/board-img/heartFull.png");
-					}
-					
-				},
-				error : function(request, status, error) {
-					alert("status : " + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-				}
-			});
-		});
-		
-		
 
-	});
-
-</script>
 
 </head>
 
@@ -243,10 +192,9 @@
 							<a th:href="@{/board/list}">글목록</a>
 						</div>
 						<br>
-						<hr>
+						<br>
 						<ol>
-							<li><h5 th:text="${board.boardTitle}"
-									style="text-align: center;"></h5></li>
+							<li><h5 id="temp1" colspan="2">글쓰기</h5></li>
 						</ol>
 						<hr>
 					</nav>
@@ -259,136 +207,47 @@
 	<!-- ****** Archive Area Start ****** -->
 
 	<section>
-
 		<div class="container">
-
-			<table class="table">
-				<tr>
-					<th class="readCenter">작성자</th>
-					<td th:text="${board.memberId}" style="width: 600px;"></td>
-				</tr>
-				<tr>
-					<th class="readCenter">작성일</th>
-					<td th:text="${board.boardInputDate}"></td>
-				</tr>
-				<tr>
-					<th class="readCenter">조회수</th>
-					<td th:text="${board.boardHits}"></td>
-				</tr>
-				<tr>
-					<th class="readCenter">제목</th>
-					<td th:text="${board.boardTitle}"></td>
-				</tr>
-				<tr>
-					<th class="readCenter" id="boardReadContents">내용</th>
-					<td><textarea name="boardContents"
-							style="width: 900px; height: 600px;" id="contents"
-							th:text="${board.boardContents}" readonly>
+			<form th:action="@{/board/write}" method="post"
+				enctype="multipart/form-data" onsubmit="return validation();">
+				<table class="table">
+					<tr>
+						<th id="boardCategory" style="width: 200px;" colspan="2">게시판
+							선택 <select id="boardCategory" name="boardCategory">
+								<option value="전체" th:selected="${boardCategory} == '전체'">전체</option>
+								<option value="일상" th:selected="${boardCategory} == '일상'">일상</option>
+								<option value="모임" th:selected="${boardCategory} == '모임'">같이해요(모집)</option>
+								<option value="Tip" th:selected="${boardCategory} == 'Tip'">Tip공유</option>
+						</select>
+						</th>
+					</tr>
+					<tr>
+						<th style="width: 30px;">제목</th>
+						<td class="boardWriteFormTd"><input type="text"
+							name="boardTitle" id="boardTitle" style="width: 990px;">
+						</td>
+					</tr>
+					<tr>
+						<th>파일첨부</th>
+						<td><input type="file" name="upload"></td>
+					</tr>
+					<tr>
+						<th>내용</th>
+						<td class="boardWriteFormTd">
+							<textarea name="boardContents"
+								id="boardContents" style="width: 900px; height: 600px;">
 							</textarea>
-					</td>
-				</tr>
-				<tr>
-					<th style="text-align: center;">파일첨부</th>
-					<td><a
-						th:href="@{/board/download(boardNumber=${board.boardNumber})}"
-						th:text="${board.boardImageOriginal}"></a>
-						<!-- temp -->
-						<img th:src="@{/img/fileSave/} + ${board.boardImageSaved}" width="100">
-					</td>
-				</tr>
-				<tr>
-					<th sec:authorize="isAuthenticated()" colspan="2" style="background-color: white;">
-						<div class="pull-right">
-							<a th:if="${ifLiked.boardLikedNumber == 0}">
-							<img th:src="@{/img/board-img/heartEmpty.png}" width="50"
-								type="button" id="recommendbtn"
-								th:boardNumber="${board.boardNumber}">
-							</a>
-							<a th:if="${ifLiked.boardLikedNumber != 0}">
-							<img th:src="@{/img/board-img/heartFull.png}" width="50"
-								type="button" id="recommendbtn"
-								th:boardNumber="${board.boardNumber}">
-							</a>
-							<span id="liked" style="font-size: 25px;"
-								th:text="${boardLikedData}"></span>
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<a>
-								<img th:src="@{/img/board-img/report.png}" width="50">
-							</a>
-						</div>
-					</th>
-				</tr>
-			</table>
-			<div  th:if="${#authentication.name} == ${board.memberId}"
-					class="pull-right">
-				<a class="btn btn-primary"
-					style="background-color: rgb(220, 220, 255);"
-					th:href="@{/board/update(boardNumber=${board.boardNumber})}">수정</a>
-				<a class="btn btn-primary"
-					style="background-color: rgb(220, 220, 255);"
-					th:href="|javascript:deleteBoard(${board.boardNumber})|">삭제</a>
-			</div>
-			<br>
+						</td>
+					</tr>
 
-			<!-- <div th:if="${#authentication.name} == ${board.memberId}"> -->
-
-		</div>
-		
-		<!-- 리플 작성 폼 -->
-		<div style="height: 30px;">
+					<tr>
+						<td colspan="2" class="white center"><input type="submit"
+							value="글등록"></td>
+					</tr>
+				</table>
+			</form>
 		</div>
 
-		<div class="container">
-		<hr sec:authorize="isAuthenticated()">
-			<div sec:authorize="isAuthenticated()" class="card-body" style="padding-left: 200px;">
-				<form class="form-horizontal" th:action="@{/board/replyInsert}" method="post" onsubmit="return validation();">
-				<input type="hidden" name="boardNumber" th:value="${board.boardNumber}">
-					<div class="row">
-						<div class="form-group col-sm-10">
-							<textarea class="form-control input-sm" type="text" id="replyContents" name="replyContents" placeholder="댓글 입력..." style="height : 100px; border: solid 1px gray;"></textarea>
-						</div>
-						<div style="padding-top: 10px">
-							<input class="btn btn-primary btn-sm" type="submit" value="등록">
-						</div>
-					</div>
-				</form>
-			</div>
-		<hr>
-		
-		
-		
-		<!-- 리플 목록 출력 시작 -->
-		<div class="pull-left" style="padding-left: 200px; font-size: 20px; height: 60px;">
-		<a th:text="'댓글' + '[' + ${board.replyCount} + ']'" ></a>
-		</div>
-		<div class="container" style="padding-left: 210px;">
-			<table class="reply">
-			
-				<tr th:each="reply : ${replylist}">
-					<td class="memberId" th:text="${reply.memberId}"></td>
-					<td class="replyContents" th:text="${reply.replyContents}" th:id="'re'+${reply.replyNumber}"></td>
-					<td class="replyInputDate" th:text="${reply.replyInputDate}" style="width: 200px;"></td>
-					<td>
-						<a class="btn btn-secondary btn-sm" style="color: white;"
-						th:href="|javascript:replyUpdate(${reply.replyNumber}, ${reply.boardNumber})|">
-						수정
-						</a>
-						<span th:if="${#authentication.name} == ${reply.memberId}">
-						<a  class="btn btn-secondary btn-sm" style="color: white;"
-						th:href="|javascript:replyDelete(${reply.replyNumber}, ${reply.boardNumber})|">
-						삭제
-						</a>
-						</span>
-					</td>
-				</tr>
-
-			</table>
-		</div>
-		
-		
-		
-		</div>
-                        
 	</section>
 
 
@@ -460,7 +319,7 @@
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img th:src="@{/img/instagram-img/4.jpg}" alt="">
+			<img th:src="@{/instagram-img/4.jpg}" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -545,7 +404,7 @@
 	</div>
 	<!-- ****** Our Creative Portfolio Area End ****** -->
 
-	<!-- ****** Footer Social Icon Area Start ****** -->
+		<!-- ****** Footer Social Icon Area Start ****** -->
 	<div class="social_icon_area clearfix">
 		<div class="container">
 			<div class="row">
@@ -648,6 +507,10 @@
 	<script th:src="@{/js/active.js}"></script>
 	<!--  type="application/js" -->
 
-	<!-- 게시판 디자인 ck editor -->
+	<!-- test -->
+	<script th:src="@{/ckeditor/build/ckeditor.js}"></script>
+	<script>
+		ClassicEditor.create(document.querySelector('#boardContents'));
+	</script>
 
 </body>
