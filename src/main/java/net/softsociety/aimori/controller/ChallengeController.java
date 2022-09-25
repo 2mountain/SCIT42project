@@ -14,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import net.softsociety.aimori.domain.Challenge;
 import net.softsociety.aimori.service.ChallengeService;
 import net.softsociety.aimori.util.PageNavigator;
+import net.softsociety.spring5.domain.Board;
+import net.softsociety.spring5.domain.Reply;
 
 @Slf4j
 @RequestMapping("challenge")
@@ -87,6 +89,53 @@ public class ChallengeController {
 		
 		return "/challenge/contestlist";
 	}
+	
+	@GetMapping({"contestwrite"})
+	public String contestwrite()
+	{
+		return "/challenge/contestwrite";
+	}
+	
+	
+	@GetMapping({"challengewrite"})
+	public String challengewrite()
+	{
+		return "/challenge/challengewrite";
+	}
 
+	
+	@GetMapping({"challengeread"})
+	public String challengeread(Model model
+			, @RequestParam(name="boardnum", defaultValue = "0") int challengeNumber) { 
 
+		// 도전과제를 불러오는 페이지
+		Challenge challenge = chser.read(challengeNumber);
+		if (challenge == null) {
+			return "redirect:/challenge/challengelist"; //글이 없으면 목록으로
+		}
+		//관리자 계정에서만 뜨는페이지 접속할 시 해당인원에게 포인트 주기 기능
+		Entrylist entrylist = chser.list();
+		model.addAttribute("challenge", challenge);
+		model.addAttribute("entrylist", entrylist);
+		return "/challenge/challengeread";
+	}	
+	
+	
+	@GetMapping({"contestread"})
+	public String contestread(Model model
+			, @RequestParam(name="boardnum", defaultValue = "0") int challengeNumber) { 
+
+		// 도전과제를 불러오는 페이지
+		Challenge challenge = chser.read(challengeNumber);
+		if (challenge == null) {
+			return "redirect:/challenge/contestlist"; //글이 없으면 목록으로
+		}
+		//관리자 계정에서만 뜨는페이지 접속할 시 해당인원 등 수 부여
+		
+		model.addAttribute("challenge", challenge);
+		model.addAttribute("entrylist", entrylist);
+
+		
+		return "/challenge/contestread";
+	}
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
+import net.softsociety.aimori.controller.Entrylist;
 import net.softsociety.aimori.domain.Challenge;
 import net.softsociety.aimori.util.PageNavigator;
 
@@ -19,6 +20,10 @@ public interface ChallengeService {
 		PageNavigator getchPageNavigator(int pagePerGroup, int countPerPage, int page, String type, String searchWord);
 
 		ArrayList<Challenge> challengelist(PageNavigator chnavi, String type, String searchWord);
+
+		Challenge read(int challengeNumber);
+
+		Entrylist list();
 
 	
 
