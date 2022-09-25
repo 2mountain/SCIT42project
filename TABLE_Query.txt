@@ -239,6 +239,15 @@ CREATE TABLE facilitiesEvaluation
 	facilitiesReviewDate            DATE DEFAULT SYSDATE
                 -- 시설 리뷰 작성 일자
 );
+create table entrylist
+(
+     entrylistNumber number primary key,
+	 memberId varchar2(40)  references  MEMBERS(MEMBERID),
+	 challengeNumber number references CHALLENGE(CHALLENGENUMBER),
+	 challengeSuccess  number,
+	 getPoint number,
+     getPointDate DATE default sysdate
+);
 
 
 
