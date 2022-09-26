@@ -1,10 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://thymeleaf.org" 
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>aimori</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+
 </head>
 <body>
+<header>
+	<h1>[ 대회 ]</h1>
+</header>
+<section>
+	<table>
+	<tr>
+		<th style="width: 100px;">도전내용</th>
+		<td th:text="${challenge.challengeName}" style="width: 600px;"></td>
+	</tr>
+	<tr>
+		<th>도전내용</th>
+		<td><pre th:text="${challenge.challengeContents}"></pre></td>
+	</tr>
+	<tr>
+		<th>도전시작일</th>
+		<td th:text="${challenge.challengeStartDate}"></td>
+		<th>도전 끝나는일</th>
+		<td th:text="${challenge.challengeEndDate}"></td>
+	
+	</tr>
+	<tr>
+	<th>도전 등록일</th>
+		<td th:text="${challenge.challengeRegistDay}"></td>
+		</tr>
+	<tr>
+	</tr>
 
+</table>
+<br>
+
+	<a th:href="@{/challege/update(challengeNumber=${challege.challengeNumber})}">수정</a>
+
+<br>
+
+<!-- 관리자만 보임 -->
+	
+	<table>
+		<tr>
+			<td class="white"><span>전체 </span>
+			</td>
+			<td class="white" colspan="3"></td>
+			<td class="head">
+				<a sec:authorize="isAuthenticated()" th:href="@{/challenge/challengewrite}">대회 개최하기</a>
+			</td>
+		</tr>
+		<tr>
+			<th>신청번호</th>
+			<th >도전자명</th>
+			<th>도전성공여부</th>
+			<th>지급하는 포인트</th>
+			<th>지급 날짜</th>
+			
+		</tr>
+		<tr th:each="entrylist : ${entrylist}">
+			<td th:text="${entrylist.entrylistNumber}" class="center"></td>
+			<td>
+				<a th:text="${entrylist.memberId}"></a>
+			</td>
+			<td th:text="${entrylist.challenSuccess}" class="center"></td>
+			<td th:text="${entrylist.getPoint}"></td>
+			<td th:text="${entrylist.getPointDate}"></td>
+		</tr>
+		</table>
+
+
+
+<!-- 리플 목록 출력 시작 -->
+
+</section>
 </body>
 </html>

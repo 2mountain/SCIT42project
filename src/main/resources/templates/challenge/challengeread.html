@@ -37,14 +37,10 @@
 
 </table>
 <br>
-
-<div sec:authorize="hasRole('ROLE_ADMIN')">
-	<a th:href="@{/challege/update(challengeNumber=${challege.challengeNumber})}">수정</a>
-</div>
+	<a th:href="@{/challege/challengeupdate(challengeNumber=${challenge.challengeNumber})}">수정</a>
 <br>
 
 <!-- 관리자만 보임 -->
-<div sec:authorize="hasRole('ROLE_ADMIN')">
 	
 	<table>
 		<tr>
@@ -68,12 +64,12 @@
 			<td>
 				<a th:text="${entrylist.memberId}"></a>
 			</td>
-			<td th:text="${entrylist.challenSuccess}" class="center"></td>
+			<td th:text="${entrylist.challengeSuccess}" class="center"></td>
 			<td th:text="${entrylist.getPoint}"></td>
 			<td th:text="${entrylist.getPointDate}"></td>
 		</tr>
 		</table>
-</div>
+
 
 
 <!-- 리플 목록 출력 시작 -->
