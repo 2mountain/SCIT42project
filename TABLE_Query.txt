@@ -9,6 +9,9 @@ DROP TABLE doctor;
 DROP TABLE facilities;
 DROP TABLE facilitiesEvaluation;
 DROP TABLE boardLikedData;
+drop table question;
+drop table answer;
+drop table reportData;
 
 DROP SEQUENCE doctor_seq;
 DROP SEQUENCE pet_seq;
@@ -19,6 +22,9 @@ DROP SEQUENCE challenge_seq;
 DROP SEQUENCE facilitiesNumber_seq;
 DROP SEQUENCE facilitiesEvaluationNumber_seq;
 DROP SEQUENCE boardLikedNumber_seq;
+DROP SEQUENCE questionNumber_seq;
+DROP SEQUENCE answerNumber_seq;
+DROP SEQUENCE reportNumber_seq;
 
 CREATE SEQUENCE doctor_seq;
 CREATE SEQUENCE pet_seq;
@@ -29,6 +35,10 @@ CREATE SEQUENCE challenge_seq;
 CREATE SEQUENCE facilitiesNumber_seq;
 CREATE SEQUENCE facilitiesEvaluationNumber_seq;
 CREATE SEQUENCE boardLikedNumber_seq;
+CREATE SEQUENCE questionNumber_seq;
+CREATE SEQUENCE answerNumber_seq;
+create sequence reportNumber_seq;
+
 
 
 CREATE TABLE members
@@ -101,8 +111,6 @@ CREATE TABLE pet    --Pet table
 		직접입력
 */
 
-
-
 CREATE TABLE BOARD
 (
     boardNumber number PRIMARY KEY,
@@ -132,13 +140,13 @@ CREATE TABLE BOARD
 );
 
 
+
 create table boardLikedData
 (
     boardLikedNumber number primary key not null,
     memberId varchar2(40) references members(memberId),
     boardNumber number references board(boardNumber)
 );
-
 
 
 
@@ -150,7 +158,7 @@ CREATE TABLE reply
     			--글 번호(외래키)
 	memberId		VARCHAR2(40) NOT NULL,
     			--댓글 작성하는 회원 아이디
-    memberNickName 	VARCHAR2(40) NOT NULL, 
+    memberNickName 	VARCHAR2(40) NOT NULL,
     			--댓글 작성하는 회원 닉네임
     replyContents 	VARCHAR2(4000) NOT NULL, 
     			--댓글 내용
@@ -247,6 +255,70 @@ create table entrylist
 	 challengeSuccess  number,
 	 getPoint number,
      getPointDate DATE default sysdate
+);
+
+CREATE TABLE question
+(
+    questionNumber number PRIMARY KEY,
+		/* 질문글 번호(BoardNumber_seq사용) */
+    memberId varchar2(40) REFERENCES Members(memberId),
+		/* 회원 아이디 */
+    questionTitle varchar2(300) NOT NULL,
+		/* 질문글 제목 */
+    memberNickName varchar2(40) REFERENCES Members(memberNickName),
+		/* 작성자 닉네임 */
+    questionInputDate date DEFAULT SYSDATE,
+		/* 질문글 작성일 */
+    questionHits number DEFAULT 0,
+		/* 질문글 조회수 */
+    questionReport number DEFAULT 0,
+		/* 질문글 신고수 */
+    questionContents varchar2(4000) NOT NULL,
+		/* 질문글 내용 */
+    questionCategory varchar2(20) default '전체' CHECK (questionCategory IN ('일반', '의료')),
+		/* 질문글 말머리 */
+    questionImageOriginal varchar2(300),
+		/* 질문글 이미지 첨부파일*/
+    questionImageSaved varchar2(100),
+		/* 서버에 저장된 첨부파일 이름*/
+    answerCount number default 0,
+		-- 질문글에 달린 전체 답변 개수
+    answeredOrNot number default 0 check (answeredOrNot IN (0, 1)),
+		-- 답변이 달렸는지 안 달렸는지 여부
+    answerAccepted	number default 0 check(answerAccepted in (0,1 ))
+        --답변 채택 여부
+);
+
+CREATE TABLE answer
+(
+    answerNumber    NUMBER PRIMARY KEY,  
+    			--댓글 번호
+    questionNumber  NUMBER REFERENCES question(questionNumber) on delete cascade, 
+    			--글 번호(외래키)
+    memberId        VARCHAR2(40) NOT NULL,
+    			--답변 작성하는 회원 아이디
+    memberNickName  VARCHAR2(40) NOT NULL,
+    			--답변 작성하는 회원 닉네임
+    memberRoleName  VARCHAR2(20) default 'ROLE_USER' CHECK (memberRoleName IN ('ROLE_ADMIN', 'ROLE_DOCTOR', 'ROLE_USER')),
+                --답변 작성하는 회원 등급
+    answerContents 	VARCHAR2(4000) NOT NULL,
+    			--답변 내용
+    answerInputDate DATE DEFAULT SYSDATE
+    			--답변 작성 일자
+);
+
+create table reportData
+(
+    reportNumber number primary key not null,
+        --신고 식별번호
+    reportCategory varchar2(200) not null,
+        --신고 사유 담을 변수(홍보/도배, 음란물, 불법정보, 욕설/혐오표현, 개인정보 노출)
+    memberId varchar2(40) references members(memberId),
+        --신고한 멤버 아이디
+    boardNumber number references board(boardNumber),
+        --신고받은 커뮤니티 게시글번호
+    questionNumber number references question(questionNumber)
+        --신고받은 qna 게시글번호
 );
 
 

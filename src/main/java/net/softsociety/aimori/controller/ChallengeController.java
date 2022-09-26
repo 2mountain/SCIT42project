@@ -120,7 +120,7 @@ public class ChallengeController {
 		log.debug("entrylist: {}",entrylist);
 		
 		model.addAttribute("challenge", challenge);
-		model.addAttribute("entrylist", entrylist);
+	  model.addAttribute("entrylist", entrylist);
 		return "/challenge/challengeread";
 	}	
 	
@@ -138,7 +138,7 @@ public class ChallengeController {
 		Entrylist entrylist = chser.list(challengeNumber);
 		
 		model.addAttribute("challenge", challenge);
-		model.addAttribute("entrylist", entrylist);
+		// model.addAttribute("entrylist", entrylist);
 
 		log.debug("challenge1: {}",challenge);
 		log.debug("entrylist: {}",entrylist);
