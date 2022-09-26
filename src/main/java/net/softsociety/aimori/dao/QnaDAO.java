@@ -14,7 +14,9 @@ import net.softsociety.aimori.util.PageNavigator;
  */
 @Mapper
 public interface QnaDAO {
-	
+
+	// 글 저장
+	public int questionInsert(Question question);
 	// 현재 페이지 글 목록
 	public ArrayList<Question> questionList(HashMap<String, String> map, RowBounds rb);
 	// 전체 글 개수

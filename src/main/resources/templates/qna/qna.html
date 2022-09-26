@@ -141,7 +141,7 @@
 								th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
 							</li>
 							<li class="nav-item"><a class="nav-link"
-							th:href="@{/qna/list}">QnA <span class="sr-only">(current)</span></a>
+							th:href="@{/qna/list}">Q&A <span class="sr-only">(current)</span></a>
 							</li>
 							<li class="nav-item"><a class="nav-link"
 								th:href="@{/facilities}">시설</a></li>
@@ -223,8 +223,6 @@
 						<th class="center">작성자</th>
 						<th style="text-align: center; width: 200px">작성일</th>
 						<th style="text-align: center; width: 100px;">조회</th>
-						<th style="text-align: center; width: 110px;">좋아요<img
-							th:src="@{/img/board-img/heart1.png}" width="20"></th>
 					</tr>
 					<tr th:each="question : ${questionlist}">
 						<td class="center" th:text="${question.questionCategory}"></td>
@@ -241,16 +239,16 @@
 							<div th:if="${question.questionImageSaved == null}">
 								<a th:text="${question.questionTitle}"
 									th:href="@{/question/read(questionNumber=${question.questionNumber})}"></a>
-								<a th:if="${question.replyCount != 0}"
+								<!-- <a th:if="${question.replyCount != 0}"
 									th:text="'[' + ${question.replyCount} + ']'"
-									th:href="@{/question/read(questionNumber=${question.questionNumber})}"></a>
+									th:href="@{/question/read(questionNumber=${question.questionNumber})}"></a> -->
 							</div>
 						</td>
 						<td class="center"><a th:text="${question.memberId}"
 							th:href="@{/question/read(questionNumber=${question.questionNumber})}"></a></td>
 						<td style="text-align: center" th:text="${question.questionInputDate}"></td>
 						<td style="text-align: center;" th:text="${question.questionHits}"></td>
-						<td style="text-align: center;" th:text="${question.questionCount}"></td>
+						<!-- <td style="text-align: center;" th:text="${question.questionCount}"></td> -->
 					</tr>
 				</table>
 			</div>
@@ -258,7 +256,7 @@
 				<a class="btn btn-light"
 					style="background-color: rgb(220, 220, 255);" colspan="6"
 					sec:authorize="isAuthenticated()"
-					th:href="@{/question/write}">글쓰기</a>
+					th:href="@{/qna/write}">글쓰기</a>
 			</div>
 		</div>
 

@@ -3,6 +3,37 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="net.softsociety.aimori.dao.QnaDAO">
+
+	<!-- 게시글 저장 -->
+	<insert id="questionInsert" parameterType="Question">
+		insert into question (
+		questionNumber
+		, memberId
+		, questionTitle
+		, memberNickName
+		,
+		questionContents
+		, questionCategory
+		<if test="questionImageOriginal != null and questionImageSaved != null">
+			, questionImageOriginal
+			, questionImageSaved
+		</if>
+		)
+		values (
+		questionNumber_seq.nextval
+		, #{memberId}
+		, #{questionTitle}
+		,
+		#{memberNickName}
+		, #{questionContents}
+		, #{questionCategory}
+		<if test="questionImageOriginal != null and questionImageSaved != null">
+			, #{questionImageOriginal}
+			, #{questionImageSaved}
+		</if>
+		)
+	</insert>
+	
 	<select id="questionList" parameterType="map" resultType="Question">
 		select
 			questionNumber
