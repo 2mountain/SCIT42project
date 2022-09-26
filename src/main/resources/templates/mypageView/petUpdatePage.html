@@ -10,7 +10,8 @@
 <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 <!-- Title -->
-<title>Board</title>
+<title>Update</title>
+<script th:src="@{/js/jquery/jquery-3.6.0.js}"></script>
 
 <!-- Favicon -->
 <link rel="icon" th:href="@{/img/core-img/favicon.ico}">
@@ -25,29 +26,7 @@
 <link rel="stylesheet" type="text/css" th:href="@{/css/board/board.css}" />
 
 <!-- test (페이지 함수) -->
-<script>
-	function pagingFormSubmit(currentPage) {
-
-		let searchWord = $("#searchWord").val();
-
-		console.log(searchWord);
-		console.log(searchWord.length);
-
-		if (searchWord.length == 0 || searchWord == null) {
-			alert('검색어를 입력하세요');
-		} else {
-			var form = document.getElementById('pagingForm');
-			var page = document.getElementById('page');
-			page.value = currentPage;
-			form.submit();
-		}
-
-	}
-</script>
-
-
 </head>
-
 <body>
 	<!-- ****** Top Header Area Start ****** -->
 	<div class="top_header_area">
@@ -184,16 +163,20 @@
 			</ul>
 		</div>
 	</div>
-
+	
+<form id="petInfoUpdate" th:action="petInfoUpdate" method="post" enctype="multipart/form-data">
+	
+	<input type="hidden" name="petNumber" th:value="${pet.petNumber}">
+	<input type="hidden" name="petImage" th:value="${pet.petImage}">
+	
 	<div class="container rounded bg-white mt-5 mb-5"
 		style="position: absolute; margin-left: 380px; bottom: 700px;">
 		<div class="row">
 			<div class="col-md-3 border-right">
-				<div
-					class="d-flex flex-column align-items-center text-center p-3 py-5">
-					<img class="rounded-circle mt-5" width="150px"
-						src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span
-						class="font-weight-bold">Edogaru</span>
+				<div class="d-flex flex-column align-items-center text-center p-3 py-5">
+					<img class="rounded-circle mt-5" width="150px" id="" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+					<label class="labels">반려견 사진 등록</label>
+					<input type="file" class="btn btn-primary btn-sm" name="petImageOriginalFile" style="overflow:hidden;">
 				</div>
 			</div>
 			<div class="col-md-5 border-right">
@@ -215,8 +198,8 @@
 					</div>
 					<div class="row mt-3">
 						<div class="col-md-12">
-							<label class="labels">강아지 종</label> <select id="dogBreed"
-								name="dogBreed" style="margin-left: 10px;">
+							<label class="labels">강아지 종</label> <select id="petBreed"
+								name="petBreed" style="margin-left: 10px;">
 								<option value="골든리트리버">골든리트리버</option>
 								<option value="그레이하운드">그레이하운드</option>
 								<option value="달마시안">달마시안</option>
@@ -234,8 +217,8 @@
 								<option value="허스키">허스키</option>
 								<option value="기타(직접입력)">기타(직접입력)</option>
 							</select><br>
-							<label class="labels">강아지 체형</label> <select id="dogWeight"
-								name="dogWeight" style="margin-left: 10px;">
+							<label class="labels">강아지 체형</label> <select id="petWeight"
+								name="petWeight" style="margin-left: 10px;">
 								<option value="정상">정상</option>
 								<option value="비만">비만</option>
 								<option value="저체중">저체중</option>
@@ -246,7 +229,7 @@
 							id="petNeuter" name="petNeuter" value="N"
 							style="margin-left: 10px;">No
 						<br><label class="labels">강아지 생년/월</label><input type="text" required="required"
-						id="dogBirthDay" name="dogBirthDay" class="form-control" placeholder="다음과 같은 형식으로 입력 => YYYYMM" maxlength="6">
+						id="petBirthDay" name="petBirthDay" class="form-control" placeholder="다음과 같은 형식으로 입력 => YYYYMM" maxlength="6">
 						</div>
 					</div>
 				</div>
@@ -257,7 +240,7 @@
 			</div>
 		</div>
 	</div>
-
+</form>
 	<!-- ****** Instagram Area Start ****** -->
 	<br>
 	<br>

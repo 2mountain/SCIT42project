@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="net.softsociety.aimori.dao.PetDAO">
+
+<!-- 펫 정보 입력 -->
+<insert id="petInfoInput" parameterType="Pet">
+	INSERT INTO PET
+	(
+		petNumber
+		, memberId
+		, petName
+		, petGender
+		, petBreed
+		, petBirthDay
+		, petWeight
+		, petNeuter
+		<if test="petImage != null">
+		, petImage
+		</if>
+	)
+	VALUES
+	(
+		pet_seq.nextval
+		, #{memberId}
+		, #{petName}
+		, #{petGender}
+		, #{petBreed}
+		, #{petBirthDay}
+		, #{petWeight}
+		, #{petNeuter}
+		<if test="petImage != null">
+		, #{petImage}
+		</if>
+	)
+</insert>
+
+<!-- 펫 정보 읽기 -->
+<select id="selectPet" parameterType="int" resultType="Pet">
+	select
+		petName,
+		petGender,
+		petBreed,
+		petBirthDay,
+		petWeight,
+		petNeuter,
+		petImage
+	from
+		Pet
+	where
+		petNumber = #{petNumber}
+</select>
+
+<!-- 펫 정보 수정 -->
+<update id="petInfoUpdate" parameterType="Pet">
+	update
+		pet
+	set
+		petName = #{petName},
+		petGender = #{petGender},
+		petBreed = #{petBreed},
+		petBirthDay = #{petBirthDay},
+		petWeight = #{petWeight},
+		petNeuter = #{petNeuter},
+		<if test="petImage != null">
+		petImage = #{petImage},
+		</if>
+	where
+		petNumber = #{petNumber}
+		and
+		memberId = #{memberId}
+</update>
+</mapper>

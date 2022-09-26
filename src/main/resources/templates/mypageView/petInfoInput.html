@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+<!-- Title -->
+<title>Input</title>
+<script th:src="@{/js/jquery/jquery-3.6.0.js}"></script>
+
+<!-- Favicon -->
+<link rel="icon" th:href="@{/img/core-img/favicon.ico}">
+
+<!-- Core Stylesheet -->
+<link rel="stylesheet" th:href="@{/css/style.css}">
+
+<!-- Responsive CSS -->
+<link th:href="@{/css/responsive/responsive.css}" rel="stylesheet">
+
+<!-- test -->
+<link rel="stylesheet" type="text/css" th:href="@{/css/board/board.css}" />
+
+<!-- test (페이지 함수) -->
+<script>
+	function pagingFormSubmit(currentPage) {
+
+		let searchWord = $("#searchWord").val();
+
+		console.log(searchWord);
+		console.log(searchWord.length);
+
+		if (searchWord.length == 0 || searchWord == null) {
+			alert('검색어를 입력하세요');
+		} else {
+			var form = document.getElementById('pagingForm');
+			var page = document.getElementById('page');
+			page.value = currentPage;
+			form.submit();
+		}
+
+	}
+</script>
+
+
+</head>
+
+<body>
+	<!-- ****** Top Header Area Start ****** -->
+	<div class="top_header_area">
+		<div class="container">
+			<div class="row">
+				<div class="col-5 col-sm-6">
+					
+				</div>
+				<!--  Login Register Area -->
+				<div class="col-7 col-sm-6">
+					<div class="signup-search-area d-flex align-items-center justify-content-end">
+
+						<!-- Search Form -->
+						<div class="search-hidden-form">
+							<form action="#" method="get">
+								<input type="search" name="search" id="search-anything"
+									placeholder="Search Anything...">
+								<!-- <input type="submit" value="" class="d-none"> -->
+								<!-- <span class="searchBtn"><i class="fa fa-times" aria-hidden="true"></i></span> -->
+							</form>
+						</div>
+						<!-- Search Button Area -->
+						<div class="search_button">
+							<a class="searchBtn" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
+						</div>
+						<div class="login_register_area d-flex">
+							<div class="login" sec:authorize="not isAuthenticated()">
+								<a href="member/logIn">로그인</a>
+							</div>
+							<div class="register" sec:authorize="not isAuthenticated()">
+								<a href="member/signIn">회원가입</a>
+							</div>
+						</div>
+						<div class="login_register_area d-flex">
+						<div class="mypage" sec:authorize="isAuthenticated()" style="margin-left:20px">
+							<a href="#">마이페이지</a>
+						</div>
+						<div class="logout" sec:authorize="isAuthenticated()" style="margin-left:10px;">
+							<a th:href="@{/logout}">로그아웃</a>
+						</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ****** Top Header Area End ****** -->
+
+	<!-- ****** Header Area Start ****** -->
+	<header class="header_area">
+		<div class="container">
+			<div class="row">
+				<!-- Logo Area Start -->
+				<div class="col-12">
+					<div class="logo_area text-center">
+						<a th:href="@{/}" class="yummy-logo">AIMORI</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-12">
+					<nav class="navbar navbar-expand-lg">
+						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#yummyfood-nav"
+							aria-controls="yummyfood-nav" aria-expanded="false" aria-label="Toggle navigation">
+							<i class="fa fa-bars" aria-hidden="true"></i> Menu
+						</button>
+						<!-- Menu Area Start -->
+						<div class="collapse navbar-collapse justify-content-center" id="yummyfood-nav">
+							<ul class="navbar-nav" id="yummy-nav">
+								<li class="nav-item active"><a class="nav-link" th:href="@{/board/list}">커뮤니티 <span
+											class="sr-only">(current)</span></a>
+								</li>
+								
+						
+								<li class="nav-item"><a class="nav-link" th:href="@{/facilities}">시설</a></li>
+								<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
+								<li class="nav-item"><a class="nav-link" th:href="@{/challenge/main}">챌린지</a></li>
+								<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
+								</li>
+							</ul>
+						</div>
+					</nav>
+				</div>
+			</div>
+	</header>
+	<!-- ****** Header Area End ****** -->
+
+	<!-- ****** Breadcumb Area Start ****** -->
+	<div class="breadcumb-area"
+		style="background-image: url(../img/bg-img/breadcumb.jpg);">
+		<div class="container h-100">
+			<div class="row h-100 align-items-center">
+				<div class="col-12">
+					<div class="bradcumb-title text-center">
+						<h2>my page</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="breadcumb-nav">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a th:href="@{/home}"> <i
+									class="fa fa-home" aria-hidden="true"></i>Home
+							</a></li>
+							<li class="breadcrumb-item active" aria-current="page" style="padding-bottom: 80px;"><a th:href="@{petPage}">my Pet</a></li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+		<!-- 사이드 바 메뉴-->
+
+	<div class="col-md-3" width="100px">
+		<div class="panel panel-info" width="100px">
+			<div class="panel-heading" width="100px">
+				<h3 class="panel-title" width="100px">My Pet</h3>
+			</div>
+			<!-- 사이드바 메뉴목록1 -->
+			<ul class="list-group">
+				<li class="list-group-item"><a href="#">개인정보 수정</a></li>
+				<li class="list-group-item"><a th:href="@{petPage}">애완동물 등록</a></li>
+				<li class="list-group-item"><a href="#">나의 활동</a></li>
+				<li class="list-group-item"><a href="#">의사자격신청</a></li>
+				<li class="list-group-item"><a href="#">나의 활동</a></li>
+			</ul>
+		</div>
+	</div>
+	
+<form id="petInfoInput" th:action="petInfoInput" method="post" enctype="multipart/form-data">
+	<div class="container rounded bg-white mt-5 mb-5"
+		style="position: absolute; margin-left: 380px; bottom: 700px;">
+		<div class="row">
+			<div class="col-md-3 border-right">
+				<div class="d-flex flex-column align-items-center text-center p-3 py-5">
+					<img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+					<label class="labels">반려견 사진 등록</label>
+					<input type="file" class="btn btn-primary btn-sm" name="petImageOriginalFile" style="overflow:hidden;">
+				</div>
+			</div>
+			<div class="col-md-5 border-right">
+				<div class="p-3 py-5">
+					<div class="d-flex justify-content-between align-items-center mb-3">
+						<h4 class="text-right">My Pet</h4>
+					</div>
+					<div class="row mt-2">
+						<div class="col-md-6">
+							<label class="labels">강아지 이름</label><input type="text"
+								id="petName" name="petName" required="required" maxlength="20">
+						</div>
+						<div class="col-md-6">
+							<label class="labels">성별</label><br>
+							<input type="radio" id="petGender" name="petGender" value="M">수컷<input
+								type="radio" id="petGender" name="petGender" value="F"
+								style="margin-left: 10px;">암컷
+						</div>
+					</div>
+					<div class="row mt-3">
+						<div class="col-md-12">
+							<label class="labels">강아지 종</label> <select id="petBreed"
+								name="petBreed" style="margin-left: 10px;">
+								<option value="골든리트리버">골든리트리버</option>
+								<option value="그레이하운드">그레이하운드</option>
+								<option value="달마시안">달마시안</option>
+								<option value="도베르만">도베르만</option>
+								<option value="말티즈">말티즈</option>
+								<option value="보더콜리">보더콜리</option>
+								<option value="비글">비글</option>
+								<option value="시바견">시바견</option>
+								<option value="시츄">시츄</option>
+								<option value="웰시코기">웰시코기</option>
+								<option value="치와와">치와와</option>
+								<option value="코커스패니얼">코커스패니얼</option>
+								<option value="포메라니안">포메라니안</option>
+								<option value="푸들">푸들</option>
+								<option value="허스키">허스키</option>
+								<option value="기타(직접입력)">기타(직접입력)</option>
+							</select><br>
+							<label class="labels">강아지 체형</label> <select id="petWeight"
+								name="petWeight" style="margin-left: 10px;">
+								<option value="정상">정상</option>
+								<option value="비만">비만</option>
+								<option value="저체중">저체중</option>
+							</select><br>
+							<label class="labels">중성화 여부</label><input type="radio"
+							id="petNeuter" name="petNeuter" value="Y"
+							style="margin-left: 10px;">Yes<input type="radio"
+							id="petNeuter" name="petNeuter" value="N"
+							style="margin-left: 10px;">No
+						<br><label class="labels">강아지 생년/월</label><input type="text" required="required"
+						id="petBirthDay" name="petBirthDay" class="form-control" placeholder="다음과 같은 형식으로 입력 => YYYYMM" maxlength="6">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="mt-5 text-center">
+				<button class="btn btn-primary profile-button" type="submit">저장하기</button>
+			</div>
+		</div>
+	</div>
+</form>
+	<!-- ****** Instagram Area Start ****** -->
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<div
+		class="instargram_area owl-carousel section_padding_100_0 clearfix"
+		id="portfolio">
+
+		<!-- Instagram Item -->
+		<div class="instagram_gallery_item">
+			<!-- Instagram Thumb -->
+			<img th:src="@{/img/instagram-img/1.jpg}" alt="">
+			<!-- Hover -->
+			<div class="hover_overlay">
+				<div class="yummy-table">
+					<div class="yummy-table-cell">
+						<div class="follow-me text-center">
+							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
+								Follow me</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Instagram Item -->
+		<div class="instagram_gallery_item">
+			<!-- Instagram Thumb -->
+			<img th:src="@{/img/instagram-img/2.jpg}" alt="">
+			<!-- Hover -->
+			<div class="hover_overlay">
+				<div class="yummy-table">
+					<div class="yummy-table-cell">
+						<div class="follow-me text-center">
+							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
+								Follow me</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Instagram Item -->
+		<div class="instagram_gallery_item">
+			<!-- Instagram Thumb -->
+			<img th:src="@{/img/instagram-img/3.jpg}" alt="">
+			<!-- Hover -->
+			<div class="hover_overlay">
+				<div class="yummy-table">
+					<div class="yummy-table-cell">
+						<div class="follow-me text-center">
+							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
+								Follow me</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Instagram Item -->
+		<div class="instagram_gallery_item">
+			<!-- Instagram Thumb -->
+			<img th:src="@{/img/instagram-img/4.jpg}" alt="">
+			<!-- Hover -->
+			<div class="hover_overlay">
+				<div class="yummy-table">
+					<div class="yummy-table-cell">
+						<div class="follow-me text-center">
+							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
+								Follow me</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Instagram Item -->
+		<div class="instagram_gallery_item">
+			<!-- Instagram Thumb -->
+			<img th:src="@{/img/instagram-img/5.jpg}" alt="">
+			<!-- Hover -->
+			<div class="hover_overlay">
+				<div class="yummy-table">
+					<div class="yummy-table-cell">
+						<div class="follow-me text-center">
+							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
+								Follow me</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Instagram Item -->
+		<div class="instagram_gallery_item">
+			<!-- Instagram Thumb -->
+			<img th:src="@{/img/instagram-img/6.jpg}" alt="">
+			<!-- Hover -->
+			<div class="hover_overlay">
+				<div class="yummy-table">
+					<div class="yummy-table-cell">
+						<div class="follow-me text-center">
+							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
+								Follow me</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Instagram Item -->
+		<div class="instagram_gallery_item">
+			<!-- Instagram Thumb -->
+			<img th:src="@{/img/instagram-img/1.jpg}" alt="">
+			<!-- Hover -->
+			<div class="hover_overlay">
+				<div class="yummy-table">
+					<div class="yummy-table-cell">
+						<div class="follow-me text-center">
+							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
+								Follow me</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Instagram Item -->
+		<div class="instagram_gallery_item">
+			<!-- Instagram Thumb -->
+			<img th:src="@{/img/instagram-img/2.jpg}" alt="">
+			<!-- Hover -->
+			<div class="hover_overlay">
+				<div class="yummy-table">
+					<div class="yummy-table-cell">
+						<div class="follow-me text-center">
+							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
+								Follow me</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!-- ****** Our Creative Portfolio Area End ****** -->
+
+
+	<!-- ****** Footer Menu Area Start ****** -->
+	<footer class="footer_area">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="footer-content">
+						<!-- Logo Area Start -->
+						<div class="footer-logo-area text-center">
+							<a href="index.html" class="yummy-logo">Aimori</a>
+						</div>
+						<!-- Menu Area Start -->
+						<nav class="navbar navbar-expand-lg">
+							<button class="navbar-toggler" type="button"
+								data-toggle="collapse" data-target="#yummyfood-footer-nav"
+								aria-controls="yummyfood-footer-nav" aria-expanded="false"
+								aria-label="Toggle navigation">
+								<i class="fa fa-bars" aria-hidden="true"></i> Menu
+							</button>
+							<!-- Menu Area Start -->
+							<div class="collapse navbar-collapse justify-content-center"
+								id="yummyfood-footer-nav">
+								<ul class="navbar-nav">
+									<li class="nav-item active"><a class="nav-link" href="#">Home
+											<span class="sr-only">(current)</span>
+									</a></li>
+									<li class="nav-item"><a class="nav-link" href="#">Features</a>
+									</li>
+									<li class="nav-item"><a class="nav-link" href="#">Categories</a>
+									</li>
+									<li class="nav-item"><a class="nav-link" href="#">Archive</a>
+									</li>
+									<li class="nav-item"><a class="nav-link" href="#">About</a>
+									</li>
+									<li class="nav-item"><a class="nav-link" href="#">Contact</a>
+									</li>
+								</ul>
+							</div>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<!-- Copywrite Text -->
+					<div class="copy_right_text text-center">
+						<p>
+							Copyright @2018 All rights reserved | This template is made with
+							<i class="fa fa-heart-o" aria-hidden="true"></i> by <a
+								href="https://colorlib.com" target="_blank">Colorlib</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- ****** Footer Menu Area End ****** -->
+
+	<!-- Jquery-2.2.4 js -->
+	<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
+	<!-- Popper js -->
+	<script th:src="@{/js/bootstrap/popper.min.js}"></script>
+	<!-- All Plugins JS -->
+	<script th:src="@{/js/others/plugins.js}"></script>
+	<!-- Active JS -->
+	<script th:src="@{/js/active.js}"></script>
+	<!--  type="application/js" -->
+</body>
