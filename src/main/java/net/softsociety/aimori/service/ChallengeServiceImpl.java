@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import net.softsociety.aimori.dao.ChallengeDAO;
 import net.softsociety.aimori.domain.Board;
 import net.softsociety.aimori.domain.Challenge;
+import net.softsociety.aimori.domain.Entrylist;
 import net.softsociety.aimori.util.PageNavigator;
 
 @Service
@@ -68,6 +69,19 @@ public class ChallengeServiceImpl implements ChallengeService {
 		ArrayList<Challenge> challengelist = chdao.challengeList(map, rb); 
 		
 		return challengelist;
+	}
+
+	@Override
+	public Challenge read(int challengeNumber) {
+		// TODO Auto-generated method stub
+		Challenge challenge = chdao.select(challengeNumber);
+		return challenge;
+	}
+
+	@Override
+	public Entrylist list(int challengeNumber) {
+		Entrylist entrylist = chdao.getentrylist(challengeNumber);
+		return entrylist;
 	}
 
 	

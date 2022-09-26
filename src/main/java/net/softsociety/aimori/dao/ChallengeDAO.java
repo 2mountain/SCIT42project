@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
 import net.softsociety.aimori.domain.Challenge;
+import net.softsociety.aimori.domain.Entrylist;
 
 @Mapper	
 public interface ChallengeDAO {
@@ -18,5 +19,9 @@ public interface ChallengeDAO {
 	ArrayList<Challenge> contestList(HashMap<String, String> map, RowBounds rb);
 
 	ArrayList<Challenge> challengeList(HashMap<String, String> map, RowBounds rb);
+
+	Challenge select(int challengeNumber);
+
+	Entrylist getentrylist(int challengeNumber);
 
 }
