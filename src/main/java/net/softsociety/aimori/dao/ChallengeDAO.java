@@ -20,7 +20,7 @@ public interface ChallengeDAO {
 
 	ArrayList<Challenge> challengeList(HashMap<String, String> map, RowBounds rb);
 
-	Challenge select(int challengeNumber);
+	Challenge readChallenge(int challengeNumber);
 
 	Entrylist getentrylist(int challengeNumber);
 

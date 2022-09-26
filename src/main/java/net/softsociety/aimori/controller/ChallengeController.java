@@ -51,8 +51,7 @@ public class ChallengeController {
 			, String chtype
 			, String chsearchWord)
 	{
-		log.debug("challengeinner**************************");
-		PageNavigator chnavi = chser.getchPageNavigator(pagePerGroup, countPerPage, page, chtype, chsearchWord);
+			PageNavigator chnavi = chser.getchPageNavigator(pagePerGroup, countPerPage, page, chtype, chsearchWord);
 		
 		System.out.println(chnavi.getTotalRecordsCount());
 		
@@ -106,7 +105,7 @@ public class ChallengeController {
 	
 	@GetMapping({"challengeread"})
 	public String challengeread(Model model
-			, @RequestParam(name="boardnum", defaultValue = "0") int challengeNumber) { 
+			, @RequestParam(name="challengeNumber", defaultValue = "0") int challengeNumber) { 
 
 		// 도전과제를 불러오는 페이지
 		Challenge challenge = chser.read(challengeNumber);
@@ -115,6 +114,11 @@ public class ChallengeController {
 		}
 		//관리자 계정에서만 뜨는페이지 접속할 시 해당인원에게 포인트 주기 기능
 		Entrylist entrylist = chser.list( challengeNumber);
+		
+
+		log.debug("challenge1: {}",challenge);
+		log.debug("entrylist: {}",entrylist);
+		
 		model.addAttribute("challenge", challenge);
 		model.addAttribute("entrylist", entrylist);
 		return "/challenge/challengeread";
@@ -123,7 +127,7 @@ public class ChallengeController {
 	
 	@GetMapping({"contestread"})
 	public String contestread(Model model
-			, @RequestParam(name="boardnum", defaultValue = "0") int challengeNumber) { 
+			, @RequestParam(name="challengeNumber", defaultValue = "0") int challengeNumber) { 
 
 		// 도전과제를 불러오는 페이지
 		Challenge challenge = chser.read(challengeNumber);
@@ -136,7 +140,8 @@ public class ChallengeController {
 		model.addAttribute("challenge", challenge);
 		model.addAttribute("entrylist", entrylist);
 
-		
+		log.debug("challenge1: {}",challenge);
+		log.debug("entrylist: {}",entrylist);
 		return "/challenge/contestread";
 	}
 }

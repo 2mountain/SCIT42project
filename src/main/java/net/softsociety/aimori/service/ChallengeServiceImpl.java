@@ -74,7 +74,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 	@Override
 	public Challenge read(int challengeNumber) {
 		// TODO Auto-generated method stub
-		Challenge challenge = chdao.select(challengeNumber);
+		Challenge challenge = chdao.readChallenge(challengeNumber);
 		return challenge;
 	}
 
