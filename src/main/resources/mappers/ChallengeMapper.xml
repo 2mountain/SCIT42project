@@ -74,19 +74,20 @@
 	
 	<select id="readChallenge" parameterType="int" resultType="Challenge">
 	select
+	challengeNumber,
 	challengename,
 	challengecontents,
 	challengestartdate,
 	challengeenddate,
 	challengeregistday
 	from challenge
-	where challengenumber=#{challengenumber}
+	where challengenumber=#{challengeNumber}
 
 	</select>
 	
-	<select id="getentrylist" parameterType="int" resultType="Entrylist">
+	<select id="getEntrylist" parameterType="int" resultType="Entrylist">
 	select * from entrylist
-	where challengenumber=#{challengenumber}
+	where challengenumber=#{challengeNumber}
 	</select>
 
 </mapper>

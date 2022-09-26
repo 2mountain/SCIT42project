@@ -80,7 +80,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
 	@Override
 	public Entrylist list(int challengeNumber) {
-		Entrylist entrylist = chdao.getentrylist(challengeNumber);
+		Entrylist entrylist = chdao.getEntrylist(challengeNumber);
 		return entrylist;
 	}
 

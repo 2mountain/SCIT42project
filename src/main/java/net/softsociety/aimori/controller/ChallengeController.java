@@ -106,14 +106,15 @@ public class ChallengeController {
 	@GetMapping({"challengeread"})
 	public String challengeread(Model model
 			, @RequestParam(name="challengeNumber", defaultValue = "0") int challengeNumber) { 
-
+		System.out.println(challengeNumber);
+		log.debug("번호:"+challengeNumber);
 		// 도전과제를 불러오는 페이지
 		Challenge challenge = chser.read(challengeNumber);
 		if (challenge == null) {
 			return "redirect:/challenge/challengelist"; //글이 없으면 목록으로
 		}
 		//관리자 계정에서만 뜨는페이지 접속할 시 해당인원에게 포인트 주기 기능
-		Entrylist entrylist = chser.list( challengeNumber);
+		Entrylist entrylist = chser.list(challengeNumber);
 		
 
 		log.debug("challenge1: {}",challenge);

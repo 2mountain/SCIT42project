@@ -38,16 +38,17 @@
 </table>
 <br>
 
-<div th:if="${members.memberRoleName == 'ROLE_ADMIN'} ">
+<div sec:authorize="hasRole('ROLE_ADMIN')">
 	<a th:href="@{/challege/update(challengeNumber=${challege.challengeNumber})}">수정</a>
 </div>
 <br>
 
 <!-- 관리자만 보임 -->
-<div th:if="${members.memberRoleName == 'ROLE_ADMIN'} ">
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+	
 	<table>
 		<tr>
-			<td class="white">전체 </span>
+			<td class="white"><span>전체 </span>
 			</td>
 			<td class="white" colspan="3"></td>
 			<td class="head">
@@ -65,13 +66,15 @@
 		<tr th:each="entrylist : ${entrylist}">
 			<td th:text="${entrylist.entrylistNumber}" class="center"></td>
 			<td>
-				<a th:text="${entrylist.memberId}" th:href="@{/challenge/challengeread(challengeNumber=${challenge.challengeNumber})}"></a>
+				<a th:text="${entrylist.memberId}"></a>
 			</td>
 			<td th:text="${entrylist.challenSuccess}" class="center"></td>
 			<td th:text="${entrylist.getPoint}"></td>
 			<td th:text="${entrylist.getPointDate}"></td>
 		</tr>
+		</table>
 </div>
+
 
 <!-- 리플 목록 출력 시작 -->
 
