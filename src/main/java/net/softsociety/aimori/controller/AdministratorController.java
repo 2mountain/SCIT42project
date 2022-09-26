@@ -102,4 +102,29 @@ public class AdministratorController {
 	
 		return result;
 	}
+	
+	/**
+	 * 신고 글 확인
+	 * @param user
+	 * @param model
+	 * @return View (reported.html)
+	 */
+	@GetMapping("/reported")
+	public String reported(@AuthenticationPrincipal UserDetails user, Model model) {
+		log.debug("[AdministratorController] Administrator - param : {}", user);
+		// 현재 접속한 계정의 role을 가져옴
+		String currentUserRole = fService.checkRole(user.getUsername());
+		log.debug("[AdministratorController] Administrator - currentUserRole : {}", currentUserRole);
+		
+		// 관리자 여부 확인
+		if(!currentUserRole.equals("ROLE_ADMIN")) {
+			log.debug("[AdministratorController] Administrator - NOT ADMIN");
+			return "관리자만 접근 가능";
+		}
+		
+		// 현재 접속중인 계정의 ID를 VIEW로 보냄
+		model.addAttribute("currentUserId", user.getUsername());
+		
+		return "administrator/reported";
+	}
 }
