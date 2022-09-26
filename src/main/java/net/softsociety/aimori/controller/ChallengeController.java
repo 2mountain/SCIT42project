@@ -116,7 +116,7 @@ public class ChallengeController {
 		//관리자 계정에서만 뜨는페이지 접속할 시 해당인원에게 포인트 주기 기능
 		Entrylist entrylist = chser.list( challengeNumber);
 		model.addAttribute("challenge", challenge);
-		model.addAttribute("entrylist", entrylist);
+	  model.addAttribute("entrylist", entrylist);
 		return "/challenge/challengeread";
 	}	
 	
@@ -134,7 +134,7 @@ public class ChallengeController {
 		Entrylist entrylist = chser.list(challengeNumber);
 		
 		model.addAttribute("challenge", challenge);
-		model.addAttribute("entrylist", entrylist);
+		// model.addAttribute("entrylist", entrylist);
 
 		
 		return "/challenge/contestread";
