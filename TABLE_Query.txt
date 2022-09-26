@@ -311,8 +311,8 @@ create table reportData
 (
     reportNumber number primary key not null,
         --신고 식별번호
-    reportCategory varchar2(200),
-        --신고 사유 담을 변수
+    reportCategory varchar2(200) not null,
+        --신고 사유 담을 변수(홍보/도배, 음란물, 불법정보, 욕설/혐오표현, 개인정보 노출)
     memberId varchar2(40) references members(memberId),
         --신고한 멤버 아이디
     boardNumber number references board(boardNumber),
