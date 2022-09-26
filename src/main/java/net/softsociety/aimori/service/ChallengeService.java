@@ -2,9 +2,8 @@ package net.softsociety.aimori.service;
 
 import java.util.ArrayList;
 
-import org.springframework.stereotype.Service;
 
-import net.softsociety.aimori.controller.Entrylist;
+
 import net.softsociety.aimori.domain.Challenge;
 import net.softsociety.aimori.domain.Entrylist;
 import net.softsociety.aimori.util.PageNavigator;

@@ -85,12 +85,6 @@ public class ChallengeServiceImpl implements ChallengeService {
 	}
 
 	
-	// 오류 안 나게 처리한 부분이니까 태현씨가 필요한대로 수정하세요
-	@Override
-	public Challenge read(int challengeNumber) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	
 }
