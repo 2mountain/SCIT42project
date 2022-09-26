@@ -4,8 +4,9 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
-// import net.softsociety.aimori.controller.Entrylist;
+import net.softsociety.aimori.controller.Entrylist;
 import net.softsociety.aimori.domain.Challenge;
+import net.softsociety.aimori.domain.Entrylist;
 import net.softsociety.aimori.util.PageNavigator;
 
 
@@ -23,8 +24,10 @@ public interface ChallengeService {
 
 		Challenge read(int challengeNumber);
 
-		// Entrylist list();
+		Entrylist list(int challengeNumber);
 
+
+	
 	
 
 }
