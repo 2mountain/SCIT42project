@@ -74,25 +74,6 @@
 				b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS', b.boardHits, b.boardReport, b.boardCategory, b.boardImageSaved,
 				to_char(b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS'), replyCount
 		ORDER BY boardInputDateDetail DESC
-	
- 		<!-- select COUNT(l.boardNumber) as boardCount,
-			b.boardNumber boardNumber
-			, b.memberId memberId
-			, b.boardTitle boardTitle
-			, b.memberNickName memberNickName
-			, to_char(b.boardInputDate, 'YYYY-MM-DD') boardInputDate
-			, to_char(b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS') boardInputDateDetail
-			, b.boardHits boardHits
-			, b.boardReport boardReport
-			, b.boardCategory boardCategory
-			, b.boardImageSaved boardImageSaved
-		from boardLikedData l, board b
-		where b.boardNumber = l.boardNumber(+)
-		group by b.boardNumber, b.memberId, b.boardTitle, b.memberNickName,
-				to_char(b.boardInputDate, 'YYYY-MM-DD'), b.boardInputDate, 'YYYY-MM-DD', to_char(b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS'),
-				b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS', b.boardHits, b.boardReport, b.boardCategory, b.boardImageSaved,
-				to_char(b.boardInputDate, 'YYYY-MM-DD HH24:MI:SS')
-		ORDER BY boardInputDateDetail DESC -->
 	</select>
 	
 	<select id="boardHotList" parameterType="map" resultType="Board">

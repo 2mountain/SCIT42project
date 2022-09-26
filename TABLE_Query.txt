@@ -37,7 +37,7 @@ CREATE SEQUENCE facilitiesEvaluationNumber_seq;
 CREATE SEQUENCE boardLikedNumber_seq;
 CREATE SEQUENCE questionNumber_seq;
 CREATE SEQUENCE answerNumber_seq;
-create sequence reportNumber_seq;
+CREATE SEQUENCE reportNumber_seq;
 
 
 
