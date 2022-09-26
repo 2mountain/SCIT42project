@@ -317,9 +317,16 @@ create table reportData
         --신고한 멤버 아이디
     boardNumber number references board(boardNumber),
         --신고받은 커뮤니티 게시글번호
-    questionNumber number references question(questionNumber)
+    questionNumber number references question(questionNumber),
         --신고받은 qna 게시글번호
+    reportCount Number not null
+    	--신고받은 횟수
 );
+
+insert into reporData
+(reportNumber, reportCategory, memberId, boardNumber)
+values
+();
 
 
 

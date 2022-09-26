@@ -122,8 +122,14 @@ public class AdministratorController {
 			return "관리자만 접근 가능";
 		}
 		
+		// 회원 정보를 VIEW로 보냄
+		List<Member> list = aService.getMemberList();
+		log.debug("[AdministratorController] list : {}", list);
+		
 		// 현재 접속중인 계정의 ID를 VIEW로 보냄
 		model.addAttribute("currentUserId", user.getUsername());
+		// 모든 회원 정보를 VIEW로 보냄
+		model.addAttribute("reportData", list);
 		
 		return "administrator/reported";
 	}
