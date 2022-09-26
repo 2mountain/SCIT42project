@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 public class Entrylist {
 
 	int entrylistNumber;
-	int memberId;
+	String memberId;
 	int challengeNumber;
 	int challengeSuccess;
 	int getPoint;

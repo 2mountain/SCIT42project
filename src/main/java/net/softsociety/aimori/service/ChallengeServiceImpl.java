@@ -77,13 +77,16 @@ public class ChallengeServiceImpl implements ChallengeService {
 		Challenge challenge = chdao.readChallenge(challengeNumber);
 		return challenge;
 	}
+	
 
 	@Override
-	public Entrylist list(int challengeNumber) {
-		Entrylist entrylist = chdao.getentrylist(challengeNumber);
+	public ArrayList<Entrylist> list(int challengeNumber) {
+		// TODO Auto-generated method stub
+		ArrayList<Entrylist> entrylist = chdao.getEntrylist(challengeNumber);
 		return entrylist;
 	}
 
+	
 	
 
 	

@@ -22,6 +22,8 @@ public interface ChallengeDAO {
 
 	Challenge readChallenge(int challengeNumber);
 
-	Entrylist getentrylist(int challengeNumber);
+	ArrayList<Entrylist> getEntrylist(int challengeNumber);
+
+	
 
 }

@@ -39,12 +39,14 @@ public class ChallengeController {
 		return "/challenge/main";
 	}
 
-	@GetMapping({"write"})
-	public String write() {
-
-		return "/challenge/write";
+@GetMapping({"challengeupadate"})
+public String challengeupdate()
+{
+	
+	
+	return "";
+	
 	}
-
 	@GetMapping({"challengelist"})
 	public String challengelist(Model model
 			, @RequestParam(name = "page", defaultValue = "1") int page
@@ -106,15 +108,18 @@ public class ChallengeController {
 	@GetMapping({"challengeread"})
 	public String challengeread(Model model
 			, @RequestParam(name="challengeNumber", defaultValue = "0") int challengeNumber) { 
-
+		System.out.println(challengeNumber);
+		log.debug("번호:"+challengeNumber);
 		// 도전과제를 불러오는 페이지
 		Challenge challenge = chser.read(challengeNumber);
 		if (challenge == null) {
 			return "redirect:/challenge/challengelist"; //글이 없으면 목록으로
 		}
 		//관리자 계정에서만 뜨는페이지 접속할 시 해당인원에게 포인트 주기 기능
-		Entrylist entrylist = chser.list( challengeNumber);
-		
+		ArrayList<Entrylist>  entrylist = chser.list(challengeNumber);
+		if (entrylist == null) {
+			return "redirect:/challenge/challengelist"; //글이 없으면 목록으로
+		}
 
 		log.debug("challenge1: {}",challenge);
 		log.debug("entrylist: {}",entrylist);
@@ -135,7 +140,7 @@ public class ChallengeController {
 			return "redirect:/challenge/contestlist"; //글이 없으면 목록으로
 		}
 		//관리자 계정에서만 뜨는페이지 접속할 시 해당인원 등 수 부여
-		Entrylist entrylist = chser.list(challengeNumber);
+		ArrayList<Entrylist>  entrylist = chser.list(challengeNumber);
 		
 		model.addAttribute("challenge", challenge);
 		// model.addAttribute("entrylist", entrylist);

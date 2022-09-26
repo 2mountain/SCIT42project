@@ -23,7 +23,9 @@ public interface ChallengeService {
 
 		Challenge read(int challengeNumber);
 
-		Entrylist list(int challengeNumber);
+		ArrayList<Entrylist> list(int challengeNumber);
+
+		
 
 
 	
