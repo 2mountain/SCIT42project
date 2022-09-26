@@ -81,11 +81,11 @@ public class QnaController {
 	  model.addAttribute("type", type); model.addAttribute("searchWord",
 	  searchWord);
 	  
-	  log.debug("searchWord 출력! :{}", searchWord); log.debug("questionlist 출력! : {}", 
+	  log.debug("searchWord 출력! :{}", searchWord);
+	  log.debug("questionlist 출력! : {}", 
 			  questionlist);
 	  
 	  return "/qna/qna"; }
-	 
 	
 	/**
 	 * 인기글 출력
@@ -138,20 +138,18 @@ public class QnaController {
 		question.setMemberId(user.getUsername());
 		
 		question.setMemberNickName(question.getMemberNickName());
-//		board.setMemberId("test1");
 		question.setMemberNickName("testUser");
 
 		// 첨부파일이 있는 경우 지정된 경로에 저장하고, 원본 파일명과 저장된 파일명을 Board객체에 세팅
-		/*
-		 * if (!upload.isEmpty()) { String savedfile = FileService.saveFile(upload,
-		 * uploadPath); question.setBoardImageOriginal(upload.getOriginalFilename());
-		 * question.setBoardImageSaved(savedfile); }
-		 * 
-		 * log.debug("set 처리 후 board : {}", question);
-		 * 
-		 * int result = service.boardInsert(question);
-		 */
+		
+		  if (!upload.isEmpty()) { String savedfile = FileService.saveFile(upload,
+		  uploadPath); question.setQuestionImageOriginal(upload.getOriginalFilename());
+		  question.setQuestionImageSaved(savedfile); }
 
+		  log.debug("set 처리 후 question : {}", question);
+		  
+		  int result = service.questionInsert(question);
+		 
 		return "redirect:/qna/list";
 	}
 

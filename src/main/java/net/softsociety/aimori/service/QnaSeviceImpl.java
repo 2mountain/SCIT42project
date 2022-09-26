@@ -21,6 +21,13 @@ public class QnaSeviceImpl implements QnaService {
 
     @Autowired
     private QnaDAO qnaDAO;
+    
+    // 글 저장
+	@Override
+	public int questionInsert(Question question) {
+		int result = qnaDAO.questionInsert(question);
+		return result;
+	}
 
     //
 	@Override
@@ -50,6 +57,8 @@ public class QnaSeviceImpl implements QnaService {
 		
 		return questionlist;
 	}
+
+
     
 	
 	
