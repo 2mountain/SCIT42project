@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org"
-				xmlns:sec="http://thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 
 <head>
 <meta charset="UTF-8">
@@ -11,7 +10,7 @@
 <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 <!-- Title -->
-<title>Aimori</title>
+<title>challenge</title>
 
 <!-- Favicon -->
 <link rel="icon" th:href="@{/img/core-img/favicon.ico}">
@@ -22,268 +21,18 @@
 <!-- Responsive CSS -->
 <link th:href="@{/css/responsive/responsive.css}" rel="stylesheet">
 
-<style>
-html {
-	scroll-behavior: smooth
-}
-
-.map_wrap, .map_wrap * {
-	margin: 0;
-	padding: 0;
-	/*font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;*/
-	font-size: 12px;
-}
-
-.map_wrap a, .map_wrap a:hover, .map_wrap a:active {
-	color: #000;
-	text-decoration: none;
-}
-
-.map_wrap {
-	position: relative;
-	width: 100%;
-	height: 500px;
-}
-
-#menu_wrap {
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	width: 250px;
-	margin: 10px 0 30px 10px;
-	padding: 5px;
-	overflow-y: auto;
-	background: rgba(255, 255, 255, 0.9);
-	z-index: 1;
-	font-size: 12px;
-	border-radius: 10px;
-}
-
-.bg_white {
-	background: #fff;
-}
-
-#menu_wrap hr {
-	display: block;
-	height: 1px;
-	border: 0;
-	border-top: 2px solid #5F5F5F;
-	margin: 3px 0;
-}
-
-#menu_wrap .option {
-	text-align: center;
-}
-
-#menu_wrap .option p {
-	margin: 10px 0;
-}
-
-#menu_wrap .option button {
-	margin-left: 5px;
-}
-
-#placesList li {
-	list-style: none;
-}
-
-#placesList .item {
-	position: relative;
-	border-bottom: 1px solid #888;
-	overflow: hidden;
-	cursor: pointer;
-	min-height: 65px;
-}
-
-#placesList .item span {
-	display: block;
-	margin-top: 4px;
-}
-
-#placesList .item h5, #placesList .item .info {
-	text-overflow: ellipsis;
-	overflow: hidden;
-	white-space: normal;
-}
-
-#placesList .item .info {
-	padding: 10px 0 10px 55px;
-}
-
-#placesList .info .gray {
-	color: #8a8a8a;
-}
-
-#placesList .info .jibun {
-	padding-left: 26px;
-	background:
-		url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png)
-		no-repeat;
-}
-
-#placesList .info .tel {
-	color: #009900;
-}
-
-#placesList .item .markerbg {
-	float: left;
-	position: absolute;
-	width: 36px;
-	height: 37px;
-	margin: 10px 0 0 10px;
-	background:
-		url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png)
-		no-repeat;
-}
-
-#placesList .item .marker_1 {
-	background-position: 0 -10px;
-}
-
-#placesList .item .marker_2 {
-	background-position: 0 -56px;
-}
-
-#placesList .item .marker_3 {
-	background-position: 0 -102px
-}
-
-#placesList .item .marker_4 {
-	background-position: 0 -148px;
-}
-
-#placesList .item .marker_5 {
-	background-position: 0 -194px;
-}
-
-#placesList .item .marker_6 {
-	background-position: 0 -240px;
-}
-
-#placesList .item .marker_7 {
-	background-position: 0 -286px;
-}
-
-#placesList .item .marker_8 {
-	background-position: 0 -332px;
-}
-
-#placesList .item .marker_9 {
-	background-position: 0 -378px;
-}
-
-#placesList .item .marker_10 {
-	background-position: 0 -423px;
-}
-
-#placesList .item .marker_11 {
-	background-position: 0 -470px;
-}
-
-#placesList .item .marker_12 {
-	background-position: 0 -516px;
-}
-
-#placesList .item .marker_13 {
-	background-position: 0 -562px;
-}
-
-#placesList .item .marker_14 {
-	background-position: 0 -608px;
-}
-
-#placesList .item .marker_15 {
-	background-position: 0 -654px;
-}
-
-#pagination {
-	margin: 10px auto;
-	text-align: center;
-}
-
-#pagination a {
-	display: inline-block;
-	margin-right: 10px;
-}
-
-#pagination .on {
-	font-weight: bold;
-	cursor: default;
-	color: #777;
-}
-
-#pageTop {
-	border-radius : 50px;
-	padding: 5px 5px;
-	width: 50px;
-	position: fixed;
-	bottom: 15%;
-	z-index: 9999;
-	cursor: pointer;
-	height: 50px;
-	right: 0;
-	color: #fff;
-	font-size: 12px;
-	line-height: 50px;
-	text-align: center;
-	text-transform: uppercase;
-	letter-spacing: 1px;
-	-webkit-transition-duration: 500ms;
-	transition-duration: 500ms;
-}
-
-.radiusChange {
-	width : 8vh;
-	-webkit-transition-duration: 500ms;
-	transition-duration: 500ms;
-}
-
-#needMargin {
-	margin-top: 100px;
-}
-
-.deleteBtn {
-	border : 0; 
-	outline : 0; 
-	color : blue; 
-	background-color: transparent;
-	cursor: pointer;
-}
-.reviewBackground {
-	margin-left : 80px;
-	margin-right : 80px;
-	margin-bottom : 7px;
-	border-radius : 40px;
-	padding : 25px 25px 30px 25px; 
-	background-color: #fff8ea;
-}
-.reviewBackground:hover {
-	background-color: #ffdebf;
-}
-.noReview {
-	color : red; 
-	text-align : center;
-}
-
-.facilitiesDetailsBackground{
-	margin-bottom : 7px;
-	border-radius : 40px;
-	padding : 10px 20px 10px 40px; 
-	background-color: #fff8ea;
-}
-.facilitiesDetailsBackground:hover{
-	background-color: #ffdebf;
-}
-.reviewTitle{
-	padding-left : 90px; 
-}
-</style>
+<!-- test -->
+<link rel="stylesheet" type="text/css" th:href="@{/css/board/board.css}" />
 
 <script>
-	// 평점 제출 후 버튼 색 원상 복귀 위한 변수
-
+function pagingFormSubmit(currentPage) {
+	var form = document.ElementById('pagingForm');
+	var page = document.ElementById('page');
+	page.value = currentPage;
+	form.submit();
+}
 </script>
+
 </head>
 
 <body>
@@ -297,31 +46,44 @@ html {
 	<div class="top_header_area">
 		<div class="container">
 			<div class="row">
-				<div class="col-5 col-sm-6"></div>
+				<div class="col-5 col-sm-6">
+					<!--  Top Social bar start -->
+					<div class="top_social_bar">
+						<a href="https://facebook.com"><i class="fa fa-facebook"
+							aria-hidden="true"></i></a> <a href="https://twitter.com"><i
+							class="fa fa-twitter" aria-hidden="true"></i></a> <a
+							href="https://linkedin.com"><i class="fa fa-linkedin"
+							aria-hidden="true"></i></a> <a href="https://skype.com"><i
+							class="fa fa-skype" aria-hidden="true"></i></a> <a
+							href="https://dribbble.com"><i class="fa fa-dribbble"
+							aria-hidden="true"></i></a>
+					</div>
+				</div>
 				<!--  Login Register Area -->
 				<div class="col-7 col-sm-6">
-					<div class="signup-search-area d-flex align-items-center justify-content-end">
+					<div
+						class="signup-search-area d-flex align-items-center justify-content-end">
 						<div class="login_register_area d-flex">
-							<div class="login" sec:authorize="not isAuthenticated()">
-								<a href="member/logIn">로그인</a>
+							<div class="login">
+								<a href="register.html">로그인</a>
 							</div>
-							<div class="register" sec:authorize="not isAuthenticated()">
-								<a href="member/signIn">회원가입</a>
+							<div class="register">
+								<a href="register.html">회원가입</a>
 							</div>
 						</div>
-						<div class="login_register_area d-flex">
-							<div class="mypage" sec:authorize="isAuthenticated()"
-								style="margin-left: 20px">
-								<a sec:authorize="hasRole('ADMIN')" th:href="@{/administrator}"><b>관리자 페이지</b></a>
-							</div>
-							<div class="mypage" sec:authorize="isAuthenticated()"
-								style="margin-left: 20px">
-								<a href="#">마이페이지</a>
-							</div>
-							<div class="logout" sec:authorize="isAuthenticated()"
-								style="margin-left: 10px;">
-								<a th:href="@{logout}">로그아웃</a>
-							</div>
+						<!-- Search Button Area -->
+						<div class="search_button">
+							<a class="searchBtn" href="#"><i class="fa fa-search"
+								aria-hidden="true"></i></a>
+						</div>
+						<!-- Search Form -->
+						<div class="search-hidden-form">
+							<form action="#" method="">
+								<input type="search" name="search" id="search-anything"
+									placeholder="Search Anything..."> <input type="submit"
+									value="" class="d-none"> <span class="searchBtn"><i
+									class="fa fa-times" aria-hidden="true"></i></span>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -336,46 +98,50 @@ html {
 			<div class="row">
 				<!-- Logo Area Start -->
 				<div class="col-12">
-					<a th:href="@{/}" class="yummy-logo">
-						<img src="img/bg-img/toplogo.jpg" alt=""> 
-					</a>
+					<div class="logo_area text-center">
+						<a href="index.html" class="yummy-logo">AIMORI</a>
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<div class="row">
-			<div class="col-12">
-				<nav class="navbar navbar-expand-lg">
-					<button class="navbar-toggler" type="button" data-toggle="collapse"
-						data-target="#yummyfood-nav" aria-controls="yummyfood-nav"
-						aria-expanded="false" aria-label="Toggle navigation">
-						<i class="fa fa-bars" aria-hidden="true"></i> Menu
-					</button>
-					<!-- Menu Area Start -->
-					<div class="collapse navbar-collapse justify-content-center"
-						id="yummyfood-nav">
-						<ul class="navbar-nav" id="yummy-nav">
-							<li class="nav-item active"><a class="nav-link"
-								th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
-							</li>
-
-
-							<li class="nav-item"><a class="nav-link"
-								th:href="@{/facilities}">시설</a></li>
-							<li class="nav-item"><a class="nav-link" href="#">상품</a></li>	<li>
-							<div class="dropdown">
-								<span class="dropbtn">챌린지</span>
-								<div class="dropdown-content">
-									<a th:href="@{/challenge/challengelist}">도전과제</a>
-									 <a th:href="@{/challenge/contestlist}">대회</a>
-								</div>
-							</div>
-							</li>
-							<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
-							</li>
-						</ul>
-					</div>
-				</nav>
+			<div class="row">
+				<div class="col-12">
+					<nav class="navbar navbar-expand-lg">
+						<button class="navbar-toggler" type="button"
+							data-toggle="collapse" data-tar="#yummyfood-nav"
+							aria-controls="yummyfood-nav" aria-expanded="false"
+							aria-label="Toggle navigation">
+							<i class="fa fa-bars" aria-hidden="true"></i> Menu
+						</button>
+						<!-- Menu Area Start -->
+						<div class="collapse navbar-collapse justify-content-center"
+							id="yummyfood-nav">
+							<ul class="navbar-nav" id="yummy-nav">
+								<li class="nav-item active"><a class="nav-link" href="#">커뮤니티
+										<span class="sr-only">(current)</span>
+								</a></li>
+								<li class="nav-item dropdown"><a
+									class="nav-link dropdown-toggle" href="#" id="yummyDropdown"
+									role="button" data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false">Pages</a>
+									<div class="dropdown-menu" aria-labelledby="yummyDropdown">
+										<a class="dropdown-item" href="#">1</a> <a
+											class="dropdown-item" href="#">2</a> <a class="dropdown-item"
+											href="#">3</a> <a class="dropdown-item" href="#">4</a> <a
+											class="dropdown-item" href="#">5</a>
+									</div></li>
+								<li class="nav-item"><a class="nav-link"
+									th:href="@{/facilities}">시설</a></li>
+								<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
+								<li class="nav-item"><a class="nav-link" href="#">챌린지</a></li>
+								<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
+								</li>
+								<li class="nav-item"><a class="nav-link" href="#">Contact</a>
+								</li>
+							</ul>
+						</div>
+					</nav>
+				</div>
 			</div>
 		</div>
 	</header>
@@ -383,12 +149,12 @@ html {
 
 	<!-- ****** Breadcumb Area Start ****** -->
 	<div class="breadcumb-area"
-		style="background-image: url(img/bg-img/breadcumb.jpg);">
+		style="background-image: url(../img/bg-img/breadcumb.jpg);">
 		<div class="container h-100">
 			<div class="row h-100 align-items-center">
 				<div class="col-12">
 					<div class="bradcumb-title text-center">
-						<h2>도전과제</h2>
+						<h2>Aimori challenge</h2>
 					</div>
 				</div>
 			</div>
@@ -400,9 +166,10 @@ html {
 				<div class="col-12">
 					<nav aria-label="breadcrumb">
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a th:href="@{/}"><i
-									class="fa fa-home" aria-hidden="true"></i> Home</a></li>
-							<li class="breadcrumb-item active" aria-current="page"><a th:href="@{/facilities}">시설</a></li>
+							<li class="breadcrumb-item"><a th:href="@{/home}"><i
+									class="fa fa-home" aria-hidden="true"></i>Home</a></li>
+							<li class="breadcrumb-item active" aria-current="page">Aimori
+								Challenge</li>
 						</ol>
 					</nav>
 				</div>
@@ -412,6 +179,9 @@ html {
 	<!-- ****** Breadcumb Area End ****** -->
 
 	<!-- ****** Archive Area Start ****** -->
+	<header>
+   <h1>[도전과제]</h1>
+</header>
 <section>
 	<!-- 글목록 출력 영역 -->
 	<table>
@@ -436,7 +206,7 @@ html {
 		<tr th:each="challenge : ${challengelist}">
 			<td th:text="${challenge.challengeNumber}" class="center"></td>
 			<td>
-				<a th:text="${challenge.challengeName}" th:href="@{/challenge/read(challengeNumber=${challenge.challengeNumber})}"></a>
+				<a th:text="${challenge.challengeName}" th:href="@{/challenge/challengeread(challengeNumber=${challenge.challengeNumber})}"></a>
 			</td>
 			<td th:text="${challenge.challengeRegistDay}" class="center"></td>
 			<td th:text="${challenge.challengeStartDate}"></td>
@@ -471,11 +241,24 @@ html {
 	</div>
 	
 </section>
-	<!-- ****** Archive Area End ****** -->
-	
-	<div id="needMargin"></div>
-	
+
+
+   <div class="text-right">
+      <a class="btn btn-light" style="background-color: rgb(220, 220, 255);"
+         colspan="6" th:href="@{/challenge/challengewrite}">글쓰기</a>
+   </div>
+
+<!-- ****** Archive Area End ****** -->
+
 	<!-- ****** Instagram Area Start ****** -->
+
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	<div
 		class="instargram_area owl-carousel section_padding_100_0 clearfix"
 		id="portfolio">
@@ -483,7 +266,7 @@ html {
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img src="img/instagram-img/1.jpg" alt="">
+			<img th:src="@{/img/instagram-img/1.jpg}" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -500,7 +283,7 @@ html {
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img src="img/instagram-img/2.jpg" alt="">
+			<img th:src="@{/img/instagram-img/2.jpg}" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -517,7 +300,7 @@ html {
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img src="img/instagram-img/3.jpg" alt="">
+			<img th:src="@{/img/instagram-img/3.jpg}" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -534,7 +317,7 @@ html {
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img src="img/instagram-img/4.jpg" alt="">
+			<img th:src="@{/img/instagram-img/4.jpg}" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -551,7 +334,7 @@ html {
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img src="img/instagram-img/5.jpg" alt="">
+			<img th:src="@{/img/instagram-img/5.jpg}" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -568,7 +351,7 @@ html {
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img src="img/instagram-img/6.jpg" alt="">
+			<img th:src="@{/img/instagram-img/6.jpg}" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -585,7 +368,7 @@ html {
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img src="img/instagram-img/1.jpg" alt="">
+			<img th:src="@{/img/instagram-img/1.jpg}" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -602,7 +385,7 @@ html {
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img src="img/instagram-img/2.jpg" alt="">
+			<img th:src="@{/img/instagram-img/2.jpg}" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -660,36 +443,45 @@ html {
 			<div class="row">
 				<div class="col-12">
 					<div class="footer-content">
-						<div class="footer-content">
-							<!-- Logo Area Start -->
-							<div class="footer-logo-area text-center">
-								<a th:href="@{/}" class="yummy-logo"><img src="img/bg-img/toplogo.jpg" alt=""></a>
-							</div>
-							<!-- Menu Area Start -->
-							<nav class="navbar navbar-expand-lg">
-								<button class="navbar-toggler" type="button"
-									data-toggle="collapse" data-target="#yummyfood-footer-nav"
-									aria-controls="yummyfood-footer-nav" aria-expanded="false"
-									aria-label="Toggle navigation">
-									<i class="fa fa-bars" aria-hidden="true"></i> Menu
-								</button>
-								<!-- Menu Area Start -->
-								<div class="collapse navbar-collapse justify-content-center"
-									id="yummyfood-footer-nav">
-									<ul class="navbar-nav">
-										<li class="nav-item active"><a class="nav-link"
-											th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
-										</li>
-										<li class="nav-item"><a class="nav-link"
-											th:href="@{/facilities}">시설</a></li>
-										<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
-										<li class="nav-item"><a class="nav-link" href="#">챌린지</a></li>
-										<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
-										</li>
-									</ul>
-								</div>
-							</nav>
+						<!-- Logo Area Start -->
+						<div class="footer-logo-area text-center">
+							<a href="index.html" class="yummy-logo">Aimori</a>
 						</div>
+						<!-- Menu Area Start -->
+						<nav class="navbar navbar-expand-lg">
+							<button class="navbar-toggler" type="button"
+								data-toggle="collapse" data-tar="#yummyfood-footer-nav"
+								aria-controls="yummyfood-footer-nav" aria-expanded="false"
+								aria-label="Toggle navigation">
+								<i class="fa fa-bars" aria-hidden="true"></i> Menu
+							</button>
+							<!-- Menu Area Start -->
+							<div class="collapse navbar-collapse justify-content-center"
+								id="yummyfood-footer-nav">
+								<ul class="navbar-nav">
+									<li class="nav-item active"><a class="nav-link" href="#">Home
+											<span class="sr-only">(current)</span>
+									</a></li>
+									<li class="nav-item"><a class="nav-link" href="#">Features</a>
+									</li>
+									<li class="nav-item"><a class="nav-link" href="#">Categories</a>
+									</li>
+									<li class="nav-item"><a class="nav-link" href="#">Archive</a>
+									</li>
+										<li>
+							<div class="dropdown">
+								<span class="dropbtn">챌린지</span>
+								<div class="dropdown-content">
+									<a th:href="@{/challenge/challengelist}">도전과제</a>
+									 <a th:href="@{/challenge/contestlist}">대회</a>
+								</div>
+							</div>
+							</li>
+									<li class="nav-item"><a class="nav-link" href="#">Contact</a>
+									</li>
+								</ul>
+							</div>
+						</nav>
 					</div>
 				</div>
 			</div>
@@ -703,7 +495,7 @@ html {
 						<p>
 							Copyright @2018 All rights reserved | This template is made with
 							<i class="fa fa-heart-o" aria-hidden="true"></i> by <a
-								href="https://colorlib.com" target="_blank">Colorlib</a>
+								href="https://colorlib.com" tar="_blank">Colorlib</a>
 						</p>
 					</div>
 				</div>
@@ -713,11 +505,14 @@ html {
 	<!-- ****** Footer Menu Area End ****** -->
 
 	<!-- Jquery-2.2.4 js -->
-	<script th:src="@{js/jquery/jquery-2.2.4.min.js}"></script>
+	<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
 	<!-- Popper js -->
-	<script th:src="@{js/bootstrap/popper.min.js}"></script>
+	<script th:src="@{/js/bootstrap/popper.min.js}"></script>
 	<!-- All Plugins JS -->
-	<script th:src="@{js/others/plugins.js}"></script>
+	<script th:src="@{/js/others/plugins.js}"></script>
 	<!-- Active JS -->
-	<script th:src="@{js/active.js}"></script>
+	<script th:src="@{/js/active.js}"></script>
+	<!--  type="application/js" -->
+
+
 </body>

@@ -207,7 +207,7 @@ function pagingFormSubmit(currentPage) {
       <tr th:each="contest : ${contestlist}">
          <td th:text="${contest.challengeNumber}" class="center"></td>
          <td>
-            <a th:text="${contest.challengeName}" th:href="@{/challenge/read(challengeNumber=${contest.challengeNumber})}"></a>
+            <a th:text="${contest.challengeName}" th:href="@{/challenge/contestread(challengeNumber=${contest.challengeNumber})}"></a>
          </td>
          <td th:text="${contest.challengeRegistDay}" class="center"></td>
          <td th:text="${contest.challengeStartDate}"></td>
