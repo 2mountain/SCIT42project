@@ -160,58 +160,68 @@ public class QnaController {
 	 * @param boardNumber 글번호
 	 * @return
 	 */
-	/*
-	 * @GetMapping("read") public String read(Model model , @RequestParam(name =
-	 * "boardNumber", defaultValue = "0") int boardNumber , @AuthenticationPrincipal
-	 * UserDetails user) {
-	 * 
-	 * 
-	 * 
-	 * // 현재 로그인 중인 회원 아이디 조회 // String id = user.getUsername();
-	 * 
-	 * // 게시글 객체 하나 조회 Board board = service.boardRead(boardNumber);
-	 * 
-	 * if (board == null) { return "redirect:/board/list"; // 글이 없으면 목록으로 }
-	 * 
-	 * String id = board.getMemberId();
-	 * 
-	 * if(id != null) {
-	 * 
-	 * if(user == null) {
-	 * 
-	 * System.out.println("user null 가능");
-	 * 
-	 * }
-	 * 
-	 * // 해당 게시글에 대한 좋아요 개수 int boardliked =
-	 * service.boardSelectRecommend(boardNumber);
-	 * 
-	 * 
-	 * // 현재 로그인 중인 회원이 해당 글에 좋아요 했는지 여부 BoardLiked boardLiked = new
-	 * BoardLiked(boardNumber, id);
-	 * 
-	 * BoardLiked boardLiked2 = service.getBoardLiked(boardLiked);
-	 * 
-	 * if(boardLiked2 != null){ model.addAttribute("ifLiked", boardLiked2); }else{
-	 * model.addAttribute("ifLiked", new BoardLiked()); }
-	 * 
-	 * log.debug("좋아요 여부 :{}", boardLiked2 );
-	 * 
-	 * log.debug("boardliked 값: {}", boardliked);
-	 * 
-	 * model.addAttribute("boardLikedData", boardliked);
-	 * 
-	 * }
-	 * 
-	 * // 현재 글에 달린 댓글들 ArrayList<Reply> replylist = service.replyList(boardNumber);
-	 * 
-	 * // 결과를 모델에 담아서 HTML에서 출력 model.addAttribute("board", board);
-	 * model.addAttribute("replylist", replylist);
-	 * 
-	 * log.debug("board 읽어오기, {}", board); log.debug("reply 값 읽어오기, {}", replylist);
-	 * 
-	 * return "/board/boardRead"; }
-	 */
+	
+	  @GetMapping("read") public String read(Model model , @RequestParam(name =
+	  "questionNumber", defaultValue = "0") int questionNumber , @AuthenticationPrincipal
+	  UserDetails user) {
+	  
+	  
+	  
+	  // 현재 로그인 중인 회원 아이디 조회
+		  // String id = user.getUsername();
+	  
+	  // 게시글 객체 하나 조회
+		  Question question = service.questionRead(questionNumber);
+	  
+	  if (question == null) {
+		  return "redirect:/qna/list"; // 글이 없으면 목록으로 }
+	  }
+	  
+	  String id = question.getMemberId();
+	  
+	  if(id != null) {
+	  
+	  if(user == null) {
+	  
+	  System.out.println("user null 가능");
+	  
+	  }
+	  
+	  // 해당 게시글에 대한 좋아요 개수 int boardliked =
+	  // service.questionSelectRecommend(questionNumber);
+	  
+	  
+	  // 현재 로그인 중인 회원이 해당 글에 좋아요 했는지 여부 BoardLiked boardLiked = new
+	  /*BoardLiked(boardNumber, id);
+	  
+	  BoardLiked boardLiked2 = service.getBoardLiked(boardLiked);
+	  
+	  if(boardLiked2 != null){ model.addAttribute("ifLiked", boardLiked2); }else{
+	  model.addAttribute("ifLiked", new BoardLiked()); }
+	  
+	  log.debug("좋아요 여부 :{}", boardLiked2 );
+	  
+	  log.debug("boardliked 값: {}", boardliked);
+	  
+	  model.addAttribute("boardLikedData", boardliked);
+	  */
+	  
+	  }
+	  
+//	  현재 글에 달린 댓글들 ArrayList<Reply> replylist = service.replyList(boardNumber);
+	  
+//	  결과를 모델에 담아서 HTML에서 출력 model.addAttribute("board", board);
+//	  model.addAttribute("replylist", replylist);
+	  
+	  log.debug("question 읽어오기, {}", question);
+//	  log.debug("reply 값 읽어오기, {}", replylist);
+	  
+	  
+	  model.addAttribute("question", question);
+	  
+	  return "/qna/qnaRead";
+	  }
+	 
 
 	/**
 	 * 첨부파일 다운로드
@@ -424,5 +434,5 @@ public class QnaController {
 	
 
 	
-	
+	  
 }
