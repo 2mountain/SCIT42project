@@ -15,6 +15,10 @@ public interface QnaService {
 	public ArrayList<Question> list(PageNavigator navi, String type, String searchWord);
 	// 글읽기
 	public Question questionRead(int questionNumber);
+	// 글 수정
+	public int questionUpdate(Question question);
+	// 글 삭제
+	public int questionDelete(Question question);
 
 	
 
