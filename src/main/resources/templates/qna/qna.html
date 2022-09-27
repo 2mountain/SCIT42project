@@ -11,7 +11,7 @@
 <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 <!-- Title -->
-<title>Board</title>
+<title>Q&A</title>
 
 <!-- Favicon -->
 <link rel="icon" th:href="@{/img/core-img/favicon.ico}">
@@ -204,8 +204,8 @@
 							th:text="${navi.totalRecordsCount}"></span>
 						</td>
 						<td class="white" colspan="6"><a
-							href="#">이미지</a> |<a
-							href="#">전체글</a> |<a href="#">인기글</a></td>
+							href="#"></a> <a
+							href="#"></a> <a href="#"></a></td>
 					</tr>
 					<tr style="background-color: rgb(228, 228, 228);">
 						<th id="questionSearch">
@@ -230,22 +230,22 @@
 						<td>
 							<div th:if="${question.questionImageSaved != null}">
 								<a th:text="${question.questionTitle}"
-									th:href="@{/question/read(questionNumber=${question.questionNumber})}"></a>
+									th:href="@{/qna/read(questionNumber=${question.questionNumber})}"></a>
 								<img th:src="@{/img/board-img/blankImage.png}" width="20">
 								<a th:if="${question.replyCount != 0}"
 									th:text="'[' + ${question.replyCount} + ']'"
-									th:href="@{/question/read(questionNumber=${question.questionNumber})}"></a>
+									th:href="@{/qna/read(questionNumber=${question.questionNumber})}"></a>
 							</div>
 							<div th:if="${question.questionImageSaved == null}">
 								<a th:text="${question.questionTitle}"
-									th:href="@{/question/read(questionNumber=${question.questionNumber})}"></a>
+									th:href="@{/qna/read(questionNumber=${question.questionNumber})}"></a>
 								<!-- <a th:if="${question.replyCount != 0}"
 									th:text="'[' + ${question.replyCount} + ']'"
 									th:href="@{/question/read(questionNumber=${question.questionNumber})}"></a> -->
 							</div>
 						</td>
 						<td class="center"><a th:text="${question.memberId}"
-							th:href="@{/question/read(questionNumber=${question.questionNumber})}"></a></td>
+							th:href="@{/qna/read(questionNumber=${question.questionNumber})}"></a></td>
 						<td style="text-align: center" th:text="${question.questionInputDate}"></td>
 						<td style="text-align: center;" th:text="${question.questionHits}"></td>
 						<!-- <td style="text-align: center;" th:text="${question.questionCount}"></td> -->
@@ -284,7 +284,7 @@
 			</div>
 
 			<!-- 검색폼 -->
-			<form id="pagingForm" method="get" th:action="@{/question/list}">
+			<form id="pagingForm" method="get" th:action="@{/qna/list}">
 				<input type="hidden" name="page" id="page" /> <select id="type"
 					name="type">
 					<option value="questionTitle" th:selected="${type} == 'questionTitle'">제목</option>
