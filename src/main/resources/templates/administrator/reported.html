@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Aimori 관리자 페이지</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css"
+	rel="stylesheet" />
+<link th:href="@{/css/stylesAdmin.css}" rel="stylesheet" />
+<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
+	crossorigin="anonymous"></script>
+</head>
+<body class="sb-nav-fixed">
+	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+		<!-- Navbar Brand-->
+		<a class="navbar-brand ps-3" th:href="@{/}">Aimori</a>
+		<!-- Sidebar Toggle-->
+		<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!">
+			<i class="fas fa-bars"></i>
+		</button>
+		
+		<div class="ms-auto">
+			<!-- Navbar-->
+			<ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4 ms-auto">
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" id="navbarDropdown" href="#"
+					role="button" data-bs-toggle="dropdown" aria-expanded="false"><i
+						class="fas fa-user fa-fw"></i></a>
+					<ul class="dropdown-menu dropdown-menu-end"
+						aria-labelledby="navbarDropdown">
+						<li style="text-align: center;"><span style="color: red;"
+							th:text="${currentUserId}"></span></li>
+						<li><a class="dropdown-item" th:href="@{/mypage/main}">마이페이지</a></li>
+						<li><hr class="dropdown-divider" /></li>
+						<li><a class="dropdown-item" th:href="@{logout}">로그아웃</a></li>
+					</ul></li>
+			</ul>
+		</div>
+	</nav>
+	<div id="layoutSidenav">
+		<div id="layoutSidenav_nav">
+			<nav class="sb-sidenav accordion sb-sidenav-dark"
+				id="sidenavAccordion">
+				<div class="sb-sidenav-menu">
+					<div class="nav">
+						<div class="sb-sidenav-menu-heading">관리자 페이지</div>
+						<a class="nav-link" th:href="@{/administrator}">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-tachometer-alt"></i>
+							</div> 메인 화면
+						</a>
+
+						<div class="sb-sidenav-menu-heading">회원</div>
+						<a class="nav-link" href="charts.html">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-chart-area"></i>
+							</div> 회원 관리
+						</a> <a class="nav-link" href="charts.html">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-chart-area"></i>
+							</div> 의사 권한
+						</a>
+						<div class="sb-sidenav-menu-heading">게시글</div>
+						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+							data-bs-target="#collapseBoard" aria-expanded="false"
+							aria-controls="collapseBoard">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-columns"></i>
+							</div> 게시글 관리
+							<div class="sb-sidenav-collapse-arrow">
+								<i class="fas fa-angle-down"></i>
+							</div>
+						</a>
+						<div class="collapse" id="collapseBoard"
+							aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+							<nav class="sb-sidenav-menu-nested nav">
+								<a class="nav-link" th:href="@{/administrator/reported}">신고된 글 확인</a> 
+								<a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
+							</nav>
+						</div>
+						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+							data-bs-target="#collapseQnA" aria-expanded="false"
+							aria-controls="collapseQnA">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-book-open"></i>
+							</div> 관리자 문의
+							<div class="sb-sidenav-collapse-arrow">
+								<i class="fas fa-angle-down"></i>
+							</div>
+						</a>
+						<div class="collapse" id="collapseQnA"
+							aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+							<nav class="sb-sidenav-menu-nested nav accordion"
+								id="sidenavAccordionPages">
+								<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+									data-bs-target="#pagesCollapseAuth" aria-expanded="false"
+									aria-controls="pagesCollapseAuth"> Authentication
+									<div class="sb-sidenav-collapse-arrow">
+										<i class="fas fa-angle-down"></i>
+									</div>
+								</a>
+								<div class="collapse" id="pagesCollapseAuth"
+									aria-labelledby="headingOne"
+									data-bs-parent="#sidenavAccordionPages">
+									<nav class="sb-sidenav-menu-nested nav">
+										<a class="nav-link" href="login.html">Login</a> <a
+											class="nav-link" href="register.html">Register</a> <a
+											class="nav-link" href="password.html">Forgot Password</a>
+									</nav>
+								</div>
+								<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+									data-bs-target="#pagesCollapseError" aria-expanded="false"
+									aria-controls="pagesCollapseError"> Error
+									<div class="sb-sidenav-collapse-arrow">
+										<i class="fas fa-angle-down"></i>
+									</div>
+								</a>
+								<div class="collapse" id="pagesCollapseError"
+									aria-labelledby="headingOne"
+									data-bs-parent="#sidenavAccordionPages">
+									<nav class="sb-sidenav-menu-nested nav">
+										<a class="nav-link" href="401.html">401 Page</a> <a
+											class="nav-link" href="404.html">404 Page</a> <a
+											class="nav-link" href="500.html">500 Page</a>
+									</nav>
+								</div>
+							</nav>
+						</div>
+					</div>
+				</div>
+				<div class="sb-sidenav-footer">
+					<div class="small">Logged in as:</div>
+					AIMORI
+				</div>
+			</nav>
+		</div>
+		<div id="layoutSidenav_content">
+			<main>
+				<div class="container-fluid px-4">
+					<h2 class="mt-4">신고글 확인</h2>
+					<ol class="breadcrumb mb-4">
+						<li class="breadcrumb-item active">현재 접속한 계정 : 
+						<span style="color: red;" th:text="${currentUserId}"></span></li>
+					</ol>
+					<div class="card mb-4">
+						<div class="card-header">
+							<i class="fas fa-table me-1"></i> 신고된 글
+						</div>
+						<div class="card-body">
+							<table id="datatablesSimple">
+								<thead>
+									<tr>
+										<th>작성자</th>
+										<th>글 제목</th>
+										<th>작성일</th>
+										<th>신고수</th>
+										<th>글 표시 여부</th>
+										<th>글 삭제</th>
+										<th>계정 차단</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr><!-- th:each="reportData : ${reportData}" -->
+										<td>작성자</td><!-- th:text="${reportData.memberId}" -->
+										<td >글 제목</td>
+										<td >작성일</td>
+										<td >신고수</td>
+										<td >글 표시 여부</td>
+										<td><input type="button" value="글 삭제"></td><!-- th:reportedNumber="${reportData.reportNumber}" -->
+										<td style="padding: 0;"> <!-- 작성자 차단 -->
+											<select style="width: 84px; height: 40px; border: none;" name="block" onchange="changeValue(this.value, getAttribute('id'), getAttribute('user'), getAttribute('memberEnabled'))">
+												<option class="fontRed" value="true">차단안됨</option><!-- th:selected="${memberList.memberEnabled}"  -->
+												<option value="false">차단됨</option><!-- th:selected="${!memberList.memberEnabled}" -->
+											</select>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</main>
+			<footer class="py-4 bg-light mt-auto">
+				<div class="container-fluid px-4">
+					<div
+						class="d-flex align-items-center justify-content-between small">
+						<div class="text-muted">Copyright &copy; Your Website 2022</div>
+						<div>
+							<a href="#">Privacy Policy</a> &middot; <a href="#">Terms
+								&amp; Conditions</a>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</div>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		crossorigin="anonymous"></script>
+	<script th:src="@{/js/scripts.js}"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+		crossorigin="anonymous"></script>
+	<script th:src="@{/administrator/assets/demo/chart-area-demo.js}"></script>
+	<script th:src="@{/administrator/assets/demo/chart-bar-demo.js}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
+		crossorigin="anonymous"></script>
+	<script th:src="@{/js/datatables-simple-demo.js}"></script>
+</body>
+</html>

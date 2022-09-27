@@ -3,15 +3,21 @@ package net.softsociety.aimori.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+/**
+ * 게시글 정보
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Entrylist {
+public class Answer {
 
-	int entrylistNumber;
+	int answerNumber;
+	int questionNumber;
 	String memberId;
-	int challengeNumber;
-	int challengeSuccess;
-	int getPoint;
-	String getPointDate;
+	String memberNickName;
+	String memberRoleName;
+	String answerContents;
+	String answerInputDate;
+
 }

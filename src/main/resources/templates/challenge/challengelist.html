@@ -179,8 +179,8 @@ function pagingFormSubmit(currentPage) {
 	<!-- ****** Breadcumb Area End ****** -->
 
 	<!-- ****** Archive Area Start ****** -->
-<header>
-	<h1>[ 도전과제]</h1>
+	<header>
+   <h1>[도전과제]</h1>
 </header>
 <section>
 	<!-- 글목록 출력 영역 -->
@@ -206,7 +206,7 @@ function pagingFormSubmit(currentPage) {
 		<tr th:each="challenge : ${challengelist}">
 			<td th:text="${challenge.challengeNumber}" class="center"></td>
 			<td>
-				<a th:text="${challenge.challengeName}" th:href="@{/challenge/read(challengeNumber=${challenge.challengeNumber})}"></a>
+				<a th:text="${challenge.challengeName}" th:href="@{/challenge/challengeread(challengeNumber=${challenge.challengeNumber})}"></a>
 			</td>
 			<td th:text="${challenge.challengeRegistDay}" class="center"></td>
 			<td th:text="${challenge.challengeStartDate}"></td>
@@ -241,6 +241,13 @@ function pagingFormSubmit(currentPage) {
 	</div>
 	
 </section>
+
+
+   <div class="text-right">
+      <a class="btn btn-light" style="background-color: rgb(220, 220, 255);"
+         colspan="6" th:href="@{/challenge/challengewrite}">글쓰기</a>
+   </div>
+
 <!-- ****** Archive Area End ****** -->
 
 	<!-- ****** Instagram Area Start ****** -->

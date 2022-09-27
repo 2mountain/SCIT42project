@@ -1,0 +1,85 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.softsociety.aimori.dao.QnaDAO">
+
+	<!-- 게시글 저장 -->
+	<insert id="questionInsert" parameterType="Question">
+		insert into question (
+		questionNumber
+		, memberId
+		, questionTitle
+		, memberNickName
+		,
+		questionContents
+		, questionCategory
+		<if test="questionImageOriginal != null and questionImageSaved != null">
+			, questionImageOriginal
+			, questionImageSaved
+		</if>
+		)
+		values (
+		questionNumber_seq.nextval
+		, #{memberId}
+		, #{questionTitle}
+		,
+		#{memberNickName}
+		, #{questionContents}
+		, #{questionCategory}
+		<if test="questionImageOriginal != null and questionImageSaved != null">
+			, #{questionImageOriginal}
+			, #{questionImageSaved}
+		</if>
+		)
+	</insert>
+	
+	<select id="questionList" parameterType="map" resultType="Question">
+		select
+			questionNumber
+			, memberId
+			, questionTitle
+			, memberNickName
+			, questionInputDate
+			, questionHits
+			, questionReport
+			, questionContents
+			, questionCategory
+			, questionImageOriginal
+			, questionImageSaved
+			, answerCount
+			, answeredOrNot
+			, answerAccepted
+		from
+			question
+		order by
+			questionNumber desc
+	</select>
+	
+		<!-- 전체 글 개수 (검색 필터링 후) -->
+	<select id="countQuestion" parameterType="map" resultType="int">
+		select
+			count(questionNumber)
+		from
+			Question
+			<if test="type != null and searchWord != null">
+	<where>
+		<if test="type == 'questionTitle'">
+			questionTitle like '%' || #{searchWord} || '%'
+		</if>	
+		<if test="type == 'questionContents'">
+			questionContents like '%' || #{searchWord} || '%'
+		</if>	
+		<if test="type == 'memberId'">
+			memberId like '%' || #{searchWord} || '%'
+		</if>	
+		<if test="type == 'all'">
+			questionTitle like '%' || #{searchWord} || '%'
+			or questionContents like '%' || #{searchWord} || '%'
+			or memberId like '%' || #{searchWord} || '%'
+		</if>
+	</where> 
+	</if>
+	</select>
+
+</mapper>

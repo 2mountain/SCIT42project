@@ -71,5 +71,23 @@
 			</if>	
 			</if>
 	</select>
+	
+	<select id="readChallenge" parameterType="int" resultType="Challenge">
+	select
+	challengeNumber,
+	challengename,
+	challengecontents,
+	challengestartdate,
+	challengeenddate,
+	challengeregistday
+	from challenge
+	where challengenumber=#{challengeNumber}
+
+	</select>
+	
+	<select id="getEntrylist" parameterType="int" resultType="Entrylist">
+	select * from entrylist
+	where challengenumber=#{challengeNumber}
+	</select>
 
 </mapper>

@@ -208,23 +208,21 @@
 
 	<section>
 		<div class="container">
-			<form th:action="@{/board/write}" method="post"
+			<form th:action="@{/qna/write}" method="post"
 				enctype="multipart/form-data" onsubmit="return validation();">
 				<table class="table">
 					<tr>
-						<th id="boardCategory" style="width: 200px;" colspan="2">게시판
-							선택 <select id="boardCategory" name="boardCategory">
-								<option value="전체" th:selected="${boardCategory} == '전체'">전체</option>
-								<option value="일상" th:selected="${boardCategory} == '일상'">일상</option>
-								<option value="모임" th:selected="${boardCategory} == '모임'">같이해요(모집)</option>
-								<option value="Tip" th:selected="${boardCategory} == 'Tip'">Tip공유</option>
+						<th id="questionCategory" style="width: 200px;" colspan="2">게시판
+							선택 <select id="questionCategory" name="questionCategory">
+								<option value="일반" th:selected="${questionCategory} == '일반'">일반</option>
+								<option value="의료" th:selected="${questionCategory} == '의료'">의료</option>
 						</select>
 						</th>
 					</tr>
 					<tr>
 						<th style="width: 30px;">제목</th>
-						<td class="boardWriteFormTd"><input type="text"
-							name="boardTitle" id="boardTitle" style="width: 990px;">
+						<td class="questionWriteFormTd"><input type="text"
+							name="questionTitle" id="questionTitle" style="width: 990px;">
 						</td>
 					</tr>
 					<tr>
@@ -233,9 +231,9 @@
 					</tr>
 					<tr>
 						<th>내용</th>
-						<td class="boardWriteFormTd">
-							<textarea name="boardContents"
-								id="boardContents" style="width: 900px; height: 600px;">
+						<td class="questionWriteFormTd">
+							<textarea name="questionContents"
+								id="questionContents" style="width: 900px; height: 600px;">
 							</textarea>
 						</td>
 					</tr>
