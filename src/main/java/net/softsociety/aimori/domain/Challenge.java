@@ -15,5 +15,9 @@ public class Challenge {
  String challengeRegistDay;
  String challengeContents;
  String challengeType;
- 
+	int challPoint;
+	int firPoint;
+	int secPoint;
+	int thdPoint;
+	int sanka;
 }
