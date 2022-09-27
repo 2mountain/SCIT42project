@@ -22,12 +22,14 @@
 	</update>
 	
 	<select id="getReportedBoard" resultType="ReportedBoard">
-		SELECT r.memberid, r.boardnumber, 
-        (SELECT boardtitle FROM board WHERE boardnumber = r.boardnumber) boardtitle, 
-        (SELECT boardinputdate FROM board WHERE boardnumber = r.boardnumber) boardinputdate,
-        r.reportcategory, count(r.boardnumber) AS reportedCount
-		FROM reportdata r
-		GROUP BY r.boardnumber, r.reportcategory, r.memberid
-		ORDER BY r.boardnumber, r.reportcategory
+	SELECT r.memberid, r.boardnumber,
+	(SELECT boardtitle FROM board WHERE boardnumber = r.boardnumber) boardTitle,
+	(SELECT boardinputdate FROM board WHERE boardnumber = r.boardnumber)
+	boardInputdate,
+	r.reportcategory,
+	COUNT(r.boardnumber) AS reportCount
+	FROM reportdata r
+	GROUP BY r.boardnumber, r.reportcategory, r.memberid
+	ORDER BY r.boardnumber, r.reportcategory
 	</select>
 </mapper>

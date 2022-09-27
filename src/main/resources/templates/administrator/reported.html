@@ -14,8 +14,15 @@
 	rel="stylesheet" />
 <link th:href="@{/css/stylesAdmin.css}" rel="stylesheet" />
 <script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
-<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
-	crossorigin="anonymous"></script>
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	function deleteBoard(reportedBoardNumber, reportedBoardMember, reportedBoardTitle, reportedCategory, reportedCount){
+		if(confirm(`글 번호 : ${reportedBoardNumber}\n작성자 : ${reportedBoardMember}\n글 제목 : ${reportedBoardTitle}\n신고 사유 : ${reportedCategory}\n신고 수 : ${reportedCount}\n\n삭제하시겠습니까?`)){
+			alert();
+			
+		};
+	}
+</script>
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -170,14 +177,25 @@
 									<tr th:each="reportData : ${reportData}">
 										<td th:text="${reportData.memberId}">작성자</td>
 										<td th:text="${reportData.boardNumber}">글 번호</td>
-										<td th:text="${reportData.boardTitle}">글 제목</td>
+										<td>
+											<a th:text="${reportData.boardTitle}" th:href="@{/board/read(boardNumber=${reportData.boardNumber})}" 
+												style="text-decoration: none"> 
+												글 제목
+											</a>
+										</td>
 										<td th:text="${reportData.boardInputDate}">작성일</td>
 										<td th:text="${reportData.reportCategory}">신고사유</td>
 										<td th:text="${reportData.reportCount}">신고수</td>
 										<td style="padding:0; width:100px; height:36px;">
 											<input 
-												th:reportedNumber="${reportData.boardNumber}" 
-												type="button" style="width : 100px; height : 36px;"
+												th:reportedCount="${reportData.reportCount}"
+												th:reportedCategory="${reportData.reportCategory}"
+												th:reportedBoardTitle="${reportData.boardTitle}"
+												th:reportedBoardNumber="${reportData.boardNumber}"
+												th:reportedBoardMember="${reportData.memberId}" 
+												type="button" 
+												onclick="deleteBoard(getAttribute('reportedBoardNumber'), getAttribute('reportedBoardMember'), getAttribute('reportedBoardTitle'), getAttribute('reportedCategory'), getAttribute('reportedCount'))"
+												style="width : 100px; height : 36px;"
 												value="글 삭제">
 										</td>
 									</tr>
