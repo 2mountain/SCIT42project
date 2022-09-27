@@ -75,6 +75,10 @@ public class ChallengeServiceImpl implements ChallengeService {
 	public Challenge read(int challengeNumber) {
 		// TODO Auto-generated method stub
 		Challenge challenge = chdao.readChallenge(challengeNumber);
+		String[] challengeCutPoint = challenge.getChallengeContents().split("/");
+		challenge.setChallengeContents(challengeCutPoint[0]);
+		int challpoint = Integer.valueOf(challengeCutPoint[1]);
+		challenge.setChallPoint(challpoint);
 		return challenge;
 	}
 	

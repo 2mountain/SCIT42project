@@ -14,4 +14,5 @@ public class Entrylist {
 	int challengeSuccess;
 	int getPoint;
 	String getPointDate;
+
 }
