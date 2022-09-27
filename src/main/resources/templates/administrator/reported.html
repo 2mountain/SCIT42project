@@ -17,11 +17,13 @@
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
 	function deleteBoard(reportedBoardNumber, reportedBoardMember, reportedBoardTitle, reportedCategory, reportedCount){
-		if(confirm(`글 번호 : ${reportedBoardNumber}\n작성자 : ${reportedBoardMember}\n글 제목 : ${reportedBoardTitle}\n신고 사유 : ${reportedCategory}\n신고 수 : ${reportedCount}\n\n삭제하시겠습니까?`)){
+		if(confirm(`글 번호 : ${reportedBoardNumber}\n작성자 : ${reportedBoardMember}\n글 제목 : ${reportedBoardTitle}\n신고 사유 : ${reportedCategory}\n신고 수 : ${reportedCount}\n\n삭제하시겠습니까?`))
+		{
 			$.ajax({
-				url : 'administrator/deleteBoard',
+				url : 'deleteBoard',
 				type : 'post',
 				data : {boardNumber : reportedBoardNumber, memberId : reportedBoardMember},
+				dataType : 'json',
 				success : function(result){
 					alert(result);
 				},
