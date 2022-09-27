@@ -153,6 +153,8 @@ public class AdministratorController {
 		
 		// 해당 번호의 글 정보 조회
 		Board board = bService.boardRead(boardNumber);
+		log.debug("deleteBoard board : {}", board);
+
 
 		if (board == null) {
 			return "redirect:/administrator/reported";
