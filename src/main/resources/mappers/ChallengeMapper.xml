@@ -90,4 +90,21 @@
 	where challengenumber=#{challengeNumber}
 	</select>
 
+	<update id="giveMemberPoint" parameterType="map">
+	update members
+	set
+	memberpoint=memberpoint+#{point}
+	where
+	memberid=#{memberId}
+	</update>
+
+	<update id="giveEntrylistPoint" parameterType="map">
+	update entrylist
+	set
+	getPoint=#{point},
+	getPointDate=sysdate
+	where
+	entrylistnumber=#{entrylistNumber}
+	</update>
+	
 </mapper>

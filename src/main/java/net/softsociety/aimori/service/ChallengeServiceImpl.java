@@ -90,7 +90,26 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return entrylist;
 	}
 
-	
+	@Override
+	public int givepoint(int point, String memberId,int entrylistNumber) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("memberId", memberId);
+		map.put("point", point);
+		map.put("entrylistNumber",entrylistNumber);
+		
+		int result = chdao.giveMemberPoint(map);
+		int result2 = chdao.giveEntrylistPoint(map);
+
+		
+ 				if(result!=0&&result!=0)
+ 				{
+ 					return result;
+ 				}
+ 				
+ 				return 0;
+ 				
+	}
+
 	
 
 	
