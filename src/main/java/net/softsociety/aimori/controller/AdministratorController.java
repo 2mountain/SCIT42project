@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
 import net.softsociety.aimori.domain.Member;
+import net.softsociety.aimori.domain.ReportedBoard;
 import net.softsociety.aimori.service.AdministratorService;
 import net.softsociety.aimori.service.FacilitiesService;
 
@@ -121,14 +122,14 @@ public class AdministratorController {
 			log.debug("[AdministratorController] Administrator - NOT ADMIN");
 			return "관리자만 접근 가능";
 		}
-		
-		// 회원 정보를 VIEW로 보냄
-		List<Member> list = aService.getMemberList();
-		log.debug("[AdministratorController] list : {}", list);
-		
-		// 현재 접속중인 계정의 ID를 VIEW로 보냄
+		// 현재 접속중인 계정의 ID를 VIEW로 전달
 		model.addAttribute("currentUserId", user.getUsername());
-		// 모든 회원 정보를 VIEW로 보냄
+		
+		/********************************************* 신고된 글 출력 *********************************************/
+		List<ReportedBoard> list = aService.getReportedBoard();
+		log.debug("[AdministratorController] getReportedBoard : {}", list);
+		
+		// 신고된 글 VIEW로 전달
 		model.addAttribute("reportData", list);
 		
 		return "administrator/reported";

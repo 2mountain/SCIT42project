@@ -3,6 +3,7 @@ package net.softsociety.aimori.service;
 import java.util.List;
 
 import net.softsociety.aimori.domain.Member;
+import net.softsociety.aimori.domain.ReportedBoard;
 
 public interface AdministratorService {
 	/**
@@ -24,4 +25,10 @@ public interface AdministratorService {
 	 * @return 0 || 1
 	 */
 	public int changeRole(Member member);
+
+	/**
+	 * 신고된 글 전체 출력
+	 * @return 신고된 글 리스트
+	 */
+	public List<ReportedBoard> getReportedBoard();
 }
