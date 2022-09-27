@@ -223,6 +223,7 @@
 						<th class="center">작성자</th>
 						<th style="text-align: center; width: 200px">작성일</th>
 						<th style="text-align: center; width: 100px;">조회</th>
+						<th style="text-align: center; width: 200px;">상태</th>
 					</tr>
 					<tr th:each="question : ${questionlist}">
 						<td class="center" th:text="${question.questionCategory}"></td>
@@ -231,10 +232,10 @@
 							<div th:if="${question.questionImageSaved != null}">
 								<a th:text="${question.questionTitle}"
 									th:href="@{/qna/read(questionNumber=${question.questionNumber})}"></a>
-								<img th:src="@{/img/board-img/blankImage.png}" width="20">
+								<!-- <img th:src="@{/img/board-img/blankImage.png}" width="20">
 								<a th:if="${question.replyCount != 0}"
 									th:text="'[' + ${question.replyCount} + ']'"
-									th:href="@{/qna/read(questionNumber=${question.questionNumber})}"></a>
+									th:href="@{/qna/read(questionNumber=${question.questionNumber})}"></a> -->
 							</div>
 							<div th:if="${question.questionImageSaved == null}">
 								<a th:text="${question.questionTitle}"
@@ -249,6 +250,7 @@
 						<td style="text-align: center" th:text="${question.questionInputDate}"></td>
 						<td style="text-align: center;" th:text="${question.questionHits}"></td>
 						<!-- <td style="text-align: center;" th:text="${question.questionCount}"></td> -->
+						<td style="text-align: center;" th:text="답변대기"></td>
 					</tr>
 				</table>
 			</div>
