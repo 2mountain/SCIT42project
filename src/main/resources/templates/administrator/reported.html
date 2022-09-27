@@ -158,22 +158,24 @@
 								<thead>
 									<tr>
 										<th>작성자</th>
+										<th>글 번호</th>
 										<th>글 제목</th>
 										<th>작성일</th>
+										<th>신고사유</th>
 										<th>신고수</th>
-										<th>글 표시 여부</th>
 										<th>글 삭제</th>
 										<th>계정 차단</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr><!-- th:each="reportData : ${reportData}" -->
-										<td>작성자</td><!-- th:text="${reportData.memberId}" -->
-										<td >글 제목</td>
-										<td >작성일</td>
-										<td >신고수</td>
-										<td >글 표시 여부</td>
-										<td><input type="button" value="글 삭제"></td><!-- th:reportedNumber="${reportData.reportNumber}" -->
+									<tr th:each="reportData : ${reportData}">
+										<td th:text="${reportData.memberId}">작성자</td>
+										<td th:text="${reportData.boardNumber}">글 번호</td>
+										<td th:text="${reportData.boardTitle}">글 제목</td>
+										<td th:text="${reportData.boardInputDate}">작성일</td>
+										<td th:text="${reportData.reportCategory}">신고사유</td>
+										<td th:text="${reportData.reportCount}">신고수</td>
+										<td><input th:reportedNumber="${reportData.boardNumber}" type="button" value="글 삭제"></td><!--  -->
 										<td style="padding: 0;"> <!-- 작성자 차단 -->
 											<select style="width: 84px; height: 40px; border: none;" name="block" onchange="changeValue(this.value, getAttribute('id'), getAttribute('user'), getAttribute('memberEnabled'))">
 												<option class="fontRed" value="true">차단안됨</option><!-- th:selected="${memberList.memberEnabled}"  -->
