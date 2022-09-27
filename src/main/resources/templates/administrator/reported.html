@@ -24,8 +24,12 @@
 				type : 'post',
 				data : {boardNumber : reportedBoardNumber, memberId : reportedBoardMember},
 				success : function(result){
-					alert(result);
-					location.href="/aimori/administrator/reported";
+					if(result === 'success'){
+						alert('삭제 되었습니다!');
+						location.href="/aimori/administrator/reported";
+					} else {
+						alert('삭제 실패!');
+					}
 				},
 				error : function(e){
 					alert('실패');

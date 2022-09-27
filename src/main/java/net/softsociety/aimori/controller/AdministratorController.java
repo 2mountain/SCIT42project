@@ -157,7 +157,7 @@ public class AdministratorController {
 
 
 		if (board == null) {
-			return "redirect:/administrator/reported";
+			return "삭제 실패";
 		}
 
 		// 첨부된 파일명 확인
@@ -175,6 +175,10 @@ public class AdministratorController {
 			FileService.deleteFile(uploadPath + "/" + savedfile);
 		}
 		
-		return "success";
+		if(result == 1) {
+			return "success";
+		} else {
+			return "failed";
+		}
 	}
 }
