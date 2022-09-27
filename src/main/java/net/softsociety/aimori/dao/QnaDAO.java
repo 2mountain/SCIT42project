@@ -21,6 +21,9 @@ public interface QnaDAO {
 	public ArrayList<Question> questionList(HashMap<String, String> map, RowBounds rb);
 	// 전체 글 개수
 	public int countQuestion(HashMap<String, String> map);
-
+	// 글읽기
+	public Question questionRead(int questionNumber);
+	// 조회수 증가
+	public int updateHits(int questionNumber);
 
 }

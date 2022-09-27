@@ -81,5 +81,42 @@
 	</where> 
 	</if>
 	</select>
+	
+	<!-- 한 개 게시글 읽기 -->
+		<!-- 한 개 게시글 읽기 -->
+	<select id="questionRead" parameterType="int" resultType="Question">
+		select
+			questionNumber
+			, memberId
+			, questionTitle
+			, memberNickName
+			, to_char(questionInputDate, 'YYYY-MM-DD') questionInputDate
+			<!-- , to_char(boardInputDate, 'YYYY-MM-DD HH24:MI:SS') boardInputDate -->
+			, questionHits
+			, questionReport
+			, questionContents
+			, questionCategory
+			, questionImageOriginal
+			, questionImageSaved
+			, answerCount
+			, answeredOrNot
+			, answerAccepted
+		from
+			Question
+		where
+			questionNumber =
+			#{questionNumber}
+	</select>
+	
+	<!-- 조회수 1 증가 -->
+	<update id="updateHits" parameterType="int">
+		update
+			Question
+		set
+			questionHits =
+			questionHits + 1
+		where
+		questionNumber = #{questionNumber}
+	</update>
 
 </mapper>

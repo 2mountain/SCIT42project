@@ -11,7 +11,7 @@
 <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 <!-- Title -->
-<title>Board</title>
+<title>Q&A</title>
 
 <!-- Favicon -->
 <link rel="icon" th:href="@{/img/core-img/favicon.ico}">
@@ -43,34 +43,34 @@
 <script>
 
 	// 글 삭제
-	function deleteBoard(num) {
+	function deleteQuestion(num) {
 		if (confirm('삭제하시겠습니까?')) {
-			location.href = 'delete?boardNumber=' + num;
+			location.href = 'delete?questionNumber=' + num;
 		}
 	}
 	
 	// 댓글 작성
-	function validation() {
+	/* function validation() {
 		let replytext = document.getElementById('replyContents');
 		if (replytext.value.length < 3) {
 			alert('댓글 3자 이상으로 작성해주세요.');
 			return false;
 		}
 		return true;
-	}
+	} */
 	
 	// 댓글 수정
-	function replyUpdate(replyNumber, boardNumber) {
+	/* function replyUpdate(replyNumber, boardNumber) {
 		alert(replyNumber);
 		$('#re' + replyNumber).html('');
-	}
+	} */
 	
 	// 댓글 삭제
-	function replyDelete(replyNumber, boardNumber) {
+	/* function replyDelete(replyNumber, boardNumber) {
 		if (confirm('삭제하시겠습니까?')) {
 			location.href = 'replyDelete?replyNumber=' + replyNumber + '&boardNumber=' + boardNumber;
 		}
-	}
+	} */
 	
 </script>
 
@@ -96,7 +96,7 @@
 				url : 'recommend',
 				method : 'get',
 				data : {
-					boardNumber : boardNumber
+					questionNumber : questionNumber
 				},
 				success : function(isLiked) {
 					
@@ -222,7 +222,7 @@
 			<div class="row h-100 align-items-center">
 				<div class="col-12">
 					<div class="bradcumb-title text-center">
-						<h2>Aimori Community~~!!</h2>
+						<h2>Aimori Q&A</h2>
 					</div>
 				</div>
 			</div>
@@ -237,15 +237,15 @@
 							<li class="breadcrumb-item"><a th:href="@{/}"><i
 									class="fa fa-home" aria-hidden="true"></i>Home</a></li>
 							<li class="breadcrumb-item active" aria-current="page">Aimori
-								Community</li>
+								Q&A</li>
 						</ol>
 						<div class="pull-right">
-							<a th:href="@{/board/list}">글목록</a>
+							<a th:href="@{/qna/list}">글목록</a>
 						</div>
 						<br>
 						<hr>
 						<ol>
-							<li><h5 th:text="${board.boardTitle}"
+							<li><h5 th:text="${question.questionTitle}"
 									style="text-align: center;"></h5></li>
 						</ol>
 						<hr>
@@ -265,83 +265,97 @@
 			<table class="table">
 				<tr>
 					<th class="readCenter">작성자</th>
-					<td th:text="${board.memberId}" style="width: 600px;"></td>
+					<td th:text="${question.memberId}" style="width: 600px;"></td>
 				</tr>
 				<tr>
 					<th class="readCenter">작성일</th>
-					<td th:text="${board.boardInputDate}"></td>
+					<td th:text="${question.questionInputDate}"></td>
 				</tr>
 				<tr>
 					<th class="readCenter">조회수</th>
-					<td th:text="${board.boardHits}"></td>
+					<td th:text="${question.questionHits}"></td>
 				</tr>
 				<tr>
 					<th class="readCenter">제목</th>
-					<td th:text="${board.boardTitle}"></td>
+					<td th:text="${question.questionTitle}"></td>
 				</tr>
 				<tr>
-					<th class="readCenter" id="boardReadContents">내용</th>
-					<td><textarea name="boardContents"
+					<th class="readCenter" id="questionReadContents">내용</th>
+					<td><textarea name="questionContents"
 							style="width: 900px; height: 600px;" id="contents"
-							th:text="${board.boardContents}" readonly>
+							th:text="${question.questionContents}" readonly>
 							</textarea>
 					</td>
 				</tr>
 				<tr>
 					<th style="text-align: center;">파일첨부</th>
 					<td><a
-						th:href="@{/board/download(boardNumber=${board.boardNumber})}"
-						th:text="${board.boardImageOriginal}"></a>
+						th:href="@{/question/download(questionNumber=${question.questionNumber})}"
+						th:text="${question.questionImageOriginal}"></a>
 						<!-- temp -->
-						<img th:src="@{/img/fileSave/} + ${board.boardImageSaved}" width="100">
+						<img th:src="@{/img/fileSave/} + ${question.questionImageSaved}" width="100">
 					</td>
 				</tr>
 				<tr>
 					<th sec:authorize="isAuthenticated()" colspan="2" style="background-color: white;">
 						<div class="pull-right">
-							<a th:if="${ifLiked.boardLikedNumber == 0}">
-							<img th:src="@{/img/board-img/heartEmpty.png}" width="50"
-								type="button" id="recommendbtn"
-								th:boardNumber="${board.boardNumber}">
-							</a>
-							<a th:if="${ifLiked.boardLikedNumber != 0}">
-							<img th:src="@{/img/board-img/heartFull.png}" width="50"
-								type="button" id="recommendbtn"
-								th:boardNumber="${board.boardNumber}">
-							</a>
-							<span id="liked" style="font-size: 25px;"
-								th:text="${boardLikedData}"></span>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<a>
 								<img th:src="@{/img/board-img/report.png}" width="50">
 							</a>
 						</div>
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
 					</th>
 				</tr>
 			</table>
-			<div  th:if="${#authentication.name} == ${board.memberId}"
+			<div  th:if="${#authentication.name} == ${question.memberId}"
 					class="pull-right">
 				<a class="btn btn-primary"
 					style="background-color: rgb(220, 220, 255);"
-					th:href="@{/board/update(boardNumber=${board.boardNumber})}">수정</a>
+					th:href="@{/qna/update(questionNumber=${question.questionNumber})}">수정</a>
 				<a class="btn btn-primary"
 					style="background-color: rgb(220, 220, 255);"
-					th:href="|javascript:deleteBoard(${board.boardNumber})|">삭제</a>
+					th:href="|javascript:deleteQuestion(${question.questionNumber})|">삭제</a>
 			</div>
 			<br>
 
-			<!-- <div th:if="${#authentication.name} == ${board.memberId}"> -->
+			<!-- <div th:if="${#authentication.name} == ${question.memberId}"> -->
 
 		</div>
 		
 		<!-- 리플 작성 폼 -->
-		<div style="height: 30px;">
+<!-- 		<div style="height: 30px;">
 		</div>
 
 		<div class="container">
 		<hr sec:authorize="isAuthenticated()">
 			<div sec:authorize="isAuthenticated()" class="card-body" style="padding-left: 200px;">
-				<form class="form-horizontal" th:action="@{/board/replyInsert}" method="post" onsubmit="return validation();">
+				<form class="form-horizontal" th:action="@{/qna/replyInsert}" method="post" onsubmit="return validation();">
 				<input type="hidden" name="boardNumber" th:value="${board.boardNumber}">
 					<div class="row">
 						<div class="form-group col-sm-10">
@@ -354,11 +368,11 @@
 				</form>
 			</div>
 		<hr>
-		
+		 -->
 		
 		
 		<!-- 리플 목록 출력 시작 -->
-		<div class="pull-left" style="padding-left: 200px; font-size: 20px; height: 60px;">
+<!-- 		<div class="pull-left" style="padding-left: 200px; font-size: 20px; height: 60px;">
 		<a th:text="'댓글' + '[' + ${board.replyCount} + ']'" ></a>
 		</div>
 		<div class="container" style="padding-left: 210px;">
@@ -387,7 +401,7 @@
 		
 		
 		
-		</div>
+		</div> -->
                         
 	</section>
 
@@ -604,7 +618,7 @@
 									id="yummyfood-footer-nav">
 									<ul class="navbar-nav">
 										<li class="nav-item active"><a class="nav-link"
-											th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
+											th:href="@{/qna/list}">커뮤니티 <span class="sr-only">(current)</span></a>
 										</li>
 										<li class="nav-item"><a class="nav-link"
 											th:href="@{/facilities}">시설</a></li>

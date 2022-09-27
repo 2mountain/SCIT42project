@@ -10,7 +10,7 @@
 <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 <!-- Title -->
-<title>Board</title>
+<title>Q&A</title>
 
 <!-- Favicon -->
 <link rel="icon" th:href="@{/img/core-img/favicon.ico}">
@@ -49,8 +49,8 @@
 <script>
 	//글쓰기폼 확인
 	function validation() {
-		let title = document.getElementById('boardTitle');
-		let contents = document.getElementById('boardContents');
+		let title = document.getElementById('questionTitle');
+		let contents = document.getElementById('questionContents');
 
 		if (title.value.length < 2) {
 			alert("제목을 입력하세요.");
@@ -189,7 +189,7 @@
 								Community</li>
 						</ol>
 						<div class="pull-right">
-							<a th:href="@{/board/list}">글목록</a>
+							<a th:href="@{/qna/list}">글목록</a>
 						</div>
 						<br>
 						<br>
@@ -508,7 +508,7 @@
 	<!-- test -->
 	<script th:src="@{/ckeditor/build/ckeditor.js}"></script>
 	<script>
-		ClassicEditor.create(document.querySelector('#boardContents'));
+		ClassicEditor.create(document.querySelector('#questionContents'));
 	</script>
 
 </body>

@@ -58,6 +58,14 @@ public class QnaSeviceImpl implements QnaService {
 		return questionlist;
 	}
 
+	// 글읽기
+	@Override
+	public Question questionRead(int questionNumber) {
+		int result = qnaDAO.updateHits(questionNumber);
+		Question question = qnaDAO.questionRead(questionNumber);
+		return question;
+	}
+
 
     
 	
