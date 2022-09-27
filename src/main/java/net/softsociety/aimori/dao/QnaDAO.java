@@ -25,5 +25,9 @@ public interface QnaDAO {
 	public Question questionRead(int questionNumber);
 	// 조회수 증가
 	public int updateHits(int questionNumber);
+	// 글 수정
+	public int questionUpdate(Question question);
+	// 글 삭제
+	public int questionDelete(Question question);
 
 }

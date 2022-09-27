@@ -118,5 +118,31 @@
 		where
 		questionNumber = #{questionNumber}
 	</update>
+	
+	<!-- 글 수정 -->
+	<update id="questionUpdate" parameterType="Question">
+		update
+			question
+		set
+		questionTitle = #{questionTitle}
+		, questionContents = #{questionContents}
+		, questionCategory = #{questionCategory}
+		<if test="questionImageOriginal != null and questionImageSaved != null">
+			, questionImageOriginal = #{questionImageOriginal}
+			, questionImageSaved = #{questionImageSaved}
+		</if>
+		where
+			questionNumber = #{questionNumber}
+			and memberId = #{memberId}
+	</update>
+	
+	<!-- 글 삭제 -->
+	<delete id="questionDelete" parameterType="Question">
+		delete from
+			question
+		where
+			questionNumber = #{questionNumber}
+			and memberId = #{memberId}
+	</delete>
 
 </mapper>

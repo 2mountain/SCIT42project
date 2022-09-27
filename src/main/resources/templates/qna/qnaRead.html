@@ -281,10 +281,11 @@
 				</tr>
 				<tr>
 					<th class="readCenter" id="questionReadContents">내용</th>
-					<td><textarea name="questionContents"
-							style="width: 900px; height: 600px;" id="contents"
-							th:text="${question.questionContents}" readonly>
-							</textarea>
+					<td><pre name="questionContents"
+							style="width: 900px; height: 200px;" id="contents"
+							th:utext="${question.questionContents}">
+							</pre>
+							<img th:src="@{/img/fileSave/} + ${question.questionImageSaved}">
 					</td>
 				</tr>
 				<tr>
@@ -304,32 +305,6 @@
 								<img th:src="@{/img/board-img/report.png}" width="50">
 							</a>
 						</div>
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
 					</th>
 				</tr>
 			</table>

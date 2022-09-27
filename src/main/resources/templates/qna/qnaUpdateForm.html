@@ -10,7 +10,7 @@
 <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 <!-- Title -->
-<title>Board</title>
+<title>Q&A</title>
 
 <!-- Favicon -->
 <link rel="icon" th:href="@{/img/core-img/favicon.ico}">
@@ -179,7 +179,7 @@
 			<div class="row h-100 align-items-center">
 				<div class="col-12">
 					<div class="bradcumb-title text-center">
-						<h2>Aimori Community~~!!</h2>
+						<h2>Aimori Q&A</h2>
 					</div>
 				</div>
 			</div>
@@ -194,10 +194,10 @@
 							<li class="breadcrumb-item"><a th:href="@{/home}"><i
 									class="fa fa-home" aria-hidden="true"></i>Home</a></li>
 							<li class="breadcrumb-item active" aria-current="page">Aimori
-								Community</li>
+								Q&A</li>
 						</ol>
 						<div class="pull-right">
-							<a th:href="@{/board/list}">글목록</a>
+							<a th:href="@{/qna/list}">글목록</a>
 						</div>
 						<br>
 					</nav>
@@ -212,39 +212,37 @@
 	<section>
 		<div class="container">
 			<!-- 바이너리 데이터 포함되는 폼. enctype 반드시 정확히 지정 -->
-			<form th:action="@{/board/update}" method="post"
+			<form th:action="@{/qna/update}" method="post"
 				enctype="multipart/form-data" onsubmit="return validation();">
 
-				<input type="hidden" name="boardNumber"
-					th:value="${board.boardNumber}">
+				<input type="hidden" name="questionNumber"
+					th:value="${question.questionNumber}">
 
 				<table class="table">
 					<tr>
-						<th id="boardCategory" style="width: 200px;" colspan="2">게시판
-							변경 <select id="boardCategory" name="boardCategory">
-								<option value="전체" th:selected="${boardCategory} == '전체'">전체</option>
-								<option value="일상" th:selected="${boardCategory} == '일상'">일상</option>
-								<option value="모임" th:selected="${boardCategory} == '모임'">같이해요(모집)</option>
-								<option value="Tip" th:selected="${boardCategory} == 'Tip'">Tip공유</option>
+						<th id="questionCategory" style="width: 200px;" colspan="2">게시판
+							변경 <select id="questionCategory" name="questionCategory">
+								<option value="일반" th:selected="${questionCategory} == '일반'">일반</option>
+								<option value="의료" th:selected="${questionCategory} == '의료'">의료</option>
 						</select>
 						</th>
 					</tr>
 					<tr>
 						<th style="width: 30px;">제목</th>
-						<td class="boardUpdateFormTd"><input type="text"
-							name="boardTitle" id="title" th:value="${board.boardTitle}"
+						<td class="questionUpdateFormTd"><input type="text"
+							name="questionTitle" id="title" th:value="${question.questionTitle}"
 							style="width: 990px;"></td>
 					</tr>
 					<tr>
 						<th>내용</th>
-						<td class="boardUpdateFormTd"><textarea name="boardContents"
+						<td class="questionUpdateFormTd"><textarea name="questionContents"
 								style="width: 900px; height: 600px;" id="contents"
-								th:text="${board.boardContents}"></textarea></td>
+								th:text="${question.questionContents}"></textarea></td>
 					</tr>
 					<tr>
 						<th>파일첨부</th>
 						<td><input type="file" name="upload"> 
-						<span th:text="${board.boardImageOriginal}"></span></td>
+						<span th:text="${question.questionImageOriginal}"></span></td>
 					</tr>
 					<tr>
 						<td colspan="2" class="white center"><input type="submit"

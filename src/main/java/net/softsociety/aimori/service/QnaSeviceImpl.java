@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.extern.slf4j.Slf4j;
 import net.softsociety.aimori.dao.QnaDAO;
-import net.softsociety.aimori.domain.Board;
 import net.softsociety.aimori.domain.Question;
 import net.softsociety.aimori.util.PageNavigator;
 
@@ -65,6 +64,19 @@ public class QnaSeviceImpl implements QnaService {
 		Question question = qnaDAO.questionRead(questionNumber);
 		return question;
 	}
+	
+	// 글수정
+	@Override
+	public int questionUpdate(Question question) {
+		int result = qnaDAO.questionUpdate(question);
+		return result;
+	}
+	
+	// 글삭제
+	@Override
+	public int questionDelete(Question question) {
+		int result = qnaDAO.questionDelete(question);
+		return result;	}
 
 
     
