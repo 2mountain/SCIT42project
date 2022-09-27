@@ -40,7 +40,7 @@
 			, memberId
 			, questionTitle
 			, memberNickName
-			, questionInputDate
+			, to_char(questionInputDate, 'YYYY-MM-DD') questionInputDate
 			, questionHits
 			, questionReport
 			, questionContents
