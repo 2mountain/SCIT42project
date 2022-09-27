@@ -3,6 +3,7 @@ package net.softsociety.aimori.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -13,10 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
+import net.softsociety.aimori.domain.Board;
 import net.softsociety.aimori.domain.Member;
 import net.softsociety.aimori.domain.ReportedBoard;
 import net.softsociety.aimori.service.AdministratorService;
+import net.softsociety.aimori.service.BoardService;
 import net.softsociety.aimori.service.FacilitiesService;
+import net.softsociety.aimori.util.FileService;
 
 @Slf4j
 @RequestMapping("administrator")
@@ -24,10 +28,17 @@ import net.softsociety.aimori.service.FacilitiesService;
 public class AdministratorController {
 	
 	@Autowired
+	BoardService bService;
+	
+	@Autowired
 	AdministratorService aService;
 	
 	@Autowired
 	FacilitiesService fService;
+	
+	// 게시판 첨부파일 업로드 경로
+	@Value("${spring.servlet.multipart.location}")
+	String uploadPath;
 	
 	@GetMapping({"","/"})
 	public String Administrator(@AuthenticationPrincipal UserDetails user, Model model) {
@@ -133,5 +144,35 @@ public class AdministratorController {
 		model.addAttribute("reportData", list);
 		
 		return "administrator/reported";
+	}
+	
+	@ResponseBody
+	@PostMapping("/deleteBoard")
+	public String deleteBoard(int boardNumber, String memberId) {
+		log.debug("[AdministratorController] deleteBoard - param : {}, {}", boardNumber, memberId);
+		
+		// 해당 번호의 글 정보 조회
+		Board board = bService.boardRead(boardNumber);
+
+		if (board == null) {
+			return "redirect:/administrator/reported";
+		}
+
+		// 첨부된 파일명 확인
+		String savedfile = board.getBoardImageSaved();
+
+		// 로그인 아이디를 board객체에 저장
+		board.setMemberId(memberId);
+		// board.setMemberId("test1");
+
+		// 글 삭제
+		int result = bService.boardDelete(board);
+
+		// 글 삭제 성공 and 첨부된 파일이 있는 경우 파일도 삭제
+		if (result == 1 && savedfile != null) {
+			FileService.deleteFile(uploadPath + "/" + savedfile);
+		}
+		
+		return "success";
 	}
 }
