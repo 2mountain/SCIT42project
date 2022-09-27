@@ -325,7 +325,7 @@
 		boardNumber = #{boardNumber}
 	</update>
 	
-		<!-- 댓글 개수 -1 -->
+	<!-- 댓글 개수 -1 -->
 	<update id="replyMinus" parameterType="int">
 	update board
 	set

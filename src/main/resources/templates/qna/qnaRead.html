@@ -50,27 +50,27 @@
 	}
 	
 	// 댓글 작성
-	/* function validation() {
-		let replytext = document.getElementById('replyContents');
-		if (replytext.value.length < 3) {
+	function validation() {
+		let answertext = document.getElementById('answerContents');
+		if (answertext.value.length < 3) {
 			alert('댓글 3자 이상으로 작성해주세요.');
 			return false;
 		}
 		return true;
-	} */
+	}
 	
 	// 댓글 수정
-	/* function replyUpdate(replyNumber, boardNumber) {
-		alert(replyNumber);
-		$('#re' + replyNumber).html('');
-	} */
+	function answerUpdate(answerNumber, questionNumber) {
+		alert(answerNumber);
+		$('#re' + answerNumber).html('');
+	}
 	
 	// 댓글 삭제
-	/* function replyDelete(replyNumber, boardNumber) {
+	function answerDelete(answerNumber, questionNumber) {
 		if (confirm('삭제하시겠습니까?')) {
-			location.href = 'replyDelete?replyNumber=' + replyNumber + '&boardNumber=' + boardNumber;
+			location.href = 'answerDelete?answerNumber=' + answerNumber + '&questionNumber=' + questionNumber;
 		}
-	} */
+	}
 	
 </script>
 
@@ -200,8 +200,9 @@
 								<li class="nav-item active"><a class="nav-link" th:href="@{/board/boardImage}">커뮤니티 <span
 											class="sr-only">(current)</span></a>
 								</li>
-								
-						
+								<li class="nav-item"><a class="nav-link"
+									th:href="@{/qna/list}">Q&A <span class="sr-only">(current)</span></a>
+								</li>
 								<li class="nav-item"><a class="nav-link" th:href="@{/facilities}">시설</a></li>
 								<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
 								<li class="nav-item"><a class="nav-link" href="#">챌린지</a></li>
@@ -323,18 +324,18 @@
 
 		</div>
 		
-		<!-- 리플 작성 폼 -->
-<!-- 		<div style="height: 30px;">
+		<!-- 답변 작성 폼 -->
+		<div style="height: 30px;">
 		</div>
 
 		<div class="container">
 		<hr sec:authorize="isAuthenticated()">
 			<div sec:authorize="isAuthenticated()" class="card-body" style="padding-left: 200px;">
-				<form class="form-horizontal" th:action="@{/qna/replyInsert}" method="post" onsubmit="return validation();">
-				<input type="hidden" name="boardNumber" th:value="${board.boardNumber}">
+				<form class="form-horizontal" th:action="@{/qna/answerInsert}" method="post" onsubmit="return validation();">
+				<input type="hidden" name="questionNumber" th:value="${question.questionNumber}">
 					<div class="row">
 						<div class="form-group col-sm-10">
-							<textarea class="form-control input-sm" type="text" id="replyContents" name="replyContents" placeholder="댓글 입력..." style="height : 100px; border: solid 1px gray;"></textarea>
+							<textarea class="form-control input-sm" type="text" id="answerContents" name="answerContents" placeholder="답변 입력..." style="height : 200px; border: solid 1px gray;"></textarea>
 						</div>
 						<div style="padding-top: 10px">
 							<input class="btn btn-primary btn-sm" type="submit" value="등록">
@@ -342,41 +343,56 @@
 					</div>
 				</form>
 			</div>
-		<hr>
-		 -->
-		
-		
-		<!-- 리플 목록 출력 시작 -->
-<!-- 		<div class="pull-left" style="padding-left: 200px; font-size: 20px; height: 60px;">
-		<a th:text="'댓글' + '[' + ${board.replyCount} + ']'" ></a>
 		</div>
+		<hr>
+		
+		
+		
+		<!-- 답변 목록 출력 시작 -->
+		<div class="pull-left" style="padding-left: 200px; font-size: 20px; height: 60px;">
+		<a th:text="'답변' + '[' + ${question.answerCount} + ']'" ></a>
+		</div>
+		<div style="height: 50px;"></div>
+		
+		
+		
 		<div class="container" style="padding-left: 210px;">
-			<table class="reply">
-			
-				<tr th:each="reply : ${replylist}">
-					<td class="memberId" th:text="${reply.memberId}"></td>
-					<td class="replyContents" th:text="${reply.replyContents}" th:id="'re'+${reply.replyNumber}"></td>
-					<td class="replyInputDate" th:text="${reply.replyInputDate}" style="width: 200px;"></td>
-					<td>
+			<table class="answer" th:each="answer : ${answerlist}">
+				<tr>
+					<td class="memberId" th:text="${answer.memberId} + ' / ' + ${answer.answerInputDate}"></td>
+				<tr>
+					<td class="answerContents form-group col-sm-10" th:text="${answer.answerContents}" th:id="'re'+${answer.answerNumber}"
+					style="height: 300px; border-width: 1px solid gray;">
+					<!-- <div class="form-group col-sm-10">
+							<textarea class="form-control input-sm" type="text" id="answerContents" name="answerContents" placeholder="답변 입력..." style="height : 200px; border: solid 1px gray;"></textarea>
+					</div> -->
+					</td>
+				</tr>
+				<tr>
+					<td style="padding-left: 800px;">
+						<a class="btn btn-success btn-sm" style="color: white;"
+						th:href="|javascript:answerAccepted(${answer.answerNumber}, ${question.questionNumber})|">
+						채택</a>
+					</td>
+				</tr>
+				<tr>
+					<td style="padding-left: 750px;">
 						<a class="btn btn-secondary btn-sm" style="color: white;"
-						th:href="|javascript:replyUpdate(${reply.replyNumber}, ${reply.boardNumber})|">
-						수정
-						</a>
-						<span th:if="${#authentication.name} == ${reply.memberId}">
+						th:href="|javascript:answerUpdate(${answer.answerNumber}, ${answer.questionNumber})|">
+						수정</a>
+						<span th:if="${#authentication.name} == ${answer.memberId}">
 						<a  class="btn btn-secondary btn-sm" style="color: white;"
-						th:href="|javascript:replyDelete(${reply.replyNumber}, ${reply.boardNumber})|">
-						삭제
-						</a>
+						th:href="|javascript:answerDelete(${answer.answerNumber}, ${answer.questionNumber})|">
+						삭제</a>
 						</span>
 					</td>
 				</tr>
-
 			</table>
 		</div>
 		
 		
 		
-		</div> -->
+		</div>
                         
 	</section>
 

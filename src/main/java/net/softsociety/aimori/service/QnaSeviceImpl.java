@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.extern.slf4j.Slf4j;
 import net.softsociety.aimori.dao.QnaDAO;
+import net.softsociety.aimori.domain.Answer;
 import net.softsociety.aimori.domain.Question;
 import net.softsociety.aimori.util.PageNavigator;
 
@@ -77,6 +78,42 @@ public class QnaSeviceImpl implements QnaService {
 	public int questionDelete(Question question) {
 		int result = qnaDAO.questionDelete(question);
 		return result;	}
+
+	// 답변 등록
+	@Override
+	public int answerInsert(Answer answer) {
+		int result = qnaDAO.answerInsert(answer);
+		return result;
+	}
+
+	// 답변 개수 +1
+	@Override
+	public int answerPlus(int questionNumber) {
+		int result = qnaDAO.answerPlus(questionNumber);
+		return result;
+	}
+
+	// 답변 목록 불러오기
+	@Override
+	public ArrayList<Answer> answerList(int questionNumber) {
+		ArrayList<Answer> answerList = qnaDAO.answerList(questionNumber);
+		return answerList;
+	}
+
+	// 답변 삭제
+	@Override
+	public int answerDelete(Answer answer) {
+		int result = qnaDAO.answerDelete(answer);
+		return result;
+	}
+
+	// 답변 개수 -1
+	@Override
+	public int answerMinus(int questionNumber) {
+		int result = qnaDAO.answerMinus(questionNumber);
+		return result;
+	}
+	
 
 
     
