@@ -50,9 +50,11 @@ public class PetController{
 	@PostMapping("/petInfoInput")
 	public String petInfoInput(Pet pet, @AuthenticationPrincipal UserDetails user, MultipartFile upload) {
 		
+		log.debug("petInfoInput_upload: {}", upload);
 		pet.setMemberId(user.getUsername());
 		
 		String petImage = FileService.saveFile(upload, uploadPath);
+		log.debug("petImage: {}", petImage);
 		pet.setPetImage(petImage);
 		
 		Pservice.petInfoInput(pet);

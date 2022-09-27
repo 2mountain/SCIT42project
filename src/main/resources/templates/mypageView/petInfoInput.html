@@ -177,7 +177,7 @@
 			</div>
 			<!-- 사이드바 메뉴목록1 -->
 			<ul class="list-group">
-				<li class="list-group-item"><a href="#">개인정보 수정</a></li>
+				<li class="list-group-item"><a th:href="@{/mypage/main}">개인정보 수정</a></li>
 				<li class="list-group-item"><a th:href="@{petPage}">애완동물 등록</a></li>
 				<li class="list-group-item"><a href="#">나의 활동</a></li>
 				<li class="list-group-item"><a href="#">의사자격신청</a></li>
@@ -194,7 +194,7 @@
 				<div class="d-flex flex-column align-items-center text-center p-3 py-5">
 					<img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
 					<label class="labels">반려견 사진 등록</label>
-					<input type="file" class="btn btn-primary btn-sm" name="petImageOriginalFile" style="overflow:hidden;">
+					<input type="file" class="btn btn-primary btn-sm" name="upload" style="overflow:hidden;">
 				</div>
 			</div>
 			<div class="col-md-5 border-right">
