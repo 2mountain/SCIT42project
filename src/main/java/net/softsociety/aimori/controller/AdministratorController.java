@@ -155,6 +155,7 @@ public class AdministratorController {
 		Board board = bService.boardRead(boardNumber);
 		log.debug("deleteBoard board : {}", board);
 
+
 		if (board == null) {
 			return "redirect:/administrator/reported";
 		}
