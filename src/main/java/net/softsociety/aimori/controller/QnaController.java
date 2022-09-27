@@ -24,7 +24,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.slf4j.Slf4j;
+import net.softsociety.aimori.domain.Answer;
 import net.softsociety.aimori.domain.Question;
+import net.softsociety.aimori.domain.Reply;
 import net.softsociety.aimori.service.QnaService;
 import net.softsociety.aimori.util.FileService;
 import net.softsociety.aimori.util.PageNavigator;
@@ -85,7 +87,8 @@ public class QnaController {
 		log.debug("searchWord 출력! :{}", searchWord);
 		log.debug("questionlist 출력! : {}", questionlist);
 
-		return "/qna/qna"; }
+		return "/qna/qna";
+	}
 
 	/**
 	 * 인기글 출력
@@ -161,9 +164,9 @@ public class QnaController {
 	 * @return
 	 */
 
-	@GetMapping("read") public String read(Model model , @RequestParam(name =
-			"questionNumber", defaultValue = "0") int questionNumber , @AuthenticationPrincipal
-			UserDetails user) {
+	@GetMapping("read") public String read(Model model
+			, @RequestParam(name = "questionNumber", defaultValue = "0") int questionNumber
+			, @AuthenticationPrincipal UserDetails user) {
 
 
 
@@ -194,27 +197,29 @@ public class QnaController {
 			// 현재 로그인 중인 회원이 해당 글에 좋아요 했는지 여부 BoardLiked boardLiked = new
 			/*BoardLiked(boardNumber, id);
 
-	  BoardLiked boardLiked2 = service.getBoardLiked(boardLiked);
+			BoardLiked boardLiked2 = service.getBoardLiked(boardLiked);
 
-	  if(boardLiked2 != null){ model.addAttribute("ifLiked", boardLiked2); }else{
-	  model.addAttribute("ifLiked", new BoardLiked()); }
+			if(boardLiked2 != null){ model.addAttribute("ifLiked", boardLiked2); }else{
+			model.addAttribute("ifLiked", new BoardLiked()); }
 
-	  log.debug("좋아요 여부 :{}", boardLiked2 );
+			log.debug("좋아요 여부 :{}", boardLiked2 );
 
-	  log.debug("boardliked 값: {}", boardliked);
+			log.debug("boardliked 값: {}", boardliked);
 
-	  model.addAttribute("boardLikedData", boardliked);
+			model.addAttribute("boardLikedData", boardliked);
 			 */
 
 		}
 
-		//	  현재 글에 달린 댓글들 ArrayList<Reply> replylist = service.replyList(boardNumber);
+		// 현재 글에 달린 댓글들
+		ArrayList<Answer> answerlist = service.answerList(questionNumber);
 
-		//	  결과를 모델에 담아서 HTML에서 출력 model.addAttribute("board", board);
-		//	  model.addAttribute("replylist", replylist);
+		// 결과를 모델에 담아서 HTML에서 출력
+		model.addAttribute("question", question);
+		model.addAttribute("answerlist", answerlist);
 
 		log.debug("question 읽어오기, {}", question);
-		//	  log.debug("reply 값 읽어오기, {}", replylist);
+		log.debug("reply 값 읽어오기, {}", answerlist);
 
 
 		model.addAttribute("question", question);
@@ -397,37 +402,40 @@ public class QnaController {
 	 * }
 	 */
 
-	// 댓글 저장
-	/*
-	 * @PostMapping("replyInsert") public String replyInsert( Reply reply
-	 * , @AuthenticationPrincipal UserDetails user) {
-	 * 
-	 * reply.setMemberId(user.getUsername()); // reply.setMemberId("test1");
-	 * reply.setMemberNickName("testUser");
-	 * 
-	 * log.debug("저장할 리플 정보 : {}", reply); int result = service.replyInsert(reply);
-	 * 
-	 * int replyPlus = service.replyPlus(reply.getBoardNumber());
-	 * 
-	 * return "redirect:/board/read?boardNumber=" + reply.getBoardNumber(); }
-	 */
+	// 답변 저장
+		@PostMapping("answerInsert")
+		public String answerInsert(
+			Answer answer
+			, @AuthenticationPrincipal UserDetails user) {
+			
+			answer.setMemberId(user.getUsername());
+			answer.setMemberNickName("testUser");
+			
+			log.debug("저장할 리플 정보 : {}", answer);
+			int result = service.answerInsert(answer);
+			
+			int replyPlus = service.answerPlus(answer.getQuestionNumber());
+			
+			return "redirect:/qna/read?questionNumber=" + answer.getQuestionNumber();
+		}
 
 	/**
 	 * 댓글 삭제
 	 * @param reply 삭제할 댓글 객체
 	 * @return 삭제 후 리다이렉트 페이지
 	 */
-	/*
-	 * @GetMapping("replyDelete") public String replyDelete( Reply reply
-	 * , @AuthenticationPrincipal UserDetails user) {
-	 * 
-	 * reply.setMemberId(user.getUsername()); // reply.setMemberId("test1");
-	 * 
-	 * int result = service.replyDelete(reply); int replyMinus =
-	 * service.replyMinus(reply.getBoardNumber());
-	 * 
-	 * return "redirect:/board/read?boardNumber=" + reply.getBoardNumber(); }
-	 */
+	@GetMapping("answerDelete")
+	public String answerDelete(
+			Answer answer
+			, @AuthenticationPrincipal UserDetails user) {
+		
+		answer.setMemberId(user.getUsername());
+		
+		int result = service.answerDelete(answer);
+		int answerMinus = service.answerMinus(answer.getQuestionNumber());
+		
+		return "redirect:/qna/read?questionNumber=" + answer.getQuestionNumber();
+	}
 
 	/**
 	 * 게시글 이미지 보기

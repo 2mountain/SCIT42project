@@ -223,7 +223,17 @@
 						<th class="center">작성자</th>
 						<th style="text-align: center; width: 200px">작성일</th>
 						<th style="text-align: center; width: 100px;">조회</th>
-						<th style="text-align: center; width: 200px;">상태</th>
+						<th style="text-align: center; width: 150px;">
+						<div id="qnaState">
+								<select id="qnaState" name="qnaState"
+									style="background-color: rgb(253, 250, 250);">
+									<option value="상태(전체)" th:selected="${questionSearch} == '상태(전체)'">상태(전체)</option>
+									<option value="답변대기" th:selected="${questionSearch} == '답변대기'">답변대기</option>
+									<option value="답변완료" th:selected="${questionSearch} == '답변완료'">답변완료</option>
+									<option value="채택" th:selected="${questionSearch} == '채택'">채택</option>
+								</select>
+							</div>
+						</th>
 					</tr>
 					<tr th:each="question : ${questionlist}">
 						<td class="center" th:text="${question.questionCategory}"></td>
@@ -232,17 +242,19 @@
 							<div th:if="${question.questionImageSaved != null}">
 								<a th:text="${question.questionTitle}"
 									th:href="@{/qna/read(questionNumber=${question.questionNumber})}"></a>
-								<!-- <img th:src="@{/img/board-img/blankImage.png}" width="20">
-								<a th:if="${question.replyCount != 0}"
-									th:text="'[' + ${question.replyCount} + ']'"
-									th:href="@{/qna/read(questionNumber=${question.questionNumber})}"></a> -->
+								<img th:src="@{/img/board-img/blankImage.png}" width="20">
+								<a th:if="${question.answerCount != 0}"
+									th:text="'[답변 ' + ${question.answerCount} + ']'"
+									th:href="@{/qna/read(questionNumber=${question.questionNumber})}"
+									style="color : blue;"></a>
 							</div>
 							<div th:if="${question.questionImageSaved == null}">
 								<a th:text="${question.questionTitle}"
 									th:href="@{/qna/read(questionNumber=${question.questionNumber})}"></a>
-								<!-- <a th:if="${question.replyCount != 0}"
-									th:text="'[' + ${question.replyCount} + ']'"
-									th:href="@{/question/read(questionNumber=${question.questionNumber})}"></a> -->
+								<a th:if="${question.answerCount != 0}"
+									th:text="'[답변 ' + ${question.answerCount} + ']'"
+									th:href="@{/question/read(questionNumber=${question.questionNumber})}"
+									style="color : blue;"></a>
 							</div>
 						</td>
 						<td class="center"><a th:text="${question.memberId}"
@@ -250,7 +262,8 @@
 						<td style="text-align: center" th:text="${question.questionInputDate}"></td>
 						<td style="text-align: center;" th:text="${question.questionHits}"></td>
 						<!-- <td style="text-align: center;" th:text="${question.questionCount}"></td> -->
-						<td style="text-align: center;" th:text="답변대기"></td>
+						<td th:if="${question.answerCount != 0}" style="text-align: center;">답변완료</td>
+						<td th:if="${question.answerCount == 0}" style="text-align: center;">답변대기</td>
 					</tr>
 				</table>
 			</div>

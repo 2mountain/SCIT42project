@@ -2,6 +2,7 @@ package net.softsociety.aimori.service;
 
 import java.util.ArrayList;
 
+import net.softsociety.aimori.domain.Answer;
 import net.softsociety.aimori.domain.Question;
 import net.softsociety.aimori.util.PageNavigator;
 
@@ -19,6 +20,19 @@ public interface QnaService {
 	public int questionUpdate(Question question);
 	// 글 삭제
 	public int questionDelete(Question question);
+	// 답변 리스트 불러오기
+	public ArrayList<Answer> answerList(int questionNumber);
+	// 답변 등록
+	public int answerInsert(Answer answer);
+	// 답변 개수 +1
+	public int answerPlus(int questionNumber);
+	// 답변 삭제
+	public int answerDelete(Answer answer);
+	// 답변 개수 -1
+	public int answerMinus(int questionNumber);
+	
+	
+	
 
 	
 

@@ -144,5 +144,75 @@
 			questionNumber = #{questionNumber}
 			and memberId = #{memberId}
 	</delete>
-
+	
+	<!-- 답변 목록 출력하기 -->
+	<select id="answerList" parameterType="int" resultType="Answer">
+		select
+			answerNumber
+			, questionNumber
+			, memberId
+			, memberNickName
+			, answerContents
+			, to_char(answerInputDate, 'yy.mm.dd') answerInputDate
+			, to_char(answerInputDate, 'yy.mm.dd HH:MM:SS') answerInputDateDetail
+		from
+			answer
+		where
+			questionNumber=#{questionNumber}
+		order by
+			answerInputDateDetail desc
+	</select>
+	
+	<!-- 답변 저장 -->
+	<insert id="answerInsert" parameterType="Answer">
+		insert into answer
+		(
+			answerNumber
+			, questionNumber
+			, memberId
+			, memberNickName
+			, answerContents
+		)
+		values
+		(
+			answerNumber_seq.nextval
+			, #{questionNumber}
+			, #{memberId}
+			, #{memberNickName}
+			, #{answerContents}
+		)
+	</insert>
+	
+	<!-- 답변 개수 +1 -->
+	<update id="answerPlus" parameterType="int">
+	update question
+	set
+		answerCount = answerCount + 1
+	where
+		questionNumber = #{questionNumber}
+	</update>
+	
+	<!-- 답변 삭제 -->
+	<delete id="answerDelete" parameterType="Answer">
+		delete 
+		from 
+			answer
+		where 
+			answerNumber = #{answerNumber}
+			and memberId = #{memberId}
+	</delete>
+	
+	<!-- 답변 개수 -1 -->
+	<update id="answerMinus" parameterType="int">
+	update question
+	set
+		answerCount = answerCount - 1
+	where
+		questionNumber = #{questionNumber}
+	</update>
+	
+	
+	
+	
+	
 </mapper>
