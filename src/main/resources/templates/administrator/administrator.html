@@ -295,7 +295,7 @@
 										<td th:text="${memberList.memberBirthDay}">생일</td>
 										<td th:text="${memberList.memberJoinDate}">가입일자</td>
 										<td th:text="${memberList.memberPoint}">포인트</td>
-										<td style="padding: 0;">
+										<td style="padding: 0; width: 90px; height: 40px;">
 												<select style="width: 90px; height: 40px; border: none;" name="role" th:memberRoleName="${memberList.memberRoleName}"
 														th:id="${memberList.memberId}" th:user="${memberList.memberId}" onchange="changeValue(this.value, getAttribute('id'), getAttribute('user'), getAttribute('memberRoleName'))">
 													<option th:selected="${memberList.memberRoleName.equals('ROLE_USER')}" value="ROLE_USER">일반</option>
@@ -320,7 +320,7 @@
 														</ul> 
 														-->
 										</td>
-										<td style="padding: 0;">
+										<td style="padding: 0; width: 79px; height: 40px;">
 											<select style="width: 84px; height: 40px; border: none;" name="block" th:memberEnabled="${memberList.memberEnabled}"
 													th:id="${memberList.memberNickName}" th:user="${memberList.memberId}" 
 													onchange="changeValue(this.value, getAttribute('id'), getAttribute('user'), getAttribute('memberEnabled'))">

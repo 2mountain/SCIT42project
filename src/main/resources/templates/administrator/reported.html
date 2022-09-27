@@ -164,7 +164,6 @@
 										<th>신고사유</th>
 										<th>신고수</th>
 										<th>글 삭제</th>
-										<th>계정 차단</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -175,12 +174,11 @@
 										<td th:text="${reportData.boardInputDate}">작성일</td>
 										<td th:text="${reportData.reportCategory}">신고사유</td>
 										<td th:text="${reportData.reportCount}">신고수</td>
-										<td><input th:reportedNumber="${reportData.boardNumber}" type="button" value="글 삭제"></td><!--  -->
-										<td style="padding: 0;"> <!-- 작성자 차단 -->
-											<select style="width: 84px; height: 40px; border: none;" name="block" onchange="changeValue(this.value, getAttribute('id'), getAttribute('user'), getAttribute('memberEnabled'))">
-												<option class="fontRed" value="true">차단안됨</option><!-- th:selected="${memberList.memberEnabled}"  -->
-												<option value="false">차단됨</option><!-- th:selected="${!memberList.memberEnabled}" -->
-											</select>
+										<td style="padding:0; width:100px; height:36px;">
+											<input 
+												th:reportedNumber="${reportData.boardNumber}" 
+												type="button" style="width : 100px; height : 36px;"
+												value="글 삭제">
 										</td>
 									</tr>
 								</tbody>
