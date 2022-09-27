@@ -25,6 +25,8 @@ public interface ChallengeService {
 
 		ArrayList<Entrylist> list(int challengeNumber);
 
+		int givepoint(int point, String memberId,int entrylistNumbers);
+
 		
 
 

@@ -47,6 +47,7 @@ public String challengeupdate()
 	return "";
 	
 	}
+
 	@GetMapping({"challengelist"})
 	public String challengelist(Model model
 			, @RequestParam(name = "page", defaultValue = "1") int page
@@ -107,8 +108,7 @@ public String challengeupdate()
 	
 	@GetMapping({"challengeread"})
 	public String challengeread(Model model
-			, @RequestParam(name="challengeNumber", defaultValue = "0") int challengeNumber) { 
-		System.out.println(challengeNumber);
+			,  int challengeNumber) { 
 		log.debug("번호:"+challengeNumber);
 		// 도전과제를 불러오는 페이지
 		Challenge challenge = chser.read(challengeNumber);
@@ -128,7 +128,29 @@ public String challengeupdate()
 	  model.addAttribute("entrylist", entrylist);
 		return "/challenge/challengeread";
 	}	
-	
+
+	@GetMapping({"challengegivepoint"})
+	public String givepoint(int point , String memberId,Model model,int entrylistNumber
+			,  int challengeNumber) { 
+		
+		int result =chser.givepoint(point,memberId,entrylistNumber);
+		// 도전과제를 불러오는 페이지
+		Challenge challenge = chser.read(challengeNumber);
+		if (challenge == null) {
+			return "redirect:/challenge/challengelist"; //글이 없으면 목록으로
+		}
+		//관리자 계정에서만 뜨는페이지 접속할 시 해당인원에게 포인트 주기 기능
+		ArrayList<Entrylist>  entrylist = chser.list(challengeNumber);
+		if (entrylist == null) {
+			return "redirect:/challenge/challengelist"; //글이 없으면 목록으로
+		}
+		
+		
+		model.addAttribute("challenge", challenge);
+	  model.addAttribute("entrylist", entrylist);
+		return "/challenge/challengeread";
+	}
+
 	
 	@GetMapping({"contestread"})
 	public String contestread(Model model

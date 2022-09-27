@@ -22,10 +22,6 @@
 				<td><pre th:text="${challenge.challengeContents}"></pre></td>
 			</tr>
 			<tr>
-				<th>도전내용</th>
-				<td><pre th:text="${challenge.challengeContents}"></pre></td>
-			</tr>
-			<tr>
 				<th>성공포인트</th>
 				<td><pre th:text="${challenge.challPoint}"></pre></td>
 			</tr>
@@ -70,9 +66,9 @@
 				<td th:text="${entrylist.challengeSuccess}" class="center"></td>
 				<td th:text="${entrylist.getPoint}"></td>
 				<td th:text="${entrylist.getPointDate}"></td>
-				<td><input type=button
-					th:href="@{/challenge/givepoint(point=#{challenge.challPoint})}"
-					value="포인트주기"></td>
+				<td><a th:if="${entrylist.getPoint}==0"
+					th:href="@{/challenge/challengegivepoint(entrylistNumber=${entrylist.entrylistNumber},point=${challenge.challPoint},memberId=${entrylist.memberId},challengeNumber=${challenge.challengeNumber})}"
+					>포인트지급</a></td>
 			</tr>
 		</table>
 

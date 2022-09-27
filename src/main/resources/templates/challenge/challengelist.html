@@ -60,17 +60,32 @@ function pagingFormSubmit(currentPage) {
 					</div>
 				</div>
 				<!--  Login Register Area -->
-				<div class="col-7 col-sm-6">
-					<div
-						class="signup-search-area d-flex align-items-center justify-content-end">
+								<div class="col-7 col-sm-6">
+					<div class="signup-search-area d-flex align-items-center justify-content-end">
+
+						
+						
 						<div class="login_register_area d-flex">
-							<div class="login">
-								<a href="register.html">로그인</a>
+							<div class="login" sec:authorize="not isAuthenticated()">
+								<a href="../member/logIn">로그인</a>
 							</div>
-							<div class="register">
-								<a href="register.html">회원가입</a>
+							<div class="register" sec:authorize="not isAuthenticated()">
+								<a href="../member/signIn">회원가입</a>
 							</div>
 						</div>
+						<div class="login_register_area d-flex">
+							<div class="mypage" sec:authorize="isAuthenticated()"
+								style="margin-left: 20px">
+								<a sec:authorize="hasRole('ADMIN')" th:href="@{/../administrator}"><b>관리자 페이지</b></a>
+							</div>
+							<div class="mypage" sec:authorize="isAuthenticated()" style="margin-left: 20px">
+								마이페이지
+							</div>
+							<div class="logout" sec:authorize="isAuthenticated()" style="margin-left: 10px;">
+								<a th:href="@{logout}">로그아웃</a>
+							</div>
+						</div>
+					</div>
 						<!-- Search Button Area -->
 						<div class="search_button">
 							<a class="searchBtn" href="#"><i class="fa fa-search"

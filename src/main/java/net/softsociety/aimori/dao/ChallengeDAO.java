@@ -24,6 +24,10 @@ public interface ChallengeDAO {
 
 	ArrayList<Entrylist> getEntrylist(int challengeNumber);
 
+	int giveMemberPoint(HashMap<String, Object> map);
+
+	int giveEntrylistPoint(HashMap<String, Object> map);
+
 	
 
 }
