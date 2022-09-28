@@ -1,0 +1,218 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.softsociety.aimori.dao.QnaDAO">
+
+	<!-- 게시글 저장 -->
+	<insert id="questionInsert" parameterType="Question">
+		insert into question (
+		questionNumber
+		, memberId
+		, questionTitle
+		, memberNickName
+		,
+		questionContents
+		, questionCategory
+		<if test="questionImageOriginal != null and questionImageSaved != null">
+			, questionImageOriginal
+			, questionImageSaved
+		</if>
+		)
+		values (
+		questionNumber_seq.nextval
+		, #{memberId}
+		, #{questionTitle}
+		,
+		#{memberNickName}
+		, #{questionContents}
+		, #{questionCategory}
+		<if test="questionImageOriginal != null and questionImageSaved != null">
+			, #{questionImageOriginal}
+			, #{questionImageSaved}
+		</if>
+		)
+	</insert>
+	
+	<select id="questionList" parameterType="map" resultType="Question">
+		select
+			questionNumber
+			, memberId
+			, questionTitle
+			, memberNickName
+			, to_char(questionInputDate, 'YYYY-MM-DD') questionInputDate
+			, questionHits
+			, questionReport
+			, questionContents
+			, questionCategory
+			, questionImageOriginal
+			, questionImageSaved
+			, answerCount
+			, answeredOrNot
+			, answerAccepted
+		from
+			question
+		order by
+			questionNumber desc
+	</select>
+	
+		<!-- 전체 글 개수 (검색 필터링 후) -->
+	<select id="countQuestion" parameterType="map" resultType="int">
+		select
+			count(questionNumber)
+		from
+			Question
+			<if test="type != null and searchWord != null">
+	<where>
+		<if test="type == 'questionTitle'">
+			questionTitle like '%' || #{searchWord} || '%'
+		</if>	
+		<if test="type == 'questionContents'">
+			questionContents like '%' || #{searchWord} || '%'
+		</if>	
+		<if test="type == 'memberId'">
+			memberId like '%' || #{searchWord} || '%'
+		</if>	
+		<if test="type == 'all'">
+			questionTitle like '%' || #{searchWord} || '%'
+			or questionContents like '%' || #{searchWord} || '%'
+			or memberId like '%' || #{searchWord} || '%'
+		</if>
+	</where> 
+	</if>
+	</select>
+	
+	<!-- 한 개 게시글 읽기 -->
+		<!-- 한 개 게시글 읽기 -->
+	<select id="questionRead" parameterType="int" resultType="Question">
+		select
+			questionNumber
+			, memberId
+			, questionTitle
+			, memberNickName
+			, to_char(questionInputDate, 'YYYY-MM-DD') questionInputDate
+			<!-- , to_char(boardInputDate, 'YYYY-MM-DD HH24:MI:SS') boardInputDate -->
+			, questionHits
+			, questionReport
+			, questionContents
+			, questionCategory
+			, questionImageOriginal
+			, questionImageSaved
+			, answerCount
+			, answeredOrNot
+			, answerAccepted
+		from
+			Question
+		where
+			questionNumber =
+			#{questionNumber}
+	</select>
+	
+	<!-- 조회수 1 증가 -->
+	<update id="updateHits" parameterType="int">
+		update
+			Question
+		set
+			questionHits =
+			questionHits + 1
+		where
+		questionNumber = #{questionNumber}
+	</update>
+	
+	<!-- 글 수정 -->
+	<update id="questionUpdate" parameterType="Question">
+		update
+			question
+		set
+		questionTitle = #{questionTitle}
+		, questionContents = #{questionContents}
+		, questionCategory = #{questionCategory}
+		<if test="questionImageOriginal != null and questionImageSaved != null">
+			, questionImageOriginal = #{questionImageOriginal}
+			, questionImageSaved = #{questionImageSaved}
+		</if>
+		where
+			questionNumber = #{questionNumber}
+			and memberId = #{memberId}
+	</update>
+	
+	<!-- 글 삭제 -->
+	<delete id="questionDelete" parameterType="Question">
+		delete from
+			question
+		where
+			questionNumber = #{questionNumber}
+			and memberId = #{memberId}
+	</delete>
+	
+	<!-- 답변 목록 출력하기 -->
+	<select id="answerList" parameterType="int" resultType="Answer">
+		select
+			answerNumber
+			, questionNumber
+			, memberId
+			, memberNickName
+			, answerContents
+			, to_char(answerInputDate, 'yy.mm.dd') answerInputDate
+			, to_char(answerInputDate, 'yy.mm.dd HH:MM:SS') answerInputDateDetail
+		from
+			answer
+		where
+			questionNumber=#{questionNumber}
+		order by
+			answerInputDateDetail desc
+	</select>
+	
+	<!-- 답변 저장 -->
+	<insert id="answerInsert" parameterType="Answer">
+		insert into answer
+		(
+			answerNumber
+			, questionNumber
+			, memberId
+			, memberNickName
+			, answerContents
+		)
+		values
+		(
+			answerNumber_seq.nextval
+			, #{questionNumber}
+			, #{memberId}
+			, #{memberNickName}
+			, #{answerContents}
+		)
+	</insert>
+	
+	<!-- 답변 개수 +1 -->
+	<update id="answerPlus" parameterType="int">
+	update question
+	set
+		answerCount = answerCount + 1
+	where
+		questionNumber = #{questionNumber}
+	</update>
+	
+	<!-- 답변 삭제 -->
+	<delete id="answerDelete" parameterType="Answer">
+		delete 
+		from 
+			answer
+		where 
+			answerNumber = #{answerNumber}
+			and memberId = #{memberId}
+	</delete>
+	
+	<!-- 답변 개수 -1 -->
+	<update id="answerMinus" parameterType="int">
+	update question
+	set
+		answerCount = answerCount - 1
+	where
+		questionNumber = #{questionNumber}
+	</update>
+	
+	
+	
+	
+	
+</mapper>

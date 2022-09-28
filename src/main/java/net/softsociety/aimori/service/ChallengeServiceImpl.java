@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import net.softsociety.aimori.dao.ChallengeDAO;
 import net.softsociety.aimori.domain.Board;
 import net.softsociety.aimori.domain.Challenge;
+import net.softsociety.aimori.domain.Entrylist;
 import net.softsociety.aimori.util.PageNavigator;
 
 @Service
@@ -19,54 +20,97 @@ public class ChallengeServiceImpl implements ChallengeService {
 	ChallengeDAO chdao;
 	
 	@Override
-	public ArrayList<Challenge> colist(PageNavigator conavi, String type, String searchWord) {
+	public ArrayList<Challenge> contestlist(PageNavigator conavi, String cotype, String cosearchWord) {
 		HashMap<String, String> map =new HashMap<>();
-		map.put("type", type);
-		map.put("searchWord", searchWord);
+		map.put("cotype", cotype);
+		map.put("cosearchWord", cosearchWord);
 		
 		RowBounds rb = new RowBounds(conavi.getStartRecord(), conavi.getCountPerPage());
-		ArrayList<Challenge> confiencelist = chdao.confienceList(map, rb); 
+		ArrayList<Challenge> contestlist = chdao.contestList(map, rb); 
 		
-		return confiencelist;
+		return contestlist;
 	}
 
 	@Override
-	public PageNavigator getCoPageNavigator(int pagePerGroup, int countPerPage, int page, String type,
-			String searchWord) {
+	public PageNavigator getCoPageNavigator(int pagePerGroup, int countPerPage, int page, String cotype,
+			String cosearchWord) {
 		HashMap<String, String> map = new HashMap<>();
-		map.put("type", type);
-		map.put("searchWord", searchWord);
+		map.put("cotype", cotype);
+		map.put("cosearchWord", cosearchWord);
 		
-		int total = chdao.countchallenge(map);
-		PageNavigator navi = new PageNavigator(pagePerGroup, countPerPage, page, total);
+		int total = chdao.countContest(map);
+		System.out.println(total);
+		PageNavigator conavi = new PageNavigator(pagePerGroup, countPerPage, page, total);
 		
-		return navi;
+		return conavi;
 	}
 
 	@Override
-	public PageNavigator getchPageNavigator(int pagePerGroup, int countPerPage, int page, String type,
-			String searchWord) {
+	public PageNavigator getchPageNavigator(int pagePerGroup, int countPerPage, int page, String chtype,
+			String chsearchWord) {
 		HashMap<String, String> map = new HashMap<>();
-		map.put("type", type);
-		map.put("searchWord", searchWord);
+		map.put("chtype", chtype);
+		map.put("chsearchWord", chsearchWord);
 		
-		int total = chdao.countconfience(map);
-		PageNavigator navi = new PageNavigator(pagePerGroup, countPerPage, page, total);
+		int total = chdao.countChallenge(map);
+		System.out.println(total);
+		PageNavigator chnavi = new PageNavigator(pagePerGroup, countPerPage, page, total);
 		
-		return navi;
+		return chnavi;
 	}
 
 	@Override
-	public ArrayList<Challenge> chlist(PageNavigator chnavi, String type, String searchWord) {
+	public ArrayList<Challenge> challengelist(PageNavigator chnavi, String chtype, String chsearchWord) {
 		HashMap<String, String> map =new HashMap<>();
-		map.put("type", type);
-		map.put("searchWord", searchWord);
+		map.put("chtype", chtype);
+		map.put("chsearchWord", chsearchWord);
 		
 		RowBounds rb = new RowBounds(chnavi.getStartRecord(), chnavi.getCountPerPage());
 		ArrayList<Challenge> challengelist = chdao.challengeList(map, rb); 
 		
 		return challengelist;
 	}
+
+	@Override
+	public Challenge read(int challengeNumber) {
+		// TODO Auto-generated method stub
+		Challenge challenge = chdao.readChallenge(challengeNumber);
+		String[] challengeCutPoint = challenge.getChallengeContents().split("/");
+		challenge.setChallengeContents(challengeCutPoint[0]);
+		int challpoint = Integer.valueOf(challengeCutPoint[1]);
+		challenge.setChallPoint(challpoint);
+		return challenge;
+	}
+	
+
+	@Override
+	public ArrayList<Entrylist> list(int challengeNumber) {
+		// TODO Auto-generated method stub
+		ArrayList<Entrylist> entrylist = chdao.getEntrylist(challengeNumber);
+		return entrylist;
+	}
+
+	@Override
+	public int givepoint(int point, String memberId,int entrylistNumber) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("memberId", memberId);
+		map.put("point", point);
+		map.put("entrylistNumber",entrylistNumber);
+		
+		int result = chdao.giveMemberPoint(map);
+		int result2 = chdao.giveEntrylistPoint(map);
+
+		
+ 				if(result!=0&&result!=0)
+ 				{
+ 					return result;
+ 				}
+ 				
+ 				return 0;
+ 				
+	}
+
+	
 
 	
 }

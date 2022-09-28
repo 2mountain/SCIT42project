@@ -11,9 +11,13 @@ public class Challenge {
  int challengeNumber;
  String challengeName;
  String challengeStartDate;
- String challengEnddate;
- String challengRegistday;
+ String challengeEndDate;
+ String challengeRegistDay;
  String challengeContents;
  String challengeType;
- 
+	int challPoint;
+	int firPoint;
+	int secPoint;
+	int thdPoint;
+	int sanka;
 }

@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 import net.softsociety.aimori.domain.Challenge;
+import net.softsociety.aimori.domain.Entrylist;
 import net.softsociety.aimori.service.ChallengeService;
 import net.softsociety.aimori.util.PageNavigator;
+
 
 @Slf4j
 @RequestMapping("challenge")
@@ -37,48 +39,136 @@ public class ChallengeController {
 		return "/challenge/main";
 	}
 
-	@GetMapping({"write"})
-	public String write() {
-
-		return "/challenge/write";
+@GetMapping({"challengeupadate"})
+public String challengeupdate()
+{
+	
+	
+	return "";
+	
 	}
 
 	@GetMapping({"challengelist"})
 	public String challengelist(Model model
 			, @RequestParam(name = "page", defaultValue = "1") int page
-			, String type
-			, String searchWord)
+			, String chtype
+			, String chsearchWord)
 	{
-		PageNavigator chnavi = chser.getchPageNavigator(pagePerGroup, countPerPage, page, type, searchWord);
-
-		ArrayList<Challenge> challengelist = chser.chlist(chnavi, type, searchWord);
+			PageNavigator chnavi = chser.getchPageNavigator(pagePerGroup, countPerPage, page, chtype, chsearchWord);
+		
+		System.out.println(chnavi.getTotalRecordsCount());
+		
+		ArrayList<Challenge> challengelist = chser.challengelist(chnavi, chtype, chsearchWord);
 
 		log.debug("challengelist : {}", challengelist);
+		log.debug("chnavi : {}", chnavi);
 
+		
 		model.addAttribute("chnavi", chnavi);
 		model.addAttribute("challengelist", challengelist);
-
+		model.addAttribute("chtype", chtype);
+		model.addAttribute("chsearchWord", chsearchWord);
 		return "/challenge/challengelist";
 	}
 
-	@GetMapping({"confiencelist"})
-	public String confiencelist(Model model
+	@GetMapping({"contestlist"})
+	public String contestlist(Model model
 			, @RequestParam(name = "page", defaultValue = "1") int page
-			, String type
-			, String searchWord) {
+			, String cotype
+			, String cosearchWord) {
 
-		PageNavigator conavi = chser.getCoPageNavigator(pagePerGroup, countPerPage, page, type, searchWord);
+		PageNavigator conavi = chser.getCoPageNavigator(pagePerGroup, countPerPage, page, cotype, cosearchWord);
+		System.out.println(conavi.getTotalRecordsCount());
 
-		ArrayList<Challenge> conferencelist = chser.colist(conavi, type, searchWord);
+		ArrayList<Challenge> contestlist = chser.contestlist(conavi, cotype, cosearchWord);
 
-		log.debug("conferencelist : {}", conferencelist);
+		log.debug("contest : {}", contestlist);
 
 		model.addAttribute("conavi", conavi);
-		model.addAttribute("conferencelist", conferencelist);
-
+		model.addAttribute("contestlist", contestlist);
+		model.addAttribute("chtype", cotype);
+		model.addAttribute("chsearchWord", cosearchWord);
 		
-		return "/challenge/confiencelist";
+		return "/challenge/contestlist";
+	}
+	
+	@GetMapping({"contestwrite"})
+	public String contestwrite()
+	{
+		return "/challenge/contestwrite";
+	}
+	
+	
+	@GetMapping({"challengewrite"})
+	public String challengewrite()
+	{
+		return "/challenge/challengewrite";
 	}
 
+	
+	@GetMapping({"challengeread"})
+	public String challengeread(Model model
+			,  int challengeNumber) { 
+		log.debug("번호:"+challengeNumber);
+		// 도전과제를 불러오는 페이지
+		Challenge challenge = chser.read(challengeNumber);
+		if (challenge == null) {
+			return "redirect:/challenge/challengelist"; //글이 없으면 목록으로
+		}
+		//관리자 계정에서만 뜨는페이지 접속할 시 해당인원에게 포인트 주기 기능
+		ArrayList<Entrylist>  entrylist = chser.list(challengeNumber);
+		if (entrylist == null) {
+			return "redirect:/challenge/challengelist"; //글이 없으면 목록으로
+		}
 
+		log.debug("challenge1: {}",challenge);
+		log.debug("entrylist: {}",entrylist);
+		
+		model.addAttribute("challenge", challenge);
+	  model.addAttribute("entrylist", entrylist);
+		return "/challenge/challengeread";
+	}	
+
+	@GetMapping({"challengegivepoint"})
+	public String givepoint(int point , String memberId,Model model,int entrylistNumber
+			,  int challengeNumber) { 
+		
+		int result =chser.givepoint(point,memberId,entrylistNumber);
+		// 도전과제를 불러오는 페이지
+		Challenge challenge = chser.read(challengeNumber);
+		if (challenge == null) {
+			return "redirect:/challenge/challengelist"; //글이 없으면 목록으로
+		}
+		//관리자 계정에서만 뜨는페이지 접속할 시 해당인원에게 포인트 주기 기능
+		ArrayList<Entrylist>  entrylist = chser.list(challengeNumber);
+		if (entrylist == null) {
+			return "redirect:/challenge/challengelist"; //글이 없으면 목록으로
+		}
+		
+		
+		model.addAttribute("challenge", challenge);
+	  model.addAttribute("entrylist", entrylist);
+		return "/challenge/challengeread";
+	}
+
+	
+	@GetMapping({"contestread"})
+	public String contestread(Model model
+			, @RequestParam(name="challengeNumber", defaultValue = "0") int challengeNumber) { 
+
+		// 도전과제를 불러오는 페이지
+		Challenge challenge = chser.read(challengeNumber);
+		if (challenge == null) {
+			return "redirect:/challenge/contestlist"; //글이 없으면 목록으로
+		}
+		//관리자 계정에서만 뜨는페이지 접속할 시 해당인원 등 수 부여
+		ArrayList<Entrylist>  entrylist = chser.list(challengeNumber);
+		
+		model.addAttribute("challenge", challenge);
+		// model.addAttribute("entrylist", entrylist);
+
+		log.debug("challenge1: {}",challenge);
+		log.debug("entrylist: {}",entrylist);
+		return "/challenge/contestread";
+	}
 }

@@ -22,7 +22,7 @@
 		challengetype='challenge'
 	</select>
 
-	<select id="confienceList" parameterType="map"
+	<select id="contestList" parameterType="map"
 		resultType="Challenge">
 		select
 		challengenumber
@@ -34,25 +34,77 @@
 		from
 		challenge
 		where
-		challengetype='confience'
+		challengetype='contest'
 	</select>
 
-	<select id="countchallenge" parameterType="map" resultType="int">
+	<select id="countChallenge" parameterType="map" resultType="int">
 		select
 		count(challengenumber)
 		from
 		challenge
 		where
 		challengetype='challenge'
+		<if test="chtype != null and chsearchWord != null">
+			<if test="chtype == 'challengeName'">
+				and challengeName like '%' || #{chsearchWord} || '%'
+			</if>	
+			<if test="chtype == 'all'">
+				and challengeName like '%' || #{chsearchWord} || '%'  
+			</if>	
+			</if>
 	</select>
 
-	<select id="countconfience" parameterType="map" resultType="int">
+	<select id="countContest" parameterType="map" resultType="int">
 		select
 		count(challengenumber)
 		from
 		challenge
 		where
-		challengetype='confience'
+		challengetype='contest'
+				<if test="cotype != null and cosearchWord != null">
+			<if test="cotype == 'challengeName'">
+				and challengeName like '%' || #{cosearchWord} || '%'
+			</if>	
+			
+			<if test="type == 'all'">
+				and challengeName like '%' || #{cosearchWord} || '%'
+			</if>	
+			</if>
+	</select>
+	
+	<select id="readChallenge" parameterType="int" resultType="Challenge">
+	select
+	challengeNumber,
+	challengename,
+	challengecontents,
+	challengestartdate,
+	challengeenddate,
+	challengeregistday
+	from challenge
+	where challengenumber=#{challengeNumber}
+
+	</select>
+	
+	<select id="getEntrylist" parameterType="int" resultType="Entrylist">
+	select * from entrylist
+	where challengenumber=#{challengeNumber}
 	</select>
 
+	<update id="giveMemberPoint" parameterType="map">
+	update members
+	set
+	memberpoint=memberpoint+#{point}
+	where
+	memberid=#{memberId}
+	</update>
+
+	<update id="giveEntrylistPoint" parameterType="map">
+	update entrylist
+	set
+	getPoint=#{point},
+	getPointDate=sysdate
+	where
+	entrylistnumber=#{entrylistNumber}
+	</update>
+	
 </mapper>

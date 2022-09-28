@@ -197,11 +197,12 @@
 						<!-- Menu Area Start -->
 						<div class="collapse navbar-collapse justify-content-center" id="yummyfood-nav">
 							<ul class="navbar-nav" id="yummy-nav">
-								<li class="nav-item active"><a class="nav-link" th:href="@{/board/list}">커뮤니티 <span
+								<li class="nav-item active"><a class="nav-link" th:href="@{/board/boardImage}">커뮤니티 <span
 											class="sr-only">(current)</span></a>
 								</li>
-								
-						
+								<li class="nav-item"><a class="nav-link"
+								th:href="@{/qna/list}">QnA <span class="sr-only">(current)</span></a>
+								</li>
 								<li class="nav-item"><a class="nav-link" th:href="@{/facilities}">시설</a></li>
 								<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
 								<li class="nav-item"><a class="nav-link" href="#">챌린지</a></li>
@@ -281,9 +282,11 @@
 				</tr>
 				<tr>
 					<th class="readCenter" id="boardReadContents">내용</th>
-					<td><textarea name="boardContents"
-							style="width: 900px; height: 600px;" id="contents"
-							th:text="${board.boardContents}" readonly></textarea>
+					<td><pre 
+							style="width: 900px; height: 200px;" id="contents"
+							th:utext="${board.boardContents}">
+							</pre>
+							<img th:src="@{/img/fileSave/} + ${board.boardImageSaved}">
 					</td>
 				</tr>
 				<tr>
@@ -292,7 +295,7 @@
 						th:href="@{/board/download(boardNumber=${board.boardNumber})}"
 						th:text="${board.boardImageOriginal}"></a>
 						<!-- temp -->
-						<img th:src="@{/img/boardSave-img/} + ${board.boardImageSaved}" width="100">
+						<img th:src="@{/img/fileSave/} + ${board.boardImageSaved}" width="100">
 					</td>
 				</tr>
 				<tr>
@@ -318,7 +321,8 @@
 					</th>
 				</tr>
 			</table>
-			<div sec:authorize="isAuthenticated()" class="pull-right">
+			<div  th:if="${#authentication.name} == ${board.memberId}"
+					class="pull-right">
 				<a class="btn btn-primary"
 					style="background-color: rgb(220, 220, 255);"
 					th:href="@{/board/update(boardNumber=${board.boardNumber})}">수정</a>
@@ -332,7 +336,7 @@
 
 		</div>
 		
-		<!-- 리플 작성 폼 -->
+		<!-- 댓글 작성 폼 -->
 		<div style="height: 30px;">
 		</div>
 
@@ -355,7 +359,7 @@
 		
 		
 		
-		<!-- 리플 목록 출력 시작 -->
+		<!-- 댓글 목록 출력 시작 -->
 		<div class="pull-left" style="padding-left: 200px; font-size: 20px; height: 60px;">
 		<a th:text="'댓글' + '[' + ${board.replyCount} + ']'" ></a>
 		</div>
