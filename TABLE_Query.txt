@@ -26,6 +26,8 @@ DROP SEQUENCE questionNumber_seq;
 DROP SEQUENCE answerNumber_seq;
 DROP SEQUENCE reportNumber_seq;
 
+
+
 CREATE SEQUENCE doctor_seq;
 CREATE SEQUENCE pet_seq;
 CREATE SEQUENCE boardNumber_seq;
@@ -39,35 +41,33 @@ CREATE SEQUENCE questionNumber_seq;
 CREATE SEQUENCE answerNumber_seq;
 CREATE SEQUENCE reportNumber_seq;
 
-
-
 CREATE TABLE members
 (
-    memberId 					VARCHAR2(40) CONSTRAINT member_memberId_pk PRIMARY KEY,
+    memberId 					VARCHAR2(40) PRIMARY KEY,
     			--회원 아이디
-    memberPassword 				VARCHAR2(100) CONSTRAINT member_memberPassword_nn NOT NULL,
+    memberPassword 				VARCHAR2(100) NOT NULL,
     			--회원 비밀번호
-    memberPassword2				VARCHAR2(100) CONSTRAINT member_memberPassword_nn NOT NULL,
+    memberPassword2				VARCHAR2(100) NOT NULL,
     			--회원 비밀번호 일치 여부 확인용
-    memberNickName 				VARCHAR2(40) CONSTRAINT member_memberNickName_nn_uq NOT NULL UNIQUE,
+    memberNickName 				VARCHAR2(40) NOT NULL UNIQUE,
     			--회원 닉네임 
     memberPostCode 				VARCHAR2(100),
     			--회원 우편번호 
-    memberAddress 				VARCHAR2(300) CONSTRAINT member_memberAddress_nn NOT NULL,
+    memberAddress 				VARCHAR2(300) NOT NULL,
     			--회원 주소
     memberDetailAddress 		VARCHAR2(100),
     			--회원 상세주소 
-    memberEmail 				VARCHAR2(50) CONSTRAINT member_memberEmail_nn_uq NOT NULL UNIQUE,
+    memberEmail 				VARCHAR2(50) NOT NULL UNIQUE,
     			--회원 이메일
-    memberBirthDay 				VARCHAR2(12) CONSTRAINT member_memberBirthDay_nn NOT NULL,
+    memberBirthDay 				VARCHAR2(12) NOT NULL,
     			--회원 생년월일
     memberPoint 				NUMBER DEFAULT 0,
     			--회원 포인트
     memberRoleName 				VARCHAR2(20) DEFAULT 'ROLE_USER'  
-			 					CONSTRAINT pmember_rolename_ck_nn CHECK(rolename IN('ROLE_USER', 'ROLE_ADMIN', 'ROLE_DOCTOR')) 
+			 					CHECK(memberRoleName IN('ROLE_USER', 'ROLE_ADMIN', 'ROLE_DOCTOR')) 
 			 					NOT NULL,
     			--회원 역할        
-    memberEnabled 				NUMBER DEFAULT 1 CONSTRAINT member_memberEnabled_nn_ck CHECK(memberEnabled IN(0, 1)),
+    memberEnabled 				NUMBER DEFAULT 1 CHECK(memberEnabled IN(0, 1)),
     			--회원 차단 여부
     memberJoinDate 				DATE DEFAULT SYSDATE,
     			--회원 가입일
@@ -97,7 +97,7 @@ CREATE TABLE pet    --Pet table
     			--애완동물 몸무게
     petNeuter 				VARCHAR2(1) CHECK(petNeuter IN('Y', 'N')), 
     			--중성화 여부
-    petImage 				VARCHAR2(300), 
+    petImage 				VARCHAR2(300)
     			--애완동물 사진의 이름
 );
 
@@ -150,9 +150,9 @@ create table boardLikedData
 
 CREATE TABLE reply
 (
-    replyNumber 	NUMBER CONSTRAINT PRIMARY KEY,  
+    replyNumber 	NUMBER PRIMARY KEY,  
     			--댓글 번호
-    boardNumber 	boardNumber NUMBER REFERENCES board(boardNumber) on delete cascade, 
+    boardNumber NUMBER REFERENCES board(boardNumber) on delete cascade, 
     			--글 번호(외래키)
 	memberId		VARCHAR2(40) NOT NULL,
     			--댓글 작성하는 회원 아이디
@@ -160,7 +160,7 @@ CREATE TABLE reply
     			--댓글 작성하는 회원 닉네임
     replyContents 	VARCHAR2(4000) NOT NULL, 
     			--댓글 내용
-    replyInputDate 	DATE DEFAULT SYSDATE,  
+    replyInputDate 	DATE DEFAULT SYSDATE
     			--댓글 작성 일자
 );
 
@@ -184,12 +184,13 @@ CREATE TABLE memberCoupon
 --도전과제 정보테이블
 CREATE TABLE challenge 
 (
-	challengeNumber 	NUMBER PRIMARY KEY,
-	challengeName 		VARCHAR2(200),
-	challengeStartDate 	VARCHAR2(200),
-	challengeEndDate 	VARCHAR2(200),
-	challengeContents 	VARCHAR2(200),
-	challengeType 	VARCHAR2(200),	
+   challengeNumber    NUMBER PRIMARY KEY,
+   challengeName       VARCHAR2(200),
+   challengeStartDate    VARCHAR2(200),
+   challengeEndDate    VARCHAR2(200),
+   challengeContents    VARCHAR2(200),
+   challengeType    VARCHAR2(200),
+   challengeRegistDay date
 );
 
 --의사 정보 테이블
@@ -233,15 +234,15 @@ CREATE TABLE facilities
 
 CREATE TABLE facilitiesEvaluation
 (
-	facilitiesEvaluationNumber  	NUMBER CONSTRAINT facilitiesEvaluation_facilitiesEvaluationNumber_pk PRIMARY KEY,
+	facilitiesEvaluationNumber  	NUMBER PRIMARY KEY,
                 -- 시설 평가 번호
 	facilitiesNumber                NUMBER REFERENCES facilities(facilitiesNumber),
                 -- 시설 번호
 	memberId                        VARCHAR2(40) REFERENCES members(memberId),
                 -- 리뷰 작성 회원 아이디
-	facilitiesReview                VARCHAR2(1000) CONSTRAINT facilitiesEvaluation_facilitiesReview_nn NOT NULL,
+	facilitiesReview                VARCHAR2(1000) NOT NULL,
                 -- 시설 리뷰 내용
-	facilitiesStar                  NUMBER CONSTRAINT facilitiesEvaluation_facilitiesStar_nn_ck CHECK(facilitiesStar IN(0, 1, 2, 3, 4, 5)) NOT NULL,
+	facilitiesStar                  NUMBER CHECK(facilitiesStar IN(0, 1, 2, 3, 4, 5)) NOT NULL,
                 -- 시설 평가(별점)
 	facilitiesReviewDate            DATE DEFAULT SYSDATE
                 -- 시설 리뷰 작성 일자
@@ -319,6 +320,3 @@ create table reportData
     questionNumber number references question(questionNumber) on delete cascade
         --신고받은 qna 게시글번호
 );
-
-
-
