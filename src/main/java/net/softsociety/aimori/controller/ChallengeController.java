@@ -18,8 +18,6 @@ import net.softsociety.aimori.domain.Challenge;
 import net.softsociety.aimori.domain.Entrylist;
 import net.softsociety.aimori.service.ChallengeService;
 import net.softsociety.aimori.util.PageNavigator;
-import net.softsociety.spring5.domain.Board;
-
 
 @Slf4j
 @RequestMapping("challenge")
