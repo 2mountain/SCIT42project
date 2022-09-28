@@ -334,4 +334,31 @@
 		boardNumber = #{boardNumber}
 	</update>
 	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 홈 화면출력 -->
+	<select id="boardMainList" resultType="Board">
+		select
+			boardNumber
+			, memberId
+			, boardTitle
+			, memberNickName
+			, to_char(boardInputDate, 'YYYY-MM-DD') boardInputDate
+			<!-- , to_char(boardInputDate, 'YYYY-MM-DD HH24:MI:SS') boardInputDate -->
+			, boardHits
+			, boardReport
+			, boardContents
+			, boardCategory
+			, boardImageOriginal
+			, boardImageSaved
+			, replyCount
+		from
+		Board
+	</select>
+	
 </mapper>

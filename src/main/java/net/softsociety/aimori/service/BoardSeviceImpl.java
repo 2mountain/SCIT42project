@@ -20,54 +20,54 @@ import net.softsociety.aimori.util.PageNavigator;
 @Slf4j
 public class BoardSeviceImpl implements BoardService {
 
-    @Autowired
-    private BoardDAO boardDAO;
-    
+	@Autowired
+	private BoardDAO boardDAO;
+
 	@Override
 	public int boardInsert(Board board) {
 		int result = boardDAO.boardInsert(board);
 		return result;
 	}
 
-    //
+	//
 	@Override
-	public PageNavigator getPageNavigator(
-			int pagePerGroup, int countPerPage, int page, String type, String searchWord) {
-		
+	public PageNavigator getPageNavigator(int pagePerGroup, int countPerPage, int page, String type,
+			String searchWord) {
+
 		HashMap<String, String> map = new HashMap<>();
 		map.put("type", type);
 		map.put("searchWord", searchWord);
-		
+
 		int total = boardDAO.countBoard(map);
 		PageNavigator navi = new PageNavigator(pagePerGroup, countPerPage, page, total);
-		
+
 		return navi;
 	}
 
 	// 글목록 출력
 	@Override
 	public ArrayList<Board> list(PageNavigator navi, String type, String searchWord) {
-		
-		HashMap<String, String> map =new HashMap<>();
+
+		HashMap<String, String> map = new HashMap<>();
 		map.put("type", type);
 		map.put("searchWord", searchWord);
-		
+
 		RowBounds rb = new RowBounds(navi.getStartRecord(), navi.getCountPerPage());
-		ArrayList<Board> boardlist = boardDAO.boardList(map, rb); 
-		
+		ArrayList<Board> boardlist = boardDAO.boardList(map, rb);
+
 		return boardlist;
 	}
-	
+
 	// 인기글 보기
 	@Override
 	public ArrayList<Board> hotList(PageNavigator navi, String type, String searchWord) {
-		HashMap<String, String> map =new HashMap<>();
+		HashMap<String, String> map = new HashMap<>();
 		map.put("type", type);
 		map.put("searchWord", searchWord);
-		
+
 		RowBounds rb = new RowBounds(navi.getStartRecord(), navi.getCountPerPage());
-		ArrayList<Board> boardlist = boardDAO.boardHotList(map, rb); 
-		
+		ArrayList<Board> boardlist = boardDAO.boardHotList(map, rb);
+
 		return boardlist;
 	}
 
@@ -83,7 +83,8 @@ public class BoardSeviceImpl implements BoardService {
 	@Override
 	public int boardDelete(Board board) {
 		int result = boardDAO.boardDelete(board);
-		return result;	}
+		return result;
+	}
 
 	// 글수정
 	@Override
@@ -96,9 +97,9 @@ public class BoardSeviceImpl implements BoardService {
 	@Override
 	public int boardRecommend(BoardLiked boardLiked) {
 		int result = boardDAO.boardRecommend(boardLiked);
-		
+
 		log.debug("라이크 객체 : {}", boardLiked);
-		
+
 		return result;
 	}
 
@@ -121,14 +122,14 @@ public class BoardSeviceImpl implements BoardService {
 	public void deleteRecommend(int BoardLikedNumber) {
 		boardDAO.deleteRecommend(BoardLikedNumber);
 	}
-	
+
 	// 댓글 저장
 	@Override
 	public int replyInsert(Reply reply) {
 		int result = boardDAO.replyInsert(reply);
 		return result;
 	}
-	
+
 	// 댓글 목록
 	@Override
 	public ArrayList<Reply> replyList(int boardNumber) {
@@ -142,7 +143,7 @@ public class BoardSeviceImpl implements BoardService {
 		int result = boardDAO.replyUpdate(reply);
 		return result;
 	}
-	
+
 	// 댓글 삭제
 	@Override
 	public int replyDelete(Reply reply) {
@@ -171,11 +172,12 @@ public class BoardSeviceImpl implements BoardService {
 		return result;
 	}
 
+	// 홈 화면 출력
+	@Override
+	public ArrayList<Board> boardMainList() {
+		ArrayList<Board> boardlist = boardDAO.boardMainList(); 
+		
+		return boardlist;
+	}
 
-
-
-	
-	
-	
-	
 }
