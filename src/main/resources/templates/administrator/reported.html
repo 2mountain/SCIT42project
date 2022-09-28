@@ -16,26 +16,54 @@
 <script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
-	function deleteBoard(reportedBoardNumber, reportedBoardMember, reportedBoardTitle, reportedCategory, reportedCount){
-		if(confirm(`글 번호 : ${reportedBoardNumber}\n작성자 : ${reportedBoardMember}\n글 제목 : ${reportedBoardTitle}\n신고 사유 : ${reportedCategory}\n신고 수 : ${reportedCount}\n\n삭제하시겠습니까?`))
+	function deleteBoard(reportedNumber, reportedMember, reportedTitle, reportedCategory, reportedCount, location){
+		if(confirm(`글 번호 : ${reportedNumber}\n게시판 : ${location}\n작성자 : ${reportedMember}\n글 제목 : ${reportedTitle}\n신고 사유 : ${reportedCategory}\n신고 수 : ${reportedCount}\n\n삭제하시겠습니까?`))
 		{
-			$.ajax({
-				url : 'deleteBoard',
-				type : 'post',
-				data : {boardNumber : reportedBoardNumber, memberId : reportedBoardMember},
-				success : function(result){
-					if(result === 'success'){
-						alert('삭제 되었습니다!');
-						location.href="/aimori/administrator/reported";
-					} else {
-						alert('삭제 실패!');
+			if(location === '자유'){
+				console.log('Board');
+				$.ajax({
+					url : 'deleteBoard',
+					type : 'post',
+					data : {boardNumber : reportedNumber, memberId : reportedMember},
+					success : function(result){
+						if(result === 'success'){
+							console.log(`Board ${result}`);
+							alert('삭제 되었습니다!');
+							location.href="/aimori/administrator/reported";
+						} else {
+							alert('삭제 실패!');
+						}
+					},
+					error : function(e){
+						console.log(`Board ${result}`);
+						alert('실패');
+						console.log(JSON.stringify(e));
 					}
-				},
-				error : function(e){
-					alert('실패');
-					console.log(JSON.stringify(e));
-				}
-			});			
+				});			
+			} else if(location === 'Q&A'){
+				console.log('Q&A');
+				// 질문 삭제로 수정 필요
+				$.ajax({
+					url : 'deleteBoard',
+					type : 'post',
+					data : {boardNumber : reportedNumber, memberId : reportedMember},
+					success : function(result){
+						if(result === 'success'){
+							console.log(`Q&A ${result}`);
+							alert('삭제 되었습니다!');
+							location.href="/aimori/administrator/reported";
+						} else {
+							console.log(`Q&A ${result}`);
+							alert('삭제 실패!');
+						}
+					},
+					error : function(e){
+						alert('실패');
+						console.log(JSON.stringify(e));
+					}
+				});			
+				
+			}
 		};
 	}
 </script>
@@ -181,6 +209,7 @@
 								<thead>
 									<tr>
 										<th>작성자</th>
+										<th>게시판</th>
 										<th>글 번호</th>
 										<th>말머리</th>
 										<th>글 제목</th>
@@ -193,26 +222,58 @@
 								<tbody>
 									<tr th:each="reportData : ${reportData}">
 										<td th:text="${reportData.memberId}">작성자</td>
-										<td th:text="${reportData.boardNumber}">글 번호</td>
-										<td th:text="${reportData.boardCategory}">말머리</td>
 										<td>
-											<a th:text="${reportData.boardTitle}" th:href="@{/board/read(boardNumber=${reportData.boardNumber})}" 
-												style="text-decoration: none"> 
-												글 제목
+											<span th:if="${reportData.boardNumber} != 0">자유</span>
+											<span th:if="${reportData.questionNumber} != 0">Q&A</span>
+										</td>
+										<td>
+											<span th:if="${reportData.boardNumber} != 0" th:text="${reportData.boardNumber}">게시글 번호</span>
+											<span th:if="${reportData.questionNumber} != 0" th:text="${reportData.questionNumber}">질문번호</span>
+										</td>
+										<td>
+											<span th:if="${reportData.boardNumber} != 0" th:text="${reportData.boardCategory}">게시글 말머리</span>
+											<span th:if="${reportData.questionNumber} != 0" th:text="${reportData.questionCategory}">질문 말머리</span>
+										</td>
+										<td>
+											<a th:if="${reportData.boardNumber} != 0" th:text="${reportData.boardTitle}" 
+												th:href="@{/board/read(boardNumber=${reportData.boardNumber})}" 
+												style="text-decoration: none">
+												게시글 제목
+											</a>
+											<a th:if="${reportData.questionNumber} != 0" th:text="${reportData.questionTitle}" 
+												th:href="@{/question/read(questionNumber=${reportData.questionNumber})}" 
+												style="text-decoration: none">
+												질문 제목
 											</a>
 										</td>
-										<td th:text="${reportData.boardInputDate}">작성일</td>
+										<td>
+											<span th:if="${reportData.boardNumber} != 0" th:text="${reportData.boardInputDate}">게시글 작성일</span>
+											<span th:if="${reportData.questionNumber} != 0" th:text="${reportData.questionInputDate}">질문 작성일</span>
+										</td>
 										<td th:text="${reportData.reportCategory}">신고사유</td>
-										<td th:text="${reportData.reportCount}">신고수</td>
+										<td>
+											<span th:if="${reportData.boardNumber} != 0" th:text="${reportData.reportBCount}">게시글 신고수</span>
+											<span th:if="${reportData.questionNumber} != 0" th:text="${reportData.reportQCount}">질문 신고수</span>
+										</td>
 										<td style="padding:0; width:100px; height:36px;">
-											<input 
-												th:reportedCount="${reportData.reportCount}"
+											<input th:if="${reportData.boardNumber} != 0"
+												th:reportedCount="${reportData.reportBCount}"
 												th:reportedCategory="${reportData.reportCategory}"
-												th:reportedBoardTitle="${reportData.boardTitle}"
-												th:reportedBoardNumber="${reportData.boardNumber}"
-												th:reportedBoardMember="${reportData.memberId}" 
+												th:reportedTitle="${reportData.boardTitle}"
+												th:reportedNumber="${reportData.boardNumber}"
+												th:reportedMember="${reportData.memberId}" 
 												type="button" 
-												onclick="deleteBoard(getAttribute('reportedBoardNumber'), getAttribute('reportedBoardMember'), getAttribute('reportedBoardTitle'), getAttribute('reportedCategory'), getAttribute('reportedCount'))"
+												onclick="deleteBoard(getAttribute('reportedNumber'), getAttribute('reportedMember'), getAttribute('reportedTitle'), getAttribute('reportedCategory'), getAttribute('reportedCount'), '자유')"
+												style="width : 100px; height : 36px;"
+												value="글 삭제">
+											<input th:if="${reportData.questionNumber} != 0"
+												th:reportedCount="${reportData.reportQCount}"
+												th:reportedCategory="${reportData.reportCategory}"
+												th:reportedTitle="${reportData.questionTitle}"
+												th:reportedNumber="${reportData.questionNumber}"
+												th:reportedMember="${reportData.memberId}" 
+												type="button" 
+												onclick="deleteBoard(getAttribute('reportedNumber'), getAttribute('reportedMember'), getAttribute('reportedTitle'), getAttribute('reportedCategory'), getAttribute('reportedCount'), 'Q&A')"
 												style="width : 100px; height : 36px;"
 												value="글 삭제">
 										</td>

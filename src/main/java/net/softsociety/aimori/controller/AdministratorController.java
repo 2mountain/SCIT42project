@@ -153,7 +153,7 @@ public class AdministratorController {
 		
 		// 해당 번호의 글 정보 조회
 		Board board = bService.boardRead(boardNumber);
-		log.debug("deleteBoard board : {}", board);
+		log.debug("[AdministratorController] deleteBoard - board : {}", board);
 
 
 		if (board == null) {
@@ -169,6 +169,8 @@ public class AdministratorController {
 
 		// 글 삭제
 		int result = bService.boardDelete(board);
+		log.debug("[AdministratorController] deleteBoard - result : {}", result);
+		
 
 		// 글 삭제 성공 and 첨부된 파일이 있는 경우 파일도 삭제
 		if (result == 1 && savedfile != null) {
