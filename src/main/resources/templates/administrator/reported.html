@@ -19,7 +19,7 @@
 	function deleteBoard(reportedNumber, reportedMember, reportedTitle, reportedCategory, reportedCount, BorQ){
 		if(confirm(`글 번호 : ${reportedNumber}\n게시판 : ${BorQ}\n작성자 : ${reportedMember}\n글 제목 : ${reportedTitle}\n신고 사유 : ${reportedCategory}\n신고 수 : ${reportedCount}\n\n삭제하시겠습니까?`))
 		{
-			if(location === '자유'){
+			if(BorQ === '자유'){
 				console.log('Board');
 				$.ajax({
 					url : 'deleteBoard',
@@ -40,7 +40,7 @@
 						console.log(JSON.stringify(e));
 					}
 				});			
-			} else if(location === 'Q&A'){
+			} else if(BorQ === 'Q&A'){
 				console.log('Q&A');
 				// 질문 삭제로 수정 필요
 				$.ajax({
