@@ -354,41 +354,55 @@
 		</div>
 		<div style="height: 50px;"></div>
 		
-		
-		
-		<div class="container" style="padding-left: 210px;">
-			<table class="answer" th:each="answer : ${answerlist}">
-				<tr>
-					<td class="memberId" th:text="${answer.memberId} + ' / ' + ${answer.answerInputDate}"></td>
-				<tr>
-					<td class="answerContents form-group col-sm-10" th:text="${answer.answerContents}" th:id="'re'+${answer.answerNumber}"
-					style="height: 300px; border-width: 1px solid gray;">
-					<!-- <div class="form-group col-sm-10">
-							<textarea class="form-control input-sm" type="text" id="answerContents" name="answerContents" placeholder="답변 입력..." style="height : 200px; border: solid 1px gray;"></textarea>
-					</div> -->
-					</td>
-				</tr>
-				<tr>
-					<td style="padding-left: 800px;">
-						<a class="btn btn-success btn-sm" style="color: white;"
-						th:href="|javascript:answerAccepted(${answer.answerNumber}, ${question.questionNumber})|">
-						채택</a>
-					</td>
-				</tr>
-				<tr>
-					<td style="padding-left: 750px;">
-						<a class="btn btn-secondary btn-sm" style="color: white;"
-						th:href="|javascript:answerUpdate(${answer.answerNumber}, ${answer.questionNumber})|">
-						수정</a>
-						<span th:if="${#authentication.name} == ${answer.memberId}">
-						<a  class="btn btn-secondary btn-sm" style="color: white;"
-						th:href="|javascript:answerDelete(${answer.answerNumber}, ${answer.questionNumber})|">
-						삭제</a>
-						</span>
-					</td>
-				</tr>
-			</table>
+		<div class="container" style="padding-left: 180px;">
+			<div th:each="answer : ${answerlist}"
+				style="background-color: rgb(247, 247, 247); border-radius: 30px; padding: 0px 20px 0px 20px;">
+				<div style="width: 900px; height: 50px; text-align: left; padding: 10px 10px 10px 20px;">
+					<a th:utext="${answer.memberId} + ' / ' + ${answer.answerInputDate}"></a>
+					&nbsp;&nbsp;
+					<a class="btn btn-success btn-sm" style="color: white;"
+					th:href="|javascript:answerAccepted(${answer.answerNumber}, ${question.questionNumber})|">
+					채택</a>
+				</div>
+				<div 
+					style="width: 900px; height: 200px; border: 1px solid gray; border-radius: 30px; text-align: left; padding: 20px 20px 20px 20px; background-color: white;"
+					id="contents"
+					th:utext="${answer.answerContents}">
+				</div>
+				<div style="width: 900px; height: 50px; text-align: right; padding: 10px 10px 10px 20px;">
+					<a class="btn btn-secondary btn-sm" style="color: white;"
+					th:href="|javascript:answerUpdate(${answer.answerNumber}, ${answer.questionNumber})|">
+					수정</a>
+					<span th:if="${#authentication.name} == ${answer.memberId}">
+					<a  class="btn btn-secondary btn-sm" style="color: white;"
+					th:href="|javascript:answerDelete(${answer.answerNumber}, ${answer.questionNumber})|">
+					삭제</a>
+				</div>
+				<pre style="width: 900px; height: 30px;">
+				</pre>
+			</div>
 		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
