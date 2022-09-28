@@ -54,5 +54,10 @@ public interface BoardDAO {
 	public int replyPlus(int boardNumber);
 	// 댓글 개수 -1
 	public int replyMinus(int boardNumber);
+	
+	
+	
+	//홈 화면 출력
+	public ArrayList<Board> boardMainList();
 
 }
