@@ -365,7 +365,7 @@ html {
 							</div>
 							<div class="mypage" sec:authorize="isAuthenticated()"
 								style="margin-left: 20px">
-								<a href="#">마이페이지</a>
+								<a th:href="@{mypage/main}">마이페이지</a>
 							</div>
 							<div class="logout" sec:authorize="isAuthenticated()"
 								style="margin-left: 10px;">
