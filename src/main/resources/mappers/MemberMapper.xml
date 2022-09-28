@@ -42,18 +42,21 @@
 </select>
 
 <!-- 회원정보 수정 -->
-<update id="update" parameterType="Member">
-	update spring5_member
-	set
-		membername = #{membername}
-		, email = #{email}
-		, phone = #{phone}
-		, address = #{address}
-		<if test="memberpw != null and memberpw != ''">
-			, memberpw = #{memberpw}
+	<update id=" updateMember" parameterType="Member">
+		UPDATE
+			members
+		SET
+			memberPassword = #{memberPassword}
+			, memberNickName = #{memberNickName}
+			, memberEmail = #{memberEmail}
+			, memberAddress = #{memberAddress}
+		
+		<if test="boardImageOriginal != null and boardImageSaved != null">
+			, boardImageOriginal = #{boardImageOriginal}
+			, boardImageSaved = #{boardImageSaved}
 		</if>
-	where
-		memberid = #{memberid}
-</update>
+		WHERE
+			memberId = #{memberId}
+	</update>
 
 </mapper>
