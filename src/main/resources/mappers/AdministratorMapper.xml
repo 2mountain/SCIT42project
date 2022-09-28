@@ -23,6 +23,7 @@
 	
 	<select id="getReportedBoard" resultType="ReportedBoard">
 		SELECT r.memberid, r.boardnumber,
+		        (SELECT boardCategory FROM board WHERE boardnumber = r.boardnumber) boardCategory,
 				(SELECT boardtitle FROM board WHERE boardnumber = r.boardnumber) boardTitle,
 				(SELECT boardinputdate FROM board WHERE boardnumber = r.boardnumber) boardInputdate,
 				r.reportcategory,
