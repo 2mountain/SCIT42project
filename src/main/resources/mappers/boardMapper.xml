@@ -358,7 +358,9 @@
 			, boardImageSaved
 			, replyCount
 		from
-		Board
+			Board
+		WHERE boardImageSaved != null
+		ORDER BY boardNumber DESC
 	</select>
 	
 </mapper>
