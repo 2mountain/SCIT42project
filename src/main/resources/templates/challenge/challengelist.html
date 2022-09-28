@@ -204,11 +204,7 @@ function pagingFormSubmit(currentPage) {
 			<td class="white">
 				전체 <span th:text="${chnavi.totalRecordsCount}"></span>
 			</td>
-			<td class="white" colspan="3"></td>
-			<td class="head">
-				<a sec:authorize="hasRole('ADMIN')" th:href="@{/challenge/challengewrite}">대회 개최하기</a>
-				<a th:href="@{/}">Home</a>
-			</td>
+			
 		</tr>
 		<tr>
 			<th>글번호</th>
@@ -259,7 +255,7 @@ function pagingFormSubmit(currentPage) {
 
 
    <div class="text-right">
-      <a class="btn btn-light" style="background-color: rgb(220, 220, 255);"
+      <a  sec:authorize="hasRole('ADMIN')" class="btn btn-light" style="background-color: rgb(220, 220, 255);"
          colspan="6" th:href="@{/challenge/challengewrite}">글쓰기</a>
    </div>
 
