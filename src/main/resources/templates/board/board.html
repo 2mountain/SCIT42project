@@ -48,6 +48,51 @@
 	}
 </script>
 
+<script>
+$(document).ready(function() {
+	$('#boardCategorySelect').change(search);
+	search();
+});
+
+function boardCategorySearch() {
+	let boardCategorySearch = $('#boardCategorySelect').val();
+	
+	$.ajax({
+		url : 'search',
+		type : 'post',
+		data : {boardCategory:boardCategorySearch},
+		dataType : 'json',
+		success : output,
+		error: function(e) {
+			alert(JSON.stringify(e));
+		}
+	});
+}
+
+function output(list) {
+	let str = '';
+	
+	str += '<table>';
+	str += '<tr>';
+	str += '	<th>번호</th>';
+	str += '	<th>카테고리</th>';
+	str += '	<th>제목</th>';
+	str += '</tr>';
+	
+	$(list).each(function (i, ob) {
+		str += '<tr>';
+		str += '	<td>' + ob.boardnum + '</td>';
+		str += '	<td>' + ob.category + '</td>';
+		str += '	<td>' + ob.title + '</td>';
+		str += '</tr>';
+	});
+	str += '</table>';
+
+	$('#output').html(str);
+}
+
+</script>
+
 </head>
 
 <body>
@@ -141,7 +186,7 @@
 								th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
 							</li>
 							<li class="nav-item"><a class="nav-link"
-							th:href="@{/qna}">Q&A <span class="sr-only">(current)</span></a>
+							th:href="@{/qna/list}">Q&A <span class="sr-only">(current)</span></a>
 							</li>
 							<li class="nav-item"><a class="nav-link"
 								th:href="@{/facilities}">시설</a></li>
@@ -210,7 +255,7 @@
 					<tr style="background-color: rgb(228, 228, 228);">
 						<th id="boardSearch">
 							<div id="boardSearch">
-								<select class="form-control" id="boardSearch" name="boardSearch"
+								<select class="form-control" id="boardCategorySelect" name="boardCategorySelect"
 									style="background-color: rgb(250, 250, 255);">
 									<option value="전체" th:selected="${boardSearch} == '전체'">전체</option>
 									<option value="일상" th:selected="${boardSearch} == '일상'">일상</option>
