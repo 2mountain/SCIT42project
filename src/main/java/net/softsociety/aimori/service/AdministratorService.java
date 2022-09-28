@@ -2,6 +2,7 @@ package net.softsociety.aimori.service;
 
 import java.util.List;
 
+import net.softsociety.aimori.domain.DateJoinNumber;
 import net.softsociety.aimori.domain.Member;
 import net.softsociety.aimori.domain.ReportedBoard;
 
@@ -31,4 +32,10 @@ public interface AdministratorService {
 	 * @return 신고된 글 리스트
 	 */
 	public List<ReportedBoard> getReportedBoard();
+
+	/**
+	 * 
+	 * @return 가입일자 / 일자별 가입자 수
+	 */
+	public List<DateJoinNumber> getJoinNumber();
 }
