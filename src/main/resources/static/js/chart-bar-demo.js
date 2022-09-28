@@ -23,6 +23,12 @@ function barChartData(){
 				}
 				console.log(resultLabel);
 				console.log(resultData);
+				
+				/*
+				$(function(){
+				    $("#myBarChart").load("administrator/administrator.html");
+				});
+				*/
 			},
 			error : function(e){
 				alert('차트 데이터 로딩 실패');
@@ -48,13 +54,13 @@ var myLineChart = new Chart(ctx, {
     scales: {
       xAxes: [{
         time: {
-          unit: 'month'
+          unit: 'day'
         },
-        gridLines: {
+        gridLines: { // X축 라인
           display: false
         },
         ticks: {
-          maxTicksLimit: 6
+          maxTicksLimit: 7
         }
       }],
       yAxes: [{
@@ -63,12 +69,12 @@ var myLineChart = new Chart(ctx, {
           max: 10,
           maxTicksLimit: 5
         },
-        gridLines: {
+        gridLines: { // Y축 라인
           display: true
         }
       }],
     },
-    legend: {
+    legend: { // 차트 설명
       display: false
     }
   }
