@@ -188,7 +188,8 @@ CREATE TABLE challenge
 	challengeName 		VARCHAR2(200),
 	challengeStartDate 	VARCHAR2(200),
 	challengeEndDate 	VARCHAR2(200),
-	challengePoint 		NUMBER 
+	challengeContents 	VARCHAR2(200),
+	challengeType 	VARCHAR2(200),	
 );
 
 --의사 정보 테이블

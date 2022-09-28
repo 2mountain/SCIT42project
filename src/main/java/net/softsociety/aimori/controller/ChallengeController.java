@@ -4,9 +4,12 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -15,6 +18,7 @@ import net.softsociety.aimori.domain.Challenge;
 import net.softsociety.aimori.domain.Entrylist;
 import net.softsociety.aimori.service.ChallengeService;
 import net.softsociety.aimori.util.PageNavigator;
+import net.softsociety.spring5.domain.Board;
 
 
 @Slf4j
@@ -98,7 +102,15 @@ public String challengeupdate()
 		return "/challenge/contestwrite";
 	}
 	
+	@PostMapping({"challengewrite"})
+	public String challengewrite(
+			Challenge challenge
+			, @AuthenticationPrincipal UserDetails user)
+	{
+		
+		return "/challenge/contestlist";
 	
+	}
 	@GetMapping({"challengewrite"})
 	public String challengewrite()
 	{
