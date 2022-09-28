@@ -160,7 +160,7 @@
 		where
 			questionNumber=#{questionNumber}
 		order by
-			answerInputDateDetail desc
+			answerInputDateDetail
 	</select>
 	
 	<!-- 답변 저장 -->
