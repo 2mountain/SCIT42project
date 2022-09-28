@@ -14,4 +14,5 @@ public class ReportedBoard {
 	String boardInputDate;
 	String reportCategory;
 	int reportCount;
+	String boardCategory;
 }

@@ -182,6 +182,7 @@
 									<tr>
 										<th>작성자</th>
 										<th>글 번호</th>
+										<th>말머리</th>
 										<th>글 제목</th>
 										<th>작성일</th>
 										<th>신고사유</th>
@@ -193,6 +194,7 @@
 									<tr th:each="reportData : ${reportData}">
 										<td th:text="${reportData.memberId}">작성자</td>
 										<td th:text="${reportData.boardNumber}">글 번호</td>
+										<td th:text="${reportData.boardCategory}">말머리</td>
 										<td>
 											<a th:text="${reportData.boardTitle}" th:href="@{/board/read(boardNumber=${reportData.boardNumber})}" 
 												style="text-decoration: none"> 
