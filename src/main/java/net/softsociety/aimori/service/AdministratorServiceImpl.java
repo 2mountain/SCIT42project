@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 import net.softsociety.aimori.dao.AdministratorDAO;
+import net.softsociety.aimori.domain.DateJoinNumber;
 import net.softsociety.aimori.domain.Member;
 import net.softsociety.aimori.domain.ReportedBoard;
 
@@ -40,6 +41,12 @@ public class AdministratorServiceImpl implements AdministratorService {
 	@Override
 	public List<ReportedBoard> getReportedBoard() {
 		List<ReportedBoard> list = dao.getReportedBoard();
+		return list;
+	}
+
+	@Override
+	public List<DateJoinNumber> getJoinNumber() {
+		List<DateJoinNumber> list = dao.getJoinNumber();
 		return list;
 	}
 

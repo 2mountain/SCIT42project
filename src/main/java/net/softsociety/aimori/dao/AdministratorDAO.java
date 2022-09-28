@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import net.softsociety.aimori.domain.DateJoinNumber;
 import net.softsociety.aimori.domain.Member;
 import net.softsociety.aimori.domain.ReportedBoard;
 
@@ -34,4 +35,10 @@ public interface AdministratorDAO {
 	 * @return 신고된 글 리스트
 	 */
 	public List<ReportedBoard> getReportedBoard();
+
+	/**
+	 * 
+	 * @return
+	 */
+	public List<DateJoinNumber> getJoinNumber();
 }

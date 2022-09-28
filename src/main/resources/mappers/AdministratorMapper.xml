@@ -36,4 +36,12 @@
 		GROUP BY r.boardNumber, r.questionNumber, r.reportCategory, r.memberId
 		ORDER BY r.boardNumber, r.questionNumber, r.reportCategory
 	</select>
+	
+	<select id="getJoinNumber" resultType="DateJoinNumber">
+		SELECT TO_CHAR(memberJoinDate, 'YYYY-MM-DD') AS joinDate, COUNT(*) AS memberJoinCount
+		FROM members
+		WHERE memberJoinDate BETWEEN SYSDATE-7 AND SYSDATE
+		GROUP BY TO_CHAR(memberJoinDate, 'YYYY-MM-DD')
+		ORDER BY TO_CHAR(memberJoinDate, 'YYYY-MM-DD') ASC
+	</select>
 </mapper>

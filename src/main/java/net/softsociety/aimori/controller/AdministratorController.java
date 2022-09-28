@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
 import net.softsociety.aimori.domain.Board;
+import net.softsociety.aimori.domain.DateJoinNumber;
 import net.softsociety.aimori.domain.Member;
 import net.softsociety.aimori.domain.ReportedBoard;
 import net.softsociety.aimori.service.AdministratorService;
@@ -182,5 +183,18 @@ public class AdministratorController {
 		} else {
 			return "failed";
 		}
+	}
+	
+	/**
+	 * 관리자 페이지의 차트를 위한 일자와 가입자 수를 반환 / select count(가입일), joindate ... group by date
+	 * @return
+	 */
+	@ResponseBody
+	@PostMapping("/getJoinNumber")
+	public List<DateJoinNumber> getJoinNumber() {
+		List<DateJoinNumber> list = aService.getJoinNumber();
+		log.debug("[AdministratorController] getJoinNumber - list : {}", list);
+		
+		return list;
 	}
 }
