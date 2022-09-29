@@ -9,5 +9,4 @@ public class AimoriApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AimoriApplication.class, args);
 	}
-
 }

@@ -107,4 +107,27 @@
 	entrylistnumber=#{entrylistNumber}
 	</update>
 	
+	<insert id="writeChallenge" parameterType="Challenge">
+	insert into challenge
+	(
+	challengenumber,
+	challengename,
+	challengeenddate,
+	challengestartdate,
+	challengecontents,
+	challengetype,
+	challengeregistday
+	)
+	values
+	(
+	challengenumber_sql.nextval,
+	#{challengeName},
+	#{challengeEndDate},
+	#{challengeStartDate},
+	#{challengeContents},
+	'challenge',
+	sysdate
+	) 
+	</insert>
+	
 </mapper>

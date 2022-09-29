@@ -1,28 +1,52 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+				xmlns:sec="http://thymeleaf.org/extras/spring-security">
 
 <head>
-<meta charset="UTF-8">
-<meta name="description" content="">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-<!-- Title -->
-<title>challenge</title>
+	<!-- Title -->
+	<title>Aimori</title>
 
-<!-- Favicon -->
-<link rel="icon" th:href="@{/img/core-img/favicon.ico}">
+	<!-- Favicon -->
+	<link rel="icon" th:href="@{/img/core-img/favicon.ico}">
 
-<!-- Core Stylesheet -->
-<link rel="stylesheet" th:href="@{/css/style.css}">
+	<!-- Core Stylesheet -->
+	<link rel="stylesheet" th:href="@{/css/style.css}">
 
-<!-- Responsive CSS -->
-<link th:href="@{/css/responsive/responsive.css}" rel="stylesheet">
+	<!-- Responsive CSS -->
+	<link th:href="@{/css/responsive/responsive.css}" rel="stylesheet">
 
-<!-- test -->
-<link rel="stylesheet" type="text/css" th:href="@{/css/board/board.css}" />
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap');
+	</style>
+
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100&display=swap');
+
+		*:not(i) {
+			font-family: NotoSans;
+		}
+
+		.weather-wrap {
+			width: 100%;
+			position: relative;
+		}
+
+		.weather-text {
+			position: absolute;
+			top: 5%;
+			width: 100%;
+			font-size: 5px;
+			text-align: center;
+		}
+	</style>
+
 
 <script>
 function pagingFormSubmit(currentPage) {
@@ -36,69 +60,51 @@ function pagingFormSubmit(currentPage) {
 </head>
 
 <body>
-	<!-- Preloader Start -->
+<!-- Preloader Start -->
 	<div id="preloader">
 		<div class="yummy-load"></div>
 	</div>
 
+	<!--     Background Pattern Swither
+    <div id="pattern-switcher">
+        Bg Pattern
+    </div>
+    <div id="patter-close">
+        <i class="fa fa-times" aria-hidden="true"></i>
+    </div> -->
 
 	<!-- ****** Top Header Area Start ****** -->
 	<div class="top_header_area">
 		<div class="container">
 			<div class="row">
 				<div class="col-5 col-sm-6">
-					<!--  Top Social bar start -->
-					<div class="top_social_bar">
-						<a href="https://facebook.com"><i class="fa fa-facebook"
-							aria-hidden="true"></i></a> <a href="https://twitter.com"><i
-							class="fa fa-twitter" aria-hidden="true"></i></a> <a
-							href="https://linkedin.com"><i class="fa fa-linkedin"
-							aria-hidden="true"></i></a> <a href="https://skype.com"><i
-							class="fa fa-skype" aria-hidden="true"></i></a> <a
-							href="https://dribbble.com"><i class="fa fa-dribbble"
-							aria-hidden="true"></i></a>
-					</div>
+
 				</div>
 				<!--  Login Register Area -->
-								<div class="col-7 col-sm-6">
+				<div class="col-7 col-sm-6">
 					<div class="signup-search-area d-flex align-items-center justify-content-end">
 
 						
 						
 						<div class="login_register_area d-flex">
 							<div class="login" sec:authorize="not isAuthenticated()">
-								<a href="../member/logIn">로그인</a>
+								<a href="member/logIn">로그인</a>
 							</div>
 							<div class="register" sec:authorize="not isAuthenticated()">
-								<a href="../member/signIn">회원가입</a>
+								<a href="member/signIn">회원가입</a>
 							</div>
 						</div>
 						<div class="login_register_area d-flex">
 							<div class="mypage" sec:authorize="isAuthenticated()"
 								style="margin-left: 20px">
-								<a sec:authorize="hasRole('ADMIN')" th:href="@{/../administrator}"><b>관리자 페이지</b></a>
+								<a sec:authorize="hasRole('ADMIN')" th:href="@{/administrator}"><b>관리자 페이지</b></a>
 							</div>
-							<div class="mypage" sec:authorize="isAuthenticated()" style="margin-left: 20px">
-								마이페이지
+							<div class="mypage" sec:authorize="isAuthenticated()" style="margin-left: 10px">
+								<a th:href="@{mypage/main}">마이페이지</a>
 							</div>
 							<div class="logout" sec:authorize="isAuthenticated()" style="margin-left: 10px;">
 								<a th:href="@{logout}">로그아웃</a>
 							</div>
-						</div>
-					</div>
-						<!-- Search Button Area -->
-						<div class="search_button">
-							<a class="searchBtn" href="#"><i class="fa fa-search"
-								aria-hidden="true"></i></a>
-						</div>
-						<!-- Search Form -->
-						<div class="search-hidden-form">
-							<form action="#" method="">
-								<input type="search" name="search" id="search-anything"
-									placeholder="Search Anything..."> <input type="submit"
-									value="" class="d-none"> <span class="searchBtn"><i
-									class="fa fa-times" aria-hidden="true"></i></span>
-							</form>
 						</div>
 					</div>
 				</div>
@@ -107,60 +113,58 @@ function pagingFormSubmit(currentPage) {
 	</div>
 	<!-- ****** Top Header Area End ****** -->
 
-	<!-- ****** Header Area Start ****** -->
+		<!-- ****** Header Area Start ****** -->
 	<header class="header_area">
 		<div class="container">
 			<div class="row">
 				<!-- Logo Area Start -->
 				<div class="col-12">
-					<div class="logo_area text-center">
-						<a href="index.html" class="yummy-logo">AIMORI</a>
-					</div>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-12">
-					<nav class="navbar navbar-expand-lg">
-						<button class="navbar-toggler" type="button"
-							data-toggle="collapse" data-tar="#yummyfood-nav"
-							aria-controls="yummyfood-nav" aria-expanded="false"
-							aria-label="Toggle navigation">
-							<i class="fa fa-bars" aria-hidden="true"></i> Menu
-						</button>
-						<!-- Menu Area Start -->
-						<div class="collapse navbar-collapse justify-content-center"
-							id="yummyfood-nav">
-							<ul class="navbar-nav" id="yummy-nav">
-								<li class="nav-item active"><a class="nav-link" href="#">커뮤니티
-										<span class="sr-only">(current)</span>
-								</a></li>
-								<li class="nav-item dropdown"><a
-									class="nav-link dropdown-toggle" href="#" id="yummyDropdown"
-									role="button" data-toggle="dropdown" aria-haspopup="true"
-									aria-expanded="false">Pages</a>
-									<div class="dropdown-menu" aria-labelledby="yummyDropdown">
-										<a class="dropdown-item" href="#">1</a> <a
-											class="dropdown-item" href="#">2</a> <a class="dropdown-item"
-											href="#">3</a> <a class="dropdown-item" href="#">4</a> <a
-											class="dropdown-item" href="#">5</a>
-									</div></li>
-								<li class="nav-item"><a class="nav-link"
-									th:href="@{/facilities}">시설</a></li>
-								<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
-								<li class="nav-item"><a class="nav-link" href="#">챌린지</a></li>
-								<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
-								</li>
-								<li class="nav-item"><a class="nav-link" href="#">Contact</a>
-								</li>
-							</ul>
-						</div>
-					</nav>
+					<a th:href="@{/}" class="yummy-logo">
+						<img src="img/bg-img/toplogo.jpg" alt=""> 
+					</a>
 				</div>
 			</div>
 		</div>
+
+		<div class="row">
+			<div class="col-12">
+				<nav class="navbar navbar-expand-lg">
+					<button class="navbar-toggler" type="button" data-toggle="collapse"
+						data-target="#yummyfood-nav" aria-controls="yummyfood-nav"
+						aria-expanded="false" aria-label="Toggle navigation">
+						<i class="fa fa-bars" aria-hidden="true"></i> Menu
+					</button>
+					<!-- Menu Area Start -->
+					<div class="collapse navbar-collapse justify-content-center"
+						id="yummyfood-nav">
+						<ul class="navbar-nav" id="yummy-nav">
+							<li class="nav-item active"><a class="nav-link"
+								th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
+							</li>
+							<li class="nav-item"><a class="nav-link"
+								th:href="@{/qna/list}">Q&A <span class="sr-only">(current)</span></a>
+							</li>
+							<li class="nav-item"><a class="nav-link"
+								th:href="@{/facilities}">시설</a></li>
+							<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
+							<li>
+							<div class="dropdown">
+								<span class="dropbtn">챌린지</span>
+								<div class="dropdown-content">
+									<a th:href="@{/challenge/challengelist}">도전과제</a>
+									 <a th:href="@{/challenge/contestlist}">대회</a>
+								</div>
+							</div>
+							</li>
+							<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+		</div>
 	</header>
-	<!-- ****** Header Area End ****** -->
+	<!-- ****** Header Area End ****** -->s
 
 	<!-- ****** Breadcumb Area Start ****** -->
 	<div class="breadcumb-area"
@@ -260,16 +264,10 @@ function pagingFormSubmit(currentPage) {
    </div>
 
 <!-- ****** Archive Area End ****** -->
-
+	
+	<div id="needMargin"></div>
+	
 	<!-- ****** Instagram Area Start ****** -->
-
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
 	<div
 		class="instargram_area owl-carousel section_padding_100_0 clearfix"
 		id="portfolio">
@@ -277,7 +275,7 @@ function pagingFormSubmit(currentPage) {
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img th:src="@{/img/instagram-img/1.jpg}" alt="">
+			<img src="img/instagram-img/1.jpg" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -294,7 +292,7 @@ function pagingFormSubmit(currentPage) {
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img th:src="@{/img/instagram-img/2.jpg}" alt="">
+			<img src="img/instagram-img/2.jpg" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -311,7 +309,7 @@ function pagingFormSubmit(currentPage) {
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img th:src="@{/img/instagram-img/3.jpg}" alt="">
+			<img src="img/instagram-img/3.jpg" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -328,7 +326,7 @@ function pagingFormSubmit(currentPage) {
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img th:src="@{/img/instagram-img/4.jpg}" alt="">
+			<img src="img/instagram-img/4.jpg" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -345,7 +343,7 @@ function pagingFormSubmit(currentPage) {
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img th:src="@{/img/instagram-img/5.jpg}" alt="">
+			<img src="img/instagram-img/5.jpg" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -362,7 +360,7 @@ function pagingFormSubmit(currentPage) {
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img th:src="@{/img/instagram-img/6.jpg}" alt="">
+			<img src="img/instagram-img/6.jpg" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -379,7 +377,7 @@ function pagingFormSubmit(currentPage) {
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img th:src="@{/img/instagram-img/1.jpg}" alt="">
+			<img src="img/instagram-img/1.jpg" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -396,7 +394,7 @@ function pagingFormSubmit(currentPage) {
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img th:src="@{/img/instagram-img/2.jpg}" alt="">
+			<img src="img/instagram-img/2.jpg" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -413,86 +411,53 @@ function pagingFormSubmit(currentPage) {
 	</div>
 	<!-- ****** Our Creative Portfolio Area End ****** -->
 
-	<!-- ****** Footer Social Icon Area Start ****** -->
-	<div class="social_icon_area clearfix">
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
-					<div class="footer-social-area d-flex">
-						<div class="single-icon">
-							<a href="#"><i class="fa fa-facebook" aria-hidden="true"></i><span>facebook</span></a>
-						</div>
-						<div class="single-icon">
-							<a href="#"><i class="fa fa-twitter" aria-hidden="true"></i><span>Twitter</span></a>
-						</div>
-						<div class="single-icon">
-							<a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i><span>GOOGLE+</span></a>
-						</div>
-						<div class="single-icon">
-							<a href="#"><i class="fa fa-linkedin-square"
-								aria-hidden="true"></i><span>linkedin</span></a>
-						</div>
-						<div class="single-icon">
-							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i><span>Instagram</span></a>
-						</div>
-						<div class="single-icon">
-							<a href="#"><i class="fa fa-vimeo" aria-hidden="true"></i><span>VIMEO</span></a>
-						</div>
-						<div class="single-icon">
-							<a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i><span>YOUTUBE</span></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- ****** Footer Social Icon Area End ****** -->
-
 	<!-- ****** Footer Menu Area Start ****** -->
 	<footer class="footer_area">
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
 					<div class="footer-content">
-						<!-- Logo Area Start -->
-						<div class="footer-logo-area text-center">
-							<a href="index.html" class="yummy-logo">Aimori</a>
-						</div>
-						<!-- Menu Area Start -->
-						<nav class="navbar navbar-expand-lg">
-							<button class="navbar-toggler" type="button"
-								data-toggle="collapse" data-tar="#yummyfood-footer-nav"
-								aria-controls="yummyfood-footer-nav" aria-expanded="false"
-								aria-label="Toggle navigation">
-								<i class="fa fa-bars" aria-hidden="true"></i> Menu
-							</button>
+						<div class="footer-content">
+							<!-- Logo Area Start -->
+							<div class="footer-logo-area text-center">
+								<a th:href="@{/}" class="yummy-logo"><img th:src="@{img/bg-img/toplogo.jpg}" alt=""></a>
+							</div>
 							<!-- Menu Area Start -->
-							<div class="collapse navbar-collapse justify-content-center"
-								id="yummyfood-footer-nav">
-								<ul class="navbar-nav">
-									<li class="nav-item active"><a class="nav-link" href="#">Home
-											<span class="sr-only">(current)</span>
-									</a></li>
-									<li class="nav-item"><a class="nav-link" href="#">Features</a>
-									</li>
-									<li class="nav-item"><a class="nav-link" href="#">Categories</a>
-									</li>
-									<li class="nav-item"><a class="nav-link" href="#">Archive</a>
-									</li>
+							<nav class="navbar navbar-expand-lg">
+								<button class="navbar-toggler" type="button"
+									data-toggle="collapse" data-target="#yummyfood-footer-nav"
+									aria-controls="yummyfood-footer-nav" aria-expanded="false"
+									aria-label="Toggle navigation">
+									<i class="fa fa-bars" aria-hidden="true"></i> Menu
+								</button>
+								<!-- Menu Area Start -->
+								<div class="collapse navbar-collapse justify-content-center"
+									id="yummyfood-footer-nav">
+									<ul class="navbar-nav">
+										<li class="nav-item active"><a class="nav-link"
+											th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
+										</li>
+										<li class="nav-item"><a class="nav-link"
+											th:href="@{/qna/list}">Q&A <span class="sr-only">(current)</span></a>
+										</li>
+										<li class="nav-item"><a class="nav-link"
+											th:href="@{/facilities}">시설</a></li>
+										<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
 										<li>
-							<div class="dropdown">
-								<span class="dropbtn">챌린지</span>
-								<div class="dropdown-content">
-									<a th:href="@{/challenge/challengelist}">도전과제</a>
-									 <a th:href="@{/challenge/contestlist}">대회</a>
+											<div class="dropdown">
+												<span class="dropbtn">챌린지</span>
+												<div class="dropdown-content">
+													<a th:href="@{/challenge/challengelist}">도전과제</a> <a
+														th:href="@{/challenge/contestlist}">대회</a>
+												</div>
+											</div>
+										</li>
+										<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
+										</li>
+									</ul>
 								</div>
-							</div>
-							</li>
-									<li class="nav-item"><a class="nav-link" href="#">Contact</a>
-									</li>
-								</ul>
-							</div>
-						</nav>
+							</nav>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -506,7 +471,7 @@ function pagingFormSubmit(currentPage) {
 						<p>
 							Copyright @2018 All rights reserved | This template is made with
 							<i class="fa fa-heart-o" aria-hidden="true"></i> by <a
-								href="https://colorlib.com" tar="_blank">Colorlib</a>
+								href="https://colorlib.com" target="_blank">Colorlib</a>
 						</p>
 					</div>
 				</div>
@@ -516,14 +481,11 @@ function pagingFormSubmit(currentPage) {
 	<!-- ****** Footer Menu Area End ****** -->
 
 	<!-- Jquery-2.2.4 js -->
-	<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
+	<script th:src="@{js/jquery/jquery-2.2.4.min.js}"></script>
 	<!-- Popper js -->
-	<script th:src="@{/js/bootstrap/popper.min.js}"></script>
+	<script th:src="@{js/bootstrap/popper.min.js}"></script>
 	<!-- All Plugins JS -->
-	<script th:src="@{/js/others/plugins.js}"></script>
+	<script th:src="@{js/others/plugins.js}"></script>
 	<!-- Active JS -->
-	<script th:src="@{/js/active.js}"></script>
-	<!--  type="application/js" -->
-
-
+	<script th:src="@{js/active.js}"></script>
 </body>
