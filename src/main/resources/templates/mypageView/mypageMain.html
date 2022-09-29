@@ -188,8 +188,7 @@
 									class="fa fa-home" aria-hidden="true"></i>Home
 							</a></li>
 							<li class="breadcrumb-item active" aria-current="page"
-								style="padding-bottom: 80px;"><a th:href="@{petPage}">my
-									Pet</a></li>
+								style="padding-bottom: 80px;"><a th:href="@{petPage}">account</a></li>
 						</ol>
 					</nav>
 				</div>
@@ -203,12 +202,12 @@
 	<div class="col-md-3" width="100px">
 		<div class="panel panel-info" width="100px">
 			<div class="panel-heading" width="100px">
-				<h3 class="panel-title" width="100px">My Pet</h3>
+				<h3 class="panel-title" width="100px">My Page</h3>
 			</div>
 			<!-- 사이드바 메뉴목록1 -->
 			<ul class="list-group">
 				<li class="list-group-item"><a href="#">개인정보 수정</a></li>
-				<li class="list-group-item"><a th:href="@{petInfoInput}">애완동물 등록</a></li>
+				<li class="list-group-item"><a th:href="@{/mypage/petInfoInput}">애완동물 등록</a></li>
 				<li class="list-group-item"><a href="#">나의 활동</a></li>
 				<li class="list-group-item"><a href="#">의사자격신청</a></li>
 				<li class="list-group-item"><a href="#">나의 활동</a></li>
@@ -425,37 +424,33 @@
 				<div class="col-12" style="display: inline-block;">
 					<div class="footer-content">
 						<!-- Logo Area Start -->
-						<div class="footer-logo-area text-center">
-							<a href="index.html" class="yummy-logo">Aimori</a>
-						</div>
-						<!-- Menu Area Start -->
-						<nav class="navbar navbar-expand-lg">
-							<button class="navbar-toggler" type="button"
-								data-toggle="collapse" data-target="#yummyfood-footer-nav"
-								aria-controls="yummyfood-footer-nav" aria-expanded="false"
-								aria-label="Toggle navigation">
-								<i class="fa fa-bars" aria-hidden="true"></i> Menu
-							</button>
-							<!-- Menu Area Start -->
-							<div class="collapse navbar-collapse justify-content-center"
-								id="yummyfood-footer-nav">
-								<ul class="navbar-nav">
-									<li class="nav-item active"><a class="nav-link" href="#">Home
-											<span class="sr-only">(current)</span>
-									</a></li>
-									<li class="nav-item"><a class="nav-link" href="#">Features</a>
-									</li>
-									<li class="nav-item"><a class="nav-link" href="#">Categories</a>
-									</li>
-									<li class="nav-item"><a class="nav-link" href="#">Archive</a>
-									</li>
-									<li class="nav-item"><a class="nav-link" href="#">About</a>
-									</li>
-									<li class="nav-item"><a class="nav-link" href="#">Contact</a>
-									</li>
-								</ul>
+							<div class="footer-logo-area text-center">
+								<a th:href="@{/}" class="yummy-logo"><img src="img/bg-img/toplogo.jpg" alt=""></a>
 							</div>
-						</nav>
+							<!-- Menu Area Start -->
+							<nav class="navbar navbar-expand-lg">
+								<button class="navbar-toggler" type="button"
+									data-toggle="collapse" data-target="#yummyfood-footer-nav"
+									aria-controls="yummyfood-footer-nav" aria-expanded="false"
+									aria-label="Toggle navigation">
+									<i class="fa fa-bars" aria-hidden="true"></i> Menu
+								</button>
+								<!-- Menu Area Start -->
+								<div class="collapse navbar-collapse justify-content-center"
+									id="yummyfood-footer-nav">
+									<ul class="navbar-nav">
+										<li class="nav-item active"><a class="nav-link"
+											th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
+										</li>
+										<li class="nav-item"><a class="nav-link"
+											th:href="@{/facilities}">시설</a></li>
+										<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
+										<li class="nav-item"><a class="nav-link" href="@{/challenge}">챌린지</a></li>
+										<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
+										</li>
+									</ul>
+								</div>
+							</nav>
 					</div>
 				</div>
 			</div>
