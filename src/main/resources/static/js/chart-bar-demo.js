@@ -22,7 +22,6 @@ function barChartData(){
 					resultLabel.push(result[i].joinDate);
 					resultData.push(result[i].memberJoinCount);
 				}
-				
 			},
 			error : function(e){
 				alert('차트 데이터 로딩 실패');
