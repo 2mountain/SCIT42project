@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.softsociety.aimori.domain.Board;
 import net.softsociety.aimori.domain.DateJoinNumber;
 import net.softsociety.aimori.domain.Member;
+import net.softsociety.aimori.domain.PetTypeNNumber;
 import net.softsociety.aimori.domain.ReportedBoard;
 import net.softsociety.aimori.service.AdministratorService;
 import net.softsociety.aimori.service.BoardService;
@@ -186,7 +187,7 @@ public class AdministratorController {
 	}
 	
 	/**
-	 * 관리자 페이지의 차트를 위한 일자와 가입자 수를 반환 / select count(가입일), joindate ... group by date
+	 * 관리자 페이지의 차트를 위한 일자와 가입자 수를 반환
 	 * @return
 	 */
 	@ResponseBody
@@ -194,6 +195,19 @@ public class AdministratorController {
 	public List<DateJoinNumber> getJoinNumber() {
 		List<DateJoinNumber> list = aService.getJoinNumber();
 		log.debug("[AdministratorController] getJoinNumber - list : {}", list);
+		
+		return list;
+	}
+
+	/**
+	 * 회원들의 견종을 반환하는 메소드
+	 * @return 회원들의 견종 List
+	 */
+	@ResponseBody
+	@PostMapping("/getDogType")
+	public List<PetTypeNNumber> getDogType() {
+		List<PetTypeNNumber> list = aService.getDogType();
+		log.debug("[AdministratorController] getDogType - list : {}", list);
 		
 		return list;
 	}
