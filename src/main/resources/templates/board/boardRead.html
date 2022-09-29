@@ -152,7 +152,7 @@
 						
 						<div class="login_register_area d-flex">
 							<div class="login" sec:authorize="not isAuthenticated()">
-								<a href="member/logIn">로그인</a>
+								<a th:href="@{/member/logIn}">로그인</a>
 							</div>
 							<div class="register" sec:authorize="not isAuthenticated()">
 								<a href="member/signIn">회원가입</a>
