@@ -4,6 +4,7 @@ Chart.defaults.global.defaultFontColor = '#292b2c';
 
 window.onload = function(){
 	barChartData();
+	pieChartData();
 	
 }
 // 일자
@@ -21,8 +22,6 @@ function barChartData(){
 					resultLabel.push(result[i].joinDate);
 					resultData.push(result[i].memberJoinCount);
 				}
-				console.log(resultLabel);
-				console.log(resultData);
 				
 				/*
 				$(function(){

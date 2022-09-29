@@ -44,4 +44,10 @@
 		GROUP BY TO_CHAR(memberJoinDate, 'YYYY-MM-DD')
 		ORDER BY TO_CHAR(memberJoinDate, 'YYYY-MM-DD') ASC
 	</select>
+
+	<select id="getDogType" resultType="PetTypeNNumber">
+		SELECT petBreed, COUNT(petBreed) AS petBreedCount
+		FROM pet
+		GROUP BY petBreed
+	</select>
 </mapper>

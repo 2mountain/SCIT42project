@@ -129,30 +129,27 @@
 		<div class="yummy-load"></div>
 	</div>
 
-		<!-- ****** Top Header Area Start ****** -->
+	<!--     Background Pattern Swither
+    <div id="pattern-switcher">
+        Bg Pattern
+    </div>
+    <div id="patter-close">
+        <i class="fa fa-times" aria-hidden="true"></i>
+    </div> -->
+
+	<!-- ****** Top Header Area Start ****** -->
 	<div class="top_header_area">
 		<div class="container">
 			<div class="row">
 				<div class="col-5 col-sm-6">
-					
+
 				</div>
 				<!--  Login Register Area -->
 				<div class="col-7 col-sm-6">
 					<div class="signup-search-area d-flex align-items-center justify-content-end">
 
-						<!-- Search Form -->
-						<div class="search-hidden-form">
-							<form action="#" method="get">
-								<input type="search" name="search" id="search-anything"
-									placeholder="Search Anything...">
-								<!-- <input type="submit" value="" class="d-none"> -->
-								<!-- <span class="searchBtn"><i class="fa fa-times" aria-hidden="true"></i></span> -->
-							</form>
-						</div>
-						<!-- Search Button Area -->
-						<div class="search_button">
-							<a class="searchBtn" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
-						</div>
+						
+						
 						<div class="login_register_area d-flex">
 							<div class="login" sec:authorize="not isAuthenticated()">
 								<a href="member/logIn">로그인</a>
@@ -162,12 +159,16 @@
 							</div>
 						</div>
 						<div class="login_register_area d-flex">
-						<div class="mypage" sec:authorize="isAuthenticated()" style="margin-left:20px">
-							<a href="#">마이페이지</a>
-						</div>
-						<div class="logout" sec:authorize="isAuthenticated()" style="margin-left:10px;">
-							<a th:href="@{logout}">로그아웃</a>
-						</div>
+							<div class="mypage" sec:authorize="isAuthenticated()"
+								style="margin-left: 20px">
+								<a sec:authorize="hasRole('ADMIN')" th:href="@{/administrator}"><b>관리자 페이지</b></a>
+							</div>
+							<div class="mypage" sec:authorize="isAuthenticated()" style="margin-left: 10px">
+								<a th:href="@{mypage/main}">마이페이지</a>
+							</div>
+							<div class="logout" sec:authorize="isAuthenticated()" style="margin-left: 10px;">
+								<a th:href="@{logout}">로그아웃</a>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -176,43 +177,56 @@
 	</div>
 	<!-- ****** Top Header Area End ****** -->
 
-	<!-- ****** Header Area Start ****** -->
+		<!-- ****** Header Area Start ****** -->
 	<header class="header_area">
 		<div class="container">
 			<div class="row">
 				<!-- Logo Area Start -->
 				<div class="col-12">
-						<a th:href="@{/}" class="yummy-logo"><img src="img/bg-img/toplogo.jpg" alt=""></a>
-					</div>
+					<a th:href="@{/}" class="yummy-logo">
+						<img th:src="@{/img/bg-img/toplogo.jpg}" alt=""> 
+					</a>
 				</div>
 			</div>
+		</div>
 
-			<div class="row">
-				<div class="col-12">
-					<nav class="navbar navbar-expand-lg">
-						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#yummyfood-nav"
-							aria-controls="yummyfood-nav" aria-expanded="false" aria-label="Toggle navigation">
-							<i class="fa fa-bars" aria-hidden="true"></i> Menu
-						</button>
-						<!-- Menu Area Start -->
-						<div class="collapse navbar-collapse justify-content-center" id="yummyfood-nav">
-							<ul class="navbar-nav" id="yummy-nav">
-								<li class="nav-item active"><a class="nav-link" th:href="@{/board/boardImage}">커뮤니티 <span
-											class="sr-only">(current)</span></a>
-								</li>
-								<li class="nav-item"><a class="nav-link"
-								th:href="@{/qna/list}">QnA <span class="sr-only">(current)</span></a>
-								</li>
-								<li class="nav-item"><a class="nav-link" th:href="@{/facilities}">시설</a></li>
-								<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
-								<li class="nav-item"><a class="nav-link" href="#">챌린지</a></li>
-								<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
-								</li>
-							</ul>
-						</div>
-					</nav>
-				</div>
+		<div class="row">
+			<div class="col-12">
+				<nav class="navbar navbar-expand-lg">
+					<button class="navbar-toggler" type="button" data-toggle="collapse"
+						data-target="#yummyfood-nav" aria-controls="yummyfood-nav"
+						aria-expanded="false" aria-label="Toggle navigation">
+						<i class="fa fa-bars" aria-hidden="true"></i> Menu
+					</button>
+					<!-- Menu Area Start -->
+					<div class="collapse navbar-collapse justify-content-center"
+						id="yummyfood-nav">
+						<ul class="navbar-nav" id="yummy-nav">
+							<li class="nav-item active"><a class="nav-link"
+								th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
+							</li>
+							<li class="nav-item"><a class="nav-link"
+								th:href="@{/qna/list}">Q&A <span class="sr-only">(current)</span></a>
+							</li>
+							<li class="nav-item"><a class="nav-link"
+								th:href="@{/facilities}">시설</a></li>
+							<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
+							<li>
+							<div class="dropdown">
+								<span class="dropbtn">챌린지</span>
+								<div class="dropdown-content">
+									<a th:href="@{/challenge/challengelist}">도전과제</a>
+									 <a th:href="@{/challenge/contestlist}">대회</a>
+								</div>
+							</div>
+							</li>
+							<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
+							</li>
+						</ul>
+					</div>
+				</nav>
 			</div>
+		</div>
 	</header>
 	<!-- ****** Header Area End ****** -->
 
@@ -286,16 +300,21 @@
 							style="width: 900px; height: 200px;" id="contents"
 							th:utext="${board.boardContents}">
 							</pre>
+							<div th:if="${board.boardImageSaved != null}">
 							<img th:src="@{/img/fileSave/} + ${board.boardImageSaved}">
+							</div>
 					</td>
 				</tr>
 				<tr>
 					<th style="text-align: center;">파일첨부</th>
-					<td><a
+					<td>
+						<a
 						th:href="@{/board/download(boardNumber=${board.boardNumber})}"
 						th:text="${board.boardImageOriginal}"></a>
 						<!-- temp -->
+						<div th:if="${board.boardImageSaved != null}">
 						<img th:src="@{/img/fileSave/} + ${board.boardImageSaved}" width="100">
+						</div>
 					</td>
 				</tr>
 				<tr>
@@ -591,7 +610,7 @@
 						<div class="footer-content">
 							<!-- Logo Area Start -->
 							<div class="footer-logo-area text-center">
-								<a th:href="@{/}" class="yummy-logo"><img src="img/bg-img/toplogo.jpg" alt=""></a>
+								<a th:href="@{/}" class="yummy-logo"><img th:src="@{/img/bg-img/toplogo.jpg}" alt=""></a>
 							</div>
 							<!-- Menu Area Start -->
 							<nav class="navbar navbar-expand-lg">
@@ -609,9 +628,20 @@
 											th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
 										</li>
 										<li class="nav-item"><a class="nav-link"
+											th:href="@{/qna/list}">Q&A <span class="sr-only">(current)</span></a>
+										</li>
+										<li class="nav-item"><a class="nav-link"
 											th:href="@{/facilities}">시설</a></li>
 										<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
-										<li class="nav-item"><a class="nav-link" href="#">챌린지</a></li>
+										<li>
+											<div class="dropdown">
+												<span class="dropbtn">챌린지</span>
+												<div class="dropdown-content">
+													<a th:href="@{/challenge/challengelist}">도전과제</a> <a
+														th:href="@{/challenge/contestlist}">대회</a>
+												</div>
+											</div>
+										</li>
 										<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
 										</li>
 									</ul>

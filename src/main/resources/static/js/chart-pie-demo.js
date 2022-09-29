@@ -2,12 +2,8 @@
 Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#292b2c';
 
-let resultLabel = [];
-let resultData = [];
-
-window.onload = function(){
-	pieChartData();
-}
+let resultPieLabel = [];
+let resultPieData = [];
 
 function pieChartData(){
 	$.ajax({
@@ -15,13 +11,14 @@ function pieChartData(){
 			type : 'post',
 			dataType : 'json',
 			success : function(result){
+				console.log(result);
 				// 오늘 날짜 - 7일 사이의 가입자 수 받아오기
 				for(let i = 0; i < result.length; i++){
-					resultLabel.push(result[i].joinDate);
-					resultData.push(result[i].memberJoinCount);
+					resultPieLabel.push(result[i].petBreed);
+					resultPieData.push(result[i].petBreedCount);
 				}
-				console.log(resultLabel);
-				console.log(resultData);
+				console.log(resultPieLabel);
+				console.log(resultPieData);
 				
 				/*
 				$(function(){
@@ -41,10 +38,16 @@ var ctx = document.getElementById("myPieChart");
 var myPieChart = new Chart(ctx, {
   type: 'pie',
   data: {
-    labels: ["Blue", "Red", "Yellow", "Green"],
+    labels: resultPieLabel,
     datasets: [{
-      data: [12.21, 15.58, 11.25, 8.32],
-      backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745'],
+      data: resultPieData,
+      backgroundColor: 
+      	[
+		'#007bff', '#dc3545', '#ffc107', '#28a745', '#a349a4', 
+      	'#d7ffd0', '#ffdebf', '#f7d7f7','#000000','#4ebdf2',
+      	'#d9ff63', '#ef6bf0', '#756bf0', '#6be6f0', '#c9adc8',
+      	'#bc88ff'
+      	], // 16개 색 필요?
     }],
   },
 });

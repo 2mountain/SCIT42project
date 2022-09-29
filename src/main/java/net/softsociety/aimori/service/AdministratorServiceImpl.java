@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.softsociety.aimori.dao.AdministratorDAO;
 import net.softsociety.aimori.domain.DateJoinNumber;
 import net.softsociety.aimori.domain.Member;
+import net.softsociety.aimori.domain.PetTypeNNumber;
 import net.softsociety.aimori.domain.ReportedBoard;
 
 @Slf4j
@@ -47,6 +48,12 @@ public class AdministratorServiceImpl implements AdministratorService {
 	@Override
 	public List<DateJoinNumber> getJoinNumber() {
 		List<DateJoinNumber> list = dao.getJoinNumber();
+		return list;
+	}
+
+	@Override
+	public List<PetTypeNNumber> getDogType() {
+		List<PetTypeNNumber> list = dao.getDogType();
 		return list;
 	}
 

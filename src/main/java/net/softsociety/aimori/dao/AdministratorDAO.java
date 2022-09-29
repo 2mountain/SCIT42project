@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import net.softsociety.aimori.domain.DateJoinNumber;
 import net.softsociety.aimori.domain.Member;
+import net.softsociety.aimori.domain.PetTypeNNumber;
 import net.softsociety.aimori.domain.ReportedBoard;
 
 @Mapper
@@ -37,8 +38,14 @@ public interface AdministratorDAO {
 	public List<ReportedBoard> getReportedBoard();
 
 	/**
-	 * 
-	 * @return
+	 * 관리자 페이지의 차트를 위한 일자와 가입자 수를 반환
+	 * @return 가입일자 / 일자별 가입자 수
 	 */
 	public List<DateJoinNumber> getJoinNumber();
+
+	/**
+	 * 회원들의 견종을 반환하는 메소드
+	 * @return 회원들의 견종 List
+	 */
+	public List<PetTypeNNumber> getDogType();
 }
