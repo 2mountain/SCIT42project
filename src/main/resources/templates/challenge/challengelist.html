@@ -1,66 +1,102 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-				xmlns:sec="http://thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://thymeleaf.org"
+	xmlns:sec="http://thymeleaf.org/extras/spring-security">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="description" content="">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-	<!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta charset="UTF-8">
+<meta name="description" content="">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-	<!-- Title -->
-	<title>Aimori</title>
+<!-- Title -->
+<title>Board</title>
 
-	<!-- Favicon -->
-	<link rel="icon" th:href="@{/img/core-img/favicon.ico}">
+<!-- Favicon -->
+<link rel="icon" th:href="@{/img/core-img/favicon.ico}">
 
-	<!-- Core Stylesheet -->
-	<link rel="stylesheet" th:href="@{/css/style.css}">
+<!-- Core Stylesheet -->
+<link rel="stylesheet" th:href="@{/css/style.css}">
 
-	<!-- Responsive CSS -->
-	<link th:href="@{/css/responsive/responsive.css}" rel="stylesheet">
+<!-- Responsive CSS -->
+<link th:href="@{/css/responsive/responsive.css}" rel="stylesheet">
 
-	<style>
-		@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap');
-	</style>
+<!-- test -->
+<link rel="stylesheet" type="text/css" th:href="@{/css/board/board.css}" />
 
-	<style>
-		@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100&display=swap');
+<!-- test (페이지 함수) -->
+<script>
+	function pagingFormSubmit(currentPage) {
 
-		*:not(i) {
-			font-family: NotoSans;
-		}
-
-		.weather-wrap {
-			width: 100%;
-			position: relative;
-		}
-
-		.weather-text {
-			position: absolute;
-			top: 5%;
-			width: 100%;
-			font-size: 5px;
-			text-align: center;
-		}
-	</style>
-
+		var form = document.getElementById('pagingForm');
+		var page = document.getElementById('page');
+		page.value = currentPage;
+		form.submit();
+	}
+</script>
 
 <script>
-function pagingFormSubmit(currentPage) {
-	var form = document.ElementById('pagingForm');
-	var page = document.ElementById('page');
-	page.value = currentPage;
-	form.submit();
+	function search() {
+		let searchWord = document.getElementById('searchWord').value;
+		if (searchWord == '') {
+			alert('검색어를 입력해주세요');
+		} else {
+			pagingFormSubmit(1);
+		}
+
+	}
+</script>
+
+<script>
+$(document).ready(function() {
+	$('#boardCategorySelect').change(search);
+	search();
+});
+
+function boardCategorySearch() {
+	let boardCategorySearch = $('#boardCategorySelect').val();
+	
+	$.ajax({
+		url : 'search',
+		type : 'post',
+		data : {boardCategory:boardCategorySearch},
+		dataType : 'json',
+		success : output,
+		error: function(e) {
+			alert(JSON.stringify(e));
+		}
+	});
 }
+
+function output(list) {
+	let str = '';
+	
+	str += '<table>';
+	str += '<tr>';
+	str += '	<th>번호</th>';
+	str += '	<th>카테고리</th>';
+	str += '	<th>제목</th>';
+	str += '</tr>';
+	
+	$(list).each(function (i, ob) {
+		str += '<tr>';
+		str += '	<td>' + ob.boardnum + '</td>';
+		str += '	<td>' + ob.category + '</td>';
+		str += '	<td>' + ob.title + '</td>';
+		str += '</tr>';
+	});
+	str += '</table>';
+
+	$('#output').html(str);
+}
+
 </script>
 
 </head>
 
 <body>
-<!-- Preloader Start -->
+	<!-- Preloader Start -->
 	<div id="preloader">
 		<div class="yummy-load"></div>
 	</div>
@@ -77,15 +113,14 @@ function pagingFormSubmit(currentPage) {
 	<div class="top_header_area">
 		<div class="container">
 			<div class="row">
-				<div class="col-5 col-sm-6">
-
-				</div>
+				<div class="col-5 col-sm-6"></div>
 				<!--  Login Register Area -->
 				<div class="col-7 col-sm-6">
-					<div class="signup-search-area d-flex align-items-center justify-content-end">
+					<div
+						class="signup-search-area d-flex align-items-center justify-content-end">
 
-						
-						
+
+
 						<div class="login_register_area d-flex">
 							<div class="login" sec:authorize="not isAuthenticated()">
 								<a href="member/logIn">로그인</a>
@@ -97,12 +132,15 @@ function pagingFormSubmit(currentPage) {
 						<div class="login_register_area d-flex">
 							<div class="mypage" sec:authorize="isAuthenticated()"
 								style="margin-left: 20px">
-								<a sec:authorize="hasRole('ADMIN')" th:href="@{/administrator}"><b>관리자 페이지</b></a>
+								<a sec:authorize="hasRole('ADMIN')" th:href="@{/administrator}"><b>관리자
+										페이지</b></a>
 							</div>
-							<div class="mypage" sec:authorize="isAuthenticated()" style="margin-left: 10px">
+							<div class="mypage" sec:authorize="isAuthenticated()"
+								style="margin-left: 10px">
 								<a th:href="@{mypage/main}">마이페이지</a>
 							</div>
-							<div class="logout" sec:authorize="isAuthenticated()" style="margin-left: 10px;">
+							<div class="logout" sec:authorize="isAuthenticated()"
+								style="margin-left: 10px;">
 								<a th:href="@{logout}">로그아웃</a>
 							</div>
 						</div>
@@ -113,14 +151,14 @@ function pagingFormSubmit(currentPage) {
 	</div>
 	<!-- ****** Top Header Area End ****** -->
 
-		<!-- ****** Header Area Start ****** -->
+	<!-- ****** Header Area Start ****** -->
 	<header class="header_area">
 		<div class="container">
 			<div class="row">
 				<!-- Logo Area Start -->
 				<div class="col-12">
-					<a th:href="@{/}" class="yummy-logo">
-						<img src="img/bg-img/toplogo.jpg" alt=""> 
+					<a th:href="@{/}" class="yummy-logo"> <img
+						th:src="@{/img/bg-img/toplogo.jpg}" alt="">
 					</a>
 				</div>
 			</div>
@@ -148,13 +186,13 @@ function pagingFormSubmit(currentPage) {
 								th:href="@{/facilities}">시설</a></li>
 							<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
 							<li>
-							<div class="dropdown">
-								<span class="dropbtn">챌린지</span>
-								<div class="dropdown-content">
-									<a th:href="@{/challenge/challengelist}">도전과제</a>
-									 <a th:href="@{/challenge/contestlist}">대회</a>
+								<div class="dropdown">
+									<span class="dropbtn">챌린지</span>
+									<div class="dropdown-content">
+										<a th:href="@{/challenge/challengelist}">도전과제</a> <a
+											th:href="@{/challenge/contestlist}">대회</a>
+									</div>
 								</div>
-							</div>
 							</li>
 							<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
 							</li>
@@ -164,7 +202,7 @@ function pagingFormSubmit(currentPage) {
 			</div>
 		</div>
 	</header>
-	<!-- ****** Header Area End ****** -->s
+	<!-- ****** Header Area End ****** -->
 
 	<!-- ****** Breadcumb Area Start ****** -->
 	<div class="breadcumb-area"
@@ -173,7 +211,7 @@ function pagingFormSubmit(currentPage) {
 			<div class="row h-100 align-items-center">
 				<div class="col-12">
 					<div class="bradcumb-title text-center">
-						<h2>Aimori challenge</h2>
+						<h2>Aimori Chellenge</h2>
 					</div>
 				</div>
 			</div>
@@ -188,7 +226,7 @@ function pagingFormSubmit(currentPage) {
 							<li class="breadcrumb-item"><a th:href="@{/home}"><i
 									class="fa fa-home" aria-hidden="true"></i>Home</a></li>
 							<li class="breadcrumb-item active" aria-current="page">Aimori
-								Challenge</li>
+								Community</li>
 						</ol>
 					</nav>
 				</div>
@@ -199,75 +237,91 @@ function pagingFormSubmit(currentPage) {
 
 	<!-- ****** Archive Area Start ****** -->
 	<header>
-   <h1>[도전과제]</h1>
-</header>
-<section>
-	<!-- 글목록 출력 영역 -->
-	<table style="border-color: black;">
-		<tr>
-			<td class="white">
-				전체 <span th:text="${chnavi.totalRecordsCount}"></span>
-			</td>
-			
-		</tr>
-		<tr>
-			<th>글번호</th>
-			<th style="width:220px;">제목</th>
-			<th>신청자수</th>
-			<th>작성일</th>
-			<th>대회시작일</th>
-			<th>대회종료일</th>
-		</tr>
-		<tr th:each="challenge : ${challengelist}">
-			<td  style="text-align: center; width: 100px" th:text="${challenge.challengeNumber}" class="center"></td>
-			<td style="text-align: center; width: 100px">
-				<a th:text="${challenge.challengeName}" th:href="@{/challenge/challengeread(challengeNumber=${challenge.challengeNumber})}"></a>
-			</td>
-			<td  style="text-align: center; width: 100px" th:text="${challenge.challengeRegistDay}" class="center"></td>
-			<td  style="text-align: center; width: 100px" th:text="${challenge.challengeStartDate}"></td>
-			<td  style="text-align: center; width: 100px" th:text="${challenge.challengeEndDate}"></td>
-		</tr>
-	</table>
-	<div id="navigator">
-	<!-- 페이지 이동 링크 -->     
-	<a th:href="|javascript:pagingFormSubmit(${chnavi.currentPage - chnavi.pagePerGroup})|">◁◁</a>
-	<a th:href="|javascript:pagingFormSubmit(${chnavi.currentPage - 1})|">◀</a> 
-	<span th:each="counter : ${#numbers.sequence(chnavi.startPageGroup, chnavi.endPageGroup)}"> 
-		<th:block th:if="${counter == chnavi.currentPage}"><b></th:block>
-			<a th:text="${counter}" th:href="|javascript:pagingFormSubmit(${counter})|"></a>&nbsp;
-		<th:block th:if="${counter == chnavi.currentPage}"></b></th:block>
-	</span>
-	
-	<a th:href="|javascript:pagingFormSubmit(${chnavi.currentPage + 1})|">▶</a> 
-	<a th:href="|javascript:pagingFormSubmit(${chnavi.currentPage + chnavi.pagePerGroup})|">▷▷</a>
-	<br><br>
-	
-	<!-- 검색폼 -->
-	<form id="pagingForm" method="get" th:action="@{/challenge/challengelist}">
-		<input type="hidden" name="page" id="page" />
-		<select id="type" name="type">
-			<option value="title" th:selected="${chtype} == 'title'">제목</option>
+		<h1>[도전과제]</h1>
+	</header>
+	<section>
+		<!-- 글목록 출력 영역 -->
+		<table style="border-color: black;">
+			<tr>
+				<td class="white">전체 <span
+					th:text="${chnavi.totalRecordsCount}"></span>
+				</td>
+
+			</tr>
+			<tr>
+				<th>글번호</th>
+				<th style="width: 220px;">제목</th>
+				<th>신청자수</th>
+				<th>작성일</th>
+				<th>대회시작일</th>
+				<th>대회종료일</th>
+			</tr>
+			<tr th:each="challenge : ${challengelist}">
+				<td style="text-align: center; width: 100px"
+					th:text="${challenge.challengeNumber}" class="center"></td>
+				<td style="text-align: center; width: 100px"><a
+					th:text="${challenge.challengeName}"
+					th:href="@{/challenge/challengeread(challengeNumber=${challenge.challengeNumber})}"></a>
+				</td>
+				<td style="text-align: center; width: 100px"
+					th:text="${challenge.challengeRegistDay}" class="center"></td>
+				<td style="text-align: center; width: 100px"
+					th:text="${challenge.challengeStartDate}"></td>
+				<td style="text-align: center; width: 100px"
+					th:text="${challenge.challengeEndDate}"></td>
+			</tr>
+		</table>
+		<div id="navigator">
+			<!-- 페이지 이동 링크 -->
+			<a
+				th:href="|javascript:pagingFormSubmit(${chnavi.currentPage - chnavi.pagePerGroup})|">◁◁</a>
+			<a th:href="|javascript:pagingFormSubmit(${chnavi.currentPage - 1})|">◀</a>
+			<span
+				th:each="counter : ${#numbers.sequence(chnavi.startPageGroup, chnavi.endPageGroup)}">
+				<th:block th:if="${counter == chnavi.currentPage}">
+					<b>
+				</th:block> <a th:text="${counter}"
+				th:href="|javascript:pagingFormSubmit(${counter})|"></a>&nbsp; <th:block
+					th:if="${counter == chnavi.currentPage}">
+					</b>
+				</th:block>
+			</span> <a
+				th:href="|javascript:pagingFormSubmit(${chnavi.currentPage + 1})|">▶</a>
+			<a
+				th:href="|javascript:pagingFormSubmit(${chnavi.currentPage + chnavi.pagePerGroup})|">▷▷</a>
+			<br>
+			<br>
+
+			<!-- 검색폼 -->
+			<form id="pagingForm" method="get"
+				th:action="@{/challenge/challengelist}">
+				<input type="hidden" name="page" id="page" /> <select id="type"
+					name="type">
+					<option value="title" th:selected="${chtype} == 'title'">제목</option>
 					<option value="all" th:selected="${chtype} == 'all'">전체</option>
-		</select>
-		<input type="text"  name="searchWord" th:value="${chsearchWord}">
-		<input type="button" onclick="pagingFormSubmit(1)" value="검색">
-	</form>
-	
+				</select> <input type="text" name="searchWord" th:value="${chsearchWord}">
+				<input type="button" onclick="pagingFormSubmit(1)" value="검색">
+			</form>
+
+		</div>
+
+	</section>
+
+
+	<div class="text-right">
+		<a sec:authorize="hasRole('ADMIN')" class="btn btn-light"
+			style="background-color: rgb(220, 220, 255);" colspan="6"
+			th:href="@{/challenge/challengewrite}">글쓰기</a>
 	</div>
-	
-</section>
-
-
-   <div class="text-right">
-      <a  sec:authorize="hasRole('ADMIN')" class="btn btn-light" style="background-color: rgb(220, 220, 255);"
-         colspan="6" th:href="@{/challenge/challengewrite}">글쓰기</a>
-   </div>
-
-<!-- ****** Archive Area End ****** -->
-	
-	<div id="needMargin"></div>
-	
 	<!-- ****** Instagram Area Start ****** -->
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	<div
 		class="instargram_area owl-carousel section_padding_100_0 clearfix"
 		id="portfolio">
@@ -275,7 +329,7 @@ function pagingFormSubmit(currentPage) {
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img src="img/instagram-img/1.jpg" alt="">
+			<img th:src="@{/img/instagram-img/1.jpg}" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -292,7 +346,7 @@ function pagingFormSubmit(currentPage) {
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img src="img/instagram-img/2.jpg" alt="">
+			<img th:src="@{/img/instagram-img/2.jpg}" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -309,7 +363,7 @@ function pagingFormSubmit(currentPage) {
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img src="img/instagram-img/3.jpg" alt="">
+			<img th:src="@{/img/instagram-img/3.jpg}" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -326,7 +380,7 @@ function pagingFormSubmit(currentPage) {
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img src="img/instagram-img/4.jpg" alt="">
+			<img th:src="@{/img/instagram-img/4.jpg}" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -343,7 +397,7 @@ function pagingFormSubmit(currentPage) {
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img src="img/instagram-img/5.jpg" alt="">
+			<img th:src="@{/img/instagram-img/5.jpg}" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -360,7 +414,7 @@ function pagingFormSubmit(currentPage) {
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img src="img/instagram-img/6.jpg" alt="">
+			<img th:src="@{/img/instagram-img/6.jpg}" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -377,7 +431,7 @@ function pagingFormSubmit(currentPage) {
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img src="img/instagram-img/1.jpg" alt="">
+			<img th:src="@{/img/instagram-img/1.jpg}" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -394,7 +448,7 @@ function pagingFormSubmit(currentPage) {
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img src="img/instagram-img/2.jpg" alt="">
+			<img th:src="@{/img/instagram-img/2.jpg}" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -411,6 +465,41 @@ function pagingFormSubmit(currentPage) {
 	</div>
 	<!-- ****** Our Creative Portfolio Area End ****** -->
 
+	<!-- ****** Footer Social Icon Area Start ****** -->
+	<div class="social_icon_area clearfix">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="footer-social-area d-flex">
+						<div class="single-icon">
+							<a href="#"><i class="fa fa-facebook" aria-hidden="true"></i><span>facebook</span></a>
+						</div>
+						<div class="single-icon">
+							<a href="#"><i class="fa fa-twitter" aria-hidden="true"></i><span>Twitter</span></a>
+						</div>
+						<div class="single-icon">
+							<a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i><span>GOOGLE+</span></a>
+						</div>
+						<div class="single-icon">
+							<a href="#"><i class="fa fa-linkedin-square"
+								aria-hidden="true"></i><span>linkedin</span></a>
+						</div>
+						<div class="single-icon">
+							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i><span>Instagram</span></a>
+						</div>
+						<div class="single-icon">
+							<a href="#"><i class="fa fa-vimeo" aria-hidden="true"></i><span>VIMEO</span></a>
+						</div>
+						<div class="single-icon">
+							<a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i><span>YOUTUBE</span></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ****** Footer Social Icon Area End ****** -->
+
 	<!-- ****** Footer Menu Area Start ****** -->
 	<footer class="footer_area">
 		<div class="container">
@@ -420,7 +509,8 @@ function pagingFormSubmit(currentPage) {
 						<div class="footer-content">
 							<!-- Logo Area Start -->
 							<div class="footer-logo-area text-center">
-								<a th:href="@{/}" class="yummy-logo"><img th:src="@{img/bg-img/toplogo.jpg}" alt=""></a>
+								<a th:href="@{/}" class="yummy-logo"><img
+									th:src="@{/img/bg-img/toplogo.jpg}" alt=""></a>
 							</div>
 							<!-- Menu Area Start -->
 							<nav class="navbar navbar-expand-lg">
@@ -481,11 +571,13 @@ function pagingFormSubmit(currentPage) {
 	<!-- ****** Footer Menu Area End ****** -->
 
 	<!-- Jquery-2.2.4 js -->
-	<script th:src="@{js/jquery/jquery-2.2.4.min.js}"></script>
+	<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
 	<!-- Popper js -->
-	<script th:src="@{js/bootstrap/popper.min.js}"></script>
+	<script th:src="@{/js/bootstrap/popper.min.js}"></script>
 	<!-- All Plugins JS -->
-	<script th:src="@{js/others/plugins.js}"></script>
+	<script th:src="@{/js/others/plugins.js}"></script>
 	<!-- Active JS -->
-	<script th:src="@{js/active.js}"></script>
+	<script th:src="@{/js/active.js}"></script>
+	<!--  type="application/js" -->
+
 </body>
