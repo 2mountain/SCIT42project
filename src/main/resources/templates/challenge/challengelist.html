@@ -203,7 +203,7 @@ function pagingFormSubmit(currentPage) {
 </header>
 <section>
 	<!-- 글목록 출력 영역 -->
-	<table>
+	<table style="border-color: black;">
 		<tr>
 			<td class="white">
 				전체 <span th:text="${chnavi.totalRecordsCount}"></span>
@@ -219,13 +219,13 @@ function pagingFormSubmit(currentPage) {
 			<th>대회종료일</th>
 		</tr>
 		<tr th:each="challenge : ${challengelist}">
-			<td th:text="${challenge.challengeNumber}" class="center"></td>
-			<td>
+			<td  style="text-align: center; width: 100px" th:text="${challenge.challengeNumber}" class="center"></td>
+			<td style="text-align: center; width: 100px">
 				<a th:text="${challenge.challengeName}" th:href="@{/challenge/challengeread(challengeNumber=${challenge.challengeNumber})}"></a>
 			</td>
-			<td th:text="${challenge.challengeRegistDay}" class="center"></td>
-			<td th:text="${challenge.challengeStartDate}"></td>
-			<td th:text="${challenge.challengeEndDate}"></td>
+			<td  style="text-align: center; width: 100px" th:text="${challenge.challengeRegistDay}" class="center"></td>
+			<td  style="text-align: center; width: 100px" th:text="${challenge.challengeStartDate}"></td>
+			<td  style="text-align: center; width: 100px" th:text="${challenge.challengeEndDate}"></td>
 		</tr>
 	</table>
 	<div id="navigator">
