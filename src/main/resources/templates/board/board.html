@@ -547,8 +547,7 @@ function output(list) {
 						<div class="footer-content">
 							<!-- Logo Area Start -->
 							<div class="footer-logo-area text-center">
-								<a th:href="@{/}" class="yummy-logo"><img
-									src="../img/bg-img/toplogo.jpg" alt=""></a>
+								<a th:href="@{/}" class="yummy-logo"><img th:src="@{/img/bg-img/toplogo.jpg}" alt=""></a>
 							</div>
 							<!-- Menu Area Start -->
 							<nav class="navbar navbar-expand-lg">
@@ -566,13 +565,22 @@ function output(list) {
 											th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
 										</li>
 										<li class="nav-item"><a class="nav-link"
-										th:href="@{/qna/list}">Q&A <span class="sr-only">(current)</span></a>
+											th:href="@{/qna/list}">Q&A <span class="sr-only">(current)</span></a>
 										</li>
 										<li class="nav-item"><a class="nav-link"
 											th:href="@{/facilities}">시설</a></li>
 										<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
-										<li class="nav-item"><a class="nav-link" href="#">챌린지</a></li>
-										<li class="nav-item"><a class="nav-link" href="#">포인트상점</a></li>
+										<li>
+											<div class="dropdown">
+												<span class="dropbtn">챌린지</span>
+												<div class="dropdown-content">
+													<a th:href="@{/challenge/challengelist}">도전과제</a> <a
+														th:href="@{/challenge/contestlist}">대회</a>
+												</div>
+											</div>
+										</li>
+										<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
+										</li>
 									</ul>
 								</div>
 							</nav>
