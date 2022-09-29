@@ -110,6 +110,17 @@ public class ChallengeServiceImpl implements ChallengeService {
  				
 	}
 
+	@Override
+	public int writechallenge(Challenge challenge) {
+	
+		String contents=challenge.getChallengeContents()+"/"+challenge.getChallPoint();
+		challenge.setChallengeContents(contents);
+		int result = chdao.writeChallenge(challenge);
+		return result;
+	}
+	
+	
+
 	
 
 	

@@ -27,6 +27,8 @@ public interface ChallengeService {
 
 		int givepoint(int point, String memberId,int entrylistNumbers);
 
+		int writechallenge(Challenge challenge);
+
 		
 
 

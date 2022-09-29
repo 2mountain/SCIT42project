@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -101,17 +99,21 @@ public String challengeupdate()
 	}
 	
 	@PostMapping({"challengewrite"})
-	public String challengewrite(
-			Challenge challenge
-			, @AuthenticationPrincipal UserDetails user)
+	public String challengewrite(Model model,
+			Challenge challenge)
 	{
+		int result = chser.writechallenge(challenge);
 		
-		return "/challenge/contestlist";
+		String chtype="";
+		String chsearchword="";
+		challengelist(model,1,chtype,chsearchword);
+		return "/challenge/challengelist";
 	
 	}
 	@GetMapping({"challengewrite"})
 	public String challengewrite()
 	{
+	
 		return "/challenge/challengewrite";
 	}
 

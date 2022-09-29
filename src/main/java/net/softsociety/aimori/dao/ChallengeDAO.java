@@ -28,6 +28,8 @@ public interface ChallengeDAO {
 
 	int giveEntrylistPoint(HashMap<String, Object> map);
 
+	int writeChallenge(Challenge challenge);
+
 	
 
 }
