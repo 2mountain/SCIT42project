@@ -204,9 +204,9 @@
 					<nav aria-label="breadcrumb">
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a th:href="@{/home}"> <i
-									class="fa fa-home" aria-hidden="true"></i>My Page
+									class="fa fa-home" aria-hidden="true"></i>my page
 							</a></li>
-							<li class="breadcrumb-item active" aria-current="page" style="padding-bottom: 80px;"><a th:href="@{/mypage/petInfoInput}">My Pet</a></li>
+							<li class="breadcrumb-item active" aria-current="page" style="padding-bottom: 80px;"><a th:href="@{/mypage/calendar}">Calendar</a></li>
 						</ol>
 					</nav>
 				</div>
@@ -232,81 +232,7 @@
 			</ul>
 		</div>
 	</div>
-	
-<form id="petInfoInput" th:action="petInfoInput" method="post" enctype="multipart/form-data" style="margin-top:-80px;">
-	<div class="container rounded bg-white mt-5 mb-5"
-		style="position: absolute; margin-left: 380px; bottom: 700px;">
-		<div class="row">
-			<div class="col-md-3 border-right">
-				<div class="d-flex flex-column align-items-center text-center p-3 py-5">
-					<img id="imageOutput" class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-					<label class="labels" style="text-shadow:0 0 4px #ccc, 0 -5px 4px #ff3, 2px -10px 6px #fd3, -2px -15px 11px #f80,
-            2px -19px 18px #f20; font-weight: bold; position:absolute; top:280px;">반려견의 사진을 등록해주세요!</label>
-					<input type="file" id="petImage" class="btn btn-primary btn-sm" name="upload" style="overflow:hidden; position:absolute; top:310px; width:250px;">
-				</div>
-			</div>
-			<div class="col-md-5 border-right">
-				<div class="p-3 py-5">
-					<div class="d-flex justify-content-between align-items-center mb-3">
-						<h4 class="text-right">My Pet</h4>
-					</div>
-					<div class="row mt-2">
-						<div class="col-md-6">
-							<label class="labels">강아지 이름</label><input type="text"
-								id="petName" name="petName" required="required" maxlength="20">
-						</div>
-						<div class="col-md-6">
-							<label class="labels">성별</label><br>
-							<input type="radio" id="petGender" name="petGender" value="M">수컷<input
-								type="radio" id="petGender" name="petGender" value="F"
-								style="margin-left: 10px;">암컷
-						</div>
-					</div>
-					<div class="row mt-3">
-						<div class="col-md-12">
-							<label class="labels">강아지 종</label> <select id="petBreed"
-								name="petBreed" style="margin-left: 10px;">
-								<option value="골든리트리버">골든리트리버</option>
-								<option value="그레이하운드">그레이하운드</option>
-								<option value="달마시안">달마시안</option>
-								<option value="도베르만">도베르만</option>
-								<option value="말티즈">말티즈</option>
-								<option value="보더콜리">보더콜리</option>
-								<option value="비글">비글</option>
-								<option value="시바견">시바견</option>
-								<option value="시츄">시츄</option>
-								<option value="웰시코기">웰시코기</option>
-								<option value="치와와">치와와</option>
-								<option value="코커스패니얼">코커스패니얼</option>
-								<option value="포메라니안">포메라니안</option>
-								<option value="푸들">푸들</option>
-								<option value="허스키">허스키</option>
-								<option value="기타(직접입력)">기타(직접입력)</option>
-							</select><br>
-							<label class="labels">강아지 체형</label> <select id="petWeight"
-								name="petWeight" style="margin-left: 10px;">
-								<option value="정상">정상</option>
-								<option value="비만">비만</option>
-								<option value="저체중">저체중</option>
-							</select><br>
-							<label class="labels">중성화 여부</label><input type="radio"
-							id="petNeuter" name="petNeuter" value="Y"
-							style="margin-left: 10px;">Yes<input type="radio"
-							id="petNeuter" name="petNeuter" value="N"
-							style="margin-left: 10px;">No
-						<br><label class="labels">강아지 생년/월</label><input type="text" required="required"
-						id="petBirthDay" name="petBirthDay" class="form-control" placeholder="다음과 같은 형식으로 입력 => YYYYMM" maxlength="6">
-						</div>
-					</div>
-				</div>
-			</div>
 
-			<div class="mt-5 text-center">
-				<button class="btn btn-primary profile-button" type="submit">저장하기</button>
-			</div>
-		</div>
-	</div>
-</form>
 	<!-- ****** Instagram Area Start ****** -->
 	<br>
 	<br>
@@ -535,4 +461,3 @@
 	<!-- Active JS -->
 	<script th:src="@{/js/active.js}"></script>
 	<!--  type="application/js" -->
-</body>
