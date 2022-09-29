@@ -255,6 +255,18 @@
 								</div>
 							</div>
 						</div>
+						<div class="col-lg-6">
+							<div class="card mb-4">
+								<div class="card-header">
+									<i class="fas fa-chart-pie me-1"></i> Pie Chart Example
+								</div>
+								<div class="card-body">
+									<canvas id="myPieChart" width="100%" height="50"></canvas>
+								</div>
+								<div class="card-footer small text-muted">Updated
+									yesterday at 11:59 PM</div>
+							</div>
+						</div>
 						<!-- [ 선 차트 ] 
 						<div class="col-xl-6">
 							<div class="card mb-4">
@@ -328,7 +340,8 @@
 													onchange="changeValue(this.value, getAttribute('id'), getAttribute('user'), getAttribute('memberEnabled'))">
 												<option class="fontRed" th:selected="${memberList.memberEnabled}" value="true">차단안됨</option>
 												<option th:selected="${!memberList.memberEnabled}" value="false">차단됨</option>
-										</select> <!-- <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+											</select>
+											<!-- <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
 													<li class="nav-item dropdown">
 														<a class="dropdown-toggle noUnderline" id="navbarDropdown" href="#" role="button" 
 															data-bs-toggle="dropdown" aria-expanded="false">
@@ -340,7 +353,8 @@
 																<li><a class="dropdown-item noUnderline" style="color:black;" th:if="${!memberList.memberEnabled}">Ⅹ</a></li>
 																<li><a class="dropdown-item noUnderline" style="color:red;" th:if="${memberList.memberEnabled}">O</a></li>
 														</ul></li>
-												</ul> --></td>
+												</ul> -->
+										</td>
 									</tr>
 								</tbody>
 							</table>
@@ -369,5 +383,6 @@
 	<script th:src="@{/js/chart-bar-demo.js}"></script>
 	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 	<script th:src="@{/js/datatables-simple-demo.js}"></script>
+	<script th:src="@{/js/chart-pie-demo.js}"></script>
 </body>
 </html>
