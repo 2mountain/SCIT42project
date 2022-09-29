@@ -20,11 +20,6 @@ function pieChartData(){
 				console.log(resultPieLabel);
 				console.log(resultPieData);
 				
-				/*
-				$(function(){
-				    $("#myBarChart").load("administrator/administrator.html");
-				});
-				*/
 			},
 			error : function(e){
 				alert('차트 데이터 로딩 실패');
