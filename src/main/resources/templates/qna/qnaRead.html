@@ -49,7 +49,7 @@
 		}
 	}
 	
-	// 댓글 작성
+	// 답변 작성
 	function validation() {
 		let answertext = document.getElementById('answerContents');
 		if (answertext.value.length < 3) {
@@ -59,16 +59,23 @@
 		return true;
 	}
 	
-	// 댓글 수정
+	// 답변 수정
 	function answerUpdate(answerNumber, questionNumber) {
 		alert(answerNumber);
 		$('#re' + answerNumber).html('');
 	}
 	
-	// 댓글 삭제
+	// 답변 삭제
 	function answerDelete(answerNumber, questionNumber) {
 		if (confirm('삭제하시겠습니까?')) {
 			location.href = 'answerDelete?answerNumber=' + answerNumber + '&questionNumber=' + questionNumber;
+		}
+	}
+	
+	// 답변 채택
+	function answerAccept(answerNumber, questionNumber) {
+		if (confirm('채택하시겠습니까?')) {
+			location.href = 'answerAccept?answerNumber=' + answerNumber + '&questionNumber=' + questionNumber;
 		}
 	}
 	
@@ -167,7 +174,7 @@
 								<a th:href="@{mypage/main}">마이페이지</a>
 							</div>
 							<div class="logout" sec:authorize="isAuthenticated()" style="margin-left: 10px;">
-								<a th:href="@{logout}">로그아웃</a>
+								<a th:href="@{/logout}">로그아웃</a>
 							</div>
 						</div>
 					</div>
@@ -374,9 +381,11 @@
 				<div style="width: 900px; height: 50px; text-align: left; padding: 10px 10px 10px 20px;">
 					<a th:utext="${answer.memberId} + ' / ' + ${answer.answerInputDate}"></a>
 					&nbsp;&nbsp;
+					<span th:if="${#authentication.name} == ${answer.memberId}">
 					<a class="btn btn-success btn-sm" style="color: white;"
-					th:href="|javascript:answerAccepted(${answer.answerNumber}, ${question.questionNumber})|">
+					th:href="|javascript:answerAccept(${answer.answerNumber}, ${question.questionNumber})|">
 					채택</a>
+					</span>
 				</div>
 				<div
 					style="width: 900px; height: 200px; border: 1px solid gray; border-radius: 30px; text-align: left; padding: 20px 20px 20px 20px; background-color: white;"
@@ -384,13 +393,14 @@
 					th:utext="${answer.answerContents}">
 				</div>
 				<div style="width: 900px; height: 50px; text-align: right; padding: 10px 10px 10px 20px;">
+					<span th:if="${#authentication.name} == ${answer.memberId}">
 					<a class="btn btn-secondary btn-sm" style="color: white;"
 					th:href="|javascript:answerUpdate(${answer.answerNumber}, ${answer.questionNumber})|">
 					수정</a>
-					<span th:if="${#authentication.name} == ${answer.memberId}">
 					<a  class="btn btn-secondary btn-sm" style="color: white;"
 					th:href="|javascript:answerDelete(${answer.answerNumber}, ${answer.questionNumber})|">
 					삭제</a>
+					</span>
 				</div>
 				<pre style="width: 900px; height: 30px;">
 				</pre>

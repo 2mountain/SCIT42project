@@ -113,6 +113,13 @@ public class QnaSeviceImpl implements QnaService {
 		int result = qnaDAO.answerMinus(questionNumber);
 		return result;
 	}
+
+	// 답변 채택
+	@Override
+	public int answerAccept(int questionNumber, int answerNumber) {
+		int result = qnaDAO.answerAccept(questionNumber, answerNumber);
+		return result;
+	}
 	
 
 
