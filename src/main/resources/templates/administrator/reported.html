@@ -43,7 +43,7 @@
 				$.ajax({
 					url : 'deleteQnA',
 					type : 'post',
-					data : {QnANumber : reportedNumber, memberId : reportedMember},
+					data : {qnaNumber : reportedNumber, memberId : reportedMember},
 					success : function(result){
 						if(result === 'success'){
 							console.log(`Q&A ${result}`);
