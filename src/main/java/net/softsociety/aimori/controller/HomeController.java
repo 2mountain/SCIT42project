@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import lombok.extern.slf4j.Slf4j;
 import net.softsociety.aimori.domain.Board;
+import net.softsociety.aimori.domain.Question;
 import net.softsociety.aimori.service.BoardService;
+import net.softsociety.aimori.service.QnaService;
 
 @Slf4j
 @Controller
@@ -18,16 +20,21 @@ public class HomeController {
 	@Autowired
 	BoardService service;
 	
+	@Autowired
+	QnaService qnaservice;
+	
 	@GetMapping({"/", ""})
 	public String home(Model model) {
 		log.debug("[home]");
 		
 
 		ArrayList<Board> boardlist = service.boardMainList();
-
 		model.addAttribute("boardlist", boardlist);
 
 		log.debug("boardlist 출력! : {}", boardlist);
+		
+		ArrayList<Question> qnalist = qnaservice.qnaMainList();
+		model.addAttribute("qnalist", qnalist);
 		
 		return "home";
 	}

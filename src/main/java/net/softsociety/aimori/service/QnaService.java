@@ -34,6 +34,10 @@ public interface QnaService {
 	public int answerAccept(int questionNumber, int answerNumber);
 	
 	
+	//메인 qna 출력
+	public ArrayList<Question> qnaMainList();
+	
+	
 	
 	
 }
