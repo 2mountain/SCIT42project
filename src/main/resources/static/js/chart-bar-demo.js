@@ -16,6 +16,7 @@ $.ajax({
 			resultLabel.push(result[i].joinDate);
 			resultData.push(result[i].memberJoinCount);
 		}
+		barChart();
 	},
 	error : function(e){
 		alert('차트 데이터 로딩 실패');
@@ -23,48 +24,46 @@ $.ajax({
 	}
 });
 
-setTimeout(function(){
-var ctx = document.getElementById("myBarChart");
-var myLineChart = new Chart(ctx, {
-	  type: 'bar',
-	  data: {
-	    labels: resultLabel,
-	    datasets: [{
-	      label: "가입자 수",
-	      backgroundColor: "rgba(2,117,216,1)",
-	      borderColor: "rgba(2,117,216,1)",
-	      data: resultData,
-	    }],
-	  },
-	  options: {
-	    scales: {
-	      xAxes: [{
-	        time: {
-	          unit: 'day'
-	        },
-	        gridLines: { // X축 라인
-	          display: false
-	        },
-	        ticks: {
-	          maxTicksLimit: 7
-	        }
-	      }],
-	      yAxes: [{
-	        ticks: {
-	          min: 0,
-	          max: 10,
-	          maxTicksLimit: 5
-	        },
-	        gridLines: { // Y축 라인
-	          display: true
-	        }
-	      }],
-	    },
-	    legend: { // 차트 설명
-	      display: false
-	    }
-	  }
+function barChart(){
+	var ctx = document.getElementById("myBarChart");
+	var myLineChart = new Chart(ctx, {
+		  type: 'bar',
+		  data: {
+		    labels: resultLabel,
+		    datasets: [{
+		      label: "가입자 수",
+		      backgroundColor: "rgba(2,117,216,1)",
+		      borderColor: "rgba(2,117,216,1)",
+		      data: resultData,
+		    }],
+		  },
+		  options: {
+		    scales: {
+		      xAxes: [{
+		        time: {
+		          unit: 'day'
+		        },
+		        gridLines: { // X축 라인
+		          display: false
+		        },
+		        ticks: {
+		          maxTicksLimit: 7
+		        }
+		      }],
+		      yAxes: [{
+		        ticks: {
+		          min: 0,
+		          max: 10,
+		          maxTicksLimit: 5
+		        },
+		        gridLines: { // Y축 라인
+		          display: true
+		        }
+		      }],
+		    },
+		    legend: { // 차트 설명
+		      display: false
+		    }
+		}
 	});
-},100);
-
-
+}
