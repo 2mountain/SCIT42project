@@ -356,10 +356,9 @@
 			, boardCategory
 			, boardImageOriginal
 			, boardImageSaved
-			, replyCount
 		from
 			Board
-		WHERE boardImageSaved != null
+		WHERE boardImageSaved IS NOT null
 		ORDER BY boardNumber DESC
 	</select>
 	
