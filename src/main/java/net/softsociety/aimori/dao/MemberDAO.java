@@ -19,7 +19,7 @@ public interface MemberDAO {
 	public Member selectOne2(String memberNickName);
 
 	// 정보 수정
-	public int update(Member member);
+	public int updateMember(Member member);
 	
 
 }
