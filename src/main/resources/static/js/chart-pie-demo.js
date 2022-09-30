@@ -19,7 +19,7 @@ $.ajax({
 		}
 		console.log(resultPieLabel);
 		console.log(resultPieData);
-		
+		pieChart();
 	},
 	error : function(e){
 		alert('차트 데이터 로딩 실패');
@@ -27,7 +27,7 @@ $.ajax({
 	}
 });
 
-setTimeout(function(){
+function pieChart(){
 	var ctx = document.getElementById("myPieChart");
 	var myPieChart = new Chart(ctx, {
 	  type: 'pie',
@@ -45,4 +45,4 @@ setTimeout(function(){
 	    }],
 	  },
 	});
-},100);
+}
