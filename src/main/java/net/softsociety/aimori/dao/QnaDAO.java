@@ -40,5 +40,7 @@ public interface QnaDAO {
 	public int answerDelete(Answer answer);
 	// 답변 개수 -1
 	public int answerMinus(int questionNumber);
+	// 답변 채택
+	public int answerAccept(int questionNumber, int answerNumber);
 
 }

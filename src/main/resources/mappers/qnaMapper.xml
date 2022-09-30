@@ -83,7 +83,6 @@
 	</select>
 	
 	<!-- 한 개 게시글 읽기 -->
-		<!-- 한 개 게시글 읽기 -->
 	<select id="questionRead" parameterType="int" resultType="Question">
 		select
 			questionNumber
@@ -211,6 +210,9 @@
 		questionNumber = #{questionNumber}
 	</update>
 	
+	<!-- 답변 채택 -->
+	<update id="answerAccept">
+	</update>
 	
 	
 	
