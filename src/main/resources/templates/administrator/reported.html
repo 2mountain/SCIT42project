@@ -41,9 +41,9 @@
 				console.log('Q&A');
 				// 질문 삭제로 수정 필요
 				$.ajax({
-					url : 'deleteBoard',
+					url : 'deleteQnA',
 					type : 'post',
-					data : {boardNumber : reportedNumber, memberId : reportedMember},
+					data : {QnANumber : reportedNumber, memberId : reportedMember},
 					success : function(result){
 						if(result === 'success'){
 							console.log(`Q&A ${result}`);

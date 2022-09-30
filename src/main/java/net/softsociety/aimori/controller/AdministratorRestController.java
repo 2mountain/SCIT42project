@@ -19,6 +19,7 @@ import net.softsociety.aimori.domain.PetTypeNNumber;
 import net.softsociety.aimori.service.AdministratorService;
 import net.softsociety.aimori.service.BoardService;
 import net.softsociety.aimori.service.FacilitiesService;
+import net.softsociety.aimori.service.QnaService;
 import net.softsociety.aimori.util.FileService;
 
 @Slf4j
@@ -26,13 +27,16 @@ import net.softsociety.aimori.util.FileService;
 @Controller
 public class AdministratorRestController {
 	@Autowired
-	BoardService bService;
-	
-	@Autowired
 	AdministratorService aService;
 	
 	@Autowired
 	FacilitiesService fService;
+	
+	@Autowired
+	BoardService bService;
+	
+	@Autowired
+	QnaService service;
 	
 	// 게시판 첨부파일 업로드 경로
 	@Value("${spring.servlet.multipart.location}")
