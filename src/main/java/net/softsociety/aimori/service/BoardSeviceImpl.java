@@ -15,9 +15,9 @@ import net.softsociety.aimori.domain.BoardLiked;
 import net.softsociety.aimori.domain.Reply;
 import net.softsociety.aimori.util.PageNavigator;
 
-@Transactional
-@Service
 @Slf4j
+@Service
+@Transactional
 public class BoardSeviceImpl implements BoardService {
 
 	@Autowired
@@ -179,5 +179,4 @@ public class BoardSeviceImpl implements BoardService {
 		
 		return boardlist;
 	}
-
 }
