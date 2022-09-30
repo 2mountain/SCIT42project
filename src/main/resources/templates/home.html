@@ -1,51 +1,57 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-				xmlns:sec="http://thymeleaf.org/extras/spring-security">
+	xmlns:sec="http://thymeleaf.org/extras/spring-security">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="description" content="">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-	<!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta charset="UTF-8">
+<meta name="description" content="">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-	<!-- Title -->
-	<title>Aimori</title>
+<!-- Title -->
+<title>Aimori</title>
 
-	<!-- Favicon -->
-	<link rel="icon" th:href="@{/img/core-img/favicon.ico}">
+<!-- Favicon -->
+<link rel="icon" th:href="@{/img/core-img/favicon.ico}">
 
-	<!-- Core Stylesheet -->
-	<link rel="stylesheet" th:href="@{/css/style.css}">
+<!-- Core Stylesheet -->
+<link rel="stylesheet" th:href="@{/css/style.css}">
 
-	<!-- Responsive CSS -->
-	<link th:href="@{/css/responsive/responsive.css}" rel="stylesheet">
+<!-- Responsive CSS -->
+<link th:href="@{/css/responsive/responsive.css}" rel="stylesheet">
 
-	<style>
-		@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap');
-	</style>
+<style>
+@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap')
+	;
+</style>
 
-	<style>
-		@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100&display=swap');
+<style>
+@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100&display=swap')
+	;
 
-		*:not(i) {
-			font-family: NotoSans;
-		}
+*:not(i) {
+	font-family: NotoSans;
+}
 
-		.weather-wrap {
-			width: 100%;
-			position: relative;
-		}
+.weather-wrap {
+	width: 100%;
+	position: relative;
+}
 
-		.weather-text {
-			position: absolute;
-			top: 5%;
-			width: 100%;
-			font-size: 5px;
-			text-align: center;
-		}
-	</style>
+.weather-text {
+	position: absolute;
+	top: 5%;
+	width: 100%;
+	font-size: 5px;
+	text-align: center;
+}
+</style>
 
 
 
@@ -73,15 +79,14 @@
 	<div class="top_header_area">
 		<div class="container">
 			<div class="row">
-				<div class="col-5 col-sm-6">
-
-				</div>
+				<div class="col-5 col-sm-6"></div>
 				<!--  Login Register Area -->
 				<div class="col-7 col-sm-6">
-					<div class="signup-search-area d-flex align-items-center justify-content-end">
+					<div
+						class="signup-search-area d-flex align-items-center justify-content-end">
 
-						
-						
+
+
 						<div class="login_register_area d-flex">
 							<div class="login" sec:authorize="not isAuthenticated()">
 								<a href="member/logIn">로그인</a>
@@ -93,12 +98,15 @@
 						<div class="login_register_area d-flex">
 							<div class="mypage" sec:authorize="isAuthenticated()"
 								style="margin-left: 20px">
-								<a sec:authorize="hasRole('ADMIN')" th:href="@{/administrator}"><b>관리자 페이지</b></a>
+								<a sec:authorize="hasRole('ADMIN')" th:href="@{/administrator}"><b>관리자
+										페이지</b></a>
 							</div>
-							<div class="mypage" sec:authorize="isAuthenticated()" style="margin-left: 10px">
+							<div class="mypage" sec:authorize="isAuthenticated()"
+								style="margin-left: 10px">
 								<a th:href="@{mypage/main}">마이페이지</a>
 							</div>
-							<div class="logout" sec:authorize="isAuthenticated()" style="margin-left: 10px;">
+							<div class="logout" sec:authorize="isAuthenticated()"
+								style="margin-left: 10px;">
 								<a th:href="@{logout}">로그아웃</a>
 							</div>
 						</div>
@@ -109,14 +117,14 @@
 	</div>
 	<!-- ****** Top Header Area End ****** -->
 
-		<!-- ****** Header Area Start ****** -->
+	<!-- ****** Header Area Start ****** -->
 	<header class="header_area">
 		<div class="container">
 			<div class="row">
 				<!-- Logo Area Start -->
 				<div class="col-12">
-					<a th:href="@{/}" class="yummy-logo">
-						<img th:src="@{/img/bg-img/toplogo.jpg}" alt=""> 
+					<a th:href="@{/}" class="yummy-logo"> <img
+						th:src="@{/img/bg-img/toplogo.jpg}" alt="">
 					</a>
 				</div>
 			</div>
@@ -144,13 +152,13 @@
 								th:href="@{/facilities}">시설</a></li>
 							<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
 							<li>
-							<div class="dropdown">
-								<span class="dropbtn">챌린지</span>
-								<div class="dropdown-content">
-									<a th:href="@{/challenge/challengelist}">도전과제</a>
-									 <a th:href="@{/challenge/contestlist}">대회</a>
+								<div class="dropdown">
+									<span class="dropbtn">챌린지</span>
+									<div class="dropdown-content">
+										<a th:href="@{/challenge/challengelist}">도전과제</a> <a
+											th:href="@{/challenge/contestlist}">대회</a>
+									</div>
 								</div>
-							</div>
 							</li>
 							<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
 							</li>
@@ -186,8 +194,7 @@
 			<img src="img/bg-img/mainsl4.jpg" alt="" height="466">
 			<!-- Overlay Text -->
 			<div class="project_title">
-				<div class="post-date-commnents d-flex">
-				</div>
+				<div class="post-date-commnents d-flex"></div>
 				<a th:href="@{/weather/list}">
 					<h5>챌린지 도전하시고 포인트 받으세요!</h5>
 				</a>
@@ -208,7 +215,7 @@
 				</a>
 			</div>
 		</div>
-		
+
 		<!-- Single Slide -->
 		<div class="welcome-single-slide">
 			<!-- Post Thumb -->
@@ -223,18 +230,16 @@
 				</a>
 			</div>
 		</div>
-		
 
-		
 
-		
+
+
+
 	</section>
 	<!-- ****** Welcome Area End ****** -->
 
 	<!-- ****** Categories Area Start ****** -->
-	<section class="categories_area clearfix" id="about">
-		
-	</section>
+	<section class="categories_area clearfix" id="about"></section>
 	<!-- ****** Categories Area End ****** -->
 
 	<!-- ****** Blog Area Start ****** -->
@@ -243,6 +248,11 @@
 			<div class="row justify-content-center">
 				<div class="col-12 col-lg-8">
 					<div class="row">
+
+						<!--인기글 출력 시작-->
+						<div class="widget-title" style="width: 760px;">
+							<h6>오늘의 인기글</h6>
+						</div>
 
 						<!-- Single Post -->
 						<div class="col-12">
@@ -273,11 +283,13 @@
 											</div>
 											<!-- Post Comments -->
 											<div class="post-comments">
-												<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
+												<a href="#"><i class="fa fa-comment-o"
+													aria-hidden="true"></i> 12</a>
 											</div>
 											<!-- Post Share -->
 											<div class="post-share">
-												<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+												<a href="#"><i class="fa fa-share-alt"
+													aria-hidden="true"></i></a>
 											</div>
 										</div>
 									</div>
@@ -290,209 +302,97 @@
 							</div>
 						</div>
 
+
+
 						<!-- Single Post -->
-						
-					<div class="col-12 col-md-6" th:each="board : ${boardlist}">
-						<div th:if="${board.boardImageSaved != null}">
-							<div class="single-post wow fadeInUp" data-wow-delay=".4s">
+
+						<div class="col-12 col-md-6" th:each="board : ${boardlist}">
+							<div th:if="${board.boardImageSaved != null}">
+								<div class="single-post wow fadeInUp" data-wow-delay=".4s">
+									<!-- Post Thumb -->
+									<div class="post-thumb">
+										<img th:src="@{/img/fileSave/} + ${board.boardImageSaved}"
+											style="width: 350px; height: 230px;">
+									</div>
+									<!-- Post Content -->
+									<div class="post-content">
+										<div class="post-meta d-flex">
+											<div class="post-author-date-area d-flex">
+
+
+												<!-- Post Author -->
+												<div class="post-author">
+													<a th:text="${board.memberId}"></a>
+												</div>
+												<!-- Post Date -->
+												<div class="post-date">
+													<a th:text="${board.boardInputDate}"></a>
+												</div>
+											</div>
+
+											<!-- Post Comment & Share Area -->
+											<div class="post-comment-share-area d-flex">
+
+
+												<!-- Post Favourite -->
+												<div class="post-favourite">
+													<a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i>
+														10</a>
+												</div>
+
+
+												<!-- Post Comments -->
+												<div class="post-comments">
+													<a href="#"><i class="fa fa-comment-o"
+														aria-hidden="true"></i> 12</a>
+												</div>
+												<!-- Post Share -->
+												<div class="post-share">
+													<a href="#"><i class="fa fa-share-alt"
+														aria-hidden="true"></i></a>
+												</div>
+											</div>
+										</div>
+										<a th:text="${board.boardTitle}"> </a>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+						<!--QnA 출력 시작-->
+						<div class="widget-title" style="width: 760px;">
+							<h6>베스트 QnA</h6>
+						</div>
+
+						<!-- Single Post -->
+						<div class="col-12" th:each="qnalist : ${qnalist}">
+							<div class="list-blog single-post d-sm-flex wow fadeInUpBig"
+								data-wow-delay=".2s"
+								th:if="${qnalist.questionImageSaved != null}">
+
 								<!-- Post Thumb -->
 								<div class="post-thumb">
-									<img th:src="@{/img/fileSave/} + ${board.boardImageSaved}" style="width: 350px; height: 230px;">
+									<img th:src="@{/img/fileSave/} + ${qnalist.questionImageSaved}"
+										style="width: 350px; height: 230px;">
 								</div>
+
 								<!-- Post Content -->
 								<div class="post-content">
+
 									<div class="post-meta d-flex">
+
 										<div class="post-author-date-area d-flex">
+											
+
+
 											<!-- Post Author -->
 											<div class="post-author">
-												<a th:text="${board.memberId}"></a>
+												<a th:text="${qnalist.memberId}">
 											</div>
 											<!-- Post Date -->
 											<div class="post-date">
-												<a th:text="${board.boardInputDate}"></a>
-											</div>
-										</div>
-										<!-- Post Comment & Share Area -->
-										<div class="post-comment-share-area d-flex">
-											<!-- Post Favourite -->
-											<div class="post-favourite">
-												<a th:text="${board.boardInputDate}"><i class="fa fa-heart-o" aria-hidden="true"></i>
-													10</a>
-											</div>
-											<!-- Post Comments -->
-											<div class="post-comments">
-												<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
-											</div>
-											<!-- Post Share -->
-											<div class="post-share">
-												<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
-											</div>
-										</div>
-									</div>
-									<a href="#">
-										<h4 class="post-headline">Where To Get The Best Sunday
-											Roast In The Cotswolds</h4>
-									</a>
-								</div>
-							</div>
-						</div>
-						
-					</div>
-
-						<!-- Single Post
-						<div class="col-12 col-md-6">
-							<div class="single-post wow fadeInUp" data-wow-delay=".6s">
-								Post Thumb
-								<div class="post-thumb">
-									<img src="img/blog-img/3.jpg" alt="">
-								</div>
-								Post Content
-								<div class="post-content">
-									<div class="post-meta d-flex">
-										<div class="post-author-date-area d-flex">
-											Post Author
-											<div class="post-author">
-												<a href="#">By Marian</a>
-											</div>
-											Post Date
-											<div class="post-date">
-												<a href="#">May 19, 2017</a>
-											</div>
-										</div>
-										Post Comment & Share Area
-										<div class="post-comment-share-area d-flex">
-											Post Favourite
-											<div class="post-favourite">
-												<a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i>
-													10</a>
-											</div>
-											Post Comments
-											<div class="post-comments">
-												<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
-											</div>
-											Post Share
-											<div class="post-share">
-												<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
-											</div>
-										</div>
-									</div>
-									<a href="#">
-										<h4 class="post-headline">The Top Breakfast And Brunch Spots In Hove, Brighton</h4>
-									</a>
-								</div>
-							</div>
-						</div>
-
-						Single Post
-						<div class="col-12 col-md-6">
-							<div class="single-post wow fadeInUp" data-wow-delay=".8s">
-								Post Thumb
-								<div class="post-thumb">
-									<img src="img/blog-img/4.jpg" alt="">
-								</div>
-								Post Content
-								<div class="post-content">
-									<div class="post-meta d-flex">
-										<div class="post-author-date-area d-flex">
-											Post Author
-											<div class="post-author">
-												<a href="#">By Marian</a>
-											</div>
-											Post Date
-											<div class="post-date">
-												<a href="#">May 19, 2017</a>
-											</div>
-										</div>
-										Post Comment & Share Area
-										<div class="post-comment-share-area d-flex">
-											Post Favourite
-											<div class="post-favourite">
-												<a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i>
-													10</a>
-											</div>
-											Post Comments
-											<div class="post-comments">
-												<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
-											</div>
-											Post Share
-											<div class="post-share">
-												<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
-											</div>
-										</div>
-									</div>
-									<a href="#">
-										<h4 class="post-headline">The 10 Best Pubs In The Lake
-											District, Cumbria</h4>
-									</a>
-								</div>
-							</div>
-						</div>
-
-						Single Post
-						<div class="col-12 col-md-6">
-							<div class="single-post wow fadeInUp" data-wow-delay="1s">
-								Post Thumb
-								<div class="post-thumb">
-									<img src="img/blog-img/5.jpg" alt="">
-								</div>
-								Post Content
-								<div class="post-content">
-									<div class="post-meta d-flex">
-										<div class="post-author-date-area d-flex">
-											Post Author
-											<div class="post-author">
-												<a href="#">By Marian</a>
-											</div>
-											Post Date
-											<div class="post-date">
-												<a href="#">May 19, 2017</a>
-											</div>
-										</div>
-										Post Comment & Share Area
-										<div class="post-comment-share-area d-flex">
-											Post Favourite
-											<div class="post-favourite">
-												<a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i>
-													10</a>
-											</div>
-											Post Comments
-											<div class="post-comments">
-												<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
-											</div>
-											Post Share
-											<div class="post-share">
-												<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
-											</div>
-										</div>
-									</div>
-									<a href="#">
-										<h4 class="post-headline">The 10 Best Brunch Spots In
-											Newcastle, England</h4>
-									</a>
-								</div>
-							</div>
-						</div> -->
-
-						<!-- ******* List Blog Area Start ******* -->
-
-						<!-- Single Post -->
-						<div class="col-12">
-							<div class="list-blog single-post d-sm-flex wow fadeInUpBig" data-wow-delay=".2s">
-								<!-- Post Thumb -->
-								<div class="post-thumb">
-									<img src="img/blog-img/chopa.jpeg" alt="">
-								</div>
-								<!-- Post Content -->
-								<div class="post-content">
-									<div class="post-meta d-flex">
-										<div class="post-author-date-area d-flex">
-											<!-- Post Author -->
-											<div class="post-author">
-												<a href="#">By Marian</a>
-											</div>
-											<!-- Post Date -->
-											<div class="post-date">
-												<a href="#">May 19, 2017</a>
+												<a th:text="${qnalist.questionInputDate}"></a>
 											</div>
 										</div>
 										<!-- Post Comment & Share Area -->
@@ -504,162 +404,27 @@
 											</div>
 											<!-- Post Comments -->
 											<div class="post-comments">
-												<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
+												<a href="#"><i class="fa fa-comment-o"
+													aria-hidden="true"></i> 12</a>
 											</div>
 											<!-- Post Share -->
 											<div class="post-share">
-												<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+												<a href="#"><i class="fa fa-share-alt"
+													aria-hidden="true"></i></a>
 											</div>
 										</div>
 									</div>
-									<a href="#">
-										<h4 class="post-headline">오늘 산책하면서...</h4>
-									</a>
-									<p>귀엽다는 얘기 많이 들었당~~</p>
-									<a href="#" class="read-more">Continue Reading..</a>
+									<a th:text="${qnalist.questionTitle}"></a><br> 
+									 <a th:utext="${qnalist.questionContents}"></a> 
+									
+									
+									<a href="#"
+										class="read-more">Continue Reading..</a>
 								</div>
 							</div>
 						</div>
 
-						<!-- Single Post -->
-						<div class="col-12">
-							<div class="list-blog single-post d-sm-flex wow fadeInUpBig" data-wow-delay=".4s">
-								<!-- Post Thumb -->
-								<div class="post-thumb">
-									<img src="img/blog-img/chopa1.jpeg" alt="">
-								</div>
-								<!-- Post Content -->
-								<div class="post-content">
-									<div class="post-meta d-flex">
-										<div class="post-author-date-area d-flex">
-											<!-- Post Author -->
-											<div class="post-author">
-												<a href="#">By Marian</a>
-											</div>
-											<!-- Post Date -->
-											<div class="post-date">
-												<a href="#">May 19, 2017</a>
-											</div>
-										</div>
-										<!-- Post Comment & Share Area -->
-										<div class="post-comment-share-area d-flex">
-											<!-- Post Favourite -->
-											<div class="post-favourite">
-												<a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i>
-													10</a>
-											</div>
-											<!-- Post Comments -->
-											<div class="post-comments">
-												<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
-											</div>
-											<!-- Post Share -->
-											<div class="post-share">
-												<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
-											</div>
-										</div>
-									</div>
-									<a href="#">
-										<h4 class="post-headline">오늘의 쵸파 ㅎㅎㅎㅎ</h4>
-									</a>
-									<p>맘에 드는 새 장난감 사자 쵸파</p>
-									<a href="#" class="read-more">Continue Reading..</a>
-								</div>
-							</div>
-						</div>
 
-						<!-- Single Post -->
-						<div class="col-12">
-							<div class="list-blog single-post d-sm-flex wow fadeInUpBig" data-wow-delay=".6s">
-								<!-- Post Thumb -->
-								<div class="post-thumb">
-									<img src="img/blog-img/images.jpeg" alt="">
-								</div>
-								<!-- Post Content -->
-								<div class="post-content">
-									<div class="post-meta d-flex">
-										<div class="post-author-date-area d-flex">
-											<!-- Post Author -->
-											<div class="post-author">
-												<a href="#">By Marian</a>
-											</div>
-											<!-- Post Date -->
-											<div class="post-date">
-												<a href="#">May 19, 2017</a>
-											</div>
-										</div>
-										<!-- Post Comment & Share Area -->
-										<div class="post-comment-share-area d-flex">
-											<!-- Post Favourite -->
-											<div class="post-favourite">
-												<a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i>
-													10</a>
-											</div>
-											<!-- Post Comments -->
-											<div class="post-comments">
-												<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
-											</div>
-											<!-- Post Share -->
-											<div class="post-share">
-												<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
-											</div>
-										</div>
-									</div>
-									<a href="#">
-										<h4 class="post-headline">Bristol's 10 Amazing Weekend
-											Brunches And Late Breakfasts</h4>
-									</a>
-									<p>Tiusmod tempor incididunt ut labore et dolore magna
-										aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
-									<a href="#" class="read-more">Continue Reading..</a>
-								</div>
-							</div>
-						</div>
-
-						<!-- Single Post -->
-						<div class="col-12">
-							<div class="list-blog single-post d-sm-flex wow fadeInUpBig" data-wow-delay=".8s">
-								<!-- Post Thumb -->
-								<div class="post-thumb">
-									<img src="img/blog-img/m5.png" style="hight:220px; width:220px" alt="">
-								</div>
-								<!-- Post Content -->
-								<div class="post-content">
-									<div class="post-meta d-flex">
-										<div class="post-author-date-area d-flex">
-											<!-- Post Author -->
-											<div class="post-author">
-												<a href="#">By Marian</a>
-											</div>
-											<!-- Post Date -->
-											<div class="post-date">
-												<a href="#">May 19, 2017</a>
-											</div>
-										</div>
-										<!-- Post Comment & Share Area -->
-										<div class="post-comment-share-area d-flex">
-											<!-- Post Favourite -->
-											<div class="post-favourite">
-												<a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i>
-													10</a>
-											</div>
-											<!-- Post Comments -->
-											<div class="post-comments">
-												<a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
-											</div>
-											<!-- Post Share -->
-											<div class="post-share">
-												<a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
-											</div>
-										</div>
-									</div>
-									<a href="#">
-										<h4 class="post-headline">ㅋㅋㅋㅋㅋㅋㅋ재롱이</h4>
-									</a>
-									<p>자기 앞니 빠진줄도 모르고ㅠ ㅋㅋㅋㅋ</p>
-									<a href="#" class="read-more">Continue Reading..</a>
-								</div>
-							</div>
-						</div>
 
 					</div>
 				</div>
@@ -673,124 +438,128 @@
 								<h6>Profile</h6>
 							</div>
 							<div class="about-me-widget-thumb">
-								<a th:href="@{/mypage/main}">
-									<img src="img/about-img/chchch.jpg" alt="">
+								<a th:href="@{/mypage/main}"> <img
+									src="img/about-img/chchch.jpg" alt="">
 								</a>
 
-							<h4 class="font-shadow-into-light">boribori</h4>
-							<p>boribori 님의 파트너 : 보리</p>
-							   <p>포인트 : 32</p>
-							   <br>
-							  <p> 보리와 같은 견종의 다른 강아지들은 
-							  <br>'지위픽'을 많이 먹습니다.</p>
-						</div>
-
-
-
-						<!-- Single Widget Area -->
-						<div class="single-widget-area popular-post-widget">
-							<div class="widget-title text-center">
-								<h6>Challenge Top Ranker</h6>
+								<h4 class="font-shadow-into-light">boribori</h4>
+								<p>boribori 님의 파트너 : 보리</p>
+								<p>포인트 : 32</p>
+								<br>
+								<p>
+									보리와 같은 견종의 다른 강아지들은 <br>'지위픽'을 많이 먹습니다.
+								</p>
 							</div>
-							<!-- Single Popular Post -->
-							<div class="single-populer-post d-flex">
-								<img src="img/sidebar-img/1.jpeg" alt="">
-								<div class="post-content">
-									<a href="#">
-										<h6>id : blueblack</h6>
-										포인트 : 6003
-									</a>
-									<!-- <p>Tuesday, October 3, 2017</p> -->
+
+
+
+							<!-- Single Widget Area -->
+							<div class="single-widget-area popular-post-widget">
+								<div class="widget-title text-center">
+									<h6>Challenge Top Ranker</h6>
+								</div>
+								<!-- Single Popular Post -->
+								<div class="single-populer-post d-flex">
+									<img src="img/sidebar-img/1.jpeg" alt="">
+									<div class="post-content">
+										<a href="#">
+											<h6>id : blueblack</h6> 포인트 : 6003
+										</a>
+										<!-- <p>Tuesday, October 3, 2017</p> -->
+									</div>
+								</div>
+								<!-- Single Popular Post -->
+								<div class="single-populer-post d-flex">
+									<img src="img/sidebar-img/2.jpeg" alt="">
+									<div class="post-content">
+										<a href="#">
+											<h6>id : goukaku</h6> 포인트 : 3343
+										</a>
+										<!-- 	<p>Tuesday, October 3, 2017</p> -->
+									</div>
+								</div>
+								<!-- Single Popular Post -->
+								<div class="single-populer-post d-flex">
+									<img src="img/sidebar-img/3.jpeg" alt="">
+									<div class="post-content">
+										<a href="#">
+											<h6>id : gogogo</h6> 포인트 : 2939
+										</a>
+										<!-- <p>Tuesday, October 3, 2017</p> -->
+									</div>
+								</div>
+								<!-- Single Popular Post -->
+								<div class="single-populer-post d-flex">
+									<img src="img/sidebar-img/4.jpg" alt="">
+									<div class="post-content">
+										<a href="#">
+											<h6>id : swimmer</h6> 포인트 : 2222
+										</a>
+										<!-- <p>Tuesday, October 3, 2017</p> -->
+									</div>
+								</div>
+								<!-- Single Popular Post -->
+								<div class="single-populer-post d-flex">
+									<img src="img/sidebar-img/5.jpeg" alt="">
+									<div class="post-content">
+										<a href="#">
+											<h6>id : boriunni</h6> 포인트 : 1122
+										</a>
+										<!-- <p>Tuesday, October 3, 2017</p> -->
+									</div>
 								</div>
 							</div>
-							<!-- Single Popular Post -->
-							<div class="single-populer-post d-flex">
-								<img src="img/sidebar-img/2.jpeg" alt="">
-								<div class="post-content">
-									<a href="#">
-										<h6>id : goukaku</h6>
-										포인트 : 3343
-									</a>
-								<!-- 	<p>Tuesday, October 3, 2017</p> -->
+
+
+							<!-- weather search Area -->
+							<div class="weather-wrap">
+								<div class="weather-image">
+									<img src="img/sidebar-img/mainondo.jpg" alt=""
+										style="border-radius: 20px;">
 								</div>
-							</div>
-							<!-- Single Popular Post -->
-							<div class="single-populer-post d-flex">
-								<img src="img/sidebar-img/3.jpeg" alt="">
-								<div class="post-content">
-									<a href="#">
-										<h6>id : gogogo</h6>
-										포인트 : 2939
-									</a>
-									<!-- <p>Tuesday, October 3, 2017</p> -->
+
+								<div class="weather-text">
+									<h2 style="color: white; font-size: 30px;">Today's weather</h2>
+									<h3 class="ctemp" style="color: white; font-size: 25px;">현재
+										온도 :</h3>
+									<h3 class="lowtemp" style="color: blue; font-size: 20px;">최저
+										온도 :</h3>
+									<h3 class="hightemp" style="color: red; font-size: 20px;">최고
+										온도 :</h3>
+									<h3 class="icon"></h3>
+
+									<form id="weatherform" th:action="@{/weather/goOut}"
+										method="get">
+										<input type="hidden" id="weather" name="weather">
+										<p>
+											<button class="btn btn-success btn-sm" type="submit"
+												id="weathersubmit">어디로 갈까요?</button>
+										</p>
+									</form>
 								</div>
+
 							</div>
-							<!-- Single Popular Post -->
-							<div class="single-populer-post d-flex">
-								<img src="img/sidebar-img/4.jpg" alt="">
-								<div class="post-content">
-									<a href="#">
-										<h6>id : swimmer</h6>
-										포인트 : 2222
-									</a>
-									<!-- <p>Tuesday, October 3, 2017</p> -->
-								</div>
-							</div>
-							<!-- Single Popular Post -->
-							<div class="single-populer-post d-flex">
-								<img src="img/sidebar-img/5.jpeg" alt="">
-								<div class="post-content">
-									<a href="#">
-										<h6>id : boriunni</h6>
-										포인트 : 1122
-									</a>
-									<!-- <p>Tuesday, October 3, 2017</p> -->
-								</div>
-							</div>
-						</div>
-
-
-						<!-- weather search Area -->
-						<div class="weather-wrap">
-							<div class="weather-image">
-								<img src="img/sidebar-img/mainondo.jpg" alt="" style="border-radius: 20px;">
-							</div>
-
-							<div class="weather-text">
-								<h2 style="color:white; font-size:30px;">Today's weather</h2>
-								<h3 class="ctemp" style="color:white; font-size:25px;">현재 온도 : </h3>
-								<h3 class="lowtemp" style="color:blue; font-size:20px;">최저 온도 : </h3>
-								<h3 class="hightemp" style="color:red; font-size:20px;">최고 온도 : </h3>
-								<h3 class="icon"></h3>
-
-								<form id="weatherform" th:action="@{/weather/goOut}" method="get">
-									<input type="hidden" id="weather" name="weather">
-									<p><button class="btn btn-success btn-sm" type="submit" id="weathersubmit">어디로
-											갈까요?</button></p>
-								</form>
-							</div>
-
-						</div>
-
 	</section>
 	<!-- ****** Blog Area End ****** -->
 
 	<!-- ****** Instagram Area Start ****** -->
-	<div class="instargram_area owl-carousel section_padding_100_0 clearfix" id="portfolio">
+	<div
+		class="instargram_area owl-carousel section_padding_100_0 clearfix"
+		id="portfolio">
 
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img src="img/instagram-img/m2.jpg" style="height:240px" alt="">
+			<img src="img/instagram-img/m2.jpg" style="height: 240px" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
 					<div class="yummy-table-cell">
-					<div class="follow-me text-center">
+						<div class="follow-me text-center">
 							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
 								Follow me</a>
 						</div>
-						
+
 					</div>
 				</div>
 			</div>
@@ -799,16 +568,16 @@
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img src="img/instagram-img/m3.jpeg" style="height:240px" alt="">
+			<img src="img/instagram-img/m3.jpeg" style="height: 240px" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
 					<div class="yummy-table-cell">
-					<div class="follow-me text-center">
+						<div class="follow-me text-center">
 							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
 								Follow me</a>
 						</div>
-						
+
 					</div>
 				</div>
 			</div>
@@ -817,16 +586,16 @@
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img src="img/instagram-img/m4.jpeg" style="height:240px" alt="">
+			<img src="img/instagram-img/m4.jpeg" style="height: 240px" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
 					<div class="yummy-table-cell">
-					<div class="follow-me text-center">
+						<div class="follow-me text-center">
 							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
 								Follow me</a>
 						</div>
-						
+
 					</div>
 				</div>
 			</div>
@@ -835,16 +604,16 @@
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img src="img/instagram-img/footer.jpg" style="height:240px" alt="">
+			<img src="img/instagram-img/footer.jpg" style="height: 240px" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
 					<div class="yummy-table-cell">
-					<div class="follow-me text-center">
+						<div class="follow-me text-center">
 							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
 								Follow me</a>
 						</div>
-						
+
 					</div>
 				</div>
 			</div>
@@ -853,7 +622,8 @@
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img src="img/instagram-img/footer2.jpeg" style="height:240px" alt="">
+			<img src="img/instagram-img/footer2.jpeg" style="height: 240px"
+				alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -870,7 +640,7 @@
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img src="img/instagram-img/footer3.jpg" style="height:240px" alt="">
+			<img src="img/instagram-img/footer3.jpg" style="height: 240px" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -887,7 +657,7 @@
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img src="img/instagram-img/footer4.jpg" style="height:240px" alt="">
+			<img src="img/instagram-img/footer4.jpg" style="height: 240px" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -904,7 +674,7 @@
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img src="img/instagram-img/m1.jpeg" style="height:240px" alt="">
+			<img src="img/instagram-img/m1.jpeg" style="height: 240px" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
@@ -929,34 +699,35 @@
 				<div class="col-12">
 					<div class="footer-content">
 						<!-- Logo Area Start -->
-							<div class="footer-logo-area text-center">
-								<a th:href="@{/}" class="yummy-logo"><img src="img/bg-img/toplogo.jpg" alt=""></a>
-							</div>
+						<div class="footer-logo-area text-center">
+							<a th:href="@{/}" class="yummy-logo"><img
+								src="img/bg-img/toplogo.jpg" alt=""></a>
+						</div>
+						<!-- Menu Area Start -->
+						<nav class="navbar navbar-expand-lg">
+							<button class="navbar-toggler" type="button"
+								data-toggle="collapse" data-target="#yummyfood-footer-nav"
+								aria-controls="yummyfood-footer-nav" aria-expanded="false"
+								aria-label="Toggle navigation">
+								<i class="fa fa-bars" aria-hidden="true"></i> Menu
+							</button>
 							<!-- Menu Area Start -->
-							<nav class="navbar navbar-expand-lg">
-								<button class="navbar-toggler" type="button"
-									data-toggle="collapse" data-target="#yummyfood-footer-nav"
-									aria-controls="yummyfood-footer-nav" aria-expanded="false"
-									aria-label="Toggle navigation">
-									<i class="fa fa-bars" aria-hidden="true"></i> Menu
-								</button>
-								<!-- Menu Area Start -->
-								<div class="collapse navbar-collapse justify-content-center"
-									id="yummyfood-footer-nav">
-									<ul class="navbar-nav">
-										<li class="nav-item active"><a class="nav-link"
-											th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
-										</li>
-										<li class="nav-item"><a class="nav-link"
-											th:href="@{/facilities}">시설</a></li>
-										<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
-										
-										<li class="nav-item"><a class="nav-link" href="#">챌린지</a></li>
-										<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
-										</li>
-									</ul>
-								</div>
-							</nav>
+							<div class="collapse navbar-collapse justify-content-center"
+								id="yummyfood-footer-nav">
+								<ul class="navbar-nav">
+									<li class="nav-item active"><a class="nav-link"
+										th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
+									</li>
+									<li class="nav-item"><a class="nav-link"
+										th:href="@{/facilities}">시설</a></li>
+									<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
+
+									<li class="nav-item"><a class="nav-link" href="#">챌린지</a></li>
+									<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
+									</li>
+								</ul>
+							</div>
+						</nav>
 					</div>
 				</div>
 			</div>
@@ -969,8 +740,8 @@
 					<div class="copy_right_text text-center">
 						<p>
 							Copyright @2022 All rights reserved | This template is made with
-							<i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com"
-								target="_blank">Aimori</a>
+							<i class="fa fa-heart-o" aria-hidden="true"></i> by <a
+								href="https://colorlib.com" target="_blank">Aimori</a>
 						</p>
 					</div>
 				</div>
@@ -990,48 +761,49 @@
 	<script th:src="@{js/active.js}"></script>
 
 	<script>
-		$.getJSON('https://api.openweathermap.org/data/2.5/weather?lat=37&lon=127&appid=d31defa8e5437ce94838e8d636024afd&units=metric', function (result) {
-			$('.ctemp').append(result.main.temp);
-			$('.lowtemp').append(result.main.temp_min);
-			$('.hightemp').append(result.main.temp_max);
-			//result.weather[0].icon 현재 날씨 가져오기
-			var wiconUrl = '<img src="https://openweathermap.org/img/wn/' + result.weather[0].icon + '.png" alt="' + result.weather[0].description + '">'
-			$('.icon').append(wiconUrl);
+		$
+				.getJSON(
+						'https://api.openweathermap.org/data/2.5/weather?lat=37&lon=127&appid=d31defa8e5437ce94838e8d636024afd&units=metric',
+						function(result) {
+							$('.ctemp').append(result.main.temp);
+							$('.lowtemp').append(result.main.temp_min);
+							$('.hightemp').append(result.main.temp_max);
+							//result.weather[0].icon 현재 날씨 가져오기
+							var wiconUrl = '<img src="https://openweathermap.org/img/wn/' + result.weather[0].icon + '.png" alt="' + result.weather[0].description + '">'
+							$('.icon').append(wiconUrl);
 
-			$("#weather").val(result.weather[0].description);
+							$("#weather").val(result.weather[0].description);
 
-			console.log(result.weather[0].icon);
-			console.log(result.weather[0].description);
+							console.log(result.weather[0].icon);
+							console.log(result.weather[0].description);
 
-			//현재시간 가져오기
-			var ct = result.dt;
+							//현재시간 가져오기
+							var ct = result.dt;
 
-			function convertTime(t) {
-				var originalTime = new Date(t * 1000);
-				//Tue Sep 13 2022 09:34:07 GMT+0900 (한국 표준시)
-				//너무 길어서 쪼개서 출력한다
-				var hr = originalTime.getHours();
-				var m = originalTime.getMinutes();
-				var s = originalTime.getSeconds();
+							function convertTime(t) {
+								var originalTime = new Date(t * 1000);
+								//Tue Sep 13 2022 09:34:07 GMT+0900 (한국 표준시)
+								//너무 길어서 쪼개서 출력한다
+								var hr = originalTime.getHours();
+								var m = originalTime.getMinutes();
+								var s = originalTime.getSeconds();
 
-				return hr + ':' + m + ':' + s
+								return hr + ':' + m + ':' + s
 
-			}
+							}
 
-			var currentTime = convertTime(ct)
-			$('.time').append(currentTime);
+							var currentTime = convertTime(ct)
+							$('.time').append(currentTime);
 
-		});
+						});
 	</script>
 
 	<script>
-
-		$(document).ready(function () {
+		$(document).ready(function() {
 
 			$('[data-toggle="tooltip"]').tooltip();
 
 		});
-
 	</script>
 
 

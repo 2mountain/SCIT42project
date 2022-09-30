@@ -215,6 +215,28 @@
 	</update>
 	
 	
+	<select id="qnaMainList" parameterType="map" resultType="Question">
+		select
+			questionNumber
+			, memberId
+			, questionTitle
+			, memberNickName
+			, to_char(questionInputDate, 'YYYY-MM-DD') questionInputDate
+			, questionHits
+			, questionReport
+			, questionContents
+			, questionCategory
+			, questionImageOriginal
+			, questionImageSaved
+			, answerCount
+			, answeredOrNot
+			, answerAccepted
+		from
+			question
+		order by
+			questionNumber desc
+	</select>
+	
 	
 	
 </mapper>
