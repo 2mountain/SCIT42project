@@ -16,6 +16,7 @@ import net.softsociety.aimori.domain.Board;
 import net.softsociety.aimori.domain.DateJoinNumber;
 import net.softsociety.aimori.domain.Member;
 import net.softsociety.aimori.domain.PetTypeNNumber;
+import net.softsociety.aimori.domain.Question;
 import net.softsociety.aimori.service.AdministratorService;
 import net.softsociety.aimori.service.BoardService;
 import net.softsociety.aimori.service.FacilitiesService;
@@ -107,7 +108,6 @@ public class AdministratorRestController {
 		Board board = bService.boardRead(boardNumber);
 		log.debug("[AdministratorController] deleteBoard - board : {}", board);
 
-
 		if (board == null) {
 			return "삭제 실패";
 		}
@@ -117,12 +117,44 @@ public class AdministratorRestController {
 
 		// 로그인 아이디를 board객체에 저장
 		board.setMemberId(memberId);
-		// board.setMemberId("test1");
 
 		// 글 삭제
 		int result = bService.boardDelete(board);
 		log.debug("[AdministratorController] deleteBoard - result : {}", result);
 		
+
+		// 글 삭제 성공 and 첨부된 파일이 있는 경우 파일도 삭제
+		if (result == 1 && savedfile != null) {
+			FileService.deleteFile(uploadPath + "/" + savedfile);
+		}
+		
+		if(result == 1) {
+			return "success";
+		} else {
+			return "failed";
+		}
+	}
+	
+	@ResponseBody
+	@PostMapping("/deleteQnA")
+	public String deleteQnA(int qnaNumber, String memberId) {
+		log.debug("[AdministratorController] deleteQnA - param : {}, {}", qnaNumber, memberId);
+		
+		// 해당 번호의 글 정보 조회
+	  	Question question = service.questionRead(qnaNumber);
+
+		if (question == null) {
+			return "삭제 실패";
+		}
+
+		// 첨부된 파일명 확인
+		String savedfile = question.getQuestionImageSaved();
+
+		// 로그인 아이디를 board객체에 저장
+		question.setMemberId(memberId);
+
+		// 글 삭제
+		int result = service.questionDelete(question);
 
 		// 글 삭제 성공 and 첨부된 파일이 있는 경우 파일도 삭제
 		if (result == 1 && savedfile != null) {
@@ -161,4 +193,5 @@ public class AdministratorRestController {
 		
 		return list;
 	}
+	
 }
