@@ -154,12 +154,13 @@
 			, answerContents
 			, to_char(answerInputDate, 'yy.mm.dd') answerInputDate
 			, to_char(answerInputDate, 'yy.mm.dd HH:MM:SS') answerInputDateDetail
+			, answerAcceptedOrNot
 		from
 			answer
 		where
 			questionNumber=#{questionNumber}
 		order by
-			answerInputDateDetail
+			answerAcceptedOrNot DESC, answerInputDateDetail
 	</select>
 	
 	<!-- 답변 저장 -->
@@ -210,8 +211,46 @@
 		questionNumber = #{questionNumber}
 	</update>
 	
-	<!-- 답변 채택 -->
-	<update id="answerAccept">
+	<!-- 답변 하나 불러오기 -->
+	<select id="answerSelect" parameterType="int" resultType="Answer">
+	select
+		answerNumber
+		, questionNumber
+	 	, memberId
+	 	, memberNickName
+	 	, memberRoleName
+	 	, answerContents
+	 	, answerInputDate
+	 	, answerAcceptedOrNot
+	from
+		answer
+	where
+		answerNumber = #{answerNumber}
+		
+	</select>
+	
+	
+	
+	
+	<!-- 채택 관련 기능 -->
+	<!-- 답변 채택 게시글 기록 -->
+	<update id="answerAccept" parameterType="int">
+		update
+			question
+		set
+			answerAccepted = 1
+		where
+			questionNumber = #{questionNumber}
+	</update>
+	
+	<!-- 답변 채택 답변 기록 -->
+	<update id="answerSubAccept" parameterType="int">
+		update
+			answer
+		set
+			answerAcceptedOrNot = 1
+		where
+			answerNumber = #{answerNumber}
 	</update>
 	
 	

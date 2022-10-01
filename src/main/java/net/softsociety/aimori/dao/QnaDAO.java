@@ -40,7 +40,16 @@ public interface QnaDAO {
 	public int answerDelete(Answer answer);
 	// 답변 개수 -1
 	public int answerMinus(int questionNumber);
-	// 답변 채택
-	public int answerAccept(int questionNumber, int answerNumber);
+	// 답변 하나 불러오기
+	public Answer answerSelect(int answerNumber);
+	
+	
+	
+	
+	/* 채택 관련 기능 */
+	// 답변 채택 게시글 기록
+	public int answerAccept(int questionNumber);
+	// 답변 채택 답변 기록
+	public int answerSubAccept(int answerNumber);
 
 }

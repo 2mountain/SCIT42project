@@ -219,10 +219,7 @@ public class QnaController {
 		model.addAttribute("answerlist", answerlist);
 
 		log.debug("question 읽어오기, {}", question);
-		log.debug("reply 값 읽어오기, {}", answerlist);
-
-
-		model.addAttribute("question", question);
+		log.debug("answerlist 값 읽어오기, {}", answerlist);
 
 		return "/qna/qnaRead";
 	}
@@ -411,6 +408,18 @@ public class QnaController {
 			answer.setMemberId(user.getUsername());
 			answer.setMemberNickName("testUser");
 			
+			/*
+			 * log.debug("가져온 question 객체 번호:{}", question.getAnswerAccepted());
+			 * 
+			 * Question questiontemp = service.questionRead(question.getQuestionNumber());
+			 * 
+			 * question.setAnswerAccepted(questiontemp.getAnswerAccepted());
+			 * 
+			 * model.addAttribute(question);
+			 */
+			
+			/* log.debug("채택 여부 확인하기 위한 객체 : {}", question); */
+			
 			log.debug("저장할 리플 정보 : {}", answer);
 			int result = service.answerInsert(answer);
 			
@@ -464,8 +473,22 @@ public class QnaController {
 	 * 
 	 * return "/board/boardImage"; }
 	 */
-
-
-
+	
+	// 답변 채택
+	@GetMapping("answerAccept")
+	public String answerAccept(
+			int answerNumber
+			, int questionNumber
+			, @AuthenticationPrincipal UserDetails user) {
+		
+		Answer answer = service.answerSelect(answerNumber);
+		
+		answer.setMemberId(user.getUsername());
+		
+		int result1 = service.answerAccept(questionNumber);
+		int result2 = service.answerSubAccept(answerNumber);
+		
+		return "redirect:/qna/read?questionNumber=" + answer.getQuestionNumber();
+	}
 
 }

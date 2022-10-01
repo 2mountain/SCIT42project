@@ -19,5 +19,6 @@ public class Answer {
 	String memberRoleName;
 	String answerContents;
 	String answerInputDate;
+	String answerAcceptedOrNot;
 
 }
