@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
 import net.softsociety.aimori.domain.Answer;
+import net.softsociety.aimori.domain.Board;
 import net.softsociety.aimori.domain.Question;
 import net.softsociety.aimori.util.PageNavigator;
 
@@ -51,5 +52,12 @@ public interface QnaDAO {
 	public int answerAccept(int questionNumber);
 	// 답변 채택 답변 기록
 	public int answerSubAccept(int answerNumber);
+
+
+	
+  
+	//메인 qna 출력 리스트
+	public ArrayList<Question> qnaMainList();
+
 
 }

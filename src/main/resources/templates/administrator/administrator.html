@@ -12,6 +12,7 @@
 <link th:href="@{/css/stylesAdmin.css}" rel="stylesheet" />
 <script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+
 <script type="text/javascript">
 	let changingRoleById;
 	let changingBlockByNickName;
@@ -177,7 +178,6 @@
 							aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
 								<a class="nav-link" th:href="@{/administrator/reported}">신고된 글 확인</a> 
-								<!-- <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a> -->
 							</nav>
 						</div>
 						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
@@ -190,7 +190,7 @@
 								<i class="fas fa-angle-down"></i>
 							</div>
 						</a>
-						<div class="collapse" id="collapseQnA" hidden="hidden"
+						<div class="collapse" id="collapseQnA"
 							aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav accordion"
 								id="sidenavAccordionPages">
@@ -205,9 +205,9 @@
 									aria-labelledby="headingOne"
 									data-bs-parent="#sidenavAccordionPages">
 									<nav class="sb-sidenav-menu-nested nav">
-										<a class="nav-link" href="login.html">Login</a> <a
-											class="nav-link" href="register.html">Register</a> <a
-											class="nav-link" href="password.html">Forgot Password</a>
+										<a class="nav-link" href="#">Login</a> <a
+											class="nav-link" href="#">Register</a> <a
+											class="nav-link" href="#">Forgot Password</a>
 									</nav>
 								</div>
 								<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
@@ -221,9 +221,9 @@
 									aria-labelledby="headingOne"
 									data-bs-parent="#sidenavAccordionPages">
 									<nav class="sb-sidenav-menu-nested nav">
-										<a class="nav-link" href="401.html">401 Page</a> <a
-											class="nav-link" href="404.html">404 Page</a> <a
-											class="nav-link" href="500.html">500 Page</a>
+										<a class="nav-link" href="#">401 Page</a> <a
+											class="nav-link" href="#">404 Page</a> <a
+											class="nav-link" href="#">500 Page</a>
 									</nav>
 								</div>
 							</nav>
@@ -266,18 +266,6 @@
 									</div>
 								</div>
 							</div>
-							<!-- [ 선 차트 ] 
-							<div class="col-xl-6">
-								<div class="card mb-4">
-									<div class="card-header">
-										<i class="fas fa-chart-area me-1"></i> Area Chart Example
-									</div>
-									<div class="card-body">
-										<canvas id="myAreaChart" width="100%" height="40"></canvas>
-									</div>
-								</div>
-							</div> 
-							-->
 						</div>
 						<div class="card mb-4">
 							<div class="card-header">
@@ -308,22 +296,20 @@
 											<td th:text="${memberList.memberBirthDay}">생일</td>
 											<td th:text="${memberList.memberJoinDate}">가입일자</td>
 											<td th:text="${memberList.memberPoint}">포인트</td>
-											<td style="padding: 0; width: 90px; height: 40px;"><select
-												style="width: 90px; height: 40px; border: none;" name="role"
-												th:memberRoleName="${memberList.memberRoleName}"
-												th:id="${memberList.memberId}"
-												th:user="${memberList.memberId}"
-												onchange="changeValue(this.value, getAttribute('id'), getAttribute('user'), getAttribute('memberRoleName'))">
-													<option
-														th:selected="${memberList.memberRoleName.equals('ROLE_USER')}"
-														value="ROLE_USER">일반</option>
-													<option
-														th:selected="${memberList.memberRoleName.equals('ROLE_ADMIN')}"
-														value="ROLE_ADMIN" class="fontRed">관리자</option>
-													<option
-														th:selected="${memberList.memberRoleName.equals('ROLE_DOCTOR')}"
-														value="ROLE_DOCTOR">의사</option>
-											</select> <!--
+											<td style="padding: 0; width: 90px; height: 40px;">
+											<select style="width: 90px; height: 40px; border: none;" name="role"
+													th:memberRoleName="${memberList.memberRoleName}"
+													th:id="${memberList.memberId}"
+													th:user="${memberList.memberId}"
+													onchange="changeValue(this.value, getAttribute('id'), getAttribute('user'), getAttribute('memberRoleName'))">
+													<option th:selected="${memberList.memberRoleName.equals('ROLE_USER')}"
+															value="ROLE_USER">일반</option>
+													<option th:selected="${memberList.memberRoleName.equals('ROLE_ADMIN')}"
+															value="ROLE_ADMIN" class="fontRed">관리자</option>
+													<option th:selected="${memberList.memberRoleName.equals('ROLE_DOCTOR')}"
+															value="ROLE_DOCTOR">의사</option>
+											</select> 
+											<!--
 															<span class="roleChange" th:if="${memberList.memberRoleName.equals('ROLE_USER')}" style="color:black;">일반</span>
 															<span class="roleChange" th:if="${memberList.memberRoleName.equals('ROLE_ADMIN')}" style="color:red;"><b>관리자</b></span>
 															<span class="roleChange" th:if="${memberList.memberRoleName.equals('ROLE_DOCTOR')}" >의사</span>
@@ -383,6 +369,7 @@
 			</footer>
 		</div>
 	</div>
+	
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 	<script th:src="@{/js/scripts.js}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
@@ -391,5 +378,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 	<script th:src="@{/js/datatables-simple-demo.js}"></script>
 	<script th:src="@{/js/chart-pie-demo.js}"></script>
+	
 </body>
 </html>

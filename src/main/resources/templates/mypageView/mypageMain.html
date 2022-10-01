@@ -42,6 +42,12 @@
 <!-- test -->
 <link rel="stylesheet" type="text/css" th:href="@{/css/board/board.css}" />
 
+<!-- 데이트 피커 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
 <!-- test (페이지 함수) -->
 <script>
 	function pagingFormSubmit(currentPage) {
@@ -167,7 +173,7 @@
 
 	<!-- ****** Breadcumb Area Start ****** -->
 	<div class="breadcumb-area"
-		style="background-image: url(../img/bg-img/breadcumb.jpg);">
+		style="background-image: url(../img/bg-img/1.jpg);">
 		<div class="container h-100">
 			<div class="row h-100 align-items-center">
 				<div class="col-12">
@@ -218,7 +224,7 @@
 
 	<!--여기부터 프로필 창 -->
 	<div class="container rounded bg-white mt-5 mb-5"
-		style="position: absolute; margin-left: 380px; bottom: 700px;">
+		style="position: absolute; margin-left: 500px; bottom: 500px; margin-top: 1000px;">
 		<div class="row">
 			<div class="col-md-3 border-right">
 				<div
@@ -228,30 +234,29 @@
 						<input type="file" name="upload" class="btn btn-primary btn-sm">
 				</div>
 			</div>
-			<form id="mypageForm" th:action="@{user}" method="post"
+			<form id="mypageForm" th:action="@{/mypage/user}" method="post"
 				onsubmit="return validation();">
-				<div class=" rowmt-2">
+				<div class=" rowmt-2" style="margin-left: 100px;">
 					<div class="col-md-6">
-						<label class="labels">아이디</label> <input type="text" class="아이디"
+						<label class="labels">아이디</label> <input type="text" class="아이디" name="memberId"
 							th:value="${member.memberId}" readonly="readonly">
 					</div>
 					<div class="col-md-6">
-						<label class="labels">닉네임</label> <input type="text" class="닉네임"
-							th:placeholder="${member.memberNickName}">
+						<label class="labels">닉네임</label> 
+						<input type="text" class="닉네임" name="memberNickName" th:placeholder="${member.memberNickName}">
 					</div>
 
-
 					<div class="col-md-12">
-						<label class="labels">주소</label><input type="text"
+						<label class="labels">주소</label><input type="text" name="memberAddress"
 							class="form-control" th:value="${member.memberAddress}">
 					</div>
 					<div class="col-md-12">
 						<label class="labels">이메일</label><input type="text"
-							class="form-control" placeholder="enter email id"
+							class="form-control" placeholder="enter email id" name="memberEmail"
 							th:value="${member.memberEmail}">
 					</div>
 					<div class="col-md-12">
-						<label class="labels">생년월일</label><input type="text"
+						<label class="labels">생년월일</label><input type="text" name="memberBirthDay"
 							class="form-control" th:value="${member.memberBirthDay}">
 					</div>
 				</div>

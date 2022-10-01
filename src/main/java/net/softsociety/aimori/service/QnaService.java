@@ -44,6 +44,10 @@ public interface QnaService {
 
 	
 	
+	//메인 qna 출력
+	public ArrayList<Question> qnaMainList();
+	
+	
 	
 	
 }

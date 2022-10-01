@@ -9,9 +9,9 @@ DROP TABLE doctor;
 DROP TABLE facilities;
 DROP TABLE facilitiesEvaluation;
 DROP TABLE boardLikedData;
-drop table question;
-drop table answer;
-drop table reportData;
+DROP table question;
+DROP table answer;
+DROP table reportData;
 
 DROP SEQUENCE doctor_seq;
 DROP SEQUENCE pet_seq;
@@ -25,8 +25,6 @@ DROP SEQUENCE boardLikedNumber_seq;
 DROP SEQUENCE questionNumber_seq;
 DROP SEQUENCE answerNumber_seq;
 DROP SEQUENCE reportNumber_seq;
-
-
 
 CREATE SEQUENCE doctor_seq;
 CREATE SEQUENCE pet_seq;
@@ -309,14 +307,14 @@ CREATE TABLE answer
 
 create table reportData
 (
-    reportNumber number primary key not null,
+    reportNumber NUMBER primary key not null,
         --신고 식별번호
-    reportCategory varchar2(200) not null,
+    reportCategory VARCHAR2(200) not null,
         --신고 사유 담을 변수(홍보/도배, 음란물, 불법정보, 욕설/혐오표현, 개인정보 노출)
-    memberId varchar2(40) references members(memberId) on delete cascade,
+    memberId VARCHAR2(40) references members(memberId) on delete cascade,
         --신고한 멤버 아이디
-    boardNumber number references board(boardNumber) on delete cascade,
+    boardNumber NUMBER references board(boardNumber) on delete cascade,
         --신고받은 커뮤니티 게시글번호
-    questionNumber number references question(questionNumber) on delete cascade
+    questionNumber NUMBER references question(questionNumber) on delete cascade
         --신고받은 qna 게시글번호
 );

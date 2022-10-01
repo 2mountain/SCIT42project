@@ -64,7 +64,7 @@ public class MemberServiceImpl implements MemberService {
 			member.setMemberPassword(encodedPassword);
 		}
 
-		int result = memberDAO.update(member);
+		int result = memberDAO.updateMember(member);
 		return result;
 	}
 }
