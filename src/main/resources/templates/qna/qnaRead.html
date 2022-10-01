@@ -50,12 +50,13 @@
 	}
 	
 	// 답변 작성
-	function validation() {
+ 	function validation() {
 		let answertext = document.getElementById('answerContents');
+
 		if (answertext.value.length < 3) {
 			alert('댓글 3자 이상으로 작성해주세요.');
 			return false;
-		}
+		} 
 		return true;
 	}
 	
@@ -77,24 +78,19 @@
 		if (confirm('채택하시겠습니까?')) {
 			location.href = 'answerAccept?answerNumber=' + answerNumber + '&questionNumber=' + questionNumber;
 		}
+		
 	}
 	
 </script>
 
-<script>
+	
+	
+	
+<script type="text/javascript" th:inline="javascript">
+	
 	$(document).ready(function() {
 		
-		let contents = $("#contents").val();
-		
-		console.log(contents);
-		
-		let convertedContents = contents.replace(/(<([^>]+)>)/ig,"");
-		
-		console.log(convertedContents);
-		
-		$("#contents").val(convertedContents);
-		
-		$('#recommendbtn').click(function() {
+		/* $('#recommendbtn').click(function() {
 			
 			let likeCount = $("#liked").text();
 			let boardNumber = $(this).attr('boardNumber');
@@ -120,11 +116,31 @@
 					alert("status : " + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
 				}
 			});
-		});
-		
-		
+		}); */
 
+		// 답변 채택 기능 관련
+		$("#answerContents").click(acceptedOrNot);
+		$(".answerContentsBtn").click(acceptedOrNot);
+		
+		
+		
 	});
+	
+function acceptedOrNot() {
+	let acceptedOrNot = [[${question.answerAccepted}]];
+
+	console.log(acceptedOrNot);
+
+ 	if (acceptedOrNot === 1) {
+		alert('이미 채택된 게시글입니다.');
+		return false;
+	}
+	return true;
+}
+
+
+
+
 
 </script>
 
@@ -359,7 +375,7 @@
 							<textarea class="form-control input-sm" type="text" id="answerContents" name="answerContents" placeholder="답변 입력..." style="height : 200px; border: solid 1px gray;"></textarea>
 						</div>
 						<div style="padding-top: 10px">
-							<input class="btn btn-primary btn-sm" type="submit" value="등록">
+							<input class="btn btn-primary btn-sm" id="questionInsert" type="submit" value="등록">
 						</div>
 					</div>
 				</form>
@@ -369,41 +385,48 @@
 		
 		
 		
+		
 		<!-- 답변 목록 출력 시작 -->
 		<div class="pull-left" style="padding-left: 200px; font-size: 20px; height: 60px;">
 		<a th:text="'답변' + '[' + ${question.answerCount} + ']'" ></a>
 		</div>
 		<div style="height: 50px;"></div>
 		
-		<div class="container" style="padding-left: 180px;">
-			<div th:each="answer : ${answerlist}"
-				style="background-color: rgb(247, 247, 247); border-radius: 30px; padding: 0px 20px 0px 20px;">
+		<!-- <div class="container" style="padding-left: 180px;" th:id="'re'+${answer.answerNumber}"> -->
+		<div class="container" style="padding-left: 180px; border-radius: 50px;">
+		<div th:each="answer : ${answerlist}">
+ 			<div 
+				style="border-radius: 30px;
+				padding: 0px 20px 0px 20px;"
+				th:style="${answer.answerAcceptedOrNot == '0' ? 'background-color: rgb(247, 247, 247)' : 'background-color: rgb(200, 240, 200)'}">
 				<div style="width: 900px; height: 50px; text-align: left; padding: 10px 10px 10px 20px;">
 					<a th:utext="${answer.memberId} + ' / ' + ${answer.answerInputDate}"></a>
 					&nbsp;&nbsp;
 					<span th:if="${#authentication.name} == ${answer.memberId}">
-					<a class="btn btn-success btn-sm" style="color: white;"
+					<a class="btn btn-success btn-sm answerContentsBtn"
+					style="color: white;"
 					th:href="|javascript:answerAccept(${answer.answerNumber}, ${question.questionNumber})|">
 					채택</a>
 					</span>
 				</div>
 				<div
-					style="width: 900px; height: 200px; border: 1px solid gray; border-radius: 30px; text-align: left; padding: 20px 20px 20px 20px; background-color: white;"
+					style="width: 900px; height: 200px; margin-left : 20px; border: 1px solid gray; border-radius: 30px; text-align: left; padding: 20px 20px 20px 20px; background-color: white;"
 					id="contents"
 					th:utext="${answer.answerContents}">
 				</div>
 				<div style="width: 900px; height: 50px; text-align: right; padding: 10px 10px 10px 20px;">
 					<span th:if="${#authentication.name} == ${answer.memberId}">
 					<a class="btn btn-secondary btn-sm" style="color: white;"
-					th:href="|javascript:answerUpdate(${answer.answerNumber}, ${answer.questionNumber})|">
+					th:href="|javascript:answerUpdate(${answer.answerNumber}, ${question.questionNumber})|">
 					수정</a>
 					<a  class="btn btn-secondary btn-sm" style="color: white;"
-					th:href="|javascript:answerDelete(${answer.answerNumber}, ${answer.questionNumber})|">
+					th:href="|javascript:answerDelete(${answer.answerNumber}, ${question.questionNumber})|">
 					삭제</a>
 					</span>
 				</div>
 				<pre style="width: 900px; height: 30px;">
 				</pre>
+			</div>
 			</div>
 		</div>
 		
@@ -430,7 +453,6 @@
 		
 		
 		
-		</div>
                         
 	</section>
 

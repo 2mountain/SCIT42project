@@ -115,13 +115,33 @@ public class QnaSeviceImpl implements QnaService {
 		int result = qnaDAO.answerMinus(questionNumber);
 		return result;
 	}
-
-	// 답변 채택
+	
+	// 답변 하나 불러오기
 	@Override
-	public int answerAccept(int questionNumber, int answerNumber) {
-		int result = qnaDAO.answerAccept(questionNumber, answerNumber);
+	public Answer answerSelect(int answerNumber) {
+		Answer answer = qnaDAO.answerSelect(answerNumber);
+		return answer;
+	}
+	
+	
+	
+	
+	/**/
+	// 답변 관련
+	// 답변 채택 게시글 기록
+	@Override
+	public int answerAccept(int questionNumber) {
+		int result = qnaDAO.answerAccept(questionNumber);
 		return result;
 	}
+	// 답변 채택 답변 기록
+	@Override
+	public int answerSubAccept(int answerNumber) {
+		int result = qnaDAO.answerSubAccept(answerNumber);
+		return result;
+	}
+
+
 
 	// 메인 qna 출력
 	@Override
