@@ -22,5 +22,7 @@ public interface MemberDAO {
 	public int updateMember(Member member);
 	
 
+	
+
 }
 

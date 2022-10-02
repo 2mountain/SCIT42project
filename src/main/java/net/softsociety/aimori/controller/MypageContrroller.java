@@ -46,17 +46,23 @@ public class MypageContrroller {
 	public String mypageList(@AuthenticationPrincipal UserDetails user, Model model, Member member, MultipartFile upload) {
 		log.debug("수정할 정보 : {}", member);
 		
+		log.debug(user.getUsername());
 		member.setMemberId(user.getUsername()); 
 		
+		log.debug("setMemeberId 완");
 		// 첨부파일이 있는 경우 지정된 경로에 저장하고, 원본 파일명과 저장된 파일명을 Board객체에 세팅
+		log.debug("upload : {}", upload);
 				if (!upload.isEmpty()) {
+					log.debug("bb");
 					String savedfile = FileService.saveFile(upload, uploadPath);
 					member.setMemberImageOriginalFile(upload.getOriginalFilename());
 					member.setMemberImageSavedFile(savedfile);
 				}
-		
+		log.debug("aa");
 		int result = service.updateMember(member);
-		return "redirect:/";
+		return "redirect:/mypage/main";
+		
+		
 	}
 	
 }

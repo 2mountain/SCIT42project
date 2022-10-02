@@ -46,14 +46,14 @@
 		UPDATE
 			members
 		SET
-			memberNickName = #{memberNickName}
+			memberId = #{memberId}
+			, memberNickName = #{memberNickName}
 			, memberEmail = #{memberEmail}
 			, memberAddress = #{memberAddress}
 			, memberBirthDay = #{memberBirthDay}
-		
-		<if test="memberImageOriginal != null and memberImageSaved != null">
-			, memberImageOriginal = #{memberImageOriginal}
-			, memberImageSaved = #{memberImageSaved}
+		<if test="memberImageOriginalFile != null and memberImageSavedFile != null">
+			, memberImageOriginalFile = #{memberImageOriginalFile}
+			, memberImageSavedFile = #{memberImageSavedFile}
 		</if>
 		WHERE
 			memberId = #{memberId}

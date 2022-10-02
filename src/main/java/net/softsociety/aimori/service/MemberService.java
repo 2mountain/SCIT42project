@@ -18,6 +18,7 @@ public interface MemberService {
 	// 마이페이지 개인정보 수정
 	public int updateMember(Member member);
 	
-	
+	// 메인 유저 정보부분 뿌리기
+	public Member selectOne(String memberId);
 }
 
