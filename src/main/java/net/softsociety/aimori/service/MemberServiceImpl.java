@@ -1,11 +1,14 @@
 package net.softsociety.aimori.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 import net.softsociety.aimori.dao.MemberDAO;
+import net.softsociety.aimori.domain.Board;
 import net.softsociety.aimori.domain.Member;
 
 @Service
@@ -72,5 +75,11 @@ public class MemberServiceImpl implements MemberService {
 	public Member selectOne(String memberId) {
 		Member member = memberDAO.selectOne(memberId);
 		return member;
+	}
+
+	@Override
+	public ArrayList<Member> selectRanker() {
+		ArrayList<Member> mlist = memberDAO.selectRanker(); 
+		return mlist;
 	}
 }
