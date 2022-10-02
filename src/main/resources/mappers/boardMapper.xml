@@ -11,8 +11,7 @@
 		, memberId
 		, boardTitle
 		, memberNickName
-		,
-		boardContents
+		, boardContents
 		, boardCategory
 		<if test="boardImageOriginal != null and boardImageSaved != null">
 			, boardImageOriginal
@@ -23,12 +22,11 @@
 		boardNumber_seq.nextval
 		, #{memberId}
 		, #{boardTitle}
-		,
-		#{memberNickName}
+		, #{memberNickName}
 		, #{boardContents}
 		, #{boardCategory}
 		<if test="boardImageOriginal != null and boardImageSaved != null">
-			, #{boardImageOriginal}
+			, #{boardImageOriginal} 
 			, #{boardImageSaved}
 		</if>
 		)
