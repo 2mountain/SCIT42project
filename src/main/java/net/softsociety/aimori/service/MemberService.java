@@ -1,5 +1,7 @@
 package net.softsociety.aimori.service;
 
+import java.util.ArrayList;
+
 import net.softsociety.aimori.domain.Member;
 
 public interface MemberService {
@@ -20,5 +22,8 @@ public interface MemberService {
 	
 	// 메인 유저 정보부분 뿌리기
 	public Member selectOne(String memberId);
+
+	// 메인 랭커 뿌리는 부분
+	public ArrayList<Member> selectRanker();
 }
 

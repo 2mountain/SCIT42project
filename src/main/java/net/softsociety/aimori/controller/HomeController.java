@@ -34,7 +34,7 @@ public class HomeController {
 	MemberService mservice;
 
 	@GetMapping({ "/", "" })
-	public String home(@AuthenticationPrincipal UserDetails user, Model model, Member member) {
+	public String home(@AuthenticationPrincipal UserDetails user, Model model) {
 		log.debug("[home]");
 
 		ArrayList<Board> boardlist = service.boardMainList();
@@ -54,7 +54,10 @@ public class HomeController {
 			model.addAttribute("member",member);
 		}
 		*/
-		model.addAttribute("member",member);
+		
+		ArrayList<Member> memberlist = mservice.selectRanker();
+		model.addAttribute("member", memberlist);
+		
 		
 		 
 

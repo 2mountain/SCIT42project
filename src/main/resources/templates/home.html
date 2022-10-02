@@ -51,6 +51,34 @@
 	font-size: 5px;
 	text-align: center;
 }
+
+.mainprofile {
+	width: 200px;
+	height: 200px;
+	border-radius: 70%;
+	overflow: hidden;
+    margin : auto;
+}
+
+.mainprofileImg {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.mainRanker {
+	width: 150px;
+	height: 150px;
+	border-radius: 70%;
+	overflow: hidden;
+}
+.mainRankerImg {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+
 </style>
 
 
@@ -432,122 +460,87 @@
 				<div class="col-12 col-sm-8 col-md-6 col-lg-4">
 					<div class="blog-sidebar mt-5 mt-lg-0">
 						<!-- Single Widget Area -->
-						<div class="single-widget-area about-me-widget text-center">
-
-							<div id="profileDiv" sec:authorize="isAuthenticated()">
-
-								<input type="hidden" id="memId"
-									th:value="${#authentication.name}">
+						<div class="single-widget-area about-me-widget text-center" id="profileDiv" sec:authorize="isAuthenticated()">
 
 								<div class="widget-title">
 									<h6>Profile</h6>
+								<input type="hidden" id="memId"
+									th:value="${#authentication.name}">
 								</div>
 
+								<div class="mainprofile">
+									<img id="mainprofileImg" alt="profile">
+								</div>
 
-								<div>
-									<a th:href="@{/mypage/main}"></a> 
-									
-									<img id="profileImg" alt="profile">
+								<h5 id="memberId"></h5>
+								<p>포인트 : 32</p>
+								<br>
+								<p>
+									보리와 같은 견종의 다른 강아지들은 <br>'지위픽'을 많이 먹습니다.
+								</p>
+							</div>
+						</div>
 
-									<h5 id="memberId"></h5>
-									<p>포인트 : 32</p>
+
+						<!-- 챌린지 랭커 부분-->
+						<div class="single-widget-area popular-post-widget">
+							<div class="widget-title text-center">
+								<h6>Challenge Top Ranker</h6>
+							</div>
+
+							<!-- Single Popular Post -->
+							<div class="single-populer-post d-flex"
+								th:each="member:${member}">
+								<div class="mainRanker">
+									<img
+										th:src="@{/img/fileSave/} + ${member.memberImageOriginalFile}"
+										class="mainRankerImg" style="width:150px; height:150px">
+								</div>
+								<div class="post-content">
+
+									<!--여기서부터  -->
 									<br>
+									<h5>
+										<span th:utext="${member.memberId}"></span>
+									</h5>
+									<h6>
+										Point: <span th:utext="${member.memberPoint}"></span>
+									</h6>
+								</div>
+							</div>
+						</div>
+
+
+						<!-- weather search Area -->
+						<div class="weather-wrap">
+							<div class="weather-image">
+								<img src="img/sidebar-img/mainondo.jpg" alt=""
+									style="border-radius: 20px;">
+							</div>
+
+							<div class="weather-text">
+								<h2 style="color: white; font-size: 30px;">Today's weather</h2>
+								<h3 class="ctemp" style="color: white; font-size: 25px;">현재
+									온도 :</h3>
+								<h3 class="lowtemp" style="color: blue; font-size: 20px;">최저
+									온도 :</h3>
+								<h3 class="hightemp" style="color: red; font-size: 20px;">최고
+									온도 :</h3>
+								<h3 class="icon"></h3>
+
+								<form id="weatherform" th:action="@{/weather/goOut}"
+									method="get">
+									<input type="hidden" id="weather" name="weather">
 									<p>
-										보리와 같은 견종의 다른 강아지들은 <br>'지위픽'을 많이 먹습니다.
+										<button class="btn btn-success btn-sm" type="submit"
+											id="weathersubmit">어디로 갈까요?</button>
 									</p>
-								</div>
+								</form>
 							</div>
 
-
-							<!-- 챌린지 랭커 부분-->
-
-							<div class="single-widget-area popular-post-widget" th:each="member:${member}">
-								<div class="widget-title text-center" >
-									<h6>Challenge Top Ranker</h6>
-								</div>
-								<!-- Single Popular Post -->
-								<div class="single-populer-post d-flex">
-									<img src="img/sidebar-img/1.jpeg" alt="">
-									<div class="post-content">
-										
-										<!--여기서부터  -->
-										
-											<a th:text="${member.memberId}"></a>
-										
-										<!-- <p>Tuesday, October 3, 2017</p> -->
-									</div>
-								</div>
-								<!-- Single Popular Post -->
-								<div class="single-populer-post d-flex">
-									<img src="img/sidebar-img/2.jpeg" alt="">
-									<div class="post-content">
-										<a href="#">
-											<h6>id : goukaku</h6> 포인트 : 3343
-										</a>
-										<!-- 	<p>Tuesday, October 3, 2017</p> -->
-									</div>
-								</div>
-								<!-- Single Popular Post -->
-								<div class="single-populer-post d-flex">
-									<img src="img/sidebar-img/3.jpeg" alt="">
-									<div class="post-content">
-										<a href="#">
-											<h6>id : gogogo</h6> 포인트 : 2939
-										</a>
-										<!-- <p>Tuesday, October 3, 2017</p> -->
-									</div>
-								</div>
-								<!-- Single Popular Post -->
-								<div class="single-populer-post d-flex">
-									<img src="img/sidebar-img/4.jpg" alt="">
-									<div class="post-content">
-										<a href="#">
-											<h6>id : swimmer</h6> 포인트 : 2222
-										</a>
-										<!-- <p>Tuesday, October 3, 2017</p> -->
-									</div>
-								</div>
-								<!-- Single Popular Post -->
-								<div class="single-populer-post d-flex">
-									<img src="img/sidebar-img/5.jpeg" alt="">
-									<div class="post-content">
-										<a href="#">
-											<h6>id : boriunni</h6> 포인트 : 1122
-										</a>
-										<!-- <p>Tuesday, October 3, 2017</p> -->
-									</div>
-								</div>
-							</div>
-
-
-							<!-- weather search Area -->
-							<div class="weather-wrap">
-								<div class="weather-image">
-									<img src="img/sidebar-img/mainondo.jpg" alt=""
-										style="border-radius: 20px;">
-								</div>
-
-								<div class="weather-text">
-									<h2 style="color: white; font-size: 30px;">Today's weather</h2>
-									<h3 class="ctemp" style="color: white; font-size: 25px;">현재
-										온도 :</h3>
-									<h3 class="lowtemp" style="color: blue; font-size: 20px;">최저
-										온도 :</h3>
-									<h3 class="hightemp" style="color: red; font-size: 20px;">최고
-										온도 :</h3>
-									<h3 class="icon"></h3>
-
-									<form id="weatherform" th:action="@{/weather/goOut}"
-										method="get">
-										<input type="hidden" id="weather" name="weather">
-										<p>
-											<button class="btn btn-success btn-sm" type="submit"
-												id="weathersubmit">어디로 갈까요?</button>
-										</p>
-									</form>
-								</div>
-
-							</div>
+						</div>
+					</div>
+				</div>
 	</section>
 	<!-- ****** Blog Area End ****** -->
 
@@ -831,8 +824,8 @@
 					console.log(imgRoot);
 
 					$("#memberId").text(memberName);
-					$("#profileImg").attr("src", imgRoot);
-					
+					$("#mainprofileImg").attr("src", imgRoot);
+
 				}
 			});
 

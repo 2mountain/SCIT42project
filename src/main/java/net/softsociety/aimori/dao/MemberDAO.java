@@ -1,7 +1,10 @@
 package net.softsociety.aimori.dao;
 
+import java.util.ArrayList;
+
 import org.apache.ibatis.annotations.Mapper;
 
+import net.softsociety.aimori.domain.Board;
 import net.softsociety.aimori.domain.Member;
 
 /**
@@ -20,6 +23,9 @@ public interface MemberDAO {
 
 	// 정보 수정
 	public int updateMember(Member member);
+
+	//메인 탑 랭커들 뿌리기
+	public ArrayList<Member> selectRanker();
 	
 
 	
