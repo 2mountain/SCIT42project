@@ -10,7 +10,7 @@
 <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 <!-- Title -->
-<title>contest</title>
+<title>challenge</title>
 
 <!-- Favicon -->
 <link rel="icon" th:href="@{/img/core-img/favicon.ico}">
@@ -32,7 +32,33 @@ function pagingFormSubmit(currentPage) {
 	form.submit();
 }
 </script>
-
+<style>
+.chllengelist{
+ border: 1px solid #444444;
+background-color:black;
+}
+.tableheader{
+color: white;
+background-color:gray;
+text-align: center; 
+}
+.center{
+color : white;
+background-color:silver;
+}
+  table {
+    width: 100%;
+    border: 1px solid #444444;
+  background-color:black;
+  }
+  th, td {
+    border: 1px solid #444444;
+  }
+  a
+  {
+  color : white;		
+  }
+</style>
 </head>
 
 <body>
@@ -57,10 +83,10 @@ function pagingFormSubmit(currentPage) {
 						
 						<div class="login_register_area d-flex">
 							<div class="login" sec:authorize="not isAuthenticated()">
-								<a href="member/logIn">로그인</a>
+								<a href="../member/logIn">로그인</a>
 							</div>
 							<div class="register" sec:authorize="not isAuthenticated()">
-								<a href="member/signIn">회원가입</a>
+								<a href="../member/signIn">회원가입</a>
 							</div>
 						</div>
 						<div class="login_register_area d-flex">
@@ -173,18 +199,10 @@ function pagingFormSubmit(currentPage) {
 <section>
    <!-- 글목록 출력 영역 -->
    <table class="challegelist">
-      <tr>
-         <td class="white">
-            전체 <span th:text="${chnavi.totalRecordsCount}"></span>
-         </td>
-         <td class="white" colspan="3"></td>
-         <td class="head">
-         </td>
-      </tr>
-      <tr>
+
+      <tr class="tableheader">
          <th>글번호</th>
          <th style="width:220px;">제목</th>
-         <th>신청자수</th>
          <th>작성일</th>
          <th>대회시작일</th>
          <th>대회종료일</th>
@@ -192,12 +210,13 @@ function pagingFormSubmit(currentPage) {
       </tr>
       <tr th:each="challenge : ${challengelist}">
          <td th:text="${challenge.challengeNumber}" class="center"></td>
-         <td>
-            <a th:text="${challenge.challengeName}" th:href="@{/challenge/challengeread(challengeNumber=${challenge.challengeNumber})}"></a>
+         <td class="center">
+            <a th:text="${challenge.challengeName}" th:href="@{/challenge/challengeread(challengeNumber=${challenge.challengeNumber})}" ></a>
          </td>
+         
          <td th:text="${challenge.challengeRegistDay}" class="center"></td>
-         <td th:text="${challenge.challengeStartDate}"></td>
-         <td th:text="${challenge.challengeEndDate}"></td>
+         <td th:text="${challenge.challengeStartDate}" class="center"></td>
+         <td th:text="${challenge.challengeEndDate}" class="center"></td>
       </tr>
    </table>
    
@@ -208,7 +227,7 @@ function pagingFormSubmit(currentPage) {
    <a th:href="|javascript:pagingFormSubmit(${chnavi.currentPage - 1})|">◀</a> 
 
    <span th:each="counter : ${#numbers.sequence(chnavi.startPageGroup, chnavi.endPageGroup)}"> 
-      <th:block th:if="${counter == conavi.currentPage}"><b></th:block>
+      <th:block th:if="${counter == chnavi.currentPage}"><b></th:block>
          <a th:text="${counter}" th:href="|javascript:pagingFormSubmit(${counter})|"></a>&nbsp;
       <th:block th:if="${counter == chnavi.currentPage}"></b></th:block>
    </span>

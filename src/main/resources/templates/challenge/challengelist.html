@@ -56,7 +56,12 @@
 
 	}
 </script>
-
+	<script>
+		$('#testBtn').click(function(e){
+			e.preventDefault();
+			$('#testModal').modal("show");
+		});
+	</script>
 <style>
 .challengelist {
 	 display: grid;
@@ -99,10 +104,10 @@ background-color: cornsilk;
 
 						<div class="login_register_area d-flex">
 							<div class="login" sec:authorize="not isAuthenticated()">
-								<a href="member/logIn">로그인</a>
+								<a href="../member/logIn">로그인</a>
 							</div>
 							<div class="register" sec:authorize="not isAuthenticated()">
-								<a href="member/signIn">회원가입</a>
+								<a href="../member/signIn">회원가입</a>
 							</div>
 						</div>
 						<div class="login_register_area d-flex">
@@ -246,12 +251,7 @@ background-color: cornsilk;
 			</div>
 		</div>
 	</div>
-	<script>
-		$('#testBtn').click(function(e){
-			e.preventDefault();
-			$('#testModal').modal("show");
-		});
-	</script>
+
 
 
 	<div class="challengelist">
