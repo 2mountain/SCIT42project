@@ -264,8 +264,11 @@
 						<td style="text-align: center" th:text="${question.questionInputDate}"></td>
 						<td style="text-align: center;" th:text="${question.questionHits}"></td>
 						<!-- <td style="text-align: center;" th:text="${question.questionCount}"></td> -->
-						<td th:if="${question.answerCount != 0}" style="text-align: center;">답변완료</td>
 						<td th:if="${question.answerCount == 0}" style="text-align: center;">답변대기</td>
+						<td th:if="${question.answerCount != 0 and question.answerAccepted == 0}" style="text-align: center;">답변완료
+						<td th:if="${question.answerCount != 0 and question.answerAccepted == 1}" style="text-align: center;">채택
+							<img th:src="@{/img/board-img/checkIcon.png}" width="20">
+						</td>
 					</tr>
 				</table>
 			</div>
