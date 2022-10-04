@@ -57,4 +57,16 @@ public class AdministratorServiceImpl implements AdministratorService {
 		return list;
 	}
 
+	@Override
+	public int countBlockedUser() {
+		int result = dao.countBlockedUser();
+		return result;
+	}
+
+	@Override
+	public List<Member> printUserRoleAjax() {
+		List<Member> list = dao.printUserRoleAjax();
+		return list;
+	}
+
 }

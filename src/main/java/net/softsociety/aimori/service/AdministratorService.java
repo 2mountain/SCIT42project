@@ -45,4 +45,16 @@ public interface AdministratorService {
 	 * @return 회원들의 견종 List
 	 */
 	public List<PetTypeNNumber> getDogType();
+
+	/**
+	 * 차단된 유저 수를 반환하는 메소드
+	 * @return 차단된 유저 수
+	 */
+	public int countBlockedUser();
+
+	/**
+	 * 권한이 관리자인 계정의 아이디 반환
+	 * @return 권한이 관리자인 계정의 아이디
+	 */
+	public List<Member> printUserRoleAjax();
 }
