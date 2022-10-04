@@ -5,7 +5,16 @@
 <!-- DAO인터페이스와 매핑 -->
 <mapper namespace="net.softsociety.aimori.dao.AdministratorDAO">
 	<select id="getMemberList" resultType="Member">
-		SELECT *
+		SELECT 
+			memberId
+			, memberNickName
+			, memberAddress
+			, memberEmail
+			, memberBirthDay
+			, TO_CHAR(memberJoinDate, 'YYYY-MM-DD') memberJoinDate
+			, memberPoint
+			, memberEnabled
+			, memberRoleName
 		FROM Members
 	</select>
 	
