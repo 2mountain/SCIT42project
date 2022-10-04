@@ -59,4 +59,16 @@
 		FROM pet
 		GROUP BY petBreed
 	</select>
+	
+	<select id="countBlockedUser" resultType="int">
+		SELECT COUNT(memberEnabled)
+		FROM members
+		WHERE memberEnabled = 0
+	</select>
+	
+	<select id="printUserRoleAjax" resultType="Member">
+		SELECT memberId
+		FROM members
+		WHERE memberRoleName = 'ROLE_ADMIN'
+	</select>
 </mapper>

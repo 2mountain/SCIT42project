@@ -1,5 +1,6 @@
 package net.softsociety.aimori.controller;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -192,6 +193,37 @@ public class AdministratorRestController {
 		log.debug("[AdministratorController] getDogType - list : {}", list);
 		
 		return list;
+	}
+	
+	/**
+	 * 차단된 유저 수를 반환하는 메소드
+	 * @return 차단된 유저 수
+	 */
+	@ResponseBody
+	@PostMapping("/countBlockedUser")
+	public int countBlockedUser() {
+		
+		int result = aService.countBlockedUser();
+		
+		return result;
+	}
+	
+	@ResponseBody
+	@PostMapping("/printUserRoleAjax")
+	public String printUserRoleAjax() {
+		List<Member> list = aService.printUserRoleAjax();
+		
+		String result = "";
+
+		Iterator<Member> iter = list.iterator();
+		while(iter.hasNext()) {
+			result += iter.next().getMemberId() + " / ";
+		}
+		log.debug("asdf : {}", result);
+		
+		result = result.substring(0, result.length()-2);
+		
+		return result;
 	}
 	
 }
