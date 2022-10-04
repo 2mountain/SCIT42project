@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.extern.slf4j.Slf4j;
 import net.softsociety.aimori.domain.Challenge;
 import net.softsociety.aimori.domain.Entrylist;
+import net.softsociety.aimori.domain.Memberchallenge;
 import net.softsociety.aimori.service.ChallengeService;
 import net.softsociety.aimori.util.FileService;
 import net.softsociety.aimori.util.PageNavigator;
@@ -81,20 +84,7 @@ public String challengeupdate()
 			, String chtype
 			, String chsearchWord)
 	{
-			PageNavigator chnavi = chser.getchPageNavigator(pagePerGroup, countPerPage, page, chtype, chsearchWord);
-		
-		System.out.println(chnavi.getTotalRecordsCount());
-		
-		ArrayList<Challenge> challengelist = chser.challengelist(chnavi, chtype, chsearchWord);
-
-		log.debug("challengelist : {}", challengelist);
-		log.debug("chnavi : {}", chnavi);
-
-		
-		model.addAttribute("chnavi", chnavi);
-		model.addAttribute("challengelist", challengelist);
-		model.addAttribute("chtype", chtype);
-		model.addAttribute("chsearchWord", chsearchWord);
+		challengelist(model,1,chtype,chsearchWord);
 		return "/challenge/challengelistadmin";
 	}
 	@GetMapping({"contestlist"})
@@ -104,8 +94,6 @@ public String challengeupdate()
 			, String cosearchWord) {
 
 		PageNavigator conavi = chser.getCoPageNavigator(pagePerGroup, countPerPage, page, cotype, cosearchWord);
-		System.out.println(conavi.getTotalRecordsCount());
-
 		ArrayList<Challenge> contestlist = chser.contestlist(conavi, cotype, cosearchWord);
 
 		log.debug("contest : {}", contestlist);
@@ -124,20 +112,10 @@ public String challengeupdate()
 			, String cotype
 			, String cosearchWord) {
 
-		PageNavigator conavi = chser.getCoPageNavigator(pagePerGroup, countPerPage, page, cotype, cosearchWord);
-		System.out.println(conavi.getTotalRecordsCount());
-
-		ArrayList<Challenge> contestlist = chser.contestlist(conavi, cotype, cosearchWord);
-
-		log.debug("contest : {}", contestlist);
-
-		model.addAttribute("conavi", conavi);
-		model.addAttribute("contestlist", contestlist);
-		model.addAttribute("chtype", cotype);
-		model.addAttribute("chsearchWord", cosearchWord);
-		
+		challengelist(model,1,cotype,cosearchWord);
 		return "/challenge/contestlistadmin";
 	}
+	
 	@GetMapping({"contestwrite"})
 	public String contestwrite()
 	{
@@ -167,8 +145,32 @@ public String challengeupdate()
 	
 		return "/challenge/challengewrite";
 	}
+ @GetMapping({"entrychallenge"})
+public String entrychallenge(Model model,
+		@AuthenticationPrincipal UserDetails user,
+		int challengeNumber
+		, @RequestParam(name = "page", defaultValue = "1") int page
+		, String chtype
+		, String chsearchWord)
+{
+	 Memberchallenge memberchall = null;
+	 memberchall.setMemberchallengenumber(challengeNumber);
+	 memberchall.setMemberId(user.getUsername());
+	 int result = chser.entrychallenge(memberchall);
+	 PageNavigator chnavi = chser.getchPageNavigator(pagePerGroup, countPerPage, page, chtype, chsearchWord);		
+		ArrayList<Memberchallenge> mychallengelist = chser.mychallengelist(chnavi, chtype, chsearchWord);
 
-	
+		log.debug("mychallengelist : {}", mychallengelist);
+		log.debug("chnavi : {}", chnavi);
+
+		
+		model.addAttribute("chnavi", chnavi);
+		model.addAttribute("mychallengelist", mychallengelist);
+		model.addAttribute("chtype", chtype);
+		model.addAttribute("chsearchWord", chsearchWord);
+	 return "/mypageView/mychallengelist";
+}
+ 
 	@GetMapping({"challengeread"})
 	public String challengeread(Model model
 			,  int challengeNumber) { 
