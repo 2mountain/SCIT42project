@@ -141,4 +141,22 @@
 	) 
 	</insert>
 	
+	<insert id="entryChallenge" parameterType="Memberchallenge">
+	insert into memberchallenge
+	(
+	memberchallengenumber,
+	        memberId ,
+        challengeNumber
+	)
+	values
+	(
+	memberchallengenumber_seq.nextval,
+	#{memberId},
+	#{challengeNumber}
+	)
+	</insert>
+	<select id="mychallengeList" parameterType="String" resultType="Memberchallenge">
+	select * from memberchallenge
+	where memberid=#{memberId}
+	</select>
 </mapper>

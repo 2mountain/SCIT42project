@@ -32,7 +32,7 @@ public interface ChallengeService {
 
 		int entrychallenge(Memberchallenge memberchall);
 
-		ArrayList<Memberchallenge> mychallengelist(PageNavigator chnavi, String chtype, String chsearchWord);
+		ArrayList<Memberchallenge> mychallengelist(String memberId);
 
 		
 		

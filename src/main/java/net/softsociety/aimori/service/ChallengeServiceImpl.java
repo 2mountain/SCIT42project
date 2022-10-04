@@ -128,10 +128,13 @@ public class ChallengeServiceImpl implements ChallengeService {
 	}
 
 	@Override
-	public ArrayList<Memberchallenge> mychallengelist(PageNavigator chnavi, String chtype, String chsearchWord) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Memberchallenge> mychallengelist(String memberId) {
+		
+		ArrayList<Memberchallenge> mychallengelist = chdao.mychallengeList(memberId); 
+		
+		return mychallengelist;
 	}
+
 
 		
 	

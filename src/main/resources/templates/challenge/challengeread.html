@@ -92,20 +92,20 @@
 		<br> <a
 			style="border-radius: 5px; color: black; background-color: #6699FF; border: #0000FF;"
 			sec:authorize="isAuthenticated()"
-			th:href="@{/challege/entrychallenge(challengeNumber=${challenge.challengeNumber})}">도전등록하기
+			th:href="@{/challenge/entrychallenge(challengeNumber=${challenge.challengeNumber})}">도전등록하기
 		</a> <a
 			style="border-radius: 5px; color: black; background-color: #6699FF; border: #0000FF;"
 			sec:authorize="isAuthenticated()"
-			th:href="@{/challege/writeentrylist(challengeNumber=${challenge.challengeNumber})}">도전 수행 하기
+			th:href="@{/challenge/writeentrylist(challengeNumber=${challenge.challengeNumber})}">도전 수행 하기
 		</a> 
 			 <a
 			style="border-radius: 5px; color: black; background-color: #6699FF; border: #0000FF;"
-			sec:authorize="hasRole('ADMIN')"
-			th:href="@{/challege/deleteentrylist(challengeNumber=${challenge.challengeNumber})}">도전취소하기</a>
+			sec:authorize="isAuthenticated()"
+			th:href="@{/challenge/deleteentrylist(challengeNumber=${challenge.challengeNumber})}">도전취소하기</a>
 		<br> <a
 			style="border-radius: 5px; color: black; background-color: #6699FF; border: #0000FF;"
-			sec:authorize="isAuthenticated()"
-			th:href="@{/challege/challengeupdate(challengeNumber=${challenge.challengeNumber})}">수정</a>
+			sec:authorize="hasRole('ADMIN')"
+			th:href="@{/challenge/challengeupdate(challengeNumber=${challenge.challengeNumber})}">수정</a>
 		<!-- 관리자만 보임 -->
 
 		<table class="entrylist" sec:authorize="hasRole('ADMIN')">
