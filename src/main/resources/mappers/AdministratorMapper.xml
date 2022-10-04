@@ -5,7 +5,16 @@
 <!-- DAO인터페이스와 매핑 -->
 <mapper namespace="net.softsociety.aimori.dao.AdministratorDAO">
 	<select id="getMemberList" resultType="Member">
-		SELECT *
+		SELECT 
+			memberId
+			, memberNickName
+			, memberAddress
+			, memberEmail
+			, memberBirthDay
+			, TO_CHAR(memberJoinDate, 'YYYY-MM-DD') memberJoinDate
+			, memberPoint
+			, memberEnabled
+			, memberRoleName
 		FROM Members
 	</select>
 	
@@ -49,5 +58,17 @@
 		SELECT petBreed, COUNT(petBreed) AS petBreedCount
 		FROM pet
 		GROUP BY petBreed
+	</select>
+	
+	<select id="countBlockedUser" resultType="int">
+		SELECT COUNT(memberEnabled)
+		FROM members
+		WHERE memberEnabled = 0
+	</select>
+	
+	<select id="printUserRoleAjax" resultType="Member">
+		SELECT memberId
+		FROM members
+		WHERE memberRoleName = 'ROLE_ADMIN'
 	</select>
 </mapper>

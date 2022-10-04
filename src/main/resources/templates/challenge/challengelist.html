@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org"
-	xmlns:sec="http://thymeleaf.org/extras/spring-security">
+	xmlns:sec="http://thymeleaf.org/extras/spring-security"></html>
 
 <head>
 <meta charset="UTF-8">
@@ -10,14 +10,22 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-<!-- Title -->
-<title>Board</title>
 
+
+
+<!-- Title -->
+<title>challenge</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css"
+	rel="stylesheet">
 <!-- Favicon -->
 <link rel="icon" th:href="@{/img/core-img/favicon.ico}">
 
 <!-- Core Stylesheet -->
 <link rel="stylesheet" th:href="@{/css/style.css}">
+
 
 <!-- Responsive CSS -->
 <link th:href="@{/css/responsive/responsive.css}" rel="stylesheet">
@@ -25,17 +33,18 @@
 <!-- test -->
 <link rel="stylesheet" type="text/css" th:href="@{/css/board/board.css}" />
 
+
 <!-- test (페이지 함수) -->
 <script>
 	function pagingFormSubmit(currentPage) {
-
 		var form = document.getElementById('pagingForm');
 		var page = document.getElementById('page');
 		page.value = currentPage;
 		form.submit();
 	}
 </script>
-
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 	function search() {
 		let searchWord = document.getElementById('searchWord').value;
@@ -46,53 +55,26 @@
 		}
 
 	}
-</script>
-
-<script>
-$(document).ready(function() {
-	$('#boardCategorySelect').change(search);
-	search();
-});
-
-function boardCategorySearch() {
-	let boardCategorySearch = $('#boardCategorySelect').val();
-	
-	$.ajax({
-		url : 'search',
-		type : 'post',
-		data : {boardCategory:boardCategorySearch},
-		dataType : 'json',
-		success : output,
-		error: function(e) {
-			alert(JSON.stringify(e));
-		}
-	});
+		/* $('#testBtn').click(function(e){
+			e.preventDefault();
+			$('#testModal').modal("show");
+		}); */
+		   $('#testBtn').click(function() {
+			      $('#testModal').fadeIn();
+			   });
+		</script>
+<style>
+.challengelist {
+	 display: grid;
+  grid-template-columns: 350px 350px 350px;
+  gap: 10px 30px;
+  background-color: aliceblue;
+  padding: 20px;
 }
-
-function output(list) {
-	let str = '';
-	
-	str += '<table>';
-	str += '<tr>';
-	str += '	<th>번호</th>';
-	str += '	<th>카테고리</th>';
-	str += '	<th>제목</th>';
-	str += '</tr>';
-	
-	$(list).each(function (i, ob) {
-		str += '<tr>';
-		str += '	<td>' + ob.boardnum + '</td>';
-		str += '	<td>' + ob.category + '</td>';
-		str += '	<td>' + ob.title + '</td>';
-		str += '</tr>';
-	});
-	str += '</table>';
-
-	$('#output').html(str);
+.challenge-content{
+background-color: cornsilk; 	
 }
-
-</script>
-
+</style>
 </head>
 
 <body>
@@ -123,10 +105,10 @@ function output(list) {
 
 						<div class="login_register_area d-flex">
 							<div class="login" sec:authorize="not isAuthenticated()">
-								<a href="member/logIn">로그인</a>
+								<a href="../member/logIn">로그인</a>
 							</div>
 							<div class="register" sec:authorize="not isAuthenticated()">
-								<a href="member/signIn">회원가입</a>
+								<a href="../member/signIn">회원가입</a>
 							</div>
 						</div>
 						<div class="login_register_area d-flex">
@@ -187,11 +169,22 @@ function output(list) {
 							<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
 							<li>
 								<div class="dropdown">
-									<span class="dropbtn">챌린지</span>
-									<div class="dropdown-content">
-										<a th:href="@{/challenge/challengelist}">도전과제</a> <a
-											th:href="@{/challenge/contestlist}">대회</a>
-									</div>
+									<button style="background-color: transparent"
+										class="btn btn-warning dropdown-toggle" type="button"
+										data-bs-toggle="dropdown" aria-expanded="false">
+										challenge</button>
+									<ul class="dropdown-menu">
+										<li><a class="dropdown-item"
+											th:href="@{/challenge/challengelist}">챌린지</a></li>
+										<li><a class="dropdown-item"
+											th:href="@{/challenge/contestlist}">대회</a></li>
+										<li><a class="dropdown-item"
+											sec:authorize="hasRole('ADMIN')"
+											th:href="@{/challenge/challengelistadmin}">챌린지 관리</a></li>
+										<li><a class="dropdown-item"
+											sec:authorize="hasRole('ADMIN')"
+											th:href="@{/challenge/contestlistadmin}">대회 관리</a></li>
+									</ul>
 								</div>
 							</li>
 							<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
@@ -226,7 +219,7 @@ function output(list) {
 							<li class="breadcrumb-item"><a th:href="@{/home}"><i
 									class="fa fa-home" aria-hidden="true"></i>Home</a></li>
 							<li class="breadcrumb-item active" aria-current="page">Aimori
-								Community</li>
+								Challenge</li>
 						</ol>
 					</nav>
 				</div>
@@ -236,41 +229,52 @@ function output(list) {
 	<!-- ****** Breadcumb Area End ****** -->
 
 	<!-- ****** Archive Area Start ****** -->
-	<header>
-		<h1>[도전과제]</h1>
-	</header>
-	<section>
-		<!-- 글목록 출력 영역 -->
-		<table style="border-color: black;">
-			<tr>
-				<td class="white">전체 <span
-					th:text="${chnavi.totalRecordsCount}"></span>
-				</td>
 
-			</tr>
-			<tr>
-				<th>글번호</th>
-				<th style="width: 220px;">제목</th>
-				<th>신청자수</th>
-				<th>작성일</th>
-				<th>대회시작일</th>
-				<th>대회종료일</th>
-			</tr>
-			<tr th:each="challenge : ${challengelist}">
-				<td style="text-align: center; width: 100px"
-					th:text="${challenge.challengeNumber}" class="center"></td>
-				<td style="text-align: center; width: 100px"><a
-					th:text="${challenge.challengeName}"
-					th:href="@{/challenge/challengeread(challengeNumber=${challenge.challengeNumber})}"></a>
-				</td>
-				<td style="text-align: center; width: 100px"
-					th:text="${challenge.challengeRegistDay}" class="center"></td>
-				<td style="text-align: center; width: 100px"
-					th:text="${challenge.challengeStartDate}"></td>
-				<td style="text-align: center; width: 100px"
-					th:text="${challenge.challengeEndDate}"></td>
-			</tr>
-		</table>
+
+
+	<div class="challengelist">
+	<div th:each="challenge : ${challengelist}">
+	 <div th:if="${challenge.challengeSavedFile == null}">
+ 	<img th:src="@{/img/blog-img/chopa.jpeg} "style="width: 350px; height: 230px;">
+ 	</div>
+		<div class="single-post wow fadeInUp" data-wow-delay=".4s">
+			<!-- Post Thumb -->
+			 	<div class="post-thumb">
+										<img th:if="${challenge.challengeSavedFile != null}" th:src="@{/img/fileSave/} + ${challenge.challengeSavedFile}"
+											style="width: 350px; height: 230px;">
+									</div>
+
+			<div class="challenge-content">
+
+
+				<a th:text="${challenge.challengeName}"
+					th:href="@{/challenge/challengeread(challengeNumber=${challenge.challengeNumber})}">
+				</a>
+				<!-- 시작일 -->
+				<div class="challenge-startdate">
+					시작일:<a th:text="${challenge.challengeStartDate}"></a>
+				</div>
+				<!-- 종료일 -->
+				<div class="challenge-enddate">
+					종료일: <a th:text="${challenge.challengeEndDate}"></a>
+				</div>
+				<div class="challenge-contents">
+
+					설명:<a
+						th:text="${#strings.arraySplit(challenge.challengeContents,'/')[0]}"></a>
+				</div>
+				<div class="challenge-point">
+					포인트: <a
+						th:text="${#strings.arraySplit(challenge.challengeContents,'/')[1]}"></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+	<section>
+
 		<div id="navigator">
 			<!-- 페이지 이동 링크 -->
 			<a
@@ -289,8 +293,7 @@ function output(list) {
 				th:href="|javascript:pagingFormSubmit(${chnavi.currentPage + 1})|">▶</a>
 			<a
 				th:href="|javascript:pagingFormSubmit(${chnavi.currentPage + chnavi.pagePerGroup})|">▷▷</a>
-			<br>
-			<br>
+			<br> <br>
 
 			<!-- 검색폼 -->
 			<form id="pagingForm" method="get"
@@ -537,8 +540,9 @@ function output(list) {
 											<div class="dropdown">
 												<span class="dropbtn">챌린지</span>
 												<div class="dropdown-content">
-													<a th:href="@{/challenge/challengelist}">도전과제</a> <a
-														th:href="@{/challenge/contestlist}">대회</a>
+													<a 
+													th:href="@{/challenge/challengelist}">도전과제</a> 
+													<a th:href="@{/challenge/contestlist}">대회</a>
 												</div>
 											</div>
 										</li>
@@ -578,6 +582,8 @@ function output(list) {
 	<script th:src="@{/js/others/plugins.js}"></script>
 	<!-- Active JS -->
 	<script th:src="@{/js/active.js}"></script>
+	<script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+
 	<!--  type="application/js" -->
 
-</body>
+</body>	

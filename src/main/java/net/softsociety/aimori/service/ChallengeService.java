@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import net.softsociety.aimori.domain.Challenge;
 import net.softsociety.aimori.domain.Entrylist;
+import net.softsociety.aimori.domain.Memberchallenge;
 import net.softsociety.aimori.util.PageNavigator;
 
 
@@ -29,6 +30,11 @@ public interface ChallengeService {
 
 		int writechallenge(Challenge challenge);
 
+		int entrychallenge(Memberchallenge memberchall);
+
+		ArrayList<Memberchallenge> mychallengelist(String memberId);
+
+		
 		
 
 

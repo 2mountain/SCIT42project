@@ -11,6 +11,7 @@ import net.softsociety.aimori.dao.ChallengeDAO;
 import net.softsociety.aimori.domain.Board;
 import net.softsociety.aimori.domain.Challenge;
 import net.softsociety.aimori.domain.Entrylist;
+import net.softsociety.aimori.domain.Memberchallenge;
 import net.softsociety.aimori.util.PageNavigator;
 
 @Service
@@ -118,7 +119,24 @@ public class ChallengeServiceImpl implements ChallengeService {
 		int result = chdao.writeChallenge(challenge);
 		return result;
 	}
-	
+
+	@Override
+	public int entrychallenge(Memberchallenge memberchall) {
+		// TODO Auto-generated method stub
+		int result =chdao.entryChallenge(memberchall);
+		return result;
+	}
+
+	@Override
+	public ArrayList<Memberchallenge> mychallengelist(String memberId) {
+		
+		ArrayList<Memberchallenge> mychallengelist = chdao.mychallengeList(memberId); 
+		
+		return mychallengelist;
+	}
+
+
+		
 	
 
 	

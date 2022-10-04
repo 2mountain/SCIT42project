@@ -16,6 +16,7 @@
 		,challengeenddate
 		,challengecontents
 		,challengeregistday
+		, challengeSavedFile
 		from
 		challenge
 		where
@@ -31,6 +32,7 @@
 		,challengeenddate
 		,challengecontents
 		,challengeregistday
+		, challengeSavedFile
 		from
 		challenge
 		where
@@ -80,9 +82,10 @@
 	challengestartdate,
 	challengeenddate,
 	challengeregistday
+	,challengeOriginalFile
+		, challengeSavedFile
 	from challenge
 	where challengenumber=#{challengeNumber}
-
 	</select>
 	
 	<select id="getEntrylist" parameterType="int" resultType="Entrylist">
@@ -117,6 +120,10 @@
 	challengecontents,
 	challengetype,
 	challengeregistday
+		<if test="challengeImageOriginal != null and boardImageSaved != null">
+			, challengeOriginalFile
+			,challengeSavedFile
+		</if>
 	)
 	values
 	(
@@ -127,7 +134,29 @@
 	#{challengeContents},
 	'challenge',
 	sysdate
+			<if test="challengeImageOriginal != null and boardImageSaved != null">
+			, #{challengeOriginalFile} 
+			, #{challengeSavedFile}
+		</if>
 	) 
 	</insert>
 	
+	<insert id="entryChallenge" parameterType="Memberchallenge">
+	insert into memberchallenge
+	(
+	memberchallengenumber,
+	        memberId ,
+        challengeNumber
+	)
+	values
+	(
+	memberchallengenumber_seq.nextval,
+	#{memberId},
+	#{challengeNumber}
+	)
+	</insert>
+	<select id="mychallengeList" parameterType="String" resultType="Memberchallenge">
+	select * from memberchallenge
+	where memberid=#{memberId}
+	</select>
 </mapper>

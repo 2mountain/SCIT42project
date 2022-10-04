@@ -4,17 +4,22 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.slf4j.Slf4j;
 import net.softsociety.aimori.domain.Challenge;
 import net.softsociety.aimori.domain.Entrylist;
+import net.softsociety.aimori.domain.Memberchallenge;
 import net.softsociety.aimori.service.ChallengeService;
+import net.softsociety.aimori.util.FileService;
 import net.softsociety.aimori.util.PageNavigator;
 
 @Slf4j
@@ -31,6 +36,9 @@ public class ChallengeController {
 	@Value("${user.board.group}")
 	int pagePerGroup;
 
+	@Value("${spring.servlet.multipart.location}")
+	String uploadPath;
+	
 	@Autowired
 	ChallengeService chser;
 
@@ -70,7 +78,15 @@ public String challengeupdate()
 		model.addAttribute("chsearchWord", chsearchWord);
 		return "/challenge/challengelist";
 	}
-
+	@GetMapping({"challengelistadmin"})
+	public String challengelistadmin(Model model
+			, @RequestParam(name = "page", defaultValue = "1") int page
+			, String chtype
+			, String chsearchWord)
+	{
+		challengelist(model,1,chtype,chsearchWord);
+		return "/challenge/challengelistadmin";
+	}
 	@GetMapping({"contestlist"})
 	public String contestlist(Model model
 			, @RequestParam(name = "page", defaultValue = "1") int page
@@ -78,8 +94,6 @@ public String challengeupdate()
 			, String cosearchWord) {
 
 		PageNavigator conavi = chser.getCoPageNavigator(pagePerGroup, countPerPage, page, cotype, cosearchWord);
-		System.out.println(conavi.getTotalRecordsCount());
-
 		ArrayList<Challenge> contestlist = chser.contestlist(conavi, cotype, cosearchWord);
 
 		log.debug("contest : {}", contestlist);
@@ -92,6 +106,16 @@ public String challengeupdate()
 		return "/challenge/contestlist";
 	}
 	
+	@GetMapping({"contestlistadmin"})
+	public String contestlistadmin(Model model
+			, @RequestParam(name = "page", defaultValue = "1") int page
+			, String cotype
+			, String cosearchWord) {
+
+		challengelist(model,1,cotype,cosearchWord);
+		return "/challenge/contestlistadmin";
+	}
+	
 	@GetMapping({"contestwrite"})
 	public String contestwrite()
 	{
@@ -100,10 +124,15 @@ public String challengeupdate()
 	
 	@PostMapping({"challengewrite"})
 	public String challengewrite(Model model,
-			Challenge challenge)
+			Challenge challenge,MultipartFile upload)
 	{
 		int result = chser.writechallenge(challenge);
 		
+		if (!upload.isEmpty()) {
+			String savedfile = FileService.saveFile(upload, uploadPath);
+			challenge.setChallengeOriginalFile(upload.getOriginalFilename());
+			challenge.setChallengeSavedFile(savedfile);
+		}
 		String chtype="";
 		String chsearchword="";
 		challengelist(model,1,chtype,chsearchword);
@@ -116,8 +145,30 @@ public String challengeupdate()
 	
 		return "/challenge/challengewrite";
 	}
+ @GetMapping({"entrychallenge"})
+public String entrychallenge(Model model,
+		@AuthenticationPrincipal UserDetails user,
+		@RequestParam(defaultValue = "0") int challengeNumber
+		, @RequestParam(name = "page", defaultValue = "1") int page
+		, String chtype
+		, String chsearchWord)
+{
 
-	
+	 Memberchallenge memberchall = new Memberchallenge();
+	 memberchall.setChallengeNumber(challengeNumber);
+	 memberchall.setMemberId(user.getUsername());
+	 mychallengelist(model,user.getUsername());
+	 return "/mypageView/mychallengelist";
+}
+ 
+ @GetMapping({"mychallengelist"})
+public String mychallengelist(Model model,String memberId
+)
+{
+		ArrayList<Memberchallenge> mychallengelist = chser.mychallengelist(memberId);
+		model.addAttribute("mychallengelist", mychallengelist);
+	 return "/mypageView/mychallengelist";
+}
 	@GetMapping({"challengeread"})
 	public String challengeread(Model model
 			,  int challengeNumber) { 

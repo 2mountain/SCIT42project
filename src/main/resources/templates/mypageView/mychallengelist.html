@@ -10,7 +10,8 @@
 <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 <!-- Title -->
-<title>contest</title>
+<title>My page</title>
+
 
 <!-- Favicon -->
 <link rel="icon" th:href="@{/img/core-img/favicon.ico}">
@@ -24,37 +25,73 @@
 <!-- test -->
 <link rel="stylesheet" type="text/css" th:href="@{/css/board/board.css}" />
 
+<!-- 데이트 피커 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 <script>
-function pagingFormSubmit(currentPage) {
-	var form = document.ElementById('pagingForm');
-	var page = document.ElementById('page');
-	page.value = currentPage;
-	form.submit();
-}
+	function pagingFormSubmit(currentPage) {
+
+		let searchWord = $("#searchWord").val();
+
+		console.log(searchWord);
+		console.log(searchWord.length);
+
+		if (searchWord.length == 0 || searchWord == null) {
+			alert('검색어를 입력하세요');
+		} else {
+			var form = document.getElementById('pagingForm');
+			var page = document.getElementById('page');
+			page.value = currentPage;
+			form.submit();
+		}
+
+	}
+	
+	$(function(){
+		$('#profileImage').change(function(){
+			if(this.files && this.files[0]){
+				var reader = new FileReader;
+				reader.onload = function(data){
+					$('#imageOutput').attr('src', data.target.result);
+				}
+				reader.readAsDataURL(this.files[0]);
+			}
+		});
+	})
 </script>
+
+
 
 </head>
 
 <body>
-	<!-- Preloader Start -->
-	<div id="preloader">
-		<div class="yummy-load"></div>
-	</div>
-
-
 	<!-- ****** Top Header Area Start ****** -->
 	<div class="top_header_area">
 		<div class="container">
 			<div class="row">
-				<div class="col-5 col-sm-6">
-
-				</div>
+				<div class="col-5 col-sm-6"></div>
 				<!--  Login Register Area -->
 				<div class="col-7 col-sm-6">
-					<div class="signup-search-area d-flex align-items-center justify-content-end">
+					<div
+						class="signup-search-area d-flex align-items-center justify-content-end">
 
-						
-						
+						<!-- Search Form -->
+						<div class="search-hidden-form">
+							<form action="#" method="get">
+								<input type="search" name="search" id="search-anything"
+									placeholder="Search Anything...">
+								<!-- <input type="submit" value="" class="d-none"> -->
+								<!-- <span class="searchBtn"><i class="fa fa-times" aria-hidden="true"></i></span> -->
+							</form>
+						</div>
+						<!-- Search Button Area -->
+						<div class="search_button">
+							<a class="searchBtn" href="#"><i class="fa fa-search"
+								aria-hidden="true"></i></a>
+						</div>
 						<div class="login_register_area d-flex">
 							<div class="login" sec:authorize="not isAuthenticated()">
 								<a href="member/logIn">로그인</a>
@@ -66,13 +103,11 @@ function pagingFormSubmit(currentPage) {
 						<div class="login_register_area d-flex">
 							<div class="mypage" sec:authorize="isAuthenticated()"
 								style="margin-left: 20px">
-								<a sec:authorize="hasRole('ADMIN')" th:href="@{/administrator}"><b>관리자 페이지</b></a>
+								<a href="#">마이페이지</a>
 							</div>
-							<div class="mypage" sec:authorize="isAuthenticated()" style="margin-left: 10px">
-								<a th:href="@{mypage/main}">마이페이지</a>
-							</div>
-							<div class="logout" sec:authorize="isAuthenticated()" style="margin-left: 10px;">
-								<a th:href="@{logout}">로그아웃</a>
+							<div class="logout" sec:authorize="isAuthenticated()"
+								style="margin-left: 10px;">
+								<a th:href="@{/logout}">로그아웃</a>
 							</div>
 						</div>
 					</div>
@@ -82,67 +117,63 @@ function pagingFormSubmit(currentPage) {
 	</div>
 	<!-- ****** Top Header Area End ****** -->
 
-		<!-- ****** Header Area Start ****** -->
+	<!-- ****** Header Area Start ****** -->
 	<header class="header_area">
 		<div class="container">
 			<div class="row">
 				<!-- Logo Area Start -->
 				<div class="col-12">
-					<a th:href="@{/}" class="yummy-logo">
-						<img th:src="@{/img/bg-img/toplogo.jpg}" alt=""> 
-					</a>
+					<div class="logo_area text-center">
+						<a th:href="@{/}" class="yummy-logo"> <img
+							src="../img/bg-img/toplogo.jpg" alt="aa">
+						</a>
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<div class="row">
-			<div class="col-12">
-				<nav class="navbar navbar-expand-lg">
-					<button class="navbar-toggler" type="button" data-toggle="collapse"
-						data-target="#yummyfood-nav" aria-controls="yummyfood-nav"
-						aria-expanded="false" aria-label="Toggle navigation">
-						<i class="fa fa-bars" aria-hidden="true"></i> Menu
-					</button>
-					<!-- Menu Area Start -->
-					<div class="collapse navbar-collapse justify-content-center"
-						id="yummyfood-nav">
-						<ul class="navbar-nav" id="yummy-nav">
-							<li class="nav-item active"><a class="nav-link"
-								th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
-							</li>
-							<li class="nav-item"><a class="nav-link"
-								th:href="@{/qna/list}">Q&A <span class="sr-only">(current)</span></a>
-							</li>
-							<li class="nav-item"><a class="nav-link"
-								th:href="@{/facilities}">시설</a></li>
-							<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
-							<li>
-							<div class="dropdown">
-								<span class="dropbtn">챌린지</span>
-								<div class="dropdown-content">
-									<a th:href="@{/challenge/challengelist}">도전과제</a>
-									 <a th:href="@{/challenge/contestlist}">대회</a>
-								</div>
-							</div>
-							</li>
-							<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
-							</li>
-						</ul>
-					</div>
-				</nav>
+
+
+			<div class="row">
+				<div class="col-12">
+					<nav class="navbar navbar-expand-lg">
+						<button class="navbar-toggler" type="button"
+							data-toggle="collapse" data-target="#yummyfood-nav"
+							aria-controls="yummyfood-nav" aria-expanded="false"
+							aria-label="Toggle navigation">
+							<i class="fa fa-bars" aria-hidden="true"></i> Menu
+						</button>
+						<!-- Menu Area Start -->
+						<div class="collapse navbar-collapse justify-content-center"
+							id="yummyfood-nav">
+							<ul class="navbar-nav" id="yummy-nav">
+								<li class="nav-item active"><a class="nav-link"
+									th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
+								</li>
+
+
+								<li class="nav-item"><a class="nav-link"
+									th:href="@{/facilities}">시설</a></li>
+								<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
+								<li class="nav-item"><a class="nav-link"
+									th:href="@{/challenge/main}">챌린지</a></li>
+								<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
+								</li>
+							</ul>
+						</div>
+					</nav>
+				</div>
 			</div>
-		</div>
 	</header>
 	<!-- ****** Header Area End ****** -->
 
 	<!-- ****** Breadcumb Area Start ****** -->
 	<div class="breadcumb-area"
-		style="background-image: url(../img/bg-img/breadcumb.jpg);">
+		style="background-image: url(../img/bg-img/1.jpg);">
 		<div class="container h-100">
 			<div class="row h-100 align-items-center">
 				<div class="col-12">
 					<div class="bradcumb-title text-center">
-						<h2>Aimori challenge</h2>
+						<h2>my page</h2>
 					</div>
 				</div>
 			</div>
@@ -154,96 +185,42 @@ function pagingFormSubmit(currentPage) {
 				<div class="col-12">
 					<nav aria-label="breadcrumb">
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a th:href="@{/home}"><i
-									class="fa fa-home" aria-hidden="true"></i>Home</a></li>
-							<li class="breadcrumb-item active" aria-current="page">Aimori
-								Challenge</li>
+							<li class="breadcrumb-item"><a th:href="@{/home}"> <i
+									class="fa fa-home" aria-hidden="true"></i>Home
+							</a></li>
+							<li class="breadcrumb-item active" aria-current="page"
+								style="padding-bottom: 80px;"><a th:href="@{petPage}">account</a></li>
 						</ol>
 					</nav>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- ****** Breadcumb Area End ****** -->
 
 	<!-- ****** Archive Area Start ****** -->
 <header>
-   <h1>[대회]</h1>
+   <h1>[나의 도전과제]</h1>
 </header>
 <section>
    <!-- 글목록 출력 영역 -->
-   <table>
-      <tr>
-         <td class="white">
-            전체 <span th:text="${conavi.totalRecordsCount}"></span>
-         </td>
-         <td class="white" colspan="3"></td>
-         <td class="head">
-            <a sec:authorize="isAuthenticated()" th:href="@{/challenge/contestwrite}">대회 개최하기</a>
-            <a th:href="@{/}">Home</a>
-         </td>
-      </tr>
-      <tr>
-         <th>글번호</th>
-         <th style="width:220px;">제목</th>
-         <th>신청자수</th>
-         <th>작성일</th>
-         <th>대회시작일</th>
-         <th>대회종료일</th>
+   <table class="challegelist">
+
+      <tr class="tableheader">
+         <th>도전과제번호</th>
+         <th >도전번호</th>
+         
          
       </tr>
-      <tr th:each="contest : ${contestlist}">
-         <td th:text="${contest.challengeNumber}" class="center"></td>
-         <td>
-            <a th:text="${contest.challengeName}" th:href="@{/challenge/contestread(challengeNumber=${contest.challengeNumber})}"></a>
+      <tr th:each="mychallenge : ${mychallengelist}">
+         <td th:text="${mychallenge.memberchallengenumber}" class="center"></td>
+         <td class="center">
+            <a th:text="${mychallenge.challengeNumber}" th:href="@{/challenge/challengeread(challengeNumber=${mychallenge.challengeNumber})}" ></a>
          </td>
-         <td th:text="${contest.challengeRegistDay}" class="center"></td>
-         <td th:text="${contest.challengeStartDate}"></td>
-         <td th:text="${contest.challengeEndDate}"></td>
-      </tr>
+         </tr>
    </table>
    
-   <div id="navigator">
-   
-   <!-- 페이지 이동 링크 -->     
-   <a th:href="|javascript:pagingFormSubmit(${conavi.currentPage - conavi.pagePerGroup})|">◁◁</a>
-   <a th:href="|javascript:pagingFormSubmit(${conavi.currentPage - 1})|">◀</a> 
-
-   <span th:each="counter : ${#numbers.sequence(conavi.startPageGroup, conavi.endPageGroup)}"> 
-      <th:block th:if="${counter == conavi.currentPage}"><b></th:block>
-         <a th:text="${counter}" th:href="|javascript:pagingFormSubmit(${counter})|"></a>&nbsp;
-      <th:block th:if="${counter == conavi.currentPage}"></b></th:block>
-   </span>
-   
-   <a th:href="|javascript:pagingFormSubmit(${conavi.currentPage + 1})|">▶</a> 
-   <a th:href="|javascript:pagingFormSubmit(${conavi.currentPage + conavi.pagePerGroup})|">▷▷</a>
-   <br><br>
-   
-   <!-- 검색폼 -->
-   <form id="pagingForm" method="get" th:action="@{/challenge/contestlist}">
-      <input type="hidden" name="page" id="page" />
-      <select id="type" name="type">
-         <option value="title" th:selected="${cotype} == 'challengeName'">제목</option>
-               <option value="all" th:selected="${cotype} == 'all'">전체</option>
-      </select>
-      <input type="text"  name="searchWord" th:value="${cosearchWord}">
-      <input type="button" onclick="pagingFormSubmit(1)" value="검색">
-   </form>
-   
-   </div>
-   
-</section>
-
-
-   <div class="text-right">
-      <a class="btn btn-light" style="background-color: rgb(220, 220, 255);"
-         colspan="6" th:href="@{/challenge/contestwrite}">글쓰기</a>
-   </div>
-
-<!-- ****** Archive Area End ****** -->
-
 	<!-- ****** Instagram Area Start ****** -->
-
+	<br>
 	<br>
 	<br>
 	<br>
@@ -394,53 +371,43 @@ function pagingFormSubmit(currentPage) {
 	</div>
 	<!-- ****** Our Creative Portfolio Area End ****** -->
 
+
 	<!-- ****** Footer Menu Area Start ****** -->
 	<footer class="footer_area">
 		<div class="container">
 			<div class="row">
-				<div class="col-12">
+				<div class="col-12" style="display: inline-block;">
 					<div class="footer-content">
-						<div class="footer-content">
-							<!-- Logo Area Start -->
-							<div class="footer-logo-area text-center">
-								<a th:href="@{/}" class="yummy-logo"><img th:src="@{/img/bg-img/toplogo.jpg}" alt=""></a>
-							</div>
-							<!-- Menu Area Start -->
-							<nav class="navbar navbar-expand-lg">
-								<button class="navbar-toggler" type="button"
-									data-toggle="collapse" data-target="#yummyfood-footer-nav"
-									aria-controls="yummyfood-footer-nav" aria-expanded="false"
-									aria-label="Toggle navigation">
-									<i class="fa fa-bars" aria-hidden="true"></i> Menu
-								</button>
-								<!-- Menu Area Start -->
-								<div class="collapse navbar-collapse justify-content-center"
-									id="yummyfood-footer-nav">
-									<ul class="navbar-nav">
-										<li class="nav-item active"><a class="nav-link"
-											th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
-										</li>
-										<li class="nav-item"><a class="nav-link"
-											th:href="@{/qna/list}">Q&A <span class="sr-only">(current)</span></a>
-										</li>
-										<li class="nav-item"><a class="nav-link"
-											th:href="@{/facilities}">시설</a></li>
-										<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
-										<li>
-											<div class="dropdown">
-												<span class="dropbtn">챌린지</span>
-												<div class="dropdown-content">
-													<a th:href="@{/challenge/challengelist}">도전과제</a> <a
-														th:href="@{/challenge/contestlist}">대회</a>
-												</div>
-											</div>
-										</li>
-										<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
-										</li>
-									</ul>
-								</div>
-							</nav>
+						<!-- Logo Area Start -->
+						<div class="footer-logo-area text-center">
+							<a th:href="@{/}" class="yummy-logo"><img
+								src="../img/bg-img/toplogo.jpg" alt=""></a>
 						</div>
+						<!-- Menu Area Start -->
+						<nav class="navbar navbar-expand-lg">
+							<button class="navbar-toggler" type="button"
+								data-toggle="collapse" data-target="#yummyfood-footer-nav"
+								aria-controls="yummyfood-footer-nav" aria-expanded="false"
+								aria-label="Toggle navigation">
+								<i class="fa fa-bars" aria-hidden="true"></i> Menu
+							</button>
+							<!-- Menu Area Start -->
+							<div class="collapse navbar-collapse justify-content-center"
+								id="yummyfood-footer-nav">
+								<ul class="navbar-nav">
+									<li class="nav-item active"><a class="nav-link"
+										th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
+									</li>
+									<li class="nav-item"><a class="nav-link"
+										th:href="@{/facilities}">시설</a></li>
+									<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
+									<li class="nav-item"><a class="nav-link"
+										href="@{/challenge}">챌린지</a></li>
+									<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
+									</li>
+								</ul>
+							</div>
+						</nav>
 					</div>
 				</div>
 			</div>
@@ -472,6 +439,7 @@ function pagingFormSubmit(currentPage) {
 	<!-- Active JS -->
 	<script th:src="@{/js/active.js}"></script>
 	<!--  type="application/js" -->
-
-
+	
+	
+	
 </body>
