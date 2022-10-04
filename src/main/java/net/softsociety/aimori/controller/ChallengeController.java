@@ -148,29 +148,27 @@ public String challengeupdate()
  @GetMapping({"entrychallenge"})
 public String entrychallenge(Model model,
 		@AuthenticationPrincipal UserDetails user,
-		int challengeNumber
+		@RequestParam(defaultValue = "0") int challengeNumber
 		, @RequestParam(name = "page", defaultValue = "1") int page
 		, String chtype
 		, String chsearchWord)
 {
-	 Memberchallenge memberchall = null;
-	 memberchall.setMemberchallengenumber(challengeNumber);
+
+	 Memberchallenge memberchall = new Memberchallenge();
+	 memberchall.setChallengeNumber(challengeNumber);
 	 memberchall.setMemberId(user.getUsername());
-	 int result = chser.entrychallenge(memberchall);
-	 PageNavigator chnavi = chser.getchPageNavigator(pagePerGroup, countPerPage, page, chtype, chsearchWord);		
-		ArrayList<Memberchallenge> mychallengelist = chser.mychallengelist(chnavi, chtype, chsearchWord);
-
-		log.debug("mychallengelist : {}", mychallengelist);
-		log.debug("chnavi : {}", chnavi);
-
-		
-		model.addAttribute("chnavi", chnavi);
-		model.addAttribute("mychallengelist", mychallengelist);
-		model.addAttribute("chtype", chtype);
-		model.addAttribute("chsearchWord", chsearchWord);
+	 mychallengelist(model,user.getUsername());
 	 return "/mypageView/mychallengelist";
 }
  
+ @GetMapping({"mychallengelist"})
+public String mychallengelist(Model model,String memberId
+)
+{
+		ArrayList<Memberchallenge> mychallengelist = chser.mychallengelist(memberId);
+		model.addAttribute("mychallengelist", mychallengelist);
+	 return "/mypageView/mychallengelist";
+}
 	@GetMapping({"challengeread"})
 	public String challengeread(Model model
 			,  int challengeNumber) { 

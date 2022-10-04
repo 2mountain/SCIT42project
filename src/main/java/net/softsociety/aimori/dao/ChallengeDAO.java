@@ -33,6 +33,8 @@ public interface ChallengeDAO {
 
 	int entryChallenge(Memberchallenge memberchall);
 
+	ArrayList<Memberchallenge> mychallengeList(String memberId);
+
 	
 
 }
