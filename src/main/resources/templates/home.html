@@ -57,7 +57,7 @@
 	height: 200px;
 	border-radius: 70%;
 	overflow: hidden;
-    margin : auto;
+	margin: auto;
 }
 
 .mainprofileImg {
@@ -72,13 +72,12 @@
 	border-radius: 70%;
 	overflow: hidden;
 }
+
 .mainRankerImg {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
 }
-
-
 </style>
 
 
@@ -142,7 +141,6 @@
 		</div>
 	</div>
 	<!-- ****** Top Header Area End ****** -->
-
 	<!-- ****** Header Area Start ****** -->
 	<header class="header_area">
 		<div class="container">
@@ -176,18 +174,8 @@
 							</li>
 							<li class="nav-item"><a class="nav-link"
 								th:href="@{/facilities}">시설</a></li>
-							<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
-							<li>
-								<div class="dropdown">
-									<span class="dropbtn">챌린지</span>
-									<div class="dropdown-content">
-										<a th:href="@{/challenge/challengelist}">도전과제</a> <a
-											th:href="@{/challenge/contestlist}">대회</a>
-									</div>
-								</div>
-							</li>
-							<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
-							</li>
+							<li class="nav-item"><a class="nav-link" th:href="@{/challenge/challengelist}">챌린지</a></li>
+										
 						</ul>
 					</div>
 				</nav>
@@ -195,6 +183,7 @@
 		</div>
 	</header>
 	<!-- ****** Header Area End ****** -->
+	
 
 	<!-- ****** Welcome Post Area Start ****** -->
 	<section class="welcome-post-sliders owl-carousel">
@@ -202,7 +191,7 @@
 		<!-- Single Slide -->
 		<div class="welcome-single-slide">
 			<!-- Post Thumb -->
-			<img src="img/bg-img/1.jpg" alt=""
+			<img src="img/bg-img/main9.jpg" alt=""
 				style="width: 500px; height: 466px">
 			<!-- Overlay Text -->
 			<div class="project_title">
@@ -218,7 +207,7 @@
 		<!-- Single Slide -->
 		<div class="welcome-single-slide">
 			<!-- Post Thumb -->
-			<img src="img/bg-img/mainsl4.jpg" alt=""
+			<img src="img/bg-img/main8.jpg" alt=""
 				style="width: 500px; height: 466px">
 			<!-- Overlay Text -->
 			<div class="project_title">
@@ -232,7 +221,7 @@
 		<!-- Single Slide -->
 		<div class="welcome-single-slide">
 			<!-- Post Thumb -->
-			<img src="img/bg-img/mainsl3.jpg" alt="" height="466">
+			<img src="img/bg-img/main7.jpg" alt="" height="466">
 			<!-- Overlay Text -->
 			<div class="project_title">
 				<div class="post-date-commnents d-flex">
@@ -247,7 +236,23 @@
 		<!-- Single Slide -->
 		<div class="welcome-single-slide">
 			<!-- Post Thumb -->
-			<img src="img/bg-img/mainsl2.jpg" alt="" height="466">
+			<img src="img/bg-img/main4.jpg" alt="" height="466">
+			<!-- Overlay Text -->
+			<div class="project_title">
+				<div class="post-date-commnents d-flex">
+					<a href="#"></a> <a href="#"></a>
+				</div>
+				<a href="#">
+					<h5>"반려견과 함께하는 Life Style"</h5>
+				</a>
+			</div>
+		</div>
+		
+		
+		<!-- Single Slide -->
+		<div class="welcome-single-slide">
+			<!-- Post Thumb -->
+			<img src="img/bg-img/main5.jpg" alt="" height="466">
 			<!-- Overlay Text -->
 			<div class="project_title">
 				<div class="post-date-commnents d-flex">
@@ -460,89 +465,88 @@
 				<div class="col-12 col-sm-8 col-md-6 col-lg-4">
 					<div class="blog-sidebar mt-5 mt-lg-0">
 						<!-- Single Widget Area -->
-						<div class="single-widget-area about-me-widget text-center" id="profileDiv" sec:authorize="isAuthenticated()">
+						<div class="single-widget-area about-me-widget text-center"
+							id="profileDiv" sec:authorize="isAuthenticated()">
 
-								<div class="widget-title">
-									<h6>Profile</h6>
+							<div class="widget-title">
+								<h6>Profile</h6>
 								<input type="hidden" id="memId"
 									th:value="${#authentication.name}">
-								</div>
-
-								<div class="mainprofile">
-									<img id="mainprofileImg" alt="profile">
-								</div>
-
-								<h5 id="memberId"></h5>
-								<p>포인트 : 32</p>
-								<br>
-								<p>
-									보리와 같은 견종의 다른 강아지들은 <br>'지위픽'을 많이 먹습니다.
-								</p>
-							</div>
-						</div>
-
-
-						<!-- 챌린지 랭커 부분-->
-						<div class="single-widget-area popular-post-widget">
-							<div class="widget-title text-center">
-								<h6>Challenge Top Ranker</h6>
 							</div>
 
-							<!-- Single Popular Post -->
-							<div class="single-populer-post d-flex"
-								th:each="member:${member}">
-								<div class="mainRanker">
-									<img
-										th:src="@{/img/fileSave/} + ${member.memberImageOriginalFile}"
-										class="mainRankerImg" style="width:150px; height:150px">
-								</div>
-								<div class="post-content">
-
-									<!--여기서부터  -->
-									<br>
-									<h5>
-										<span th:utext="${member.memberId}"></span>
-									</h5>
-									<h6>
-										Point: <span th:utext="${member.memberPoint}"></span>
-									</h6>
-								</div>
-							</div>
-						</div>
-
-
-						<!-- weather search Area -->
-						<div class="weather-wrap">
-							<div class="weather-image">
-								<img src="img/sidebar-img/mainondo.jpg" alt=""
-									style="border-radius: 20px;">
+							<div class="mainprofile">
+								<img id="mainprofileImg" alt="profile">
 							</div>
 
-							<div class="weather-text">
-								<h2 style="color: white; font-size: 30px;">Today's weather</h2>
-								<h3 class="ctemp" style="color: white; font-size: 25px;">현재
-									온도 :</h3>
-								<h3 class="lowtemp" style="color: blue; font-size: 20px;">최저
-									온도 :</h3>
-								<h3 class="hightemp" style="color: red; font-size: 20px;">최고
-									온도 :</h3>
-								<h3 class="icon"></h3>
-
-								<form id="weatherform" th:action="@{/weather/goOut}"
-									method="get">
-									<input type="hidden" id="weather" name="weather">
-									<p>
-										<button class="btn btn-success btn-sm" type="submit"
-											id="weathersubmit">어디로 갈까요?</button>
-									</p>
-								</form>
-							</div>
-
+							<h5 id="memberId"></h5>
+							<p>포인트 : 32</p>
+							<br>
+							<p>
+								보리와 같은 견종의 다른 강아지들은 <br>'지위픽'을 많이 먹습니다.
+							</p>
 						</div>
 					</div>
+
+
+					<!-- 챌린지 랭커 부분-->
+					<div class="single-widget-area popular-post-widget">
+						<div class="widget-title text-center">
+							<h6>Challenge Top Ranker</h6>
+						</div>
+
+						<!-- Single Popular Post -->
+						<div class="single-populer-post d-flex" th:each="member:${member}">
+							<div class="mainRanker">
+								<img
+									th:src="@{/img/fileSave/} + ${member.memberImageOriginalFile}"
+									class="mainRankerImg" style="width: 150px; height: 150px">
+							</div>
+							<div class="post-content">
+
+								<!--여기서부터  -->
+								<br>
+								<h5>
+									<span th:utext="${member.memberId}"></span>
+								</h5>
+								<h6>
+									Point: <span th:utext="${member.memberPoint}"></span>
+								</h6>
+							</div>
+						</div>
+					</div>
+
+
+					<!-- weather search Area -->
+					<div class="weather-wrap">
+						<div class="weather-image">
+							<img src="img/sidebar-img/mainondo.jpg" alt=""
+								style="border-radius: 20px;">
+						</div>
+
+						<div class="weather-text">
+							<h2 style="color: white; font-size: 30px;">Today's weather</h2>
+							<h3 class="ctemp" style="color: white; font-size: 25px;">현재
+								온도 :</h3>
+							<h3 class="lowtemp" style="color: blue; font-size: 20px;">최저
+								온도 :</h3>
+							<h3 class="hightemp" style="color: red; font-size: 20px;">최고
+								온도 :</h3>
+							<h3 class="icon"></h3>
+
+							<form id="weatherform" th:action="@{/weather/goOut}" method="get">
+								<input type="hidden" id="weather" name="weather">
+								<p>
+									<button class="btn btn-success btn-sm" type="submit"
+										id="weathersubmit">어디로 갈까요?</button>
+								</p>
+							</form>
+						</div>
+
+					</div>
 				</div>
+			</div>
 	</section>
-	
+
 
 	<!-- ****** Instagram Area Start ****** -->
 	<div
@@ -558,11 +562,12 @@
 				<div class="yummy-table">
 					<div class="yummy-table-cell">
 						<div class="follow-me text-center">
-							<h4>Pug</h4><br>
-							<h6>수명: 12–15년<br>
-							성격: 영리한 고집스러운 매력적인<br>
-							체중: 6-10kg<br>
-							출생지: 중국</h6>
+							<h4>Pug</h4>
+							<br>
+							<h6>
+								수명: 12–15년<br> 성격: 영리한 고집스러운 매력적인<br> 체중: 6-10kg<br>
+								출생지: 중국
+							</h6>
 						</div>
 
 					</div>
@@ -579,11 +584,12 @@
 				<div class="yummy-table">
 					<div class="yummy-table-cell">
 						<div class="follow-me text-center">
-							<h4>Samoyed</h4><br>
-							<h6>수명: 12–14년<br>
-							성격: 생기있는 우호적인 사교적인<br>
-							체중: 수컷 20–30kg 암컷 16–20kg<br>
-							출생지: 시베리아 러시아</h6>
+							<h4>Samoyed</h4>
+							<br>
+							<h6>
+								수명: 12–14년<br> 성격: 생기있는 우호적인 사교적인<br> 체중: 수컷 20–30kg
+								암컷 16–20kg<br> 출생지: 시베리아 러시아
+							</h6>
 						</div>
 
 					</div>
@@ -600,11 +606,12 @@
 				<div class="yummy-table">
 					<div class="yummy-table-cell">
 						<div class="follow-me text-center">
-							<h4>Welsh Corgi</h4><br>
-							<h6>수명: 12–14년<br>
-							성격: 친절한 운동량이 좋은<br>
-							체중: 12-17kg<br>
-							출생지: 영국</h6>
+							<h4>Welsh Corgi</h4>
+							<br>
+							<h6>
+								수명: 12–14년<br> 성격: 친절한 운동량이 좋은<br> 체중: 12-17kg<br>
+								출생지: 영국
+							</h6>
 						</div>
 
 					</div>
@@ -621,11 +628,12 @@
 				<div class="yummy-table">
 					<div class="yummy-table-cell">
 						<div class="follow-me text-center">
-							<h4>Chihuahua</h4><br>
-							<h6>수명: 12–20년<br>
-							성격: 민첩한 공격적인 용맹스러운<br>
-							체중: 1.8 - 2.7kg<br>
-							출생지: 멕시코</h6>
+							<h4>Chihuahua</h4>
+							<br>
+							<h6>
+								수명: 12–20년<br> 성격: 민첩한 공격적인 용맹스러운<br> 체중: 1.8 - 2.7kg<br>
+								출생지: 멕시코
+							</h6>
 						</div>
 
 					</div>
@@ -636,18 +644,18 @@
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img src="img/instagram-img/f5.jpg" style="height: 240px"
-				alt="">
+			<img src="img/instagram-img/f5.jpg" style="height: 240px" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
 					<div class="yummy-table-cell">
 						<div class="follow-me text-center">
-							<h4>Dachshund</h4><br>
-							<h6>수명: 12–16년<br>
-							성격: 독립심 헌신적인 생기있는<br>
-							체중: 7-15kg<br>
-							출생지: 독일</h6>
+							<h4>Dachshund</h4>
+							<br>
+							<h6>
+								수명: 12–16년<br> 성격: 독립심 헌신적인 생기있는<br> 체중: 7-15kg<br>
+								출생지: 독일
+							</h6>
 						</div>
 					</div>
 				</div>
@@ -663,11 +671,12 @@
 				<div class="yummy-table">
 					<div class="yummy-table-cell">
 						<div class="follow-me text-center">
-							<h4>Standard Poodle</h4><br>
-							<h6>수명: 12–15년<br>
-							성격: 총명한 훈련 능력이 뛰어난<br>
-							체중: 18-30kg<br>
-							출생지: 프랑스 독일</h6>
+							<h4>Standard Poodle</h4>
+							<br>
+							<h6>
+								수명: 12–15년<br> 성격: 총명한 훈련 능력이 뛰어난<br> 체중: 18-30kg<br>
+								출생지: 프랑스 독일
+							</h6>
 						</div>
 					</div>
 				</div>
@@ -683,11 +692,12 @@
 				<div class="yummy-table">
 					<div class="yummy-table-cell">
 						<div class="follow-me text-center">
-							<h4>Dalmatinac</h4><br>
-							<h6>수명: 10–13년<br>
-							성격: 외향적인 예민한 장난스러운<br>
-							체중: 15-32kg<br>
-							출생지: 크로아티아</h6>
+							<h4>Dalmatinac</h4>
+							<br>
+							<h6>
+								수명: 10–13년<br> 성격: 외향적인 예민한 장난스러운<br> 체중: 15-32kg<br>
+								출생지: 크로아티아
+							</h6>
 						</div>
 					</div>
 				</div>
@@ -703,11 +713,12 @@
 				<div class="yummy-table">
 					<div class="yummy-table-cell">
 						<div class="follow-me text-center">
-							<h4>Beagle</h4><br>
-							<h6>수명: 12–15년<br>
-							성격: 쾌활한 총명한 쉽게 흥분하는
-							체중: 수컷 10–11kg 암컷 9–10kg<br>
-							출생지: 영국</h6>
+							<h4>Beagle</h4>
+							<br>
+							<h6>
+								수명: 12–15년<br> 성격: 쾌활한 총명한 쉽게 흥분하는 체중: 수컷 10–11kg 암컷 9–10kg<br>
+								출생지: 영국
+							</h6>
 						</div>
 					</div>
 				</div>

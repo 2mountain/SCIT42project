@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import net.softsociety.aimori.domain.Board;
 import net.softsociety.aimori.domain.BoardLiked;
+import net.softsociety.aimori.domain.Member;
 import net.softsociety.aimori.domain.Reply;
 import net.softsociety.aimori.util.PageNavigator;
 
@@ -50,6 +51,7 @@ public interface BoardService {
 	
 	// 홈 화면 출력
 	public ArrayList<Board> boardMainList();
+	
 
 
 }
