@@ -11,99 +11,135 @@
 
 
 <style>
-.entrylisthead {
-	color: white;
-	background-color: gray;
-	text-align: center;
-	width: 100px;
-	border: black solid 1px;
+th {
+	width : 200px;
 }
 
-.center {
-	color: white;
-	background-color: silver;
-}
-
-.challenge {
-	border: 1px solid black;
-	text-align: center;
-	background-color: gray;
-}
 </style>
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+	crossorigin="anonymous">
 </head>
 
 <body>
 
 	<header>
-		<h1>[ 도전과제 ]</h1>
 	</header>
+
 	<section>
-		<table class="challenge">
+	<div style="padding-top: 50px;"></div>
+	<div class="container"
+		style="background-color: #dcdcdc; width : 750px;
+		border-radius: 40px;
+		padding-bottom: 40px;">
+	<div style="padding-top: 30px;"></div>
+			<div style="text-align: center; padding-bottom: 10px;">
+				<a style="padding: 10px 20px 10px 20px; font-size: 30px;
+				background-color: cornsilk;
+				border-radius : 30px;">
+				<img th:src="@{/img/board-img/challengeMedal.png}" width="70px">
+				도전과제
+				<img th:src="@{/img/board-img/challengeMedal.png}" width="70px">
+				</a>
+			</div>
+	<div class="container" style="width : 700px;">
+		<div style="background-color : rgb(230, 250, 230);
+					padding : 20px 30px 30px 30px;
+					border-radius : 40px;">
+			<div>
+				<a style="padding-left: 20px;">도전명</a>
+				<a class="form-control" th:text="${challenge.challengeName}"
+					style="border-radius : 20px; background-color: cornsilk;
+					text-align: center;"></a>
+			</div>
+			<div style="height : 40px;"></div>
+			<div style="margin : auto;">
+				<a style="padding-left: 20px;">도전내용</a>
+				<a class="form-control" th:text="${challenge.challengeContents}"
+					style="border-radius : 20px; height : 150px; background-color: cornsilk;
+					text-align: center;
+					vertical-align: center;
+					line-height : 100px"></a>
+			</div>
+			<div style="height : 40px;"></div>
+			
+			<div style="text-align: left;">
+				<img th:src="@{/img/blog-img/chopa.jpeg} "
+					style="width: 300px; height: 200px;
+					border-radius : 50px;
+					border : 10px solid rgb(180, 255, 180); float : right;">
+				<a style="padding-left: 20px;">성공포인트</a>
+				<a class="form-control" th:text="${challenge.challPoint}"
+					style="border-radius : 20px; background-color: cornsilk;
+					text-align: center; width : 100px;"></a>
+			</div>
+			<div style="height : 40px;"></div>
+			<div style="text-align: left;">
+				<a style="padding-left: 20px;">도전기간</a>
+				<a class="form-control"
+				th:text="${challenge.challengeStartDate} + ' ~ ' + ${challenge.challengeEndDate}"
+				style="border-radius : 20px; background-color: cornsilk;
+				text-align: center; width : 230px;"></a>
+			</div>
+			<div style="height : 40px;"></div>
+		</div>
+		
+		<!-- <table class="challenge table table-bordered table-hovered">
 			<tr>
-				<th
-					style="width: 100px; border: black solid 1px; text-align: center; background-color: white;">도전내용</th>
-				<td
-					style="width: 100px; border: black solid 1px; text-align: center; background-color: silver;"
-					th:text="${challenge.challengeName}"></td>
+				<th>도전명</th>
+				<td th:text="${challenge.challengeName}"></td>
 			</tr>
 			<tr>
-				<th
-					style="width: 100px; border: black solid 1px; text-align: center; background-color: white;">도전내용</th>
-				<td
-					style="width: 100px; border: black solid 1px; text-align: center; background-color: silver;"><pre
-						th:text="${challenge.challengeContents}"></pre></td>
+				<th>도전내용</th>
+				<td><pre th:text="${challenge.challengeContents}"></pre></td>
 			</tr>
 			<tr>
-				<th
-					style="width: 100px; border: black solid 1px; text-align: center; background-color: white;">성공포인트</th>
-				<td
-					style="width: 100px; border: black solid 1px; text-align: center; background-color: silver;"><pre
-						th:text="${challenge.challPoint}"></pre></td>
+				<th>성공포인트</th>
+				<td><pre th:text="${challenge.challPoint}"></pre></td>
 			</tr>
 			<tr>
-				<th
-					style="width: 100px; border: black solid 1px; text-align: center; background-color: white;">도전시작일</th>
-				<td
-					style="width: 100px; border: black solid 1px; text-align: center; background-color: silver;"
-					th:text="${challenge.challengeStartDate}"></td>
+				<th>도전 시작일</th>
+				<td th:text="${challenge.challengeStartDate}"></td>
 			</tr>
 			<tr>
-				<th
-					style="width: 100px; border: black solid 1px; text-align: center; background-color: white;">도전
-					끝나는일</th>
-				<td
-					style="width: 100px; border: black solid 1px; text-align: center; background-color: silver;"
-					th:text="${challenge.challengeEndDate}"></td>
+				<th>도전 종료일</th>
+				<td th:text="${challenge.challengeEndDate}"></td>
 
 			</tr>
 			<tr>
-				<th
-					style="width: 100px; border: black solid 1px; text-align: center; background-color: white;">도전
-					등록일</th>
-				<td
-					style="width: 100px; border: black solid 1px; text-align: center; background-color: silver;"
-					th:text="${challenge.challengeRegistDay}"></td>
+				<th>도전 등록일</th>
+				<td th:text="${challenge.challengeRegistDay}"></td>
 			</tr>
 			<tr>
 			</tr>
 
-		</table>
+		</table> -->
 
+		<br>
+		
+		<div style="text-align: right;">
+			<a class="btn btn-primary"
+			sec:authorize="isAuthenticated()"
+			th:href="@{/challenge/entrychallenge(challengeNumber=${challenge.challengeNumber})}">도전 등록
+			</a>
+			<a class="btn btn-primary"
+			sec:authorize="isAuthenticated()"
+			th:href="@{/challenge/writeentrylist(challengeNumber=${challenge.challengeNumber})}">도전 수행
+			</a>
+			<a class="btn btn-primary"	
+			sec:authorize="isAuthenticated()"
+			th:href="@{/challenge/deleteentrylist(challengeNumber=${challenge.challengeNumber})}">도전 취소
+			</a>
+		</div>
+	</div>
+	</div>
+</section>
+
+<div class="container">
 		<br> <a
-			style="border-radius: 5px; color: black; background-color: #6699FF; border: #0000FF;"
-			sec:authorize="isAuthenticated()"
-			th:href="@{/challenge/entrychallenge(challengeNumber=${challenge.challengeNumber})}">도전등록하기
-		</a> <a
-			style="border-radius: 5px; color: black; background-color: #6699FF; border: #0000FF;"
-			sec:authorize="isAuthenticated()"
-			th:href="@{/challenge/writeentrylist(challengeNumber=${challenge.challengeNumber})}">도전 수행 하기
-		</a> 
-			 <a
-			style="border-radius: 5px; color: black; background-color: #6699FF; border: #0000FF;"
-			sec:authorize="isAuthenticated()"
-			th:href="@{/challenge/deleteentrylist(challengeNumber=${challenge.challengeNumber})}">도전취소하기</a>
-		<br> <a
-			style="border-radius: 5px; color: black; background-color: #6699FF; border: #0000FF;"
 			sec:authorize="hasRole('ADMIN')"
 			th:href="@{/challenge/challengeupdate(challengeNumber=${challenge.challengeNumber})}">수정</a>
 		<!-- 관리자만 보임 -->
@@ -130,6 +166,12 @@
 					th:href="@{/challenge/challengegivepoint(entrylistNumber=${entrylist.entrylistNumber},point=${challenge.challPoint},memberId=${entrylist.memberId},challengeNumber=${challenge.challengeNumber})}">포인트지급</a></td>
 			</tr>
 		</table>
+	</div>
 		<!-- ****** Archive Area End ****** -->
 		<!--  type="application/js" -->
+
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+			crossorigin="anonymous"></script>
 </body>

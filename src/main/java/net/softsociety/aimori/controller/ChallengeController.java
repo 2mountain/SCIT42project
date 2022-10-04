@@ -38,7 +38,7 @@ public class ChallengeController {
 
 	@Value("${spring.servlet.multipart.location}")
 	String uploadPath;
-	
+
 	@Autowired
 	ChallengeService chser;
 
@@ -47,13 +47,13 @@ public class ChallengeController {
 		return "/challenge/main";
 	}
 
-@GetMapping({"challengeupadate"})
-public String challengeupdate()
-{
-	
-	
-	return "";
-	
+	@GetMapping({"challengeupadate"})
+	public String challengeupdate()
+	{
+
+
+		return "";
+
 	}
 
 	@GetMapping({"challengelist"})
@@ -62,16 +62,16 @@ public String challengeupdate()
 			, String chtype
 			, String chsearchWord)
 	{
-			PageNavigator chnavi = chser.getchPageNavigator(pagePerGroup, countPerPage, page, chtype, chsearchWord);
-		
+		PageNavigator chnavi = chser.getchPageNavigator(pagePerGroup, countPerPage, page, chtype, chsearchWord);
+
 		System.out.println(chnavi.getTotalRecordsCount());
-		
+
 		ArrayList<Challenge> challengelist = chser.challengelist(chnavi, chtype, chsearchWord);
 
 		log.debug("challengelist : {}", challengelist);
 		log.debug("chnavi : {}", chnavi);
 
-		
+
 		model.addAttribute("chnavi", chnavi);
 		model.addAttribute("challengelist", challengelist);
 		model.addAttribute("chtype", chtype);
@@ -102,10 +102,10 @@ public String challengeupdate()
 		model.addAttribute("contestlist", contestlist);
 		model.addAttribute("chtype", cotype);
 		model.addAttribute("chsearchWord", cosearchWord);
-		
+
 		return "/challenge/contestlist";
 	}
-	
+
 	@GetMapping({"contestlistadmin"})
 	public String contestlistadmin(Model model
 			, @RequestParam(name = "page", defaultValue = "1") int page
@@ -115,19 +115,19 @@ public String challengeupdate()
 		challengelist(model,1,cotype,cosearchWord);
 		return "/challenge/contestlistadmin";
 	}
-	
+
 	@GetMapping({"contestwrite"})
 	public String contestwrite()
 	{
 		return "/challenge/contestwrite";
 	}
-	
+
 	@PostMapping({"challengewrite"})
 	public String challengewrite(Model model,
 			Challenge challenge,MultipartFile upload)
 	{
 		int result = chser.writechallenge(challenge);
-		
+
 		if (!upload.isEmpty()) {
 			String savedfile = FileService.saveFile(upload, uploadPath);
 			challenge.setChallengeOriginalFile(upload.getOriginalFilename());
@@ -137,38 +137,39 @@ public String challengeupdate()
 		String chsearchword="";
 		challengelist(model,1,chtype,chsearchword);
 		return "/challenge/challengelist";
-	
+
 	}
 	@GetMapping({"challengewrite"})
 	public String challengewrite()
 	{
-	
+
 		return "/challenge/challengewrite";
 	}
- @GetMapping({"entrychallenge"})
-public String entrychallenge(Model model,
-		@AuthenticationPrincipal UserDetails user,
-		@RequestParam(defaultValue = "0") int challengeNumber
-		, @RequestParam(name = "page", defaultValue = "1") int page
-		, String chtype
-		, String chsearchWord)
-{
+	@GetMapping({"entrychallenge"})
+	public String entrychallenge(Model model,
+			@AuthenticationPrincipal UserDetails user,
+			@RequestParam(defaultValue = "0") int challengeNumber
+			)
+	{
+	
+		Memberchallenge memberchall = new Memberchallenge();
+		memberchall.setChallengeNumber(challengeNumber);
+		memberchall.setMemberId(user.getUsername());
+		int result=chser.entrychallenge(memberchall);
+		mychallengelist(model,user.getUsername());
+		return "/mypageView/mychallengelist";
+	}
 
-	 Memberchallenge memberchall = new Memberchallenge();
-	 memberchall.setChallengeNumber(challengeNumber);
-	 memberchall.setMemberId(user.getUsername());
-	 mychallengelist(model,user.getUsername());
-	 return "/mypageView/mychallengelist";
-}
- 
- @GetMapping({"mychallengelist"})
-public String mychallengelist(Model model,String memberId
-)
-{
+	@GetMapping({"mychallengelist"})
+	public String mychallengelist(Model model,String memberId
+			)
+	{
 		ArrayList<Memberchallenge> mychallengelist = chser.mychallengelist(memberId);
 		model.addAttribute("mychallengelist", mychallengelist);
-	 return "/mypageView/mychallengelist";
-}
+		return "/mypageView/mychallengelist";
+	}
+	
+	//해당 도전과제를 읽고 내 도전과제에 등록하거나 도전과제를 수행한 사람에게 일정 포인트를 주는 것ㄴ 
 	@GetMapping({"challengeread"})
 	public String challengeread(Model model
 			,  int challengeNumber) { 
@@ -186,16 +187,16 @@ public String mychallengelist(Model model,String memberId
 
 		log.debug("challenge1: {}",challenge);
 		log.debug("entrylist: {}",entrylist);
-		
+
 		model.addAttribute("challenge", challenge);
-	  model.addAttribute("entrylist", entrylist);
+		model.addAttribute("entrylist", entrylist);
 		return "/challenge/challengeread";
 	}	
 
 	@GetMapping({"challengegivepoint"})
 	public String givepoint(int point , String memberId,Model model,int entrylistNumber
 			,  int challengeNumber) { 
-		
+
 		int result =chser.givepoint(point,memberId,entrylistNumber);
 		// 도전과제를 불러오는 페이지
 		Challenge challenge = chser.read(challengeNumber);
@@ -207,14 +208,14 @@ public String mychallengelist(Model model,String memberId
 		if (entrylist == null) {
 			return "redirect:/challenge/challengelist"; //글이 없으면 목록으로
 		}
-		
-		
+
+
 		model.addAttribute("challenge", challenge);
-	  model.addAttribute("entrylist", entrylist);
+		model.addAttribute("entrylist", entrylist);
 		return "/challenge/challengeread";
 	}
 
-	
+
 	@GetMapping({"contestread"})
 	public String contestread(Model model
 			, @RequestParam(name="challengeNumber", defaultValue = "0") int challengeNumber) { 
@@ -226,9 +227,9 @@ public String mychallengelist(Model model,String memberId
 		}
 		//관리자 계정에서만 뜨는페이지 접속할 시 해당인원 등 수 부여
 		ArrayList<Entrylist>  entrylist = chser.list(challengeNumber);
-		
+
 		model.addAttribute("challenge", challenge);
-		// model.addAttribute("entrylist", entrylist);
+		model.addAttribute("entrylist", entrylist);
 
 		log.debug("challenge1: {}",challenge);
 		log.debug("entrylist: {}",entrylist);
