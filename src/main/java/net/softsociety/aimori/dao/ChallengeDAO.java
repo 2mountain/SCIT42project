@@ -8,6 +8,7 @@ import org.apache.ibatis.session.RowBounds;
 
 import net.softsociety.aimori.domain.Challenge;
 import net.softsociety.aimori.domain.Entrylist;
+import net.softsociety.aimori.domain.Memberchallenge;
 
 @Mapper	
 public interface ChallengeDAO {
@@ -29,6 +30,8 @@ public interface ChallengeDAO {
 	int giveEntrylistPoint(HashMap<String, Object> map);
 
 	int writeChallenge(Challenge challenge);
+
+	int entryChallenge(Memberchallenge memberchall);
 
 	
 

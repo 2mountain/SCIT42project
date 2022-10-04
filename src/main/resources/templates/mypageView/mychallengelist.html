@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org"
+	xmlns:sec="http://thymeleaf.org/extras/spring-security"></html>
 
 <head>
 <meta charset="UTF-8">
@@ -9,14 +10,22 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
+
+
+
 <!-- Title -->
 <title>challenge</title>
-
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css"
+	rel="stylesheet">
 <!-- Favicon -->
 <link rel="icon" th:href="@{/img/core-img/favicon.ico}">
 
 <!-- Core Stylesheet -->
 <link rel="stylesheet" th:href="@{/css/style.css}">
+
 
 <!-- Responsive CSS -->
 <link th:href="@{/css/responsive/responsive.css}" rel="stylesheet">
@@ -24,40 +33,47 @@
 <!-- test -->
 <link rel="stylesheet" type="text/css" th:href="@{/css/board/board.css}" />
 
+
+<!-- test (페이지 함수) -->
 <script>
-function pagingFormSubmit(currentPage) {
-	var form = document.ElementById('pagingForm');
-	var page = document.ElementById('page');
-	page.value = currentPage;
-	form.submit();
-}
+	function pagingFormSubmit(currentPage) {
+		var form = document.getElementById('pagingForm');
+		var page = document.getElementById('page');
+		page.value = currentPage;
+		form.submit();
+	}
 </script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+	function search() {
+		let searchWord = document.getElementById('searchWord').value;
+		if (searchWord == '') {
+			alert('검색어를 입력해주세요');
+		} else {
+			pagingFormSubmit(1);
+		}
+
+	}
+		/* $('#testBtn').click(function(e){
+			e.preventDefault();
+			$('#testModal').modal("show");
+		}); */
+		   $('#testBtn').click(function() {
+			      $('#testModal').fadeIn();
+			   });
+		</script>
 <style>
-.chllengelist{
- border: 1px solid #444444;
-background-color:black;
+.challengelist {
+	 display: grid;
+  grid-template-columns: 350px 350px 350px;
+  gap: 10px 30px;
+  background-color: aliceblue;
+  padding: 20px;
 }
-.tableheader{
-color: white;
-background-color:gray;
-text-align: center; 
+.challenge-content{
+background-color: cornsilk; 	
 }
-.center{
-color : white;
-background-color:silver;
-}
-  table {
-    width: 100%;
-    border: 1px solid #444444;
-  background-color:black;
-  }
-  th, td {
-    border: 1px solid #444444;
-  }
-  a
-  {
-  color : white;		
-  }
 </style>
 </head>
 
@@ -67,20 +83,26 @@ background-color:silver;
 		<div class="yummy-load"></div>
 	</div>
 
+	<!--     Background Pattern Swither
+    <div id="pattern-switcher">
+        Bg Pattern
+    </div>
+    <div id="patter-close">
+        <i class="fa fa-times" aria-hidden="true"></i>
+    </div> -->
 
 	<!-- ****** Top Header Area Start ****** -->
 	<div class="top_header_area">
 		<div class="container">
 			<div class="row">
-				<div class="col-5 col-sm-6">
-
-				</div>
+				<div class="col-5 col-sm-6"></div>
 				<!--  Login Register Area -->
 				<div class="col-7 col-sm-6">
-					<div class="signup-search-area d-flex align-items-center justify-content-end">
+					<div
+						class="signup-search-area d-flex align-items-center justify-content-end">
 
-						
-						
+
+
 						<div class="login_register_area d-flex">
 							<div class="login" sec:authorize="not isAuthenticated()">
 								<a href="../member/logIn">로그인</a>
@@ -92,13 +114,16 @@ background-color:silver;
 						<div class="login_register_area d-flex">
 							<div class="mypage" sec:authorize="isAuthenticated()"
 								style="margin-left: 20px">
-								<a sec:authorize="hasRole('ADMIN')" th:href="@{/administrator}"><b>관리자 페이지</b></a>
+								<a sec:authorize="hasRole('ADMIN')" th:href="@{/administrator}"><b>관리자
+										페이지</b></a>
 							</div>
-							<div class="mypage" sec:authorize="isAuthenticated()" style="margin-left: 10px">
-								<a th:href="@{../mypage/main}">마이페이지</a>
+							<div class="mypage" sec:authorize="isAuthenticated()"
+								style="margin-left: 10px">
+								<a th:href="@{mypage/main}">마이페이지</a>
 							</div>
-							<div class="logout" sec:authorize="isAuthenticated()" style="margin-left: 10px;">
-								<a th:href="@{../logout}">로그아웃</a>
+							<div class="logout" sec:authorize="isAuthenticated()"
+								style="margin-left: 10px;">
+								<a th:href="@{logout}">로그아웃</a>
 							</div>
 						</div>
 					</div>
@@ -108,14 +133,14 @@ background-color:silver;
 	</div>
 	<!-- ****** Top Header Area End ****** -->
 
-		<!-- ****** Header Area Start ****** -->
+	<!-- ****** Header Area Start ****** -->
 	<header class="header_area">
 		<div class="container">
 			<div class="row">
 				<!-- Logo Area Start -->
 				<div class="col-12">
-					<a th:href="@{/}" class="yummy-logo">
-						<img th:src="@{/img/bg-img/toplogo.jpg}" alt=""> 
+					<a th:href="@{/}" class="yummy-logo"> <img
+						th:src="@{/img/bg-img/toplogo.jpg}" alt="">
 					</a>
 				</div>
 			</div>
@@ -143,13 +168,24 @@ background-color:silver;
 								th:href="@{/facilities}">시설</a></li>
 							<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
 							<li>
-							<div class="dropdown">
-								<span class="dropbtn">챌린지</span>
-								<div class="dropdown-content">
-									<a th:href="@{/challenge/challengelist}">도전과제</a>
-									 <a th:href="@{/challenge/contestlist}">대회</a>
+								<div class="dropdown">
+									<button style="background-color: transparent"
+										class="btn btn-warning dropdown-toggle" type="button"
+										data-bs-toggle="dropdown" aria-expanded="false">
+										challenge</button>
+									<ul class="dropdown-menu">
+										<li><a class="dropdown-item"
+											th:href="@{/challenge/challengelist}">챌린지</a></li>
+										<li><a class="dropdown-item"
+											th:href="@{/challenge/contestlist}">대회</a></li>
+										<li><a class="dropdown-item"
+											sec:authorize="hasRole('ADMIN')"
+											th:href="@{/challenge/challengelistadmin}">챌린지 관리</a></li>
+										<li><a class="dropdown-item"
+											sec:authorize="hasRole('ADMIN')"
+											th:href="@{/challenge/contestlistadmin}">대회 관리</a></li>
+									</ul>
 								</div>
-							</div>
 							</li>
 							<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
 							</li>
@@ -168,7 +204,7 @@ background-color:silver;
 			<div class="row h-100 align-items-center">
 				<div class="col-12">
 					<div class="bradcumb-title text-center">
-						<h2>Aimori challenge</h2>
+						<h2>Aimori Chellenge</h2>
 					</div>
 				</div>
 			</div>
@@ -193,74 +229,95 @@ background-color:silver;
 	<!-- ****** Breadcumb Area End ****** -->
 
 	<!-- ****** Archive Area Start ****** -->
-<header>
-   <h1>[도전과제 관리자]</h1>
-</header>
-<section>
-   <!-- 글목록 출력 영역 -->
-   <table class="challegelist">
-
-      <tr class="tableheader">
-         <th>글번호</th>
-         <th style="width:220px;">제목</th>
-         <th>작성일</th>
-         <th>대회시작일</th>
-         <th>대회종료일</th>
-         
-      </tr>
-      <tr th:each="challenge : ${challengelist}">
-         <td th:text="${challenge.challengeNumber}" class="center"></td>
-         <td class="center">
-            <a th:text="${challenge.challengeName}" th:href="@{/challenge/challengeread(challengeNumber=${challenge.challengeNumber})}" ></a>
-         </td>
-         
-         <td th:text="${challenge.challengeRegistDay}" class="center"></td>
-         <td th:text="${challenge.challengeStartDate}" class="center"></td>
-         <td th:text="${challenge.challengeEndDate}" class="center"></td>
-      </tr>
-   </table>
-   
-   <div id="navigator">
-   
-   <!-- 페이지 이동 링크 -->     
-   <a th:href="|javascript:pagingFormSubmit(${chnavi.currentPage - chnavi.pagePerGroup})|">◁◁</a>
-   <a th:href="|javascript:pagingFormSubmit(${chnavi.currentPage - 1})|">◀</a> 
-
-   <span th:each="counter : ${#numbers.sequence(chnavi.startPageGroup, chnavi.endPageGroup)}"> 
-      <th:block th:if="${counter == chnavi.currentPage}"><b></th:block>
-         <a th:text="${counter}" th:href="|javascript:pagingFormSubmit(${counter})|"></a>&nbsp;
-      <th:block th:if="${counter == chnavi.currentPage}"></b></th:block>
-   </span>
-   
-   <a th:href="|javascript:pagingFormSubmit(${chnavi.currentPage + 1})|">▶</a> 
-   <a th:href="|javascript:pagingFormSubmit(${chnavi.currentPage + chnavi.pagePerGroup})|">▷▷</a>
-   <br><br>
-   
-   <!-- 검색폼 -->
-   <form id="pagingForm" method="get" th:action="@{/challenge/challengelist}">
-      <input type="hidden" name="page" id="page" />
-      <select id="type" name="type">
-         <option value="title" th:selected="${chtype} == 'challengeName'">제목</option>
-               <option value="all" th:selected="${chtype} == 'all'">전체</option>
-      </select>
-      <input type="text"  name="searchWord" th:value="${chsearchWord}">
-      <input type="button" onclick="pagingFormSubmit(1)" value="검색">
-   </form>
-   
-   </div>
-   
-</section>
 
 
-   <div class="text-right">
-      <a sec:authorize="hasRole('ADMIN')" class="btn btn-light" style="background-color: rgb(220, 220, 255);"
-         colspan="6" th:href="@{/challenge/challengewrite}">글쓰기</a>
-   </div>
 
-<!-- ****** Archive Area End ****** -->
+	<div class="challengelist">
+	<div th:each="challenge : ${mychallengelist}">
+	 <div th:if="${challenge.challengeSavedFile == null}">
+ 	<img th:src="@{/img/blog-img/chopa.jpeg} "style="width: 350px; height: 230px;">
+ 	</div>
+		<div class="single-post wow fadeInUp" data-wow-delay=".4s">
+			<!-- Post Thumb -->
+			 	<div class="post-thumb">
+										<img th:if="${challenge.challengeSavedFile != null}" th:src="@{/img/fileSave/} + ${challenge.challengeSavedFile}"
+											style="width: 350px; height: 230px;">
+									</div>
 
+			<div class="challenge-content">
+
+
+				<a th:text="${challenge.challengeName}"
+					th:href="@{/challenge/challengeread(challengeNumber=${challenge.challengeNumber})}">
+				</a>
+				<!-- 시작일 -->
+				<div class="challenge-startdate">
+					시작일:<a th:text="${challenge.challengeStartDate}"></a>
+				</div>
+				<!-- 종료일 -->
+				<div class="challenge-enddate">
+					종료일: <a th:text="${challenge.challengeEndDate}"></a>
+				</div>
+				<div class="challenge-contents">
+
+					설명:<a
+						th:text="${#strings.arraySplit(challenge.challengeContents,'/')[0]}"></a>
+				</div>
+				<div class="challenge-point">
+					포인트: <a
+						th:text="${#strings.arraySplit(challenge.challengeContents,'/')[1]}"></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+	<section>
+
+		<div id="navigator">
+			<!-- 페이지 이동 링크 -->
+			<a
+				th:href="|javascript:pagingFormSubmit(${chnavi.currentPage - chnavi.pagePerGroup})|">◁◁</a>
+			<a th:href="|javascript:pagingFormSubmit(${chnavi.currentPage - 1})|">◀</a>
+			<span
+				th:each="counter : ${#numbers.sequence(chnavi.startPageGroup, chnavi.endPageGroup)}">
+				<th:block th:if="${counter == chnavi.currentPage}">
+					<b>
+				</th:block> <a th:text="${counter}"
+				th:href="|javascript:pagingFormSubmit(${counter})|"></a>&nbsp; <th:block
+					th:if="${counter == chnavi.currentPage}">
+					</b>
+				</th:block>
+			</span> <a
+				th:href="|javascript:pagingFormSubmit(${chnavi.currentPage + 1})|">▶</a>
+			<a
+				th:href="|javascript:pagingFormSubmit(${chnavi.currentPage + chnavi.pagePerGroup})|">▷▷</a>
+			<br> <br>
+
+			<!-- 검색폼 -->
+			<form id="pagingForm" method="get"
+				th:action="@{/challenge/challengelist}">
+				<input type="hidden" name="page" id="page" /> <select id="type"
+					name="type">
+					<option value="title" th:selected="${chtype} == 'title'">제목</option>
+					<option value="all" th:selected="${chtype} == 'all'">전체</option>
+				</select> <input type="text" name="searchWord" th:value="${chsearchWord}">
+				<input type="button" onclick="pagingFormSubmit(1)" value="검색">
+			</form>
+
+		</div>
+
+	</section>
+
+
+	<div class="text-right">
+		<a sec:authorize="hasRole('ADMIN')" class="btn btn-light"
+			style="background-color: rgb(220, 220, 255);" colspan="6"
+			th:href="@{/challenge/challengewrite}">글쓰기</a>
+	</div>
 	<!-- ****** Instagram Area Start ****** -->
-
+	<br>
 	<br>
 	<br>
 	<br>
@@ -411,6 +468,41 @@ background-color:silver;
 	</div>
 	<!-- ****** Our Creative Portfolio Area End ****** -->
 
+	<!-- ****** Footer Social Icon Area Start ****** -->
+	<div class="social_icon_area clearfix">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="footer-social-area d-flex">
+						<div class="single-icon">
+							<a href="#"><i class="fa fa-facebook" aria-hidden="true"></i><span>facebook</span></a>
+						</div>
+						<div class="single-icon">
+							<a href="#"><i class="fa fa-twitter" aria-hidden="true"></i><span>Twitter</span></a>
+						</div>
+						<div class="single-icon">
+							<a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i><span>GOOGLE+</span></a>
+						</div>
+						<div class="single-icon">
+							<a href="#"><i class="fa fa-linkedin-square"
+								aria-hidden="true"></i><span>linkedin</span></a>
+						</div>
+						<div class="single-icon">
+							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i><span>Instagram</span></a>
+						</div>
+						<div class="single-icon">
+							<a href="#"><i class="fa fa-vimeo" aria-hidden="true"></i><span>VIMEO</span></a>
+						</div>
+						<div class="single-icon">
+							<a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i><span>YOUTUBE</span></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ****** Footer Social Icon Area End ****** -->
+
 	<!-- ****** Footer Menu Area Start ****** -->
 	<footer class="footer_area">
 		<div class="container">
@@ -420,7 +512,8 @@ background-color:silver;
 						<div class="footer-content">
 							<!-- Logo Area Start -->
 							<div class="footer-logo-area text-center">
-								<a th:href="@{/}" class="yummy-logo"><img th:src="@{/img/bg-img/toplogo.jpg}" alt=""></a>
+								<a th:href="@{/}" class="yummy-logo"><img
+									th:src="@{/img/bg-img/toplogo.jpg}" alt=""></a>
 							</div>
 							<!-- Menu Area Start -->
 							<nav class="navbar navbar-expand-lg">
@@ -447,8 +540,9 @@ background-color:silver;
 											<div class="dropdown">
 												<span class="dropbtn">챌린지</span>
 												<div class="dropdown-content">
-													<a th:href="@{/challenge/challengelist}">도전과제</a> <a
-														th:href="@{/challenge/contestlist}">대회</a>
+													<a 
+													th:href="@{/challenge/challengelist}">도전과제</a> 
+													<a th:href="@{/challenge/contestlist}">대회</a>
 												</div>
 											</div>
 										</li>
@@ -488,7 +582,8 @@ background-color:silver;
 	<script th:src="@{/js/others/plugins.js}"></script>
 	<!-- Active JS -->
 	<script th:src="@{/js/active.js}"></script>
+	<script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+
 	<!--  type="application/js" -->
 
-
-</body>
+</body>	
