@@ -8,6 +8,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReportedBoard {
+	
+	// temp
+	public ReportedBoard(int boardNumber, String memberId) {
+		this.boardNumber = boardNumber;
+		this.memberId = memberId;
+	}
+	
 	String memberId;			// 작성자 아이디
 	int boardNumber;			// 게시글 번호
 	int questionNumber;			// 질문 번호

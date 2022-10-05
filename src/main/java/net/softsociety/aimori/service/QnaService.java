@@ -44,8 +44,10 @@ public interface QnaService {
 
 	
 	
-	//메인 qna 출력
+	// 메인 qna 출력
 	public ArrayList<Question> qnaMainList();
+	// 신고 카운트하기
+	public int reportPlus(int questionNumber);
 	
 	
 	

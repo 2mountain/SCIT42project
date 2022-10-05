@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org"
+ xmlns:sec="http://thymeleaf.org/extras/spring-security">
+
+<head>
+<meta charset="UTF-8">
+<title>questionReport</title>
+<script>
+	/* function cancelreport() {
+		if (boardReport != null) {
+			reportWindow.close();
+		}
+	} */
+	
+	// 신고하기
+	function insertreport(questionNumber) {
+		if (confirm('정말로 해당 게시글을 신고하시겠습니까?')) {
+			location.href = 'insertreport?questionNumber=' + questionNumber;
+		}
+	}
+	
+	
+	
+</script>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body>
+	<div class="container" style="margin-left: 10%; width:400px;">
+		<div style="height: 20px;"></div>	
+		<div class="form-control" style="margin-left: 25%; background-color: rgb(200, 200, 200); width: 100px; text-align: center;">신고 사유</div>
+		<div style="height: 20px;"></div>
+		
+		
+		<div style="border: 1px solid gray; width : 300px; padding: 20px 20px 20px 20px;">
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="flexRadioDefault" id="홍보/도배" checked>
+			<label class="form-check-label" for="flexRadioDefault1">
+				홍보/도배
+			</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="flexRadioDefault" id="음란물">
+			<label class="form-check-label" for="flexRadioDefault2">
+				음란물
+			</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="flexRadioDefault" id="불법정보">
+			<label class="form-check-label" for="flexRadioDefault3">
+				불법정보
+			</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="flexRadioDefault" id="혐오표현">
+			<label class="form-check-label" for="flexRadioDefault4">
+				혐오표현
+			</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="flexRadioDefault" id="개인정보노출">
+			<label class="form-check-label" for="flexRadioDefault5">
+				개인정보노출
+			</label>
+		</div>
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="flexRadioDefault" id="기타">
+			<label class="form-check-label" for="flexRadioDefault6">
+				기타
+			</label>
+			<input type="text">
+		</div>
+		
+		</div>
+		<div style="height: 20px;"></div>	
+		
+		<div style="margin-left: 60%;">
+		<a class="btn btn-primary"
+		style="background-color: rgb(250, 100, 100); border: none;"
+		th:href="@{/qna/insertreport(questionNumber=${question.questionNumber})}">신고</a>
+		</div>
+	</div>
+	<!-- <a class="btn btn-primary"
+	style="background-color: rgb(200, 200, 200); border: none;"
+	th:href="@{/board/cancelreport(boardNumber=${board.boardNumber})}">취소</a> -->
+	
+	
+	
+	
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+</body>
+</html>

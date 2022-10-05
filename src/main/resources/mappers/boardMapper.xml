@@ -360,4 +360,15 @@
 		ORDER BY boardNumber DESC
 	</select>
 	
+	<!-- 게시글 신고 수 올리기 -->
+	<update id="reportPlus" parameterType="int">
+	update board
+	set
+		boardReport = boardReport + 1
+	where
+		boardNumber = #{boardNumber}
+	</update>
+	
+	<!-- 게시글 신고하기 -->
+	
 </mapper>

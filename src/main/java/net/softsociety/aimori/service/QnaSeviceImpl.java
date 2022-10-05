@@ -151,4 +151,11 @@ public class QnaSeviceImpl implements QnaService {
 		return qnalist;
 	}
 
+	// 신고 카운트하기
+	@Override
+	public int reportPlus(int questionNumber) {
+		int result = qnaDAO.reportPlus(questionNumber);
+		return result;
+	}
+
 }
