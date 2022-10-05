@@ -202,7 +202,6 @@ public class AdministratorRestController {
 	@ResponseBody
 	@PostMapping("/countBlockedUser")
 	public int countBlockedUser() {
-		
 		int result = aService.countBlockedUser();
 		
 		return result;
@@ -219,8 +218,8 @@ public class AdministratorRestController {
 		while(iter.hasNext()) {
 			result += iter.next().getMemberId() + " / ";
 		}
-		log.debug("asdf : {}", result);
 		
+		// result의 마지막 부분 '/' 제거
 		result = result.substring(0, result.length()-2);
 		
 		return result;

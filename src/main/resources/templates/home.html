@@ -756,12 +756,10 @@
 										th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
 									</li>
 									<li class="nav-item"><a class="nav-link"
-										th:href="@{/facilities}">시설</a></li>
-									<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
-
-									<li class="nav-item"><a class="nav-link" href="#">챌린지</a></li>
-									<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
+										th:href="@{/qna/list}">Q&A <span class="sr-only">(current)</span></a>
 									</li>
+									<li class="nav-item"><a class="nav-link" th:href="@{/facilities}">시설</a></li>
+									<li class="nav-item"><a class="nav-link" th:href="@{/challenge/challengelist}">챌린지</a></li>
 								</ul>
 							</div>
 						</nav>
@@ -798,8 +796,7 @@
 	<script th:src="@{js/active.js}"></script>
 
 	<script>
-		$
-				.getJSON(
+		$.getJSON(
 						'https://api.openweathermap.org/data/2.5/weather?lat=37&lon=127&appid=d31defa8e5437ce94838e8d636024afd&units=metric',
 						function(result) {
 							$('.ctemp').append(result.main.temp);
