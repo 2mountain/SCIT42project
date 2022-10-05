@@ -336,15 +336,14 @@
 			<div class="row">
 				<!-- Logo Area Start -->
 				<div class="col-12">
-					<div class="logo_area text-center">
-						<a th:href="@{/}" class="yummy-logo">
-						<img src="../img/bg-img/toplogo.jpg" alt="aa"> 
-						</a>
-					</div>
+					<a th:href="@{/}" class="yummy-logo"> <img
+						th:src="@{/img/bg-img/toplogo.jpg}" alt="">
+					</a>
 				</div>
 			</div>
+		</div>
 
-			<div class="row">
+		<div class="row">
 			<div class="col-12">
 				<nav class="navbar navbar-expand-lg">
 					<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -364,18 +363,8 @@
 							</li>
 							<li class="nav-item"><a class="nav-link"
 								th:href="@{/facilities}">시설</a></li>
-							<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
-							<li>
-							<div class="dropdown">
-								<span class="dropbtn">챌린지</span>
-								<div class="dropdown-content">
-									<a th:href="@{/challenge/challengelist}">도전과제</a>
-									 <a th:href="@{/challenge/contestlist}">대회</a>
-								</div>
-							</div>
-							</li>
-							<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
-							</li>
+							<li class="nav-item"><a class="nav-link" th:href="@{/challenge/challengelist}">챌린지</a></li>
+										
 						</ul>
 					</div>
 				</nav>
