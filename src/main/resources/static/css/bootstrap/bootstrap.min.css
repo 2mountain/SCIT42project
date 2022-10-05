@@ -3176,7 +3176,7 @@ tbody.collapse.show {
 	-ms-flex-pack: justify;
 	justify-content: space-between;
 	padding: .5rem 1rem;
-	background-color: #FFFCDE;
+	background-color: #fee2d9;
 }
 
 .navbar>.container, .navbar>.container-fluid {
@@ -5209,7 +5209,7 @@ a.bg-danger:focus, a.bg-danger:hover {
 }
 
 .bg-light {
-	background-color: #FFFCDE !important
+	background-color: #fee2d9 !important
 }
 
 a.bg-light:focus, a.bg-light:hover {
