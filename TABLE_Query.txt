@@ -38,6 +38,14 @@ CREATE SEQUENCE boardLikedNumber_seq;
 CREATE SEQUENCE questionNumber_seq;
 CREATE SEQUENCE answerNumber_seq;
 CREATE SEQUENCE reportNumber_seq;
+CREATE SEQUENCE calendar_seq
+       INCREMENT BY 1
+       START WITH 1
+       MINVALUE 1
+       MAXVALUE 9999
+       NOCYCLE
+       NOCACHE
+       NOORDER;
 
 CREATE TABLE members
 (
@@ -317,4 +325,12 @@ create table reportData
         --신고받은 커뮤니티 게시글번호
     questionNumber NUMBER references question(questionNumber) on delete cascade
         --신고받은 qna 게시글번호
+);
+
+CREATE TABLE "CALENDAR"
+(
+	"SEQ" NUMBER(*,0) NOT NULL ENABLE, 
+	"TITLE" VARCHAR2(100 BYTE) NOT NULL ENABLE, 
+	"START_DATE" DATE NOT NULL ENABLE, 
+	"END_DATE" DATE NOT NULL ENABLE
 );
