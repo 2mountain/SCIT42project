@@ -101,44 +101,36 @@ function output(list) {
 		<div class="yummy-load"></div>
 	</div>
 
-	<!--     Background Pattern Swither
-    <div id="pattern-switcher">
-        Bg Pattern
-    </div>
-    <div id="patter-close">
-        <i class="fa fa-times" aria-hidden="true"></i>
-    </div> -->
-
 	<!-- ****** Top Header Area Start ****** -->
 	<div class="top_header_area">
 		<div class="container">
 			<div class="row">
-				<div class="col-5 col-sm-6">
-
-				</div>
+				<div class="col-5 col-sm-6"></div>
 				<!--  Login Register Area -->
 				<div class="col-7 col-sm-6">
-					<div class="signup-search-area d-flex align-items-center justify-content-end">
+					<div
+						class="signup-search-area d-flex align-items-center justify-content-end">
 
-						
-						
 						<div class="login_register_area d-flex">
 							<div class="login" sec:authorize="not isAuthenticated()">
 								<a th:href="@{/member/logIn}">로그인</a>
 							</div>
 							<div class="register" sec:authorize="not isAuthenticated()">
-								<a href="member/signIn">회원가입</a>
+								<a th:href="@{/member/signIn}">회원가입</a>
 							</div>
 						</div>
 						<div class="login_register_area d-flex">
 							<div class="mypage" sec:authorize="isAuthenticated()"
 								style="margin-left: 20px">
-								<a sec:authorize="hasRole('ADMIN')" th:href="@{/administrator}"><b>관리자 페이지</b></a>
+								<a sec:authorize="hasRole('ADMIN')" th:href="@{/administrator}"><b>관리자
+										페이지</b></a>
 							</div>
-							<div class="mypage" sec:authorize="isAuthenticated()" style="margin-left: 10px">
+							<div class="mypage" sec:authorize="isAuthenticated()"
+								style="margin-left: 10px">
 								<a th:href="@{mypage/main}">마이페이지</a>
 							</div>
-							<div class="logout" sec:authorize="isAuthenticated()" style="margin-left: 10px;">
+							<div class="logout" sec:authorize="isAuthenticated()"
+								style="margin-left: 10px;">
 								<a th:href="@{/logout}">로그아웃</a>
 							</div>
 						</div>
@@ -148,15 +140,14 @@ function output(list) {
 		</div>
 	</div>
 	<!-- ****** Top Header Area End ****** -->
-
-		<!-- ****** Header Area Start ****** -->
+	<!-- ****** Header Area Start ****** -->
 	<header class="header_area">
 		<div class="container">
 			<div class="row">
 				<!-- Logo Area Start -->
 				<div class="col-12">
-					<a th:href="@{/}" class="yummy-logo">
-						<img th:src="@{/img/bg-img/toplogo.jpg}" alt=""> 
+					<a th:href="@{/}" class="yummy-logo"> <img
+						th:src="@{/img/bg-img/toplogo.jpg}" alt="">
 					</a>
 				</div>
 			</div>
@@ -182,18 +173,8 @@ function output(list) {
 							</li>
 							<li class="nav-item"><a class="nav-link"
 								th:href="@{/facilities}">시설</a></li>
-							<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
-							<li>
-							<div class="dropdown">
-								<span class="dropbtn">챌린지</span>
-								<div class="dropdown-content">
-									<a th:href="@{/challenge/challengelist}">도전과제</a>
-									 <a th:href="@{/challenge/contestlist}">대회</a>
-								</div>
-							</div>
-							</li>
-							<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
-							</li>
+							<li class="nav-item"><a class="nav-link" th:href="@{/challenge/challengelist}">챌린지</a></li>
+										
 						</ul>
 					</div>
 				</nav>
