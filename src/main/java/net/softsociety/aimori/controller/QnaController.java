@@ -25,8 +25,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.slf4j.Slf4j;
 import net.softsociety.aimori.domain.Answer;
+import net.softsociety.aimori.domain.Member;
 import net.softsociety.aimori.domain.Question;
 import net.softsociety.aimori.domain.Reply;
+import net.softsociety.aimori.service.MemberService;
 import net.softsociety.aimori.service.QnaService;
 import net.softsociety.aimori.util.FileService;
 import net.softsociety.aimori.util.PageNavigator;
@@ -50,6 +52,9 @@ public class QnaController {
 
 	@Autowired
 	QnaService service;
+	
+	@Autowired
+	MemberService memberService;
 
 	/**
 	 * 커뮤니티 메인 화면
@@ -140,8 +145,8 @@ public class QnaController {
 
 		question.setMemberId(user.getUsername());
 
-		question.setMemberNickName(question.getMemberNickName());
-		question.setMemberNickName("testUser");
+		Member memberTemp = memberService.getMemberInfo(question.getMemberId());
+		question.setMemberNickName(memberTemp.getMemberNickName());
 
 		// 첨부파일이 있는 경우 지정된 경로에 저장하고, 원본 파일명과 저장된 파일명을 Board객체에 세팅
 
