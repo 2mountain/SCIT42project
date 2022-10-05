@@ -34,4 +34,10 @@ public class PetServiceImpl implements PetService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Pet selectPet(String memberId) {
+		Pet pet = petDAO.selectPet(memberId);
+		return pet;
+	}
 }
