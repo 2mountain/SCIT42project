@@ -303,7 +303,7 @@ function acceptedOrNot() {
 			<table class="table">
 				<tr>
 					<th class="readCenter">작성자</th>
-					<td th:text="${question.memberId}" style="width: 600px;"></td>
+					<td th:text="${question.memberNickName} + ' ( ' + ${question.memberId} + ' ) '" style="width: 600px;"></td>
 				</tr>
 				<tr>
 					<th class="readCenter">작성일</th>
