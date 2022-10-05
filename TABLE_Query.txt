@@ -323,8 +323,6 @@ create table reportData
         --신고한 멤버 아이디
     boardNumber NUMBER references board(boardNumber) on delete cascade,
         --신고받은 커뮤니티 게시글번호
-    questionNumber NUMBER references question(questionNumber) on delete cascade
-        --신고받은 qna 게시글번호
 );
 
 CREATE TABLE "CALENDAR"
