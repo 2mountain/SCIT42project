@@ -14,4 +14,6 @@ public interface PetDAO {
 	
 	// 펫 정보 읽기
 	public Pet petInfoRead(int petNumber);
+
+	public Pet selectPet(String memberId);
 }

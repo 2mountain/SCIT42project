@@ -18,6 +18,7 @@ import net.softsociety.aimori.domain.Pet;
 import net.softsociety.aimori.domain.Question;
 import net.softsociety.aimori.service.BoardService;
 import net.softsociety.aimori.service.MemberService;
+import net.softsociety.aimori.service.PetService;
 import net.softsociety.aimori.service.QnaService;
 
 @Slf4j
@@ -32,6 +33,9 @@ public class HomeController {
 
 	@Autowired
 	MemberService mservice;
+	
+	@Autowired
+	PetService pservice;
 
 	@GetMapping({ "/", "" })
 	public String home(@AuthenticationPrincipal UserDetails user, Model model) {
@@ -73,9 +77,19 @@ public class HomeController {
 		Member member = mservice.selectOne(memberId);
 		
 		log.debug("member 객체 : {}", member);
-		
 		return member;
-		
-		
 	}
+	
+	/*@PostMapping("getPetInfo")
+	@ResponseBody
+	public Pet getPetInfo(String memberId) {
+		
+		log.debug("펫도착함");
+		
+		Pet pet = pservice.selectPet(memberId);
+		
+		log.debug("pet 객체 : {}", pet);
+		return pet;
+	
+	}*/
 }

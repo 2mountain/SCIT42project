@@ -72,4 +72,18 @@
 		and
 		memberId = #{memberId}
 </update>
+
+<!-- 펫 정보 읽기 -->
+<select id="selectPetOne" parameterType="String" resultType="Pet">
+	select
+		petName,
+		petGender,
+		petBreed,
+		petBirthDay
+	from
+		Pet
+	where
+		memberId = #{memberId}
+</select>
+
 </mapper>

@@ -455,15 +455,16 @@ li {
     padding: 0;
 }
 
-.navbar.navbar-expand-lg .navbar-nav .nav-link {
-    padding: 25px 60px;
+.navbar.navbar-expand-lg .navbar-nav .nav-link{
+    padding: 25px 80px;
     color: #232d37;
     text-transform: uppercase;
-    font-size: 14px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .navbar.navbar-expand-lg .navbar-nav .nav-link:hover,
-.navbar.navbar-expand-lg .navbar-nav .active .nav-link {
+.navbar.navbar-expand-lg .navbar-nav .active .nav-link{
     color: #fc6c3f;
 }
 

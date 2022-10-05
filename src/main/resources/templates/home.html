@@ -162,31 +162,35 @@
 						aria-expanded="false" aria-label="Toggle navigation">
 						<i class="fa fa-bars" aria-hidden="true"></i> Menu
 					</button>
+
+
 					<!-- Menu Area Start -->
-					<div class="collapse navbar-collapse justify-content-center"
-						id="yummyfood-nav">
-						<ul class="navbar-nav" id="yummy-nav">
-							<li class="nav-item active"><a class="nav-link"
-								th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
-							</li>
-							<li class="nav-item"><a class="nav-link"
-								th:href="@{/qna/list}">Q&A <span class="sr-only">(current)</span></a>
-							</li>
-							<li class="nav-item"><a class="nav-link"
-								th:href="@{/facilities}">시설</a></li>
-							<li class="nav-item"><a class="nav-link" th:href="@{/challenge/challengelist}">챌린지</a></li>
-										
-						</ul>
-					</div>
-				</nav>
+
+					<nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; background-color: #FFFCDE; height: 50px;">
+						<div class="container-fluid">
+							<ul class="navbar-nav" id="yummy-nav">
+								<li class="nav-item"><a class="nav-link"
+									th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
+								</li>
+								<li class="nav-item"><a class="nav-link"
+									th:href="@{/qna/list}">Q&A <span class="sr-only">(current)</span></a>
+								</li>
+								<li class="nav-item"><a class="nav-link"
+									th:href="@{/facilities}">시설</a></li>
+								<li class="nav-item"><a class="nav-link"
+									th:href="@{/challenge/challengelist}">챌린지</a></li>
+
+							</ul>
+						</div>
+					</nav>
 			</div>
 		</div>
 	</header>
 	<!-- ****** Header Area End ****** -->
-	
+
 
 	<!-- ****** Welcome Post Area Start ****** -->
-	<section class="welcome-post-sliders owl-carousel">
+	<section class="welcome-post-sliders owl-carousel" style="margin-top:50px;">
 
 		<!-- Single Slide -->
 		<div class="welcome-single-slide">
@@ -213,7 +217,9 @@
 			<div class="project_title">
 				<div class="post-date-commnents d-flex"></div>
 				<a th:href="@{/challenge/challengelist}">
-					<h5>챌린지 도전하시고 <br>포인트 받으세요!</h5>
+					<h5>
+						챌린지 도전하시고 <br>포인트 받으세요!
+					</h5>
 				</a>
 			</div>
 		</div>
@@ -243,12 +249,14 @@
 					<a href="#"></a> <a href="#"></a>
 				</div>
 				<a href="#">
-					<h5>반려견과 함께하는<br>Life Style</h5>
+					<h5>
+						반려견과 함께하는<br>Life Style
+					</h5>
 				</a>
 			</div>
 		</div>
-		
-		
+
+
 		<!-- Single Slide -->
 		<div class="welcome-single-slide">
 			<!-- Post Thumb -->
@@ -259,7 +267,9 @@
 					<a href="#"></a> <a href="#"></a>
 				</div>
 				<a href="#">
-					<h5>반려견과 함께<br>아이모리와 함께!</h5>
+					<h5>
+						반려견과 함께<br>아이모리와 함께!
+					</h5>
 				</a>
 			</div>
 		</div>
@@ -479,11 +489,8 @@
 							</div>
 
 							<h5 id="memberId"></h5>
-							<p>포인트 : 32</p>
 							<br>
-							<p>
-								보리와 같은 견종의 다른 강아지들은 <br>'지위픽'을 많이 먹습니다.
-							</p>
+
 						</div>
 					</div>
 
@@ -758,8 +765,10 @@
 									<li class="nav-item"><a class="nav-link"
 										th:href="@{/qna/list}">Q&A <span class="sr-only">(current)</span></a>
 									</li>
-									<li class="nav-item"><a class="nav-link" th:href="@{/facilities}">시설</a></li>
-									<li class="nav-item"><a class="nav-link" th:href="@{/challenge/challengelist}">챌린지</a></li>
+									<li class="nav-item"><a class="nav-link"
+										th:href="@{/facilities}">시설</a></li>
+									<li class="nav-item"><a class="nav-link"
+										th:href="@{/challenge/challengelist}">챌린지</a></li>
 								</ul>
 							</div>
 						</nav>
@@ -796,7 +805,8 @@
 	<script th:src="@{js/active.js}"></script>
 
 	<script>
-		$.getJSON(
+		$
+				.getJSON(
 						'https://api.openweathermap.org/data/2.5/weather?lat=37&lon=127&appid=d31defa8e5437ce94838e8d636024afd&units=metric',
 						function(result) {
 							$('.ctemp').append(result.main.temp);
