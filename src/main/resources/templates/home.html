@@ -789,8 +789,11 @@
 	<script th:src="@{js/active.js}"></script>
 
 	<script>
+	let test1 = 37.51051;
+	let test2 = 127.0603668;
+	
 		$.getJSON(
-						'https://api.openweathermap.org/data/2.5/weather?lat=37&lon=127&appid=d31defa8e5437ce94838e8d636024afd&units=metric',
+						'https://api.openweathermap.org/data/2.5/weather?lat=' + test1 + '&lon=' + test2 + '&appid=d31defa8e5437ce94838e8d636024afd&units=metric',
 						function(result) {
 							$('.ctemp').append(result.main.temp);
 							$('.lowtemp').append(result.main.temp_min);

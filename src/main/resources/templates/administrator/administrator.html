@@ -198,7 +198,8 @@
 						</a>
 						<div class="collapse" id="collapseQnA"
 							aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-							<nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+							<nav class="sb-sidenav-menu-nested nav accordion"
+								id="sidenavAccordionPages">
 								<div class="collapse" id="pagesCollapseAuth"
 									aria-labelledby="headingOne"
 									data-bs-parent="#sidenavAccordionPages">
@@ -294,61 +295,37 @@
 											<td th:text="${memberList.memberBirthDay}">생일</td>
 											<td th:text="${memberList.memberJoinDate}">가입일자</td>
 											<td th:text="${memberList.memberPoint}">포인트</td>
-											<td style="padding: 0; width: 90px; height: 40px;"><select
-												style="width: 90px; height: 40px; border: none;" name="role"
-												th:memberRoleName="${memberList.memberRoleName}"
-												th:id="${memberList.memberId}"
-												th:user="${memberList.memberId}"
-												onchange="changeValue(this.value, getAttribute('id'), getAttribute('user'), getAttribute('memberRoleName'))">
-													<option
-														th:selected="${memberList.memberRoleName.equals('ROLE_USER')}"
-														value="ROLE_USER">일반</option>
-													<option
-														th:selected="${memberList.memberRoleName.equals('ROLE_ADMIN')}"
-														value="ROLE_ADMIN" class="fontRed">관리자</option>
-													<option
-														th:selected="${memberList.memberRoleName.equals('ROLE_DOCTOR')}"
-														value="ROLE_DOCTOR">의사</option>
-											</select> <!--
-															<span class="roleChange" th:if="${memberList.memberRoleName.equals('ROLE_USER')}" style="color:black;">일반</span>
-															<span class="roleChange" th:if="${memberList.memberRoleName.equals('ROLE_ADMIN')}" style="color:red;"><b>관리자</b></span>
-															<span class="roleChange" th:if="${memberList.memberRoleName.equals('ROLE_DOCTOR')}" >의사</span>
-															
-																<li>
-																	<a class="dropdown-item noUnderline roleChange" th:if="${!memberList.memberRoleName.equals('ROLE_USER')}">일반</a>
-																	<li><hr th:if="${!memberList.memberRoleName.equals('ROLE_USER')}" class="dropdown-divider noUnderline" /></li>
-																</li>
-																<li>
-																	<a class="dropdown-item noUnderline roleChange" th:if="${!memberList.memberRoleName.equals('ROLE_ADMIN')}" style="color:red;">관리자</a>
-																	<li><hr th:if="${!memberList.memberRoleName.equals('ROLE_ADMIN')}" class="dropdown-divider noUnderline" /></li>
-																</li>
-																<li><a class="dropdown-item noUnderline roleChange" th:if="${!memberList.memberRoleName.equals('ROLE_DOCTOR')}">의사</a></li>
-														</ul></li>
-														</ul> 
-														--></td>
-											<td style="padding: 0; width: 79px; height: 40px;"><select
-												style="width: 84px; height: 40px; border: none;"
-												name="block" th:memberEnabled="${memberList.memberEnabled}"
-												th:id="${memberList.memberNickName}"
-												th:user="${memberList.memberId}"
-												onchange="changeValue(this.value, getAttribute('id'), getAttribute('user'), getAttribute('memberEnabled'))">
-													<option class="fontRed"
-														th:selected="${memberList.memberEnabled}" value="true">차단안됨</option>
-													<option th:selected="${!memberList.memberEnabled}"
-														value="false">차단됨</option>
-											</select> <!-- <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-													<li class="nav-item dropdown">
-														<a class="dropdown-toggle noUnderline" id="navbarDropdown" href="#" role="button" 
-															data-bs-toggle="dropdown" aria-expanded="false">
-															<span th:if="${memberList.memberEnabled}" style="color:black;">Ⅹ</span>
-															<span th:if="${!memberList.memberEnabled}" style="color:red;"><b>○</b></span>
-														</a>
-														<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-															<li style="text-align: center;">
-																<li><a class="dropdown-item noUnderline" style="color:black;" th:if="${!memberList.memberEnabled}">Ⅹ</a></li>
-																<li><a class="dropdown-item noUnderline" style="color:red;" th:if="${memberList.memberEnabled}">O</a></li>
-														</ul></li>
-												</ul> --></td>
+											<td style="padding: 0; width: 90px; height: 40px;">
+												<select
+													style="width: 90px; height: 40px; border: none;" name="role"
+													th:memberRoleName="${memberList.memberRoleName}"
+													th:id="${memberList.memberId}"
+													th:user="${memberList.memberId}"
+													onchange="changeValue(this.value, getAttribute('id'), getAttribute('user'), getAttribute('memberRoleName'))">
+														<option
+															th:selected="${memberList.memberRoleName.equals('ROLE_USER')}"
+															value="ROLE_USER">일반</option>
+														<option
+															th:selected="${memberList.memberRoleName.equals('ROLE_ADMIN')}"
+															value="ROLE_ADMIN" class="fontRed">관리자</option>
+														<option
+															th:selected="${memberList.memberRoleName.equals('ROLE_DOCTOR')}"
+															value="ROLE_DOCTOR">의사</option>
+												</select>
+											</td>
+											<td style="padding: 0; width: 79px; height: 40px;">
+												<select
+													style="width: 84px; height: 40px; border: none;"
+													name="block" th:memberEnabled="${memberList.memberEnabled}"
+													th:id="${memberList.memberNickName}"
+													th:user="${memberList.memberId}"
+													onchange="changeValue(this.value, getAttribute('id'), getAttribute('user'), getAttribute('memberEnabled'))">
+														<option class="fontRed"
+															th:selected="${memberList.memberEnabled}" value="true">차단안됨</option>
+														<option th:selected="${!memberList.memberEnabled}"
+															value="false">차단됨</option>
+												</select>
+											</td>
 										</tr>
 									</tbody>
 								</table>
