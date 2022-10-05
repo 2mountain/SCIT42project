@@ -11,10 +11,26 @@
 
 
 <style>
-th {
-	width : 200px;
+th ,td{
+	width : 100px;
+	border:1px solid black ;
+	text-align: center;
 }
+.entrylist{
+border:1px solid black ;
+}
+.entryvalues{
+background-color:silver;
+}
+.center{
+border:1px solid black ;
 
+}
+.entrylisthead{
+
+border:1px solid black ;
+background-color:gray;
+}
 </style>
 
 <link
@@ -138,13 +154,13 @@ th {
 	</div>
 </section>
 
-<div class="container">
+<div class="container" >
 		<br> <a
 			sec:authorize="hasRole('ADMIN')"
 			th:href="@{/challenge/challengeupdate(challengeNumber=${challenge.challengeNumber})}">수정</a>
 		<!-- 관리자만 보임 -->
 
-		<table class="entrylist" sec:authorize="hasRole('ADMIN')">
+		<table class="entrylist container" sec:authorize="hasRole('ADMIN')">
 
 			<tr class="entrylisthead">
 				<th>신청번호</th>
@@ -156,13 +172,13 @@ th {
 
 
 			</tr>
-			<tr class="center" th:each="entrylist : ${entrylist}">
+			<tr class="entryvalues" th:each="entrylist : ${entrylist}" style="border:1px solid black ;">
 				<td th:text="${entrylist.entrylistNumber}" class="center"></td>
 				<td><a th:text="${entrylist.memberId}"></a></td>
 				<td th:text="${entrylist.challengeSuccess}" class="center"></td>
-				<td th:text="${entrylist.getPoint}"></td>
-				<td th:text="${entrylist.getPointDate}"></td>
-				<td><a th:if="${entrylist.getPoint}==0"
+				<td th:text="${entrylist.getPoint}" class="center"></td>
+				<td th:text="${entrylist.getPointDate}" class="center"></td>
+				<td><a class="center" th:if="${entrylist.getPoint}==0"
 					th:href="@{/challenge/challengegivepoint(entrylistNumber=${entrylist.entrylistNumber},point=${challenge.challPoint},memberId=${entrylist.memberId},challengeNumber=${challenge.challengeNumber})}">포인트지급</a></td>
 			</tr>
 		</table>

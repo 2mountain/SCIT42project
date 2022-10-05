@@ -22,4 +22,5 @@ public class Challenge {
 	int sanka;
 	String challengeOriginalFile;	// 게시글 이미지 첨부파일
 	String challengeSavedFile;	//서버에 저장된 이름
-}
+
+	}
