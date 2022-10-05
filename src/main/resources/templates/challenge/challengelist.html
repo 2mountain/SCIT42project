@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+	<!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org"
 	xmlns:sec="http://thymeleaf.org/extras/spring-security"></html>
 
@@ -34,6 +34,7 @@
 <link rel="stylesheet" type="text/css" th:href="@{/css/board/board.css}" />
 
 
+
 <!-- test (페이지 함수) -->
 <script>
 	function pagingFormSubmit(currentPage) {
@@ -55,24 +56,31 @@
 		}
 
 	}
-		/* $('#testBtn').click(function(e){
-			e.preventDefault();
-			$('#testModal').modal("show");
-		}); */
-		   $('#testBtn').click(function() {
-			      $('#testModal').fadeIn();
-			   });
-		</script>
+	/* $('#testBtn').click(function(e){
+		e.preventDefault();
+		$('#testModal').modal("show");
+	}); */
+	$('#testBtn').click(function() {
+		$('#testModal').fadeIn();
+	});
+</script>
 <style>
+@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+
 .challengelist {
 	display: grid;
-  grid-template-columns: 350px 350px 350px;
-  gap: 10px 30px;
-  background-color:  rgb(230, 250, 230);
-  padding: 20px;
+	grid-template-columns: 325px 325px 325px;
+	gap: 10px 30px;
+	background-color: rgb(230, 250, 230);
+	padding: 20px;
 }
-.challenge-content{
-background-color: cornsilk; 	
+
+.challenge-content {
+	background-color: cornsilk;
+	border-bottom-left-radius: 30px;
+	border-bottom-right-radius: 30px;
+	padding:10px;
+font-family: 'Nanum Pen Script', cursive;
 }
 </style>
 </head>
@@ -231,359 +239,350 @@ background-color: cornsilk;
 	<!-- ****** Archive Area Start ****** -->
 
 
-
-	<div class="challengelist">
-	<div th:each="challenge : ${challengelist}">
-	 <div th:if="${challenge.challengeSavedFile == null}">
- 	<img th:src="@{/img/blog-img/chopa.jpeg} "style="width: 350px; height: 230px;">
- 	</div>
-		<div class="single-post wow fadeInUp" data-wow-delay=".4s">
-			<!-- Post Thumb -->
-			 	<div class="post-thumb">
-										<img th:if="${challenge.challengeSavedFile != null}" th:src="@{/img/fileSave/} + ${challenge.challengeSavedFile}"
-											style="width: 350px; height: 230px;">
-									</div>
-
-			<div class="challenge-content">
-
-
-				<a th:text="${challenge.challengeName}"
-					th:href="@{/challenge/challengeread(challengeNumber=${challenge.challengeNumber})}">
-				</a>
-				<!-- 시작일 -->
-				<div class="challenge-startdate">
-					시작일:<a th:text="${challenge.challengeStartDate}"></a>
+	<div class="container">
+		<div class="challengelist">
+			<div th:each="challenge : ${challengelist}">
+				<div th:if="${challenge.challengeSavedFile == null}">
+					<img th:src="@{/img/blog-img/chopa.jpeg} "
+						style="border-top-left-radius: '20px'; border-top-right-radius: '20px';; width: 350px; height: 230px;">
 				</div>
-				<!-- 종료일 -->
-				<div class="challenge-enddate">
-					종료일: <a th:text="${challenge.challengeEndDate}"></a>
-				</div>
-				<div class="challenge-contents">
+				<div class="single-post wow fadeInUp" data-wow-delay=".4s">
+					<!-- Post Thumb -->
+					<div class="post-thumb">
+						<img th:if="${challenge.challengeSavedFile != null}"
+							th:src="@{/img/fileSave/} + ${challenge.challengeSavedFile}"
+							style="width: 350px; height: 230px;">
+					</div>
 
-					설명:<a
-						th:text="${#strings.arraySplit(challenge.challengeContents,'/')[0]}"></a>
-				</div>
-				<div class="challenge-point">
-					포인트: <a
-						th:text="${#strings.arraySplit(challenge.challengeContents,'/')[1]}"></a>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+					<div class="challenge-content">
 
 
-	<section>
-
-		<div id="navigator">
-			<!-- 페이지 이동 링크 -->
-			<a
-				th:href="|javascript:pagingFormSubmit(${chnavi.currentPage - chnavi.pagePerGroup})|">◁◁</a>
-			<a th:href="|javascript:pagingFormSubmit(${chnavi.currentPage - 1})|">◀</a>
-			<span
-				th:each="counter : ${#numbers.sequence(chnavi.startPageGroup, chnavi.endPageGroup)}">
-				<th:block th:if="${counter == chnavi.currentPage}">
-					<b>
-				</th:block> <a th:text="${counter}"
-				th:href="|javascript:pagingFormSubmit(${counter})|"></a>&nbsp; <th:block
-					th:if="${counter == chnavi.currentPage}">
-					</b>
-				</th:block>
-			</span> <a
-				th:href="|javascript:pagingFormSubmit(${chnavi.currentPage + 1})|">▶</a>
-			<a
-				th:href="|javascript:pagingFormSubmit(${chnavi.currentPage + chnavi.pagePerGroup})|">▷▷</a>
-			<br> <br>
-
-			<!-- 검색폼 -->
-			<form id="pagingForm" method="get"
-				th:action="@{/challenge/challengelist}">
-				<input type="hidden" name="page" id="page" /> <select id="type"
-					name="type">
-					<option value="title" th:selected="${chtype} == 'title'">제목</option>
-					<option value="all" th:selected="${chtype} == 'all'">전체</option>
-				</select> <input type="text" name="searchWord" th:value="${chsearchWord}">
-				<input type="button" onclick="pagingFormSubmit(1)" value="검색">
-			</form>
-
-		</div>
-
-	</section>
-
-
-	<div class="text-right">
-		<a sec:authorize="hasRole('ADMIN')" class="btn btn-light"
-			style="background-color: rgb(220, 220, 255);" colspan="6"
-			th:href="@{/challenge/challengewrite}">글쓰기</a>
-	</div>
-	<!-- ****** Instagram Area Start ****** -->
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<div
-		class="instargram_area owl-carousel section_padding_100_0 clearfix"
-		id="portfolio">
-
-		<!-- Instagram Item -->
-		<div class="instagram_gallery_item">
-			<!-- Instagram Thumb -->
-			<img th:src="@{/img/instagram-img/1.jpg}" alt="">
-			<!-- Hover -->
-			<div class="hover_overlay">
-				<div class="yummy-table">
-					<div class="yummy-table-cell">
-						<div class="follow-me text-center">
-							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
-								Follow me</a>
+						<a th:text="${challenge.challengeName}"
+							th:href="@{/challenge/challengeread(challengeNumber=${challenge.challengeNumber})}">
+						</a>
+						<!-- 시작일 -->
+						<div class="challenge-startdate">
+							이벤트 기간:<a th:text="${challenge.challengeStartDate}+'~'+${challenge.challengeEndDate}"></a>
+						</div>
+						<div class="challenge-contents">
+							설명:<a
+								th:text="${#strings.arraySplit(challenge.challengeContents,'/')[0]}"></a>
+						</div>
+						<div class="challenge-point">
+							포인트: <a
+								th:text="${#strings.arraySplit(challenge.challengeContents,'/')[1]}"></a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div>
 
-		<!-- Instagram Item -->
-		<div class="instagram_gallery_item">
-			<!-- Instagram Thumb -->
-			<img th:src="@{/img/instagram-img/2.jpg}" alt="">
-			<!-- Hover -->
-			<div class="hover_overlay">
-				<div class="yummy-table">
-					<div class="yummy-table-cell">
-						<div class="follow-me text-center">
-							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
-								Follow me</a>
-						</div>
-					</div>
+			<section>
+
+				<div id="navigator">
+					<!-- 페이지 이동 링크 -->
+					<a
+						th:href="|javascript:pagingFormSubmit(${chnavi.currentPage - chnavi.pagePerGroup})|">◁◁</a>
+					<a
+						th:href="|javascript:pagingFormSubmit(${chnavi.currentPage - 1})|">◀</a>
+					<span
+						th:each="counter : ${#numbers.sequence(chnavi.startPageGroup, chnavi.endPageGroup)}">
+						<th:block th:if="${counter == chnavi.currentPage}">
+							<b>
+						</th:block> <a th:text="${counter}"
+						th:href="|javascript:pagingFormSubmit(${counter})|"></a>&nbsp; <th:block
+							th:if="${counter == chnavi.currentPage}">
+							</b>
+						</th:block>
+					</span> <a
+						th:href="|javascript:pagingFormSubmit(${chnavi.currentPage + 1})|">▶</a>
+					<a
+						th:href="|javascript:pagingFormSubmit(${chnavi.currentPage + chnavi.pagePerGroup})|">▷▷</a>
+					<br> <br>
+
+					<!-- 검색폼 -->
+					<form id="pagingForm" method="get"
+						th:action="@{/challenge/challengelist}">
+						<input type="hidden" name="page" id="page" /> <select id="type"
+							name="type">
+							<option value="title" th:selected="${chtype} == 'title'">제목</option>
+							<option value="all" th:selected="${chtype} == 'all'">전체</option>
+						</select> <input type="text" name="searchWord" th:value="${chsearchWord}">
+						<input type="button" onclick="pagingFormSubmit(1)" value="검색">
+					</form>
+
 				</div>
+
+			</section>
+
+
+			<div class="text-right">
+				<a sec:authorize="hasRole('ADMIN')" class="btn btn-light"
+					style="background-color: rgb(220, 220, 255);" colspan="6"
+					th:href="@{/challenge/challengewrite}">글쓰기</a>
 			</div>
-		</div>
+			<!-- ****** Instagram Area Start ****** -->
+			<br> <br> <br> <br> <br> <br> <br>
+			<br>
+			<div
+				class="instargram_area owl-carousel section_padding_100_0 clearfix"
+				id="portfolio">
 
-		<!-- Instagram Item -->
-		<div class="instagram_gallery_item">
-			<!-- Instagram Thumb -->
-			<img th:src="@{/img/instagram-img/3.jpg}" alt="">
-			<!-- Hover -->
-			<div class="hover_overlay">
-				<div class="yummy-table">
-					<div class="yummy-table-cell">
-						<div class="follow-me text-center">
-							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
-								Follow me</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Instagram Item -->
-		<div class="instagram_gallery_item">
-			<!-- Instagram Thumb -->
-			<img th:src="@{/img/instagram-img/4.jpg}" alt="">
-			<!-- Hover -->
-			<div class="hover_overlay">
-				<div class="yummy-table">
-					<div class="yummy-table-cell">
-						<div class="follow-me text-center">
-							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
-								Follow me</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Instagram Item -->
-		<div class="instagram_gallery_item">
-			<!-- Instagram Thumb -->
-			<img th:src="@{/img/instagram-img/5.jpg}" alt="">
-			<!-- Hover -->
-			<div class="hover_overlay">
-				<div class="yummy-table">
-					<div class="yummy-table-cell">
-						<div class="follow-me text-center">
-							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
-								Follow me</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Instagram Item -->
-		<div class="instagram_gallery_item">
-			<!-- Instagram Thumb -->
-			<img th:src="@{/img/instagram-img/6.jpg}" alt="">
-			<!-- Hover -->
-			<div class="hover_overlay">
-				<div class="yummy-table">
-					<div class="yummy-table-cell">
-						<div class="follow-me text-center">
-							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
-								Follow me</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Instagram Item -->
-		<div class="instagram_gallery_item">
-			<!-- Instagram Thumb -->
-			<img th:src="@{/img/instagram-img/1.jpg}" alt="">
-			<!-- Hover -->
-			<div class="hover_overlay">
-				<div class="yummy-table">
-					<div class="yummy-table-cell">
-						<div class="follow-me text-center">
-							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
-								Follow me</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Instagram Item -->
-		<div class="instagram_gallery_item">
-			<!-- Instagram Thumb -->
-			<img th:src="@{/img/instagram-img/2.jpg}" alt="">
-			<!-- Hover -->
-			<div class="hover_overlay">
-				<div class="yummy-table">
-					<div class="yummy-table-cell">
-						<div class="follow-me text-center">
-							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
-								Follow me</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-	</div>
-	<!-- ****** Our Creative Portfolio Area End ****** -->
-
-	<!-- ****** Footer Social Icon Area Start ****** -->
-	<div class="social_icon_area clearfix">
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
-					<div class="footer-social-area d-flex">
-						<div class="single-icon">
-							<a href="#"><i class="fa fa-facebook" aria-hidden="true"></i><span>facebook</span></a>
-						</div>
-						<div class="single-icon">
-							<a href="#"><i class="fa fa-twitter" aria-hidden="true"></i><span>Twitter</span></a>
-						</div>
-						<div class="single-icon">
-							<a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i><span>GOOGLE+</span></a>
-						</div>
-						<div class="single-icon">
-							<a href="#"><i class="fa fa-linkedin-square"
-								aria-hidden="true"></i><span>linkedin</span></a>
-						</div>
-						<div class="single-icon">
-							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i><span>Instagram</span></a>
-						</div>
-						<div class="single-icon">
-							<a href="#"><i class="fa fa-vimeo" aria-hidden="true"></i><span>VIMEO</span></a>
-						</div>
-						<div class="single-icon">
-							<a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i><span>YOUTUBE</span></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- ****** Footer Social Icon Area End ****** -->
-
-	<!-- ****** Footer Menu Area Start ****** -->
-	<footer class="footer_area">
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
-					<div class="footer-content">
-						<div class="footer-content">
-							<!-- Logo Area Start -->
-							<div class="footer-logo-area text-center">
-								<a th:href="@{/}" class="yummy-logo"><img
-									th:src="@{/img/bg-img/toplogo.jpg}" alt=""></a>
-							</div>
-							<!-- Menu Area Start -->
-							<nav class="navbar navbar-expand-lg">
-								<button class="navbar-toggler" type="button"
-									data-toggle="collapse" data-target="#yummyfood-footer-nav"
-									aria-controls="yummyfood-footer-nav" aria-expanded="false"
-									aria-label="Toggle navigation">
-									<i class="fa fa-bars" aria-hidden="true"></i> Menu
-								</button>
-								<!-- Menu Area Start -->
-								<div class="collapse navbar-collapse justify-content-center"
-									id="yummyfood-footer-nav">
-									<ul class="navbar-nav">
-										<li class="nav-item active"><a class="nav-link"
-											th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
-										</li>
-										<li class="nav-item"><a class="nav-link"
-											th:href="@{/qna/list}">Q&A <span class="sr-only">(current)</span></a>
-										</li>
-										<li class="nav-item"><a class="nav-link"
-											th:href="@{/facilities}">시설</a></li>
-										<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
-										<li>
-											<div class="dropdown">
-												<span class="dropbtn">챌린지</span>
-												<div class="dropdown-content">
-													<a 
-													th:href="@{/challenge/challengelist}">도전과제</a> 
-													<a th:href="@{/challenge/contestlist}">대회</a>
-												</div>
-											</div>
-										</li>
-										<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
-										</li>
-									</ul>
+				<!-- Instagram Item -->
+				<div class="instagram_gallery_item">
+					<!-- Instagram Thumb -->
+					<img th:src="@{/img/instagram-img/1.jpg}" alt="">
+					<!-- Hover -->
+					<div class="hover_overlay">
+						<div class="yummy-table">
+							<div class="yummy-table-cell">
+								<div class="follow-me text-center">
+									<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
+										Follow me</a>
 								</div>
-							</nav>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Instagram Item -->
+				<div class="instagram_gallery_item">
+					<!-- Instagram Thumb -->
+					<img th:src="@{/img/instagram-img/2.jpg}" alt="">
+					<!-- Hover -->
+					<div class="hover_overlay">
+						<div class="yummy-table">
+							<div class="yummy-table-cell">
+								<div class="follow-me text-center">
+									<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
+										Follow me</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Instagram Item -->
+				<div class="instagram_gallery_item">
+					<!-- Instagram Thumb -->
+					<img th:src="@{/img/instagram-img/3.jpg}" alt="">
+					<!-- Hover -->
+					<div class="hover_overlay">
+						<div class="yummy-table">
+							<div class="yummy-table-cell">
+								<div class="follow-me text-center">
+									<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
+										Follow me</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Instagram Item -->
+				<div class="instagram_gallery_item">
+					<!-- Instagram Thumb -->
+					<img th:src="@{/img/instagram-img/4.jpg}" alt="">
+					<!-- Hover -->
+					<div class="hover_overlay">
+						<div class="yummy-table">
+							<div class="yummy-table-cell">
+								<div class="follow-me text-center">
+									<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
+										Follow me</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Instagram Item -->
+				<div class="instagram_gallery_item">
+					<!-- Instagram Thumb -->
+					<img th:src="@{/img/instagram-img/5.jpg}" alt="">
+					<!-- Hover -->
+					<div class="hover_overlay">
+						<div class="yummy-table">
+							<div class="yummy-table-cell">
+								<div class="follow-me text-center">
+									<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
+										Follow me</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Instagram Item -->
+				<div class="instagram_gallery_item">
+					<!-- Instagram Thumb -->
+					<img th:src="@{/img/instagram-img/6.jpg}" alt="">
+					<!-- Hover -->
+					<div class="hover_overlay">
+						<div class="yummy-table">
+							<div class="yummy-table-cell">
+								<div class="follow-me text-center">
+									<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
+										Follow me</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Instagram Item -->
+				<div class="instagram_gallery_item">
+					<!-- Instagram Thumb -->
+					<img th:src="@{/img/instagram-img/1.jpg}" alt="">
+					<!-- Hover -->
+					<div class="hover_overlay">
+						<div class="yummy-table">
+							<div class="yummy-table-cell">
+								<div class="follow-me text-center">
+									<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
+										Follow me</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Instagram Item -->
+				<div class="instagram_gallery_item">
+					<!-- Instagram Thumb -->
+					<img th:src="@{/img/instagram-img/2.jpg}" alt="">
+					<!-- Hover -->
+					<div class="hover_overlay">
+						<div class="yummy-table">
+							<div class="yummy-table-cell">
+								<div class="follow-me text-center">
+									<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
+										Follow me</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<!-- ****** Our Creative Portfolio Area End ****** -->
+
+			<!-- ****** Footer Social Icon Area Start ****** -->
+			<div class="social_icon_area clearfix">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							<div class="footer-social-area d-flex">
+								<div class="single-icon">
+									<a href="#"><i class="fa fa-facebook" aria-hidden="true"></i><span>facebook</span></a>
+								</div>
+								<div class="single-icon">
+									<a href="#"><i class="fa fa-twitter" aria-hidden="true"></i><span>Twitter</span></a>
+								</div>
+								<div class="single-icon">
+									<a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i><span>GOOGLE+</span></a>
+								</div>
+								<div class="single-icon">
+									<a href="#"><i class="fa fa-linkedin-square"
+										aria-hidden="true"></i><span>linkedin</span></a>
+								</div>
+								<div class="single-icon">
+									<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i><span>Instagram</span></a>
+								</div>
+								<div class="single-icon">
+									<a href="#"><i class="fa fa-vimeo" aria-hidden="true"></i><span>VIMEO</span></a>
+								</div>
+								<div class="single-icon">
+									<a href="#"><i class="fa fa-youtube-play"
+										aria-hidden="true"></i><span>YOUTUBE</span></a>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+			<!-- ****** Footer Social Icon Area End ****** -->
 
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
-					<!-- Copywrite Text -->
-					<div class="copy_right_text text-center">
-						<p>
-							Copyright @2018 All rights reserved | This template is made with
-							<i class="fa fa-heart-o" aria-hidden="true"></i> by <a
-								href="https://colorlib.com" target="_blank">Colorlib</a>
-						</p>
+			<!-- ****** Footer Menu Area Start ****** -->
+			<footer class="footer_area">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							<div class="footer-content">
+								<div class="footer-content">
+									<!-- Logo Area Start -->
+									<div class="footer-logo-area text-center">
+										<a th:href="@{/}" class="yummy-logo"><img
+											th:src="@{/img/bg-img/toplogo.jpg}" alt=""></a>
+									</div>
+									<!-- Menu Area Start -->
+									<nav class="navbar navbar-expand-lg">
+										<button class="navbar-toggler" type="button"
+											data-toggle="collapse" data-target="#yummyfood-footer-nav"
+											aria-controls="yummyfood-footer-nav" aria-expanded="false"
+											aria-label="Toggle navigation">
+											<i class="fa fa-bars" aria-hidden="true"></i> Menu
+										</button>
+										<!-- Menu Area Start -->
+										<div class="collapse navbar-collapse justify-content-center"
+											id="yummyfood-footer-nav">
+											<ul class="navbar-nav">
+												<li class="nav-item active"><a class="nav-link"
+													th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
+												</li>
+												<li class="nav-item"><a class="nav-link"
+													th:href="@{/qna/list}">Q&A <span class="sr-only">(current)</span></a>
+												</li>
+												<li class="nav-item"><a class="nav-link"
+													th:href="@{/facilities}">시설</a></li>
+												<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
+												<li>
+													<div class="dropdown">
+														<span class="dropbtn">챌린지</span>
+														<div class="dropdown-content">
+															<a th:href="@{/challenge/challengelist}">도전과제</a> <a
+																th:href="@{/challenge/contestlist}">대회</a>
+														</div>
+													</div>
+												</li>
+												<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
+												</li>
+											</ul>
+										</div>
+									</nav>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-	</footer>
-	<!-- ****** Footer Menu Area End ****** -->
 
-	<!-- Jquery-2.2.4 js -->
-	<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
-	<!-- Popper js -->
-	<script th:src="@{/js/bootstrap/popper.min.js}"></script>
-	<!-- All Plugins JS -->
-	<script th:src="@{/js/others/plugins.js}"></script>
-	<!-- Active JS -->
-	<script th:src="@{/js/active.js}"></script>
-	<script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							<!-- Copywrite Text -->
+							<div class="copy_right_text text-center">
+								<p>
+									Copyright @2018 All rights reserved | This template is made
+									with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a
+										href="https://colorlib.com" target="_blank">Colorlib</a>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</footer>
+			<!-- ****** Footer Menu Area End ****** -->
 
-	<!--  type="application/js" -->
+			<!-- Jquery-2.2.4 js -->
+			<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
+			<!-- Popper js -->
+			<script th:src="@{/js/bootstrap/popper.min.js}"></script>
+			<!-- All Plugins JS -->
+			<script th:src="@{/js/others/plugins.js}"></script>
+			<!-- Active JS -->
+			<script th:src="@{/js/active.js}"></script>
+			<script th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
 
-</body>	
+			<!--  type="application/js" -->
+</body>
