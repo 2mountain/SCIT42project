@@ -796,43 +796,73 @@
 	<script th:src="@{js/active.js}"></script>
 
 	<script>
-	let test1 = 37.51051;
-	let test2 = 127.0603668;
+	window.onload = function(){
+		geoFindMe();
+	}
 	
-		$.getJSON(
-						'https://api.openweathermap.org/data/2.5/weather?lat=' + test1 + '&lon=' + test2 + '&appid=d31defa8e5437ce94838e8d636024afd&units=metric',
-						function(result) {
-							$('.ctemp').append(result.main.temp);
-							$('.lowtemp').append(result.main.temp_min);
-							$('.hightemp').append(result.main.temp_max);
-							//result.weather[0].icon 현재 날씨 가져오기
-							var wiconUrl = '<img src="https://openweathermap.org/img/wn/' + result.weather[0].icon + '.png" alt="' + result.weather[0].description + '">'
-							$('.icon').append(wiconUrl);
+	let lat = 0;
+	let lon = 0;
 
-							$("#weather").val(result.weather[0].description);
+	function geoFindMe() {
+		  function success(position) {
+		    lat  = position.coords.latitude;
+		    lon = position.coords.longitude;
+		    
+		    console.log(`위도(lat) = ${lat} / 경도(lon) = ${lon}`);
+		    getWeather();
+		  }
 
-							console.log(result.weather[0].icon);
-							console.log(result.weather[0].description);
+		  function error() {
+		    console.log('Geolocation 오류 - 위치를 찾지 못함');
+		  }
 
-							//현재시간 가져오기
-							var ct = result.dt;
+		  if(!navigator.geolocation) {
+			  console.log('Geolocation이 지원되지 않는 브라우저입니다');
+		  } else {
+			  console.log('Geolocation 로드');
+		    navigator.geolocation.getCurrentPosition(success, error);
+		  }
 
-							function convertTime(t) {
-								var originalTime = new Date(t * 1000);
-								//Tue Sep 13 2022 09:34:07 GMT+0900 (한국 표준시)
-								//너무 길어서 쪼개서 출력한다
-								var hr = originalTime.getHours();
-								var m = originalTime.getMinutes();
-								var s = originalTime.getSeconds();
+		}
 
-								return hr + ':' + m + ':' + s
-
-							}
-
-							var currentTime = convertTime(ct)
-							$('.time').append(currentTime);
-
-						});
+	
+		function getWeather(){
+			console.log(`getWeather함수 - 위도(lat) = ${lat} / 경도(lon) = ${lon}`);
+			$.getJSON(
+							'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=d31defa8e5437ce94838e8d636024afd&units=metric',
+							function(result) {
+								$('.ctemp').append(result.main.temp);
+								$('.lowtemp').append(result.main.temp_min);
+								$('.hightemp').append(result.main.temp_max);
+								//result.weather[0].icon 현재 날씨 가져오기
+								var wiconUrl = '<img src="https://openweathermap.org/img/wn/' + result.weather[0].icon + '.png" alt="' + result.weather[0].description + '">'
+								$('.icon').append(wiconUrl);
+	
+								$("#weather").val(result.weather[0].description);
+	
+								console.log(result.weather[0].icon);
+								console.log(result.weather[0].description);
+	
+								//현재시간 가져오기
+								var ct = result.dt;
+	
+								function convertTime(t) {
+									var originalTime = new Date(t * 1000);
+									//Tue Sep 13 2022 09:34:07 GMT+0900 (한국 표준시)
+									//너무 길어서 쪼개서 출력한다
+									var hr = originalTime.getHours();
+									var m = originalTime.getMinutes();
+									var s = originalTime.getSeconds();
+	
+									return hr + ':' + m + ':' + s
+	
+								}
+	
+								var currentTime = convertTime(ct)
+								$('.time').append(currentTime);
+	
+							});
+		}
 	</script>
 
 	<script th:inline="javascript">
