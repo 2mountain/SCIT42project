@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.slf4j.Slf4j;
 import net.softsociety.aimori.domain.Answer;
+import net.softsociety.aimori.domain.Board;
 import net.softsociety.aimori.domain.Member;
 import net.softsociety.aimori.domain.Question;
 import net.softsociety.aimori.domain.Reply;
@@ -172,8 +173,6 @@ public class QnaController {
 	@GetMapping("read") public String read(Model model
 			, @RequestParam(name = "questionNumber", defaultValue = "0") int questionNumber
 			, @AuthenticationPrincipal UserDetails user) {
-
-
 
 		// 현재 로그인 중인 회원 아이디 조회
 		// String id = user.getUsername();
@@ -494,6 +493,75 @@ public class QnaController {
 		int result2 = service.answerSubAccept(answerNumber);
 		
 		return "redirect:/qna/read?questionNumber=" + answer.getQuestionNumber();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 신고창에 데이터 보내기
+	 * @param model
+	 * @param boardNumber
+	 * @return
+	 */
+	@GetMapping("questionReport")
+	public String questionReport(Model model
+			, @RequestParam(name = "questionNumber", defaultValue = "0") int questionNumber
+			, @AuthenticationPrincipal UserDetails user) {
+
+		// 현재 로그인 중인 회원 아이디 조회
+		// String id = user.getUsername();
+		
+		// 게시글 객체 하나 조회
+		Question question = service.questionRead(questionNumber);
+		
+		if (question == null) {
+			return "redirect:/question/list"; // 글이 없으면 목록으로
+		}
+		
+		String id = question.getMemberId();
+		
+		if(id != null) {
+			
+			if(user == null) {
+				
+				System.out.println("user null 가능");
+				
+			}
+		
+		model.addAttribute("question", question);
+		log.debug("question 읽어오기, {}", question);
+
+		}
+		
+		return "/qna/qnaReport";
+	}
+	
+	
+	
+	/**
+	 * 신고 카운트
+	 * @param reply
+	 * @param user
+	 * @return
+	 */
+	@GetMapping("insertreport")
+	public String insertreport(
+			int questionNumber
+			, Question question
+			, @AuthenticationPrincipal UserDetails user) {
+		
+		// 임시로 신고 때려박는 코드
+		question.setMemberId(user.getUsername());
+
+		 int result = service.reportPlus(question.getQuestionNumber());
+		 
+		 return "qna/qnaReportComplete";
+		 
 	}
 
 }

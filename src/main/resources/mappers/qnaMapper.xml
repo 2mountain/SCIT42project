@@ -278,4 +278,16 @@
 	
 	
 	
+	
+	<!-- 질문글 신고 수 올리기 -->
+	<update id="reportPlus" parameterType="int">
+	update question
+	set
+		questionReport = questionReport + 1
+	where
+		questionNumber = #{questionNumber}
+	</update>
+	
+	
+	
 </mapper>

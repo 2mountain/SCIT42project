@@ -9,6 +9,7 @@ import org.apache.ibatis.session.RowBounds;
 import net.softsociety.aimori.domain.Board;
 import net.softsociety.aimori.domain.BoardLiked;
 import net.softsociety.aimori.domain.Reply;
+import net.softsociety.aimori.domain.ReportedBoard;
 import net.softsociety.aimori.util.PageNavigator;
 
 /**
@@ -57,7 +58,11 @@ public interface BoardDAO {
 	
 	
 	
-	//홈 화면 출력
+	// 홈 화면 출력
 	public ArrayList<Board> boardMainList();
+	// 게시글 신고 수 올리기
+	public int reportPlus(int boardNumber);
+	// 게시글 신고하기
+	// public int getReportedBoard(ReportedBoard reportedBoard);
 
 }

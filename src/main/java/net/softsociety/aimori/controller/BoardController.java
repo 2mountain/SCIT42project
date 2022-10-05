@@ -28,6 +28,7 @@ import net.softsociety.aimori.domain.Board;
 import net.softsociety.aimori.domain.BoardLiked;
 import net.softsociety.aimori.domain.Member;
 import net.softsociety.aimori.domain.Reply;
+import net.softsociety.aimori.domain.ReportedBoard;
 import net.softsociety.aimori.service.BoardService;
 import net.softsociety.aimori.service.MemberService;
 import net.softsociety.aimori.util.FileService;
@@ -408,7 +409,6 @@ public class BoardController {
 		}
 		
 		return isLiked;
-
 	}
 	
 	// 댓글 저장
@@ -475,7 +475,104 @@ public class BoardController {
 		return "/board/boardImage";
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 신고창에 데이터 보내기
+	 * @param model
+	 * @param boardNumber
+	 * @return
+	 */
+	@GetMapping("boardReport")
+	public String boardReport(Model model
+			, @RequestParam(name = "boardNumber", defaultValue = "0") int boardNumber
+			, @AuthenticationPrincipal UserDetails user) {
 
+		// 현재 로그인 중인 회원 아이디 조회
+		// String id = user.getUsername();
+		
+		// 게시글 객체 하나 조회
+		Board board = service.boardRead(boardNumber);
+		
+		if (board == null) {
+			return "redirect:/board/list"; // 글이 없으면 목록으로
+		}
+		
+		String id = board.getMemberId();
+		
+		if(id != null) {
+			
+			if(user == null) {
+				
+				System.out.println("user null 가능");
+				
+			}
+		
+		model.addAttribute("board", board);
+		log.debug("board 읽어오기, {}", board);
+
+		}
+		
+		return "/board/boardReport";
+	}
+	
+	/**
+	 * 신고 카운트
+	 * @param reply
+	 * @param user
+	 * @return
+	 */
+	@GetMapping("insertreport")
+	public String insertreport(
+			int boardNumber
+			, Board board
+			, @AuthenticationPrincipal UserDetails user) {
+		
+		// 임시로 신고 때려박는 코드
+		 board.setMemberId(user.getUsername());
+
+		 int result = service.reportPlus(board.getBoardNumber());
+		 
+		 return "board/boardReportComplete";
+		
+		/*
+		 * int isReported = 0;
+		 * 
+		 * String id = user.getUsername();
+		 * 
+		 * log.debug("report 호출됨!!!");
+		 * 
+		 * // 받아온 글번호와 로그인된 아이디가 담긴 boardLiked 객체를 만든다 ReportedBoard reportedBoard = new
+		 * ReportedBoard(boardNumber, id);
+		 * 
+		 * // 객체를 얻어온다 ReportedBoard reportedBoard2 =
+		 * service.getReportedBoard(reportedBoard);
+		 * 
+		 * log.debug("새롭게 얻은 boardLiked:{}", reportedBoard2);
+		 * 
+		 * // 좋아요가 되어 있지 않다면(객체가 null)이라면 if (reportedBoard2 == null) { // insert
+		 * service.boardReport(reportedBoard); isReported = 1; log.debug("like 처리 완료");
+		 * } else { isReported = 0; log.debug("like 취소"); }
+		 * 
+		 * return isReported;
+		 */
+		 
+	}
 	
 	
 }

@@ -58,6 +58,8 @@ public interface QnaDAO {
   
 	//메인 qna 출력 리스트
 	public ArrayList<Question> qnaMainList();
+	// 신고 카운트
+	public int reportPlus(int questionNumber);
 
 
 }

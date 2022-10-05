@@ -13,6 +13,7 @@ import net.softsociety.aimori.dao.BoardDAO;
 import net.softsociety.aimori.domain.Board;
 import net.softsociety.aimori.domain.BoardLiked;
 import net.softsociety.aimori.domain.Reply;
+import net.softsociety.aimori.domain.ReportedBoard;
 import net.softsociety.aimori.util.PageNavigator;
 
 @Slf4j
@@ -179,4 +180,21 @@ public class BoardSeviceImpl implements BoardService {
 		
 		return boardlist;
 	}
+
+	// 게시글 신고 수 올리기
+	@Override
+	public int reportPlus(int boardNumber) {
+		int result = boardDAO.reportPlus(boardNumber);
+		return result;
+	}
+
+	// 게시글 신고하기
+	/*
+	 * @Override public int getReportedBoard(ReportedBoard reportedBoard) { int
+	 * result = boardDAO.getReportedBoard(reportedBoard);
+	 * 
+	 * log.debug("신고받은 객체 : {}", reportedBoard);
+	 * 
+	 * return result; }
+	 */
 }
