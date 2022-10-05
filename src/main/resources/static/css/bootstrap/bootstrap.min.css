@@ -584,7 +584,8 @@ pre code {
 }
 
 .container-fluid {
-	width: 100%;
+	width: 100%;	
+	height: 50px;
 	margin-right: auto;
 	margin-left: auto;
 	padding-right: 15px;
@@ -3383,7 +3384,8 @@ tbody.collapse.show {
 	}
 	.navbar-expand-lg .navbar-collapse {
 		display: -ms-flexbox !important;
-		display: flex !important
+		display: flex !important;
+		height: 40px;
 	}
 	.navbar-expand-lg .navbar-toggler {
 		display: none
@@ -6314,7 +6316,8 @@ supports ((position:-webkit-sticky) or (position:sticky)) { .
 }
 
 .h-100 {
-	height: 100% !important
+	height: 100% !important;
+	margin-top: 30px;
 }
 
 .mw-100 {

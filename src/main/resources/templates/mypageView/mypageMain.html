@@ -220,19 +220,17 @@
 			<div class="row">
 				<div class="col-md-3 border-right">
 					<div class="d-flex flex-column align-items-center text-center p-3 py-5">
-						
-				
 						<img id="imageOutput" class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
 						<input type="file" id="profileImage" class="btn btn-primary btn-sm" name="upload" style="overflow:hidden; position:absolute; top:310px; width:250px;">
 					</div>
 				</div>
 
-				<div class=" rowmt-2" style="margin-left: 100px;">
-					<div class="col-md-6">
+				<div class=" rowmt-2" style="margin-left: 100px; margin-top: 70px;">
+					<div class="col-md-12">
 						<label class="labels">아이디</label> <input type="text" class="아이디"
 							name="memberId" th:value="${member.memberId}" readonly="readonly">
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-12">
 						<label class="labels">닉네임</label> <input type="text" class="닉네임"
 							name="memberNickName" th:placeholder="${member.memberNickName}">
 					</div>
@@ -248,17 +246,15 @@
 							name="memberEmail" th:value="${member.memberEmail}">
 					</div>
 
-					<div class="col-md-12">
+					<div class="col-md-12" style="margin-bottom: 10px;">
 						<label class="labels">생년월일</label> <input type="date"
 							required="required" name="memberBirthDay" class="form-control"
 							th:value="${member.memberBirthDay}">
 					</div>
-
-
-				</div>
-
-				<div class="mt-5 text-center">
+					
+				<div class="col-md-12" style="text-align: center;">
 					<button class="btn btn-primary profile-button" type="submit">Save!</button>
+				</div>
 				</div>
 			</div>
 		</div>
