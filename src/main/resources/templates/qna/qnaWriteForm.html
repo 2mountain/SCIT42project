@@ -78,44 +78,36 @@
 		<div class="yummy-load"></div>
 	</div>
 
-	<!--     Background Pattern Swither
-    <div id="pattern-switcher">
-        Bg Pattern
-    </div>
-    <div id="patter-close">
-        <i class="fa fa-times" aria-hidden="true"></i>
-    </div> -->
-
 	<!-- ****** Top Header Area Start ****** -->
 	<div class="top_header_area">
 		<div class="container">
 			<div class="row">
-				<div class="col-5 col-sm-6">
-
-				</div>
+				<div class="col-5 col-sm-6"></div>
 				<!--  Login Register Area -->
 				<div class="col-7 col-sm-6">
-					<div class="signup-search-area d-flex align-items-center justify-content-end">
+					<div
+						class="signup-search-area d-flex align-items-center justify-content-end">
 
-						
-						
 						<div class="login_register_area d-flex">
 							<div class="login" sec:authorize="not isAuthenticated()">
 								<a th:href="@{/member/logIn}">로그인</a>
 							</div>
 							<div class="register" sec:authorize="not isAuthenticated()">
-								<a href="member/signIn">회원가입</a>
+								<a th:href="@{/member/signIn}">회원가입</a>
 							</div>
 						</div>
 						<div class="login_register_area d-flex">
 							<div class="mypage" sec:authorize="isAuthenticated()"
 								style="margin-left: 20px">
-								<a sec:authorize="hasRole('ADMIN')" th:href="@{/administrator}"><b>관리자 페이지</b></a>
+								<a sec:authorize="hasRole('ADMIN')" th:href="@{/administrator}"><b>관리자
+										페이지</b></a>
 							</div>
-							<div class="mypage" sec:authorize="isAuthenticated()" style="margin-left: 10px">
+							<div class="mypage" sec:authorize="isAuthenticated()"
+								style="margin-left: 10px">
 								<a th:href="@{mypage/main}">마이페이지</a>
 							</div>
-							<div class="logout" sec:authorize="isAuthenticated()" style="margin-left: 10px;">
+							<div class="logout" sec:authorize="isAuthenticated()"
+								style="margin-left: 10px;">
 								<a th:href="@{/logout}">로그아웃</a>
 							</div>
 						</div>
@@ -125,15 +117,14 @@
 		</div>
 	</div>
 	<!-- ****** Top Header Area End ****** -->
-
-		<!-- ****** Header Area Start ****** -->
+	<!-- ****** Header Area Start ****** -->
 	<header class="header_area">
 		<div class="container">
 			<div class="row">
 				<!-- Logo Area Start -->
 				<div class="col-12">
-					<a th:href="@{/}" class="yummy-logo">
-						<img th:src="@{/img/bg-img/toplogo.jpg}" alt=""> 
+					<a th:href="@{/}" class="yummy-logo"> <img
+						th:src="@{/img/bg-img/toplogo.jpg}" alt="">
 					</a>
 				</div>
 			</div>
@@ -159,18 +150,8 @@
 							</li>
 							<li class="nav-item"><a class="nav-link"
 								th:href="@{/facilities}">시설</a></li>
-							<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
-							<li>
-							<div class="dropdown">
-								<span class="dropbtn">챌린지</span>
-								<div class="dropdown-content">
-									<a th:href="@{/challenge/challengelist}">도전과제</a>
-									 <a th:href="@{/challenge/contestlist}">대회</a>
-								</div>
-							</div>
-							</li>
-							<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
-							</li>
+							<li class="nav-item"><a class="nav-link" th:href="@{/challenge/challengelist}">챌린지</a></li>
+										
 						</ul>
 					</div>
 				</nav>
@@ -181,12 +162,12 @@
 
 	<!-- ****** Breadcumb Area Start ****** -->
 	<div class="breadcumb-area"
-		style="background-image: url(../img/bg-img/breadcumb.jpg);">
+		style="background-image: url(../img/board-img/medical.png);">
 		<div class="container h-100">
 			<div class="row h-100 align-items-center">
 				<div class="col-12">
 					<div class="bradcumb-title text-center">
-						<h2>Aimori Community~~!!</h2>
+						<h2>Aimori QnA</h2>
 					</div>
 				</div>
 			</div>
@@ -417,88 +398,40 @@
 	</div>
 	<!-- ****** Our Creative Portfolio Area End ****** -->
 
-		<!-- ****** Footer Social Icon Area Start ****** -->
-	<div class="social_icon_area clearfix">
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
-					<div class="footer-social-area d-flex">
-						<div class="single-icon">
-							<a href="#"><i class="fa fa-facebook" aria-hidden="true"></i><span>facebook</span></a>
-						</div>
-						<div class="single-icon">
-							<a href="#"><i class="fa fa-twitter" aria-hidden="true"></i><span>Twitter</span></a>
-						</div>
-						<div class="single-icon">
-							<a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i><span>GOOGLE+</span></a>
-						</div>
-						<div class="single-icon">
-							<a href="#"><i class="fa fa-linkedin-square"
-								aria-hidden="true"></i><span>linkedin</span></a>
-						</div>
-						<div class="single-icon">
-							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i><span>Instagram</span></a>
-						</div>
-						<div class="single-icon">
-							<a href="#"><i class="fa fa-vimeo" aria-hidden="true"></i><span>VIMEO</span></a>
-						</div>
-						<div class="single-icon">
-							<a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i><span>YOUTUBE</span></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- ****** Footer Social Icon Area End ****** -->
-
 	<!-- ****** Footer Menu Area Start ****** -->
 	<footer class="footer_area">
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
 					<div class="footer-content">
-						<div class="footer-content">
-							<!-- Logo Area Start -->
-							<div class="footer-logo-area text-center">
-								<a th:href="@{/}" class="yummy-logo"><img th:src="@{/img/bg-img/toplogo.jpg}" alt=""></a>
-							</div>
-							<!-- Menu Area Start -->
-							<nav class="navbar navbar-expand-lg">
-								<button class="navbar-toggler" type="button"
-									data-toggle="collapse" data-target="#yummyfood-footer-nav"
-									aria-controls="yummyfood-footer-nav" aria-expanded="false"
-									aria-label="Toggle navigation">
-									<i class="fa fa-bars" aria-hidden="true"></i> Menu
-								</button>
-								<!-- Menu Area Start -->
-								<div class="collapse navbar-collapse justify-content-center"
-									id="yummyfood-footer-nav">
-									<ul class="navbar-nav">
-										<li class="nav-item active"><a class="nav-link"
-											th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
-										</li>
-										<li class="nav-item"><a class="nav-link"
-											th:href="@{/qna/list}">Q&A <span class="sr-only">(current)</span></a>
-										</li>
-										<li class="nav-item"><a class="nav-link"
-											th:href="@{/facilities}">시설</a></li>
-										<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
-										<li>
-											<div class="dropdown">
-												<span class="dropbtn">챌린지</span>
-												<div class="dropdown-content">
-													<a th:href="@{/challenge/challengelist}">도전과제</a> <a
-														th:href="@{/challenge/contestlist}">대회</a>
-												</div>
-											</div>
-										</li>
-										<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
-										</li>
-									</ul>
-								</div>
-							</nav>
+						<!-- Logo Area Start -->
+						<div class="footer-logo-area text-center">
+							<a th:href="@{/}" class="yummy-logo"><img
+								src="img/bg-img/toplogo.jpg" alt=""></a>
 						</div>
+						<!-- Menu Area Start -->
+						<nav class="navbar navbar-expand-lg">
+							<button class="navbar-toggler" type="button"
+								data-toggle="collapse" data-target="#yummyfood-footer-nav"
+								aria-controls="yummyfood-footer-nav" aria-expanded="false"
+								aria-label="Toggle navigation">
+								<i class="fa fa-bars" aria-hidden="true"></i> Menu
+							</button>
+							<!-- Menu Area Start -->
+							<div class="collapse navbar-collapse justify-content-center"
+								id="yummyfood-footer-nav">
+								<ul class="navbar-nav">
+									<li class="nav-item active"><a class="nav-link"
+										th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
+									</li>
+									<li class="nav-item"><a class="nav-link"
+										th:href="@{/qna/list}">Q&A <span class="sr-only">(current)</span></a>
+									</li>
+									<li class="nav-item"><a class="nav-link" th:href="@{/facilities}">시설</a></li>
+									<li class="nav-item"><a class="nav-link" th:href="@{/challenge/challengelist}">챌린지</a></li>
+								</ul>
+							</div>
+						</nav>
 					</div>
 				</div>
 			</div>
@@ -510,15 +443,16 @@
 					<!-- Copywrite Text -->
 					<div class="copy_right_text text-center">
 						<p>
-							Copyright @2018 All rights reserved | This template is made with
+							Copyright @2022 All rights reserved | This template is made with
 							<i class="fa fa-heart-o" aria-hidden="true"></i> by <a
-								href="https://colorlib.com" target="_blank">Colorlib</a>
+								href="https://colorlib.com" target="_blank">Aimori</a>
 						</p>
 					</div>
 				</div>
 			</div>
 		</div>
 	</footer>
+
 	<!-- ****** Footer Menu Area End ****** -->
 
 	<!-- Jquery-2.2.4 js -->
