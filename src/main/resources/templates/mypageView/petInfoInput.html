@@ -94,19 +94,6 @@
 				<div class="col-7 col-sm-6">
 					<div class="signup-search-area d-flex align-items-center justify-content-end">
 
-						<!-- Search Form -->
-						<div class="search-hidden-form">
-							<form action="#" method="get">
-								<input type="search" name="search" id="search-anything"
-									placeholder="Search Anything...">
-								<!-- <input type="submit" value="" class="d-none"> -->
-								<!-- <span class="searchBtn"><i class="fa fa-times" aria-hidden="true"></i></span> -->
-							</form>
-						</div>
-						<!-- Search Button Area -->
-						<div class="search_button">
-							<a class="searchBtn" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
-						</div>
 						<div class="login_register_area d-flex">
 							<div class="login" sec:authorize="not isAuthenticated()">
 								<a th:href="@{/logIn}">로그인</a>
@@ -224,11 +211,11 @@
 	
 <form id="petInfoInput" th:action="petInfoInput" method="post" enctype="multipart/form-data">
 	<div class="container rounded bg-white mt-5 mb-5"
-		style="position: absolute; margin-left: 380px; bottom: 500px;">
+		style="position: absolute; margin-left: 380px; top:550px;">
 		<div class="row">
 			<div class="col-md-3 border-right">
 				<div class="d-flex flex-column align-items-center text-center p-3 py-5">
-					<img id="imageOutput" class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+					<img id="imageOutput" class="rounded-circle mt-5" width="150px" th:src="@{/img/defaultDog.png}">
 					<label class="labels" style="text-shadow:0 0 4px #ccc, 0 -5px 4px #ff3, 2px -10px 6px #fd3, -2px -15px 11px #f80,
             2px -19px 18px #f20; font-weight: bold; position:absolute; top:280px;">반려견의 사진을 등록해주세요!</label>
 					<input type="file" id="petImage" class="btn btn-primary btn-sm" name="upload" style="overflow:hidden; position:absolute; top:310px; width:250px;">
@@ -283,8 +270,8 @@
 							style="margin-left: 10px;">Yes<input type="radio"
 							id="petNeuter" name="petNeuter" value="N"
 							style="margin-left: 10px;">No
-						<br><label class="labels">강아지 생년/월</label><input type="text" required="required"
-						id="petBirthDay" name="petBirthDay" class="form-control" placeholder="다음과 같은 형식으로 입력 => YYYYMM" maxlength="6">
+						<br><label class="labels">강아지 생년/월</label><input type="date" required="required"
+						id="petBirthDay" name="petBirthDay" class="form-control" maxlength="6">
 						</div>
 					</div>
 				</div>
@@ -312,14 +299,106 @@
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img th:src="@{/img/instagram-img/1.jpg}" alt="">
+			<img src="../img/instagram-img/f1.jpg" style="height: 240px" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
 					<div class="yummy-table-cell">
 						<div class="follow-me text-center">
-							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
-								Follow me</a>
+							<h4>Pug</h4>
+							<br>
+							<h6>
+								수명: 12–15년<br> 성격: 영리한 고집스러운 매력적인<br> 체중: 6-10kg<br>
+								출생지: 중국
+							</h6>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Instagram Item -->
+		<div class="instagram_gallery_item">
+			<!-- Instagram Thumb -->
+			<img src="../img/instagram-img/f2.jpg" style="height: 240px" alt="">
+			<!-- Hover -->
+			<div class="hover_overlay">
+				<div class="yummy-table">
+					<div class="yummy-table-cell">
+						<div class="follow-me text-center">
+							<h4>Samoyed</h4>
+							<br>
+							<h6>
+								수명: 12–14년<br> 성격: 생기있는 우호적인 사교적인<br> 체중: 수컷 20–30kg
+								암컷 16–20kg<br> 출생지: 시베리아 러시아
+							</h6>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Instagram Item -->
+		<div class="instagram_gallery_item">
+			<!-- Instagram Thumb -->
+			<img src="../img/instagram-img/f3.jpg" style="height: 240px" alt="">
+			<!-- Hover -->
+			<div class="hover_overlay">
+				<div class="yummy-table">
+					<div class="yummy-table-cell">
+						<div class="follow-me text-center">
+							<h4>Welsh Corgi</h4>
+							<br>
+							<h6>
+								수명: 12–14년<br> 성격: 친절한 운동량이 좋은<br> 체중: 12-17kg<br>
+								출생지: 영국
+							</h6>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Instagram Item -->
+		<div class="instagram_gallery_item">
+			<!-- Instagram Thumb -->
+			<img src="../img/instagram-img/f4.jpg" style="height: 240px" alt="">
+			<!-- Hover -->
+			<div class="hover_overlay">
+				<div class="yummy-table">
+					<div class="yummy-table-cell">
+						<div class="follow-me text-center">
+							<h4>Chihuahua</h4>
+							<br>
+							<h6>
+								수명: 12–20년<br> 성격: 민첩한 공격적인 용맹스러운<br> 체중: 1.8 - 2.7kg<br>
+								출생지: 멕시코
+							</h6>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Instagram Item -->
+		<div class="instagram_gallery_item">
+			<!-- Instagram Thumb -->
+			<img src="../img/instagram-img/f5.jpg" style="height: 240px" alt="">
+			<!-- Hover -->
+			<div class="hover_overlay">
+				<div class="yummy-table">
+					<div class="yummy-table-cell">
+						<div class="follow-me text-center">
+							<h4>Dachshund</h4>
+							<br>
+							<h6>
+								수명: 12–16년<br> 성격: 독립심 헌신적인 생기있는<br> 체중: 7-15kg<br>
+								출생지: 독일
+							</h6>
 						</div>
 					</div>
 				</div>
@@ -329,14 +408,18 @@
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img th:src="@{/img/instagram-img/2.jpg}" alt="">
+			<img src="../img/instagram-img/f6.jpg" style="height: 240px" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
 					<div class="yummy-table-cell">
 						<div class="follow-me text-center">
-							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
-								Follow me</a>
+							<h4>Standard Poodle</h4>
+							<br>
+							<h6>
+								수명: 12–15년<br> 성격: 총명한 훈련 능력이 뛰어난<br> 체중: 18-30kg<br>
+								출생지: 프랑스 독일
+							</h6>
 						</div>
 					</div>
 				</div>
@@ -346,14 +429,18 @@
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img th:src="@{/img/instagram-img/3.jpg}" alt="">
+			<img src="../img/instagram-img/f7.jpg" style="height: 240px" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
 					<div class="yummy-table-cell">
 						<div class="follow-me text-center">
-							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
-								Follow me</a>
+							<h4>Dalmatinac</h4>
+							<br>
+							<h6>
+								수명: 10–13년<br> 성격: 외향적인 예민한 장난스러운<br> 체중: 15-32kg<br>
+								출생지: 크로아티아
+							</h6>
 						</div>
 					</div>
 				</div>
@@ -363,82 +450,18 @@
 		<!-- Instagram Item -->
 		<div class="instagram_gallery_item">
 			<!-- Instagram Thumb -->
-			<img th:src="@{/img/instagram-img/4.jpg}" alt="">
+			<img src="../img/instagram-img/f8.jpg" style="height: 240px" alt="">
 			<!-- Hover -->
 			<div class="hover_overlay">
 				<div class="yummy-table">
 					<div class="yummy-table-cell">
 						<div class="follow-me text-center">
-							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
-								Follow me</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Instagram Item -->
-		<div class="instagram_gallery_item">
-			<!-- Instagram Thumb -->
-			<img th:src="@{/img/instagram-img/5.jpg}" alt="">
-			<!-- Hover -->
-			<div class="hover_overlay">
-				<div class="yummy-table">
-					<div class="yummy-table-cell">
-						<div class="follow-me text-center">
-							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
-								Follow me</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Instagram Item -->
-		<div class="instagram_gallery_item">
-			<!-- Instagram Thumb -->
-			<img th:src="@{/img/instagram-img/6.jpg}" alt="">
-			<!-- Hover -->
-			<div class="hover_overlay">
-				<div class="yummy-table">
-					<div class="yummy-table-cell">
-						<div class="follow-me text-center">
-							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
-								Follow me</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Instagram Item -->
-		<div class="instagram_gallery_item">
-			<!-- Instagram Thumb -->
-			<img th:src="@{/img/instagram-img/1.jpg}" alt="">
-			<!-- Hover -->
-			<div class="hover_overlay">
-				<div class="yummy-table">
-					<div class="yummy-table-cell">
-						<div class="follow-me text-center">
-							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
-								Follow me</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Instagram Item -->
-		<div class="instagram_gallery_item">
-			<!-- Instagram Thumb -->
-			<img th:src="@{/img/instagram-img/2.jpg}" alt="">
-			<!-- Hover -->
-			<div class="hover_overlay">
-				<div class="yummy-table">
-					<div class="yummy-table-cell">
-						<div class="follow-me text-center">
-							<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
-								Follow me</a>
+							<h4>Beagle</h4>
+							<br>
+							<h6>
+								수명: 12–15년<br> 성격: 쾌활한 총명한 쉽게 흥분하는 체중: 수컷 10–11kg 암컷 9–10kg<br>
+								출생지: 영국
+							</h6>
 						</div>
 					</div>
 				</div>
@@ -456,45 +479,36 @@
 				<div class="col-12">
 					<div class="footer-content">
 						<!-- Logo Area Start -->
-							<div class="footer-logo-area text-center">
-								<a th:href="@{/}" class="yummy-logo"><img src="../img/bg-img/toplogo.jpg" alt=""></a>
-							</div>
+						<div class="footer-logo-area text-center">
+							<a th:href="@{/}" class="yummy-logo"><img
+								src="../img/bg-img/toplogo.jpg" alt=""></a>
+						</div>
+						<!-- Menu Area Start -->
+						<nav class="navbar navbar-expand-lg">
+							<button class="navbar-toggler" type="button"
+								data-toggle="collapse" data-target="#yummyfood-footer-nav"
+								aria-controls="yummyfood-footer-nav" aria-expanded="false"
+								aria-label="Toggle navigation">
+								<i class="fa fa-bars" aria-hidden="true"></i> Menu
+							</button>
 							<!-- Menu Area Start -->
-							<div class="row">
-			<div class="col-12">
-				<nav class="navbar navbar-expand-lg">
-					<button class="navbar-toggler" type="button" data-toggle="collapse"
-						data-target="#yummyfood-nav" aria-controls="yummyfood-nav"
-						aria-expanded="false" aria-label="Toggle navigation">
-						<i class="fa fa-bars" aria-hidden="true"></i> Menu
-					</button>
-					<!-- Menu Area Start -->
-					<div class="collapse navbar-collapse justify-content-center"
-						id="yummyfood-nav">
-						<ul class="navbar-nav" id="yummy-nav">
-							<li class="nav-item active"><a class="nav-link"
-								th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
-							</li>
-							<li class="nav-item"><a class="nav-link"
-								th:href="@{/qna/list}">Q&A <span class="sr-only">(current)</span></a>
-							</li>
-							<li class="nav-item"><a class="nav-link"
-								th:href="@{/facilities}">시설</a></li>
-							<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
-							<li>
-							<div class="dropdown">
-								<span class="dropbtn">챌린지</span>
-								<div class="dropdown-content">
-									<a th:href="@{/challenge/challengelist}">도전과제</a>
-									 <a th:href="@{/challenge/contestlist}">대회</a>
-								</div>
+							<div class="collapse navbar-collapse justify-content-center"
+								id="yummyfood-footer-nav">
+								<ul class="navbar-nav">
+									<li class="nav-item active"><a class="nav-link"
+										th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
+									</li>
+									<li class="nav-item"><a class="nav-link"
+										th:href="@{/qna/list}">Q&A <span class="sr-only">(current)</span></a>
+									</li>
+									<li class="nav-item"><a class="nav-link"
+										th:href="@{/facilities}">시설</a></li>
+									<li class="nav-item"><a class="nav-link" th:href="@{/challenge/challengelist}">챌린지</a></li>
+								</ul>
 							</div>
-							</li>
-							<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
-							</li>
-						</ul>
+						</nav>
 					</div>
-				</nav>
+				</div>
 			</div>
 		</div>
 
@@ -504,15 +518,16 @@
 					<!-- Copywrite Text -->
 					<div class="copy_right_text text-center">
 						<p>
-							Copyright @2018 All rights reserved | This template is made with
+							Copyright @2022 All rights reserved | This template is made with
 							<i class="fa fa-heart-o" aria-hidden="true"></i> by <a
-								href="https://colorlib.com" target="_blank">Colorlib</a>
+								href="https://colorlib.com" target="_blank">Aimori</a>
 						</p>
 					</div>
 				</div>
 			</div>
 		</div>
 	</footer>
+
 	<!-- ****** Footer Menu Area End ****** -->
 
 	<!-- Jquery-2.2.4 js -->
