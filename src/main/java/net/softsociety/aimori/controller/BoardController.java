@@ -26,8 +26,10 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.extern.slf4j.Slf4j;
 import net.softsociety.aimori.domain.Board;
 import net.softsociety.aimori.domain.BoardLiked;
+import net.softsociety.aimori.domain.Member;
 import net.softsociety.aimori.domain.Reply;
 import net.softsociety.aimori.service.BoardService;
+import net.softsociety.aimori.service.MemberService;
 import net.softsociety.aimori.util.FileService;
 import net.softsociety.aimori.util.PageNavigator;
 
@@ -50,6 +52,9 @@ public class BoardController {
 
 	@Autowired
 	BoardService service;
+	
+	@Autowired
+	MemberService memberService;
 
 	/**
 	 * 커뮤니티 메인 화면
@@ -140,9 +145,8 @@ public class BoardController {
 
 		board.setMemberId(user.getUsername());
 		
-		board.setMemberNickName(board.getMemberNickName());
-//		board.setMemberId("test1");
-		board.setMemberNickName("testUser");
+		Member memberTemp = memberService.getMemberInfo(board.getMemberId());
+		board.setMemberNickName(memberTemp.getMemberNickName());
 
 		// 첨부파일이 있는 경우 지정된 경로에 저장하고, 원본 파일명과 저장된 파일명을 Board객체에 세팅
 		if (!upload.isEmpty()) {

@@ -224,18 +224,7 @@
 						<th class="center">작성자</th>
 						<th style="text-align: center; width: 200px">작성일</th>
 						<th style="text-align: center; width: 100px;">조회</th>
-						<th style="text-align: center; width: 150px;">
-							상태
-						<!-- <div id="qnaState">
-								<select id="qnaState" name="qnaState"
-									style="background-color: rgb(253, 250, 250);">
-									<option value="상태(전체)" th:selected="${questionSearch} == '상태(전체)'">상태(전체)</option>
-									<option value="답변대기" th:selected="${questionSearch} == '답변대기'">답변대기</option>
-									<option value="답변완료" th:selected="${questionSearch} == '답변완료'">답변완료</option>
-									<option value="채택" th:selected="${questionSearch} == '채택'">채택</option>
-								</select>
-							</div> -->
-						</th>
+						<th style="text-align: center; width: 150px;">상태</th>
 					</tr>
 					<tr th:each="question : ${questionlist}">
 						<td class="center" th:text="${question.questionCategory}"></td>
@@ -259,7 +248,7 @@
 									style="color : blue;"></a>
 							</div>
 						</td>
-						<td class="center"><a th:text="${question.memberId}"
+						<td class="center"><a th:text="${question.memberNickName}"
 							th:href="@{/qna/read(questionNumber=${question.questionNumber})}"></a></td>
 						<td style="text-align: center" th:text="${question.questionInputDate}"></td>
 						<td style="text-align: center;" th:text="${question.questionHits}"></td>
