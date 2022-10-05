@@ -163,11 +163,7 @@
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-chart-area"></i>
 							</div> 회원 관리
-						</a> <a class="nav-link" href="#">
-							<div class="sb-nav-link-icon">
-								<i class="fas fa-chart-area"></i>
-							</div> 의사 권한
-						</a>
+						</a> 
 						<div class="sb-sidenav-menu-heading">게시글</div>
 						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
 							data-bs-target="#collapseBoard" aria-expanded="false"
@@ -182,49 +178,7 @@
 						<div class="collapse" id="collapseBoard"
 							aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" th:href="@{/administrator/reported}">신고된
-									글 확인</a>
-							</nav>
-						</div>
-						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-							data-bs-target="#collapseQnA" aria-expanded="false"
-							aria-controls="collapseQnA">
-							<div class="sb-nav-link-icon">
-								<i class="fas fa-book-open"></i>
-							</div> 관리자 문의
-							<div class="sb-sidenav-collapse-arrow">
-								<i class="fas fa-angle-down"></i>
-							</div>
-						</a>
-						<div class="collapse" id="collapseQnA"
-							aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-							<nav class="sb-sidenav-menu-nested nav accordion"
-								id="sidenavAccordionPages">
-								<div class="collapse" id="pagesCollapseAuth"
-									aria-labelledby="headingOne"
-									data-bs-parent="#sidenavAccordionPages">
-									<nav class="sb-sidenav-menu-nested nav">
-										<a class="nav-link" href="#">Login</a> <a class="nav-link"
-											href="#">Register</a> <a class="nav-link" href="#">Forgot
-											Password</a>
-									</nav>
-								</div>
-								<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-									data-bs-target="#pagesCollapseError" aria-expanded="false"
-									aria-controls="pagesCollapseError"> Error
-									<div class="sb-sidenav-collapse-arrow">
-										<i class="fas fa-angle-down"></i>
-									</div>
-								</a>
-								<div class="collapse" id="pagesCollapseError"
-									aria-labelledby="headingOne"
-									data-bs-parent="#sidenavAccordionPages">
-									<nav class="sb-sidenav-menu-nested nav">
-										<a class="nav-link" href="#">401 Page</a> <a class="nav-link"
-											href="#">404 Page</a> <a class="nav-link" href="#">500
-											Page</a>
-									</nav>
-								</div>
+								<a class="nav-link" th:href="@{/administrator/reported}">신고된 글 확인</a> 
 							</nav>
 						</div>
 					</div>
@@ -324,8 +278,7 @@
 															th:selected="${memberList.memberEnabled}" value="true">차단안됨</option>
 														<option th:selected="${!memberList.memberEnabled}"
 															value="false">차단됨</option>
-												</select>
-											</td>
+											</select></td>
 										</tr>
 									</tbody>
 								</table>

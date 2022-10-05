@@ -31,19 +31,15 @@
 	</update>
 	
 	<select id="getReportedBoard" resultType="ReportedBoard">
-		SELECT r.memberId, r.boardNumber, r.questionNumber,
+		SELECT r.memberId, r.boardNumber,
 	        (SELECT boardCategory FROM board WHERE boardNumber = r.boardNumber) boardCategory,
-	        (SELECT questionCategory FROM question WHERE questionNumber = r.questionNumber) questionCategory,
 			(SELECT boardTitle FROM board WHERE boardNumber = r.boardNumber) boardTitle,
-	        (SELECT questionTitle FROM question WHERE questionNumber = r.questionNumber) questionTitle,
 			(SELECT boardInputDate FROM board WHERE boardNumber = r.boardNumber) boardInputdate,
-	        (SELECT questionInputDate FROM question WHERE questionNumber = r.questionNumber) questionInputdate,
 			r.reportCategory,
-	        COUNT(r.boardNumber) AS reportBCount,
-	        COUNT(r.questionNumber) AS reportQCount
+	        COUNT(r.boardNumber) AS reportBCount
 		FROM reportData r
-		GROUP BY r.boardNumber, r.questionNumber, r.reportCategory, r.memberId
-		ORDER BY r.boardNumber, r.questionNumber, r.reportCategory
+		GROUP BY r.boardNumber, r.reportCategory, r.memberId
+		ORDER BY r.boardNumber, r.reportCategory
 	</select>
 	
 	<select id="getJoinNumber" resultType="DateJoinNumber">
