@@ -94,19 +94,6 @@
 				<div class="col-7 col-sm-6">
 					<div class="signup-search-area d-flex align-items-center justify-content-end">
 
-						<!-- Search Form -->
-						<div class="search-hidden-form">
-							<form action="#" method="get">
-								<input type="search" name="search" id="search-anything"
-									placeholder="Search Anything...">
-								<!-- <input type="submit" value="" class="d-none"> -->
-								<!-- <span class="searchBtn"><i class="fa fa-times" aria-hidden="true"></i></span> -->
-							</form>
-						</div>
-						<!-- Search Button Area -->
-						<div class="search_button">
-							<a class="searchBtn" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
-						</div>
 						<div class="login_register_area d-flex">
 							<div class="login" sec:authorize="not isAuthenticated()">
 								<a th:href="@{/logIn}">로그인</a>
@@ -283,8 +270,8 @@
 							style="margin-left: 10px;">Yes<input type="radio"
 							id="petNeuter" name="petNeuter" value="N"
 							style="margin-left: 10px;">No
-						<br><label class="labels">강아지 생년/월</label><input type="text" required="required"
-						id="petBirthDay" name="petBirthDay" class="form-control" placeholder="다음과 같은 형식으로 입력 => YYYYMM" maxlength="6">
+						<br><label class="labels">강아지 생년/월</label><input type="date" required="required"
+						id="petBirthDay" name="petBirthDay" class="form-control" maxlength="6">
 						</div>
 					</div>
 				</div>
