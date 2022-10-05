@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.softsociety.aimori.dao.CalendarDAO">
+
+	<select id="getCalendar" resultType="Calendar">
+		SELECT 	seq,
+				title,
+				to_char(start_date, 'yyyy-mm-dd') as start_date,
+				to_char(end_date, 'yyyy-mm-dd') as end_date
+		FROM	calendar
+		WHERE	title = #{title} and
+				start_date = #{start_date} and
+				end_date = #{end_date}
+	</select>
+	
+	<select id="getCalendarSeq" resultType="Calendar">
+		SELECT 	seq,
+				title,
+				to_char(start_date, 'yyyy-mm-dd') as start_date,
+				to_char(end_date, 'yyyy-mm-dd') as end_date
+		FROM	calendar
+		WHERE	seq = #{seq}
+	</select>
+
+	<select id="getAll" resultType="Calendar">
+		SELECT 	seq,
+				title,
+				to_char(start_date, 'yyyy-mm-dd "00:00:00"') as start_date,
+				to_char(end_date, 'yyyy-mm-dd "23:59:59"') as end_date
+		FROM	calendar
+	</select>
+	
+	<insert id="add">
+		INSERT INTO calendar (seq, title, start_date, end_date)
+		VALUES (calendar_seq.NEXTVAL, #{title}, #{start_date}, #{end_date})
+	</insert>
+	
+	<insert id="update">
+		UPDATE calendar
+		SET title = #{title}, start_date = #{start_date}, end_date = #{end_date}
+		WHERE seq = #{seq}
+	</insert>
+	
+	<delete id="delete">
+		DELETE FROM calendar
+		WHERE seq = #{seq}
+	</delete>
+</mapper>
