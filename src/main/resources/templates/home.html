@@ -94,14 +94,6 @@
 		<div class="yummy-load"></div>
 	</div>
 
-	<!--     Background Pattern Swither
-    <div id="pattern-switcher">
-        Bg Pattern
-    </div>
-    <div id="patter-close">
-        <i class="fa fa-times" aria-hidden="true"></i>
-    </div> -->
-
 	<!-- ****** Top Header Area Start ****** -->
 	<div class="top_header_area">
 		<div class="container">
@@ -114,10 +106,10 @@
 
 						<div class="login_register_area d-flex">
 							<div class="login" sec:authorize="not isAuthenticated()">
-								<a href="member/logIn">로그인</a>
+								<a th:href="@{/member/logIn}">로그인</a>
 							</div>
 							<div class="register" sec:authorize="not isAuthenticated()">
-								<a href="member/signIn">회원가입</a>
+								<a th:href="@{/member/signIn}">회원가입</a>
 							</div>
 						</div>
 						<div class="login_register_area d-flex">
@@ -132,7 +124,7 @@
 							</div>
 							<div class="logout" sec:authorize="isAuthenticated()"
 								style="margin-left: 10px;">
-								<a th:href="@{logout}">로그아웃</a>
+								<a th:href="@{/logout}">로그아웃</a>
 							</div>
 						</div>
 					</div>
