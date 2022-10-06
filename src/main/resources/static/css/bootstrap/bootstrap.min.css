@@ -3385,7 +3385,7 @@ tbody.collapse.show {
 	.navbar-expand-lg .navbar-collapse {
 		display: -ms-flexbox !important;
 		display: flex !important;
-		height: 40px;
+		height: 55px;
 	}
 	.navbar-expand-lg .navbar-toggler {
 		display: none
