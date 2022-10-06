@@ -36,6 +36,8 @@ public class MypageContrroller {
 		log.debug("들어오기 성공, UserDetails 정보 : {}", user);
 		Member member = service.getMemberInfo(user.getUsername());
 		model.addAttribute("member", member);
+		
+		log.debug("로그인 중인 회원정보 : {}", member);
 		return "mypageView/mypageMain";
 	}
 	
@@ -61,7 +63,6 @@ public class MypageContrroller {
 		log.debug("aa");
 		int result = service.updateMember(member);
 		return "redirect:/mypage/main";
-		
 		
 	}
 	
