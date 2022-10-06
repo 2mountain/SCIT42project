@@ -1,4 +1,5 @@
-	<!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org"
 	xmlns:sec="http://thymeleaf.org/extras/spring-security"></html>
 
@@ -71,7 +72,7 @@
 
 		var popupY= (window.screen.height / 2) - (300 / 2);
 		
-		let param = document.getElementById('challnum').value;
+		let param = document.getElementById('challNum').value;
 		 window.open('../challenge/challengeread?challengeNumber='+ param
 						,'name',' height=1300, width=1300, left='+ popupX + ', top='+ popupY);
 	}
@@ -84,14 +85,18 @@
 	grid-template-columns: 325px 325px 325px;
 	gap: 10px 30px;
 	padding: 20px;
+	border-radius: 20px;
 }
 
 .challenge-content {
 	background-color: cornsilk;
-	border-bottom-left-radius: 30px;
-	border-bottom-right-radius: 30px;
-	padding:10px;
-font-family: 'notosanskr';
+	border:3px solid rgb(200, 230, 200);
+	/* background-color: rgb(210, 210, 225); */
+	padding: 10px;
+	font-family: 'notosanskr';
+	border-radius: 20px;
+	text-align: center;
+	float: center;
 }
 </style>
 </head>
@@ -174,8 +179,9 @@ font-family: 'notosanskr';
 							</li>
 							<li class="nav-item"><a class="nav-link"
 								th:href="@{/facilities}">시설</a></li>
-							<li class="nav-item"><a class="nav-link" th:href="@{/challenge/challengelist}">챌린지</a></li>
-										
+							<li class="nav-item"><a class="nav-link"
+								th:href="@{/challenge/challengelist}">챌린지</a></li>
+
 						</ul>
 					</div>
 				</nav>
@@ -220,27 +226,34 @@ font-family: 'notosanskr';
 	<div class="container">
 		<div class="challengelist">
 			<div th:each="challenge : ${challengelist}">
-				<div th:if="${challenge.challengeSavedFile == null}">
-					<img th:src="@{/img/blog-img/chopa.jpeg} "
-						style="border-top-left-radius: '20px'; border-top-right-radius: '20px'; width: 350px; height: 230px;">
-				</div>
-				<div class="single-post wow fadeInUp" data-wow-delay=".4s">
-					<!-- Post Thumb -->
-					<div class="post-thumb">
-						<img th:if="${challenge.challengeSavedFile != null}"
-							th:src="@{/img/fileSave/} + ${challenge.challengeSavedFile}"
-							style="width: 350px; height: 230px;">
+				<div class="challenge-content">
+					<div th:if="${challenge.challengeSavedFile == null}">
+						<img th:src="@{/img/blog-img/chopa.jpeg} "
+							style="width: 290px; height: 180px; border-radius: 20px;">
+					</div>
+					<div class="single-post wow fadeInUp" data-wow-delay=".4s">
+						<!-- Post Thumb -->
+
+						<div class="post-thumb">
+
+							<img th:if="${challenge.challengeSavedFile != null}"
+								th:src="@{/img/fileSave/} + ${challenge.challengeSavedFile}"
+								style="width: 290px; height: 180px; border-radius: 20px;">
 						</div>
 
-						<div class="challenge-content">
 
-						<input type="hidden" th:value="${challenge.challengeNumber}" id="challnum">
-						<input style="border:0px; background-color:none;  "  type="button" th:value="${challenge.challengeName}" onclick="windowopen()"></input>
+						<input type="hidden" th:value="${challenge.challengeNumber}"
+							id="challNum" name="challNum">
+							<div style="height: 10px;"></div>
+							<input
+							style="border: 0px; background-color:cornsilk;" type="button"
+							th:value="${challenge.challengeName}" onclick="windowopen()"></input>
 
-				
+
 						<!-- 시작일 -->
 						<div class="challenge-startdate">
-							이벤트 기간:<a th:text="${challenge.challengeStartDate}+'~'+${challenge.challengeEndDate}"></a>
+							이벤트 기간:<a
+								th:text="${challenge.challengeStartDate}+'~'+${challenge.challengeEndDate}"></a>
 						</div>
 						<div class="challenge-contents">
 							설명:<a
@@ -504,27 +517,29 @@ font-family: 'notosanskr';
 										</button>
 										<!-- Menu Area Start -->
 										<nav class="navbar navbar-expand-lg">
-							<button class="navbar-toggler" type="button"
-								data-toggle="collapse" data-target="#yummyfood-footer-nav"
-								aria-controls="yummyfood-footer-nav" aria-expanded="false"
-								aria-label="Toggle navigation">
-								<i class="fa fa-bars" aria-hidden="true"></i> Menu
-							</button>
-							<!-- Menu Area Start -->
-							<div class="collapse navbar-collapse justify-content-center"
-								id="yummyfood-footer-nav">
-								<ul class="navbar-nav">
-									<li class="nav-item active"><a class="nav-link"
-										th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
-									</li>
-									<li class="nav-item"><a class="nav-link"
-										th:href="@{/qna/list}">Q&A <span class="sr-only">(current)</span></a>
-									</li>
-									<li class="nav-item"><a class="nav-link" th:href="@{/facilities}">시설</a></li>
-									<li class="nav-item"><a class="nav-link" th:href="@{/challenge/challengelist}">챌린지</a></li>
-								</ul>
-							</div>
-						</nav>
+											<button class="navbar-toggler" type="button"
+												data-toggle="collapse" data-target="#yummyfood-footer-nav"
+												aria-controls="yummyfood-footer-nav" aria-expanded="false"
+												aria-label="Toggle navigation">
+												<i class="fa fa-bars" aria-hidden="true"></i> Menu
+											</button>
+											<!-- Menu Area Start -->
+											<div class="collapse navbar-collapse justify-content-center"
+												id="yummyfood-footer-nav">
+												<ul class="navbar-nav">
+													<li class="nav-item active"><a class="nav-link"
+														th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
+													</li>
+													<li class="nav-item"><a class="nav-link"
+														th:href="@{/qna/list}">Q&A <span class="sr-only">(current)</span></a>
+													</li>
+													<li class="nav-item"><a class="nav-link"
+														th:href="@{/facilities}">시설</a></li>
+													<li class="nav-item"><a class="nav-link"
+														th:href="@{/challenge/challengelist}">챌린지</a></li>
+												</ul>
+											</div>
+										</nav>
 									</nav>
 								</div>
 							</div>
