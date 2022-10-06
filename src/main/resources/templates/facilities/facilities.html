@@ -355,7 +355,7 @@ html {
 		<div class="yummy-load"></div>
 	</div>
 
-
+	<!-- ****** Top Header Area Start ****** -->
 	<div class="top_header_area">
 		<div class="container">
 			<div class="row">
@@ -367,10 +367,10 @@ html {
 
 						<div class="login_register_area d-flex">
 							<div class="login" sec:authorize="not isAuthenticated()">
-								<a href="member/logIn">로그인</a>
+								<a th:href="@{/member/logIn}">로그인</a>
 							</div>
 							<div class="register" sec:authorize="not isAuthenticated()">
-								<a href="member/signIn">회원가입</a>
+								<a th:href="@{/member/signIn}">회원가입</a>
 							</div>
 						</div>
 						<div class="login_register_area d-flex">
@@ -385,7 +385,7 @@ html {
 							</div>
 							<div class="logout" sec:authorize="isAuthenticated()"
 								style="margin-left: 10px;">
-								<a th:href="@{logout}">로그아웃</a>
+								<a th:href="@{/logout}">로그아웃</a>
 							</div>
 						</div>
 					</div>
@@ -419,15 +419,26 @@ html {
 					<div class="collapse navbar-collapse justify-content-center"
 						id="yummyfood-nav">
 						<ul class="navbar-nav" id="yummy-nav">
-							<li class="nav-item active"><a class="nav-link"
-								th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
+							<li class="nav-item">
+							<a class="nav-link" th:href="@{/board/list}">커뮤니티<span class="sr-only">(current)</span>
+								<img th:src="@{/img/board-img/dogFoot.png}" style="width:25px; padding-left: 5px;">
+								</a>
 							</li>
 							<li class="nav-item"><a class="nav-link"
-								th:href="@{/qna/list}">Q&A <span class="sr-only">(current)</span></a>
+								th:href="@{/qna/list}">
+								Q&A<span class="sr-only">(current)</span>
+								<img th:src="@{/img/board-img/dogFoot.png}" style="width:25px; padding-left: 5px;">
+								</a>
 							</li>
 							<li class="nav-item"><a class="nav-link"
-								th:href="@{/facilities}">시설</a></li>
-							<li class="nav-item"><a class="nav-link" th:href="@{/challenge/challengelist}">챌린지</a></li>
+								th:href="@{/facilities}">
+								시설
+								<img th:src="@{/img/board-img/dogFoot.png}" style="width:25px; padding-left: 5px;">
+								</a></li>
+							<li class="nav-item"><a class="nav-link" th:href="@{/challenge/challengelist}">
+							챌린지
+							<img th:src="@{/img/board-img/dogFoot.png}" style="width:25px; padding-left: 5px;">
+							</a></li>							
 						</ul>
 					</div>
 				</nav>
