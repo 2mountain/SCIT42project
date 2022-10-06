@@ -31,6 +31,16 @@
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+<style>
+.tableheader{
+	background-color: cornsilk;
+	border-bottom-left-radius: 30px;
+	border-bottom-right-radius: 30px;
+	padding:10px;
+
+}
+</style>
+
 <script>
 	function pagingFormSubmit(currentPage) {
 
@@ -62,7 +72,6 @@
 		});
 	})
 </script>
-
 
 
 </head>
@@ -201,7 +210,8 @@
 <header>
    <h1>[나의 도전과제]</h1>
 </header>
-<section>
+<div class="container">
+
    <!-- 글목록 출력 영역 -->
    <table class="challegelist">
 
@@ -218,7 +228,7 @@
          </td>
          </tr>
    </table>
-   
+   </div>
 	<!-- ****** Instagram Area Start ****** -->
 	<br>
 	<br>
