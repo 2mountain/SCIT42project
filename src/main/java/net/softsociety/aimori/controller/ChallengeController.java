@@ -124,17 +124,22 @@ public class ChallengeController {
 
 	@PostMapping({"challengewrite"})
 	public String challengewrite(Model model,
-			Challenge challenge,MultipartFile upload)
+			Challenge challenge, MultipartFile upload)
 	{
-		int result = chser.writechallenge(challenge);
-
-		if (!upload.isEmpty()) {
+	
+		if (!upload.isEmpty()) 
+		{
 			String savedfile = FileService.saveFile(upload, uploadPath);
 			challenge.setChallengeOriginalFile(upload.getOriginalFilename());
 			challenge.setChallengeSavedFile(savedfile);
 		}
+		
+		int result = chser.writechallenge(challenge);
+
+		
 		String chtype="";
 		String chsearchword="";
+
 		challengelist(model,1,chtype,chsearchword);
 		return "/challenge/challengelist";
 

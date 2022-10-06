@@ -6,19 +6,17 @@
 <title>[도전과제 생성]</title>
 <script>
 	function validation() {
-		let title = document.getElementById('title');
-		let contents = document.getElementById('contents');
-
+		let title = document.getElementById('challengeName');
 		if (challengeName.value.length < 5) {
 			alert("도전과제의 이름은 5자이상으로 입력하세요.");
 			challengeName.focus();
 			challengeName.select();
 			return false;
 		}
-		if (contents.value.length < 5) {
+		if (challengeContents.value.length < 5) {
 			alert("내용을 입력하세요.");
-			contents.focus();
-			contents.select();
+			challengeContents.focus();
+			challengeContents.select();
 			return false;
 		}
 		return true;
@@ -29,7 +27,7 @@
 	<h1>[도전과제 생성]</h1>
 	<section>
 		<form th:action="@{/challenge/challengewrite}" method="post"
-			onsubmit="return validation();">
+			enctype="multipart/form-data" onsubmit="return validation();">
 
 			<table>
 				<tr>
@@ -43,15 +41,24 @@
 				</tr>
 				<tr>
 					<th>도전과제 개시일 (년 월 일로 8자리 숫자를 입력해주세요)</th>
-					<td><input type="number" name="challengeStartDate" id="challengeStartDate"></textarea></td>
+					<td><input type="number" name="challengeStartDate"
+						id="challengeStartDate">
+					</td>
 				</tr>
 				<tr>
 					<th>도전과제 종료일 (년 월 일로 8자리 숫자를 입력해주세요)</th>
-					<td><input type="number" name="challengeEndDate" id="challengeEndDate"></textarea></td>
+					<td><input type="number" name="challengeEndDate"
+						id="challengeEndDate">
+					</td>
 				</tr>
 				<tr>
 					<th>지급할 포인트</th>
-					<td><input type="number" name="challPoint" id="challPoint"></textarea></td>
+					<td><input type="number" name="challPoint" id="challPoint">
+					</td>
+				</tr>
+				<tr>
+					<th>파일첨부</th>
+					<td><input type="file" name="upload"></td>
 				</tr>
 				<tr>
 					<td colspan="2" class="white center"><input type="submit"
