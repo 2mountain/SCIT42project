@@ -4,8 +4,6 @@
 
 <!-- DAO인터페이스와 매핑 -->
 <mapper namespace="net.softsociety.aimori.dao.ChallengeDAO">
-	<insert id="writechallenge" parameterType="string">
-	</insert>
 
 	<select id="challengeList" parameterType="map"
 		resultType="Challenge">
@@ -16,7 +14,7 @@
 		,challengeenddate
 		,challengecontents
 		,challengeregistday
-		, challengeSavedFile
+		,challengeSavedFile
 		from
 		challenge
 		where
@@ -32,7 +30,7 @@
 		,challengeenddate
 		,challengecontents
 		,challengeregistday
-		, challengeSavedFile
+		,challengeSavedFile
 		from
 		challenge
 		where
@@ -120,7 +118,7 @@
 	challengecontents,
 	challengetype,
 	challengeregistday
-		<if test="challengeImageOriginal != null and boardImageSaved != null">
+		<if test="challengeOriginalFile != null and challengeSavedFile != null">
 			, challengeOriginalFile
 			,challengeSavedFile
 		</if>
@@ -134,7 +132,7 @@
 	#{challengeContents},
 	'challenge',
 	sysdate
-			<if test="challengeImageOriginal != null and boardImageSaved != null">
+			<if test="challengeOriginalFile != null and challengeSavedFile != null">
 			, #{challengeOriginalFile} 
 			, #{challengeSavedFile}
 		</if>
