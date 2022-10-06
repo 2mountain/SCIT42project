@@ -504,31 +504,28 @@ font-family: 'notosanskr';
 											<i class="fa fa-bars" aria-hidden="true"></i> Menu
 										</button>
 										<!-- Menu Area Start -->
-										<div class="collapse navbar-collapse justify-content-center"
-											id="yummyfood-footer-nav">
-											<ul class="navbar-nav">
-												<li class="nav-item active"><a class="nav-link"
-													th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
-												</li>
-												<li class="nav-item"><a class="nav-link"
-													th:href="@{/qna/list}">Q&A <span class="sr-only">(current)</span></a>
-												</li>
-												<li class="nav-item"><a class="nav-link"
-													th:href="@{/facilities}">시설</a></li>
-												<li class="nav-item"><a class="nav-link" href="#">상품</a></li>
-												<li>
-													<div class="dropdown">
-														<span class="dropbtn">챌린지</span>
-														<div class="dropdown-content">
-															<a th:href="@{/challenge/challengelist}">도전과제</a> <a
-																th:href="@{/challenge/contestlist}">대회</a>
-														</div>
-													</div>
-												</li>
-												<li class="nav-item"><a class="nav-link" href="#">포인트상점</a>
-												</li>
-											</ul>
-										</div>
+										<nav class="navbar navbar-expand-lg">
+							<button class="navbar-toggler" type="button"
+								data-toggle="collapse" data-target="#yummyfood-footer-nav"
+								aria-controls="yummyfood-footer-nav" aria-expanded="false"
+								aria-label="Toggle navigation">
+								<i class="fa fa-bars" aria-hidden="true"></i> Menu
+							</button>
+							<!-- Menu Area Start -->
+							<div class="collapse navbar-collapse justify-content-center"
+								id="yummyfood-footer-nav">
+								<ul class="navbar-nav">
+									<li class="nav-item active"><a class="nav-link"
+										th:href="@{/board/list}">커뮤니티 <span class="sr-only">(current)</span></a>
+									</li>
+									<li class="nav-item"><a class="nav-link"
+										th:href="@{/qna/list}">Q&A <span class="sr-only">(current)</span></a>
+									</li>
+									<li class="nav-item"><a class="nav-link" th:href="@{/facilities}">시설</a></li>
+									<li class="nav-item"><a class="nav-link" th:href="@{/challenge/challengelist}">챌린지</a></li>
+								</ul>
+							</div>
+						</nav>
 									</nav>
 								</div>
 							</div>
