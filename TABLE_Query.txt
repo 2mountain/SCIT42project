@@ -123,7 +123,7 @@ CREATE TABLE BOARD
 		/* 회원 아이디 */
     boardTitle varchar2(300) NOT NULL,
 		/* 글 제목 */
-    memberNickName varchar2(40) REFERENCES Members(memberNickName),
+    memberNickName varchar2(40),
 		/* 작성자 닉네임 */                                                       
     boardInputDate date DEFAULT SYSDATE,
 		/* 글 작성일 */
@@ -271,7 +271,7 @@ CREATE TABLE question
 		/* 회원 아이디 */
     questionTitle varchar2(300) NOT NULL,
 		/* 질문글 제목 */
-    memberNickName varchar2(40) REFERENCES Members(memberNickName),
+    memberNickName varchar2(40),
 		/* 작성자 닉네임 */
     questionInputDate date DEFAULT SYSDATE,
 		/* 질문글 작성일 */
