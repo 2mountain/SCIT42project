@@ -277,10 +277,6 @@
 							이벤트 기간:<a
 								th:text="${challenge.challengeStartDate}+'~'+${challenge.challengeEndDate}"></a>
 						</div>
-						<div class="challenge-contents">
-							설명:<a
-								th:text="${#strings.arraySplit(challenge.challengeContents,'/')[0]}"></a>
-						</div>
 						<div class="challenge-point">
 							포인트: <a
 								th:text="${#strings.arraySplit(challenge.challengeContents,'/')[1]}"></a>
