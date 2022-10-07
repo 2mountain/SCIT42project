@@ -157,4 +157,10 @@
 	select * from memberchallenge
 	where memberid=#{memberId}
 	</select>
+	
+		<delete id="deleteChallenge" parameterType="int">
+		delete
+		from challenge
+		where challengeNumber=#{challengeNumber}
+	</delete>
 </mapper>

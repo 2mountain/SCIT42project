@@ -35,6 +35,8 @@ public interface ChallengeDAO {
 
 	ArrayList<Memberchallenge> mychallengeList(String memberId);
 
+	int deleteChallenge(int challengeNumber);
+
 	
 
 }

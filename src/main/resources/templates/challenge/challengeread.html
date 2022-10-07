@@ -164,8 +164,8 @@ background-color:gray;
 		<!-- 관리자만 보임 -->
 		<a class="btn btn-primary"
 			sec:authorize="hasRole('ADMIN')"
-			th:href="@{/challenge/challengeupdate(challengeDelete=${challenge.challengeNumber})}">수정</a>
-			>삭제</a>
+			th:href="@{/challenge/challengedelete(challengeNumber=${challenge.challengeNumber})}">삭제</a>
+			</a>
 		<p>
 		<div style="height : 10px;"></div>
 		</p>
