@@ -155,11 +155,26 @@ background-color:gray;
 </section>
 
 <div class="container" >
+		<div style="text-align: right;
+		float: right;">
 		<br> <a
+			class="btn btn-primary"	
 			sec:authorize="hasRole('ADMIN')"
 			th:href="@{/challenge/challengeupdate(challengeNumber=${challenge.challengeNumber})}">수정</a>
 		<!-- 관리자만 보임 -->
+		<a class="btn btn-primary"
+			sec:authorize="hasRole('ADMIN')"
+			th:href="@{/challenge/challengeupdate(challengeDelete=${challenge.challengeNumber})}">수정</a>
+			>삭제</a>
+		<p>
+		<div style="height : 10px;"></div>
+		</p>
+</div>
 
+</div>
+	
+	
+	
 		<table class="entrylist container" sec:authorize="hasRole('ADMIN')">
 
 			<tr class="entrylisthead">
@@ -190,4 +205,12 @@ background-color:gray;
 			src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
 			integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
 			crossorigin="anonymous"></script>
+			<!-- Jquery-2.2.4 js -->
+		<script th:src="@{../js/jquery/jquery-2.2.4.min.js}"></script>
+		<!-- Popper js -->
+		<script th:src="@{../js/bootstrap/popper.min.js}"></script>
+		<!-- All Plugins JS -->
+		<script th:src="@{../js/others/plugins.js}"></script>
+		<!-- Active JS -->
+		<script th:src="@{../js/active.js}"></script>
 </body>
