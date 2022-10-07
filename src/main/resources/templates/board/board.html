@@ -297,7 +297,8 @@ function output(list) {
 								th:href="@{/board/read(boardNumber=${board.boardNumber})}"></a></td>
 						<td style="text-align: center" th:text="${board.boardInputDate}"></td>
 						<td style="text-align: center;" th:text="${board.boardHits}"></td>
-						<td style="text-align: center;" th:text="${board.boardCount}"></td>
+						<td style="text-align: center;" th:text="${board.boardCount}">
+						</td>
 					</tr>
 				</table>
 			</div>
