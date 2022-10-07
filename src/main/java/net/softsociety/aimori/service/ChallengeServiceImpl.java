@@ -135,6 +135,12 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return mychallengelist;
 	}
 
+	@Override
+	public int delete(int challengeNumber) {
+		int result=chdao.deleteChallenge(challengeNumber);
+		return result;
+	}
+
 
 		
 	

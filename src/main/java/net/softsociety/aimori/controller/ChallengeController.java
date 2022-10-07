@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.slf4j.Slf4j;
+import net.softsociety.aimori.domain.Board;
 import net.softsociety.aimori.domain.Challenge;
 import net.softsociety.aimori.domain.Entrylist;
 import net.softsociety.aimori.domain.Memberchallenge;
@@ -55,7 +56,38 @@ public class ChallengeController {
 		return "";
 
 	}
+	@GetMapping("challengedelete")
+	public String challengeDelete(int challengeNumber,Model model) {
 
+		// 해당 번호의 글 정보 조회
+		Challenge challenge = chser.read(challengeNumber);
+
+		if (challenge == null) {
+			return "redirect:/challenge/challengelist";
+		}
+
+		// 첨부된 파일명 확인
+		String savedfile = challenge.getChallengeSavedFile();
+
+		// board.setMemberId("test1");
+
+		// 글 삭제
+		int result = chser.delete(challengeNumber);
+
+		// 글 삭제 성공 and 첨부된 파일이 있는 경우 파일도 삭제
+		if (result == 1 && savedfile != null) {
+			FileService.deleteFile(uploadPath + "/" + savedfile);
+		}
+		String chtype=null;
+		String chsearchWord=null;
+		int page=1;	
+		challengelist(model
+				,page,chtype,chsearchWord);
+		return "redirect:/challenge/challengelist";
+	}
+
+	
+	
 	@GetMapping({"challengelist"})
 	public String challengelist(Model model
 			, @RequestParam(name = "page", defaultValue = "1") int page

@@ -34,6 +34,8 @@ public interface ChallengeService {
 
 		ArrayList<Memberchallenge> mychallengelist(String memberId);
 
+		int delete(int challengeNumber);
+
 		
 		
 
