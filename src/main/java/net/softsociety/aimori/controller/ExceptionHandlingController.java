@@ -61,9 +61,4 @@ public class ExceptionHandlingController implements ErrorController {
 		return ERROR_ETC_PAGE_PATH;
 	}
 
-	@Override
-	public String getErrorPath() {
-		return "/error";
-	}
-
 }
