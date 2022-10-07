@@ -21,7 +21,7 @@ import net.softsociety.aimori.service.FacilitiesService;
 @RequestMapping("administrator")
 @Controller
 public class AdministratorController {
-
+	
 	@Autowired
 	AdministratorService aService;
 
@@ -55,6 +55,7 @@ public class AdministratorController {
 		model.addAttribute("memberList", list);
 
 		return "administrator/administrator";
+
 	}
 
 	// 관리자 - 회원관리 페이지
