@@ -50,35 +50,35 @@ CREATE SEQUENCE calendar_seq
 CREATE TABLE members
 (
     memberId 					VARCHAR2(40) PRIMARY KEY,
-    			--íšŒì› ì•„ì´ë””
+    			--È¸¿ø ¾ÆÀÌµğ
     memberPassword 				VARCHAR2(100) NOT NULL,
-    			--íšŒì› ë¹„ë°€ë²ˆí˜¸
+    			--È¸¿ø ºñ¹Ğ¹øÈ£
     memberNickName 				VARCHAR2(40) NOT NULL UNIQUE,
-    			--íšŒì› ë‹‰ë„¤ì„ 
+    			--È¸¿ø ´Ğ³×ÀÓ 
     memberPostCode 				VARCHAR2(100),
-    			--íšŒì› ìš°í¸ë²ˆí˜¸ 
+    			--È¸¿ø ¿ìÆí¹øÈ£ 
     memberAddress 				VARCHAR2(300) NOT NULL,
-    			--íšŒì› ì£¼ì†Œ
+    			--È¸¿ø ÁÖ¼Ò
     memberDetailAddress 		VARCHAR2(100),
-    			--íšŒì› ìƒì„¸ì£¼ì†Œ 
+    			--È¸¿ø »ó¼¼ÁÖ¼Ò 
     memberEmail 				VARCHAR2(50) NOT NULL UNIQUE,
-    			--íšŒì› ì´ë©”ì¼
+    			--È¸¿ø ÀÌ¸ŞÀÏ
     memberBirthDay 				VARCHAR2(12) NOT NULL,
-    			--íšŒì› ìƒë…„ì›”ì¼
+    			--È¸¿ø »ı³â¿ùÀÏ
     memberPoint 				NUMBER DEFAULT 0,
-    			--íšŒì› í¬ì¸íŠ¸
+    			--È¸¿ø Æ÷ÀÎÆ®
     memberRoleName 				VARCHAR2(20) DEFAULT 'ROLE_USER'  
 			 					CHECK(memberRoleName IN('ROLE_USER', 'ROLE_ADMIN', 'ROLE_DOCTOR')) 
 			 					NOT NULL,
-    			--íšŒì› ì—­í•         
+    			--È¸¿ø ¿ªÇÒ        
     memberEnabled 				NUMBER DEFAULT 1 CHECK(memberEnabled IN(0, 1)),
-    			--íšŒì› ì°¨ë‹¨ ì—¬ë¶€
+    			--È¸¿ø Â÷´Ü ¿©ºÎ
     memberJoinDate 				DATE DEFAULT SYSDATE,
-    			--íšŒì› ê°€ì…ì¼
+    			--È¸¿ø °¡ÀÔÀÏ
     memberImageOriginalFile 	VARCHAR2(300) DEFAULT 'defaultImage',
-                --ëŒ€í‘œ ì´ë¯¸ì§€ì˜ ì›ë˜ ì´ë¦„
+                --´ëÇ¥ ÀÌ¹ÌÁöÀÇ ¿ø·¡ ÀÌ¸§
     memberImageSavedFile 		VARCHAR2(100)
-                --ì´ë¯¸ì§€ ì²¨ë¶€íŒŒì¼ ì„œë²„ì— ì €ì¥ëœ ì´ë¦„
+                --ÀÌ¹ÌÁö Ã·ºÎÆÄÀÏ ¼­¹ö¿¡ ÀúÀåµÈ ÀÌ¸§
 );
 
 
@@ -86,59 +86,59 @@ CREATE TABLE members
 CREATE TABLE pet    --Pet table
 (
     petNumber 				NUMBER PRIMARY KEY, 
-    			--ì• ì™„ë™ë¬¼ ë“±ë¡ë²ˆí˜¸
+    			--¾Ö¿Ïµ¿¹° µî·Ï¹øÈ£
     memberId 				VARCHAR2(40) REFERENCES members(memberId),
-    			--íšŒì› ì•„ì´ë”” ì°¸ì¡°
+    			--È¸¿ø ¾ÆÀÌµğ ÂüÁ¶
     petName 				VARCHAR2(20) NOT NULL, 
-    			--ì• ì™„ë™ë¬¼ ì´ë¦„
-    petBreed 				VARCHAR2(40) NOT NULL CHECK(petBreed in('ë§í‹°ì¦ˆ', 'ì¹˜ì™€ì™€', 'í¬ë©”ë¼ë‹ˆì•ˆ', 'í‘¸ë“¤', 'ì‹œì¸„', 'ì‹œë°”ê²¬', 'ë¹„ê¸€', 'ì›°ì‹œì½”ê¸°', 'ì½”ì»¤ìŠ¤íŒ¨ë‹ˆì–¼', 'ë³´ë”ì½œë¦¬', 'ê³¨ë“ ë¦¬íŠ¸ë¦¬ë²„', 'ë‹¬ë§ˆì‹œì•ˆ', 'ë„ë² ë¥´ë§Œ', 'ê·¸ë ˆì´í•˜ìš´ë“œ', 'í—ˆìŠ¤í‚¤', 'ê¸°íƒ€(ì§ì ‘ì…ë ¥)')), 
-    			--ì• ì™„ë™ë¬¼ í’ˆì¢…
+    			--¾Ö¿Ïµ¿¹° ÀÌ¸§
+    petBreed 				VARCHAR2(40) NOT NULL CHECK(petBreed in('¸»Æ¼Áî', 'Ä¡¿Í¿Í', 'Æ÷¸Ş¶ó´Ï¾È', 'Çªµé', '½ÃÃò', '½Ã¹Ù°ß', 'ºñ±Û', 'À£½ÃÄÚ±â', 'ÄÚÄ¿½ºÆĞ´Ï¾ó', 'º¸´õÄİ¸®', '°ñµç¸®Æ®¸®¹ö', '´Ş¸¶½Ã¾È', 'µµº£¸£¸¸', '±×·¹ÀÌÇÏ¿îµå', 'Çã½ºÅ°', '±âÅ¸(Á÷Á¢ÀÔ·Â)')), 
+    			--¾Ö¿Ïµ¿¹° Ç°Á¾
     petGender 				VARCHAR2(1) NOT NULL CHECK(petGender in('M', 'F')), 
-    			--ì• ì™„ë™ë¬¼ ì„±ë³„
+    			--¾Ö¿Ïµ¿¹° ¼ºº°
     petBirthDay 			VARCHAR2(12) NOT NULL, 
-    			--ì• ì™„ë™ë¬¼ ìƒë…„ì›”ì¼
+    			--¾Ö¿Ïµ¿¹° »ı³â¿ùÀÏ
     petWeight 				NUMBER default 0 NOT NULL, 
-    			--ì• ì™„ë™ë¬¼ ëª¸ë¬´ê²Œ
+    			--¾Ö¿Ïµ¿¹° ¸ö¹«°Ô
     petNeuter 				VARCHAR2(1) CHECK(petNeuter IN('Y', 'N')), 
-    			--ì¤‘ì„±í™” ì—¬ë¶€
+    			--Áß¼ºÈ­ ¿©ºÎ
     petImage 				VARCHAR2(300)
-    			--ì• ì™„ë™ë¬¼ ì‚¬ì§„ì˜ ì´ë¦„
+    			--¾Ö¿Ïµ¿¹° »çÁøÀÇ ÀÌ¸§
 );
 
 /*
 	petBreed
-		ì†Œí˜•ê²¬ - ë§í‹°ì¦ˆ ì¹˜ì™€ì™€ í¬ë©”ë¼ë‹ˆì•ˆ í‘¸ë“¤ ì‹œì¸„
-		ì¤‘í˜•ê²¬ - ì‹œë°”ê²¬ ë¹„ê¸€ ì›°ì‹œì½”ê¸° ì½”ì»¤ìŠ¤íŒ¨ë‹ˆì–¼ ë³´ë”ì½œë¦¬
-		ëŒ€í˜•ê²¬ - ê³¨ë“ ë¦¬íŠ¸ë¦¬ë²„ ë‹¬ë§ˆì‹œì•ˆ ë„ë² ë¥´ë§Œ ê·¸ë ˆì´í•˜ìš´ë“œ í—ˆìŠ¤í‚¤
-		ì§ì ‘ì…ë ¥
+		¼ÒÇü°ß - ¸»Æ¼Áî Ä¡¿Í¿Í Æ÷¸Ş¶ó´Ï¾È Çªµé ½ÃÃò
+		ÁßÇü°ß - ½Ã¹Ù°ß ºñ±Û À£½ÃÄÚ±â ÄÚÄ¿½ºÆĞ´Ï¾ó º¸´õÄİ¸®
+		´ëÇü°ß - °ñµç¸®Æ®¸®¹ö ´Ş¸¶½Ã¾È µµº£¸£¸¸ ±×·¹ÀÌÇÏ¿îµå Çã½ºÅ°
+		Á÷Á¢ÀÔ·Â
 */
 
 CREATE TABLE BOARD
 (
     boardNumber number PRIMARY KEY,
-		/* ê¸€ ë²ˆí˜¸(BoardNumber_seqì‚¬ìš©) */
+		/* ±Û ¹øÈ£(BoardNumber_seq»ç¿ë) */
     memberId varchar2(40) REFERENCES Members(memberId),
-		/* íšŒì› ì•„ì´ë”” */
+		/* È¸¿ø ¾ÆÀÌµğ */
     boardTitle varchar2(300) NOT NULL,
-		/* ê¸€ ì œëª© */
+		/* ±Û Á¦¸ñ */
     memberNickName varchar2(40),
-		/* ì‘ì„±ì ë‹‰ë„¤ì„ */                                                       
+		/* ÀÛ¼ºÀÚ ´Ğ³×ÀÓ */                                                       
     boardInputDate date DEFAULT SYSDATE,
-		/* ê¸€ ì‘ì„±ì¼ */
+		/* ±Û ÀÛ¼ºÀÏ */
     boardHits number DEFAULT 0,
-		/* ê¸€ ì¡°íšŒìˆ˜ */
+		/* ±Û Á¶È¸¼ö */
     boardReport number DEFAULT 0,
-		/* ê¸€ ì‹ ê³ ìˆ˜ */
+		/* ±Û ½Å°í¼ö */
     boardContents varchar2(4000) NOT NULL,
-		/* ê¸€ ë‚´ìš© */
-    boardCategory varchar2(20) default 'ì „ì²´' CHECK (boardCategory IN ('ì „ì²´', 'ì¼ìƒ', 'ëª¨ì„', 'Tip')),
-		/* ê¸€ ë§ë¨¸ë¦¬ */
+		/* ±Û ³»¿ë */
+    boardCategory varchar2(20) default 'ÀüÃ¼' CHECK (boardCategory IN ('ÀüÃ¼', 'ÀÏ»ó', '¸ğÀÓ', 'Tip')),
+		/* ±Û ¸»¸Ó¸® */
     boardImageOriginal varchar2(300),
-		/* ê²Œì‹œê¸€ ì´ë¯¸ì§€ ì²¨ë¶€íŒŒì¼*/
+		/* °Ô½Ã±Û ÀÌ¹ÌÁö Ã·ºÎÆÄÀÏ*/
     boardImageSaved varchar2(100),
-		/* ì„œë²„ì— ì €ì¥ëœ ì²¨ë¶€íŒŒì¼ ì´ë¦„*/
+		/* ¼­¹ö¿¡ ÀúÀåµÈ Ã·ºÎÆÄÀÏ ÀÌ¸§*/
 	replyCount number
-		-- ê²Œì‹œê¸€ì— ë‹¬ë¦° ì „ì²´ ëŒ“ê¸€ ê°œìˆ˜
+		-- °Ô½Ã±Û¿¡ ´Ş¸° ÀüÃ¼ ´ñ±Û °³¼ö
 );
 
 
@@ -155,37 +155,37 @@ create table boardLikedData
 CREATE TABLE reply
 (
     replyNumber 	NUMBER PRIMARY KEY,  
-    			--ëŒ“ê¸€ ë²ˆí˜¸
+    			--´ñ±Û ¹øÈ£
     boardNumber NUMBER REFERENCES board(boardNumber) on delete cascade, 
-    			--ê¸€ ë²ˆí˜¸(ì™¸ë˜í‚¤)
+    			--±Û ¹øÈ£(¿Ü·¡Å°)
 	memberId		VARCHAR2(40) NOT NULL,
-    			--ëŒ“ê¸€ ì‘ì„±í•˜ëŠ” íšŒì› ì•„ì´ë””
+    			--´ñ±Û ÀÛ¼ºÇÏ´Â È¸¿ø ¾ÆÀÌµğ
     memberNickName 	VARCHAR2(40) NOT NULL,
-    			--ëŒ“ê¸€ ì‘ì„±í•˜ëŠ” íšŒì› ë‹‰ë„¤ì„
+    			--´ñ±Û ÀÛ¼ºÇÏ´Â È¸¿ø ´Ğ³×ÀÓ
     replyContents 	VARCHAR2(4000) NOT NULL, 
-    			--ëŒ“ê¸€ ë‚´ìš©
+    			--´ñ±Û ³»¿ë
     replyInputDate 	DATE DEFAULT SYSDATE
-    			--ëŒ“ê¸€ ì‘ì„± ì¼ì
+    			--´ñ±Û ÀÛ¼º ÀÏÀÚ
 );
 
 CREATE TABLE shopCoupon
 (
-	couponType		VARCHAR2(100) PRIMARY KEY,  -- ì¿ í°ì˜ ì¢…ë¥˜(ì´ë¦„)
-	couponPrice	 	NUMBER NOT NULL,            -- ì¿ í°í¬ì¸íŠ¸ ê°€ê²©
-	couponEndDate 	VARCHAR2(12)                -- ì¿ í° ë§Œë£Œì¼
+	couponType		VARCHAR2(100) PRIMARY KEY,  -- ÄíÆùÀÇ Á¾·ù(ÀÌ¸§)
+	couponPrice	 	NUMBER NOT NULL,            -- ÄíÆùÆ÷ÀÎÆ® °¡°İ
+	couponEndDate 	VARCHAR2(12)                -- ÄíÆù ¸¸·áÀÏ
 );
 
 CREATE TABLE memberCoupon
 (
     memberCouponNumber 	NUMBER PRIMARY KEY,   
-    			--ì¿ í° ì‹ë³„ ë²ˆí˜¸
+    			--ÄíÆù ½Äº° ¹øÈ£
     memberId 		            	VARCHAR2(40) NOT NULL REFERENCES members(memberid),
-                --íšŒì› ì•„ì´ë””
+                --È¸¿ø ¾ÆÀÌµğ
     couponType 			        VARCHAR2(100) NOT NULL REFERENCES shopCoupon(couponType)      
-    			--ì¿ í° ì¢…ë¥˜(ì´ë¦„)
+    			--ÄíÆù Á¾·ù(ÀÌ¸§)
 );
 
---ë„ì „ê³¼ì œ ì •ë³´í…Œì´ë¸”
+--µµÀü°úÁ¦ Á¤º¸Å×ÀÌºí
 CREATE TABLE challenge 
 (
    challengeNumber    NUMBER PRIMARY KEY,
@@ -199,59 +199,59 @@ CREATE TABLE challenge
    challengeOriginalFile	VARCHAR2(300)
 );
 
---ì˜ì‚¬ ì •ë³´ í…Œì´ë¸”
-CREATE TABLE doctor  -- DOCTOR CHECK í…Œì´ë¸”ì´ ìˆë‹¤ë©´ ê¸°ë³¸í‚¤ ìˆ˜ì • í•„ìš”
+--ÀÇ»ç Á¤º¸ Å×ÀÌºí
+CREATE TABLE doctor  -- DOCTOR CHECK Å×ÀÌºíÀÌ ÀÖ´Ù¸é ±âº»Å° ¼öÁ¤ ÇÊ¿ä
 (
     doctorNumber 				NUMBER CONSTRAINT doctor_doctorNumber_pk PRIMARY KEY,                              
-    			--ì˜ì‚¬íšŒì›ë²ˆí˜¸
+    			--ÀÇ»çÈ¸¿ø¹øÈ£
     memberId 					VARCHAR2(40) CONSTRAINT doctor_memberId_fk REFERENCES members(memberId),  
-    			--íšŒì› ë²ˆí˜¸
+    			--È¸¿ø ¹øÈ£
     doctorName 					VARCHAR2(20) CONSTRAINT doctor_doctorName_nn NOT NULL,                               
-    			--ì˜ì‚¬ íšŒì› ì´ë¦„
+    			--ÀÇ»ç È¸¿ø ÀÌ¸§
     hospitalName 				VARCHAR2(40), 
-    			--ë³‘ì›ì´ë¦„
+    			--º´¿øÀÌ¸§
     licenseGetDate 				DATE, 
-    			--ìê²©ì¦ ì·¨ë“ì¼
+    			--ÀÚ°İÁõ ÃëµæÀÏ
     licenseImageOriginalFile 	VARCHAR2(300) NOT NULL,
-    			--ìˆ˜ì˜ì‚¬ ìê²©ì¦ ì´ë¯¸ì§€ ì²¨ë¶€íŒŒì¼ì˜ ì›ë˜ ì´ë¦„
+    			--¼öÀÇ»ç ÀÚ°İÁõ ÀÌ¹ÌÁö Ã·ºÎÆÄÀÏÀÇ ¿ø·¡ ÀÌ¸§
     licenseImageSavedFile 		VARCHAR2(100),  
-    			--ìê²©ì¦ ì´ë¯¸ì§€ ì²¨ë¶€íŒŒì¼ ì„œë²„ì— ì €ì¥ëœ ì´ë¦„
+    			--ÀÚ°İÁõ ÀÌ¹ÌÁö Ã·ºÎÆÄÀÏ ¼­¹ö¿¡ ÀúÀåµÈ ÀÌ¸§
     doctorApproval 				VARCHAR2(10) CONSTRAINT doctor_doctorApproval_ck CHECK(doctorApproval IN('Y','Wait', 'N')),
-    			--ì˜ì‚¬ ì¸ì¦ ìŠ¹ì¸ ì—¬ë¶€
+    			--ÀÇ»ç ÀÎÁõ ½ÂÀÎ ¿©ºÎ
 	doctorApplicationDate 		DATE DEFAULT SYSDATE, 
-				--ì˜ì‚¬ ì¸ì¦ ì‹ ì²­ì¼
+				--ÀÇ»ç ÀÎÁõ ½ÅÃ»ÀÏ
     doctorAcceptedDate			DATE 
-    			--ì˜ì‚¬ ì¸ì¦ ìŠ¹ì¸ì¼
+    			--ÀÇ»ç ÀÎÁõ ½ÂÀÎÀÏ
 );
 
 CREATE TABLE facilities 
 (
 	facilitiesNumber   NUMBER CONSTRAINT facilities_facilitiesNumber_pk PRIMARY KEY,
-                -- ì‹œì„¤ ë²ˆí˜¸
+                -- ½Ã¼³ ¹øÈ£
 	facilitiesName      VARCHAR2(100) CONSTRAINT facilities_faciliteisName_NN NOT NULL,
-                -- ì‹œì„¤ ì´ë¦„
+                -- ½Ã¼³ ÀÌ¸§
     facilitiesAddress VARCHAR2(300),
-                -- ì‹œì„¤ ë„ë¡œëª… ì£¼ì†Œ
+                -- ½Ã¼³ µµ·Î¸í ÁÖ¼Ò
     facilitiesDetailAddress VARCHAR2(300),
-                -- ì‹œì„¤ ì§€ë²ˆ ì£¼ì†Œ
+                -- ½Ã¼³ Áö¹ø ÁÖ¼Ò
     facilitiesPhoneNumber VARCHAR2(40)
-                -- ì‹œì„¤ ì „í™”ë²ˆí˜¸
+                -- ½Ã¼³ ÀüÈ­¹øÈ£
 );
 
 CREATE TABLE facilitiesEvaluation
 (
 	facilitiesEvaluationNumber  	NUMBER PRIMARY KEY,
-                -- ì‹œì„¤ í‰ê°€ ë²ˆí˜¸
+                -- ½Ã¼³ Æò°¡ ¹øÈ£
 	facilitiesNumber                NUMBER REFERENCES facilities(facilitiesNumber),
-                -- ì‹œì„¤ ë²ˆí˜¸
+                -- ½Ã¼³ ¹øÈ£
 	memberId                        VARCHAR2(40) REFERENCES members(memberId),
-                -- ë¦¬ë·° ì‘ì„± íšŒì› ì•„ì´ë””
+                -- ¸®ºä ÀÛ¼º È¸¿ø ¾ÆÀÌµğ
 	facilitiesReview                VARCHAR2(1000) NOT NULL,
-                -- ì‹œì„¤ ë¦¬ë·° ë‚´ìš©
+                -- ½Ã¼³ ¸®ºä ³»¿ë
 	facilitiesStar                  NUMBER CHECK(facilitiesStar IN(0, 1, 2, 3, 4, 5)) NOT NULL,
-                -- ì‹œì„¤ í‰ê°€(ë³„ì )
+                -- ½Ã¼³ Æò°¡(º°Á¡)
 	facilitiesReviewDate            DATE DEFAULT SYSDATE
-                -- ì‹œì„¤ ë¦¬ë·° ì‘ì„± ì¼ì
+                -- ½Ã¼³ ¸®ºä ÀÛ¼º ÀÏÀÚ
 );
 create table entrylist
 (
@@ -266,65 +266,65 @@ create table entrylist
 CREATE TABLE question
 (
     questionNumber number PRIMARY KEY,
-		/* ì§ˆë¬¸ê¸€ ë²ˆí˜¸(BoardNumber_seqì‚¬ìš©) */
+		/* Áú¹®±Û ¹øÈ£(BoardNumber_seq»ç¿ë) */
     memberId varchar2(40) REFERENCES Members(memberId),
-		/* íšŒì› ì•„ì´ë”” */
+		/* È¸¿ø ¾ÆÀÌµğ */
     questionTitle varchar2(300) NOT NULL,
-		/* ì§ˆë¬¸ê¸€ ì œëª© */
+		/* Áú¹®±Û Á¦¸ñ */
     memberNickName varchar2(40),
-		/* ì‘ì„±ì ë‹‰ë„¤ì„ */
+		/* ÀÛ¼ºÀÚ ´Ğ³×ÀÓ */
     questionInputDate date DEFAULT SYSDATE,
-		/* ì§ˆë¬¸ê¸€ ì‘ì„±ì¼ */
+		/* Áú¹®±Û ÀÛ¼ºÀÏ */
     questionHits number DEFAULT 0,
-		/* ì§ˆë¬¸ê¸€ ì¡°íšŒìˆ˜ */
+		/* Áú¹®±Û Á¶È¸¼ö */
     questionReport number DEFAULT 0,
-		/* ì§ˆë¬¸ê¸€ ì‹ ê³ ìˆ˜ */
+		/* Áú¹®±Û ½Å°í¼ö */
     questionContents varchar2(4000) NOT NULL,
-		/* ì§ˆë¬¸ê¸€ ë‚´ìš© */
-    questionCategory varchar2(20) default 'ì „ì²´' CHECK (questionCategory IN ('ì¼ë°˜', 'ì˜ë£Œ')),
-		/* ì§ˆë¬¸ê¸€ ë§ë¨¸ë¦¬ */
+		/* Áú¹®±Û ³»¿ë */
+    questionCategory varchar2(20) default 'ÀüÃ¼' CHECK (questionCategory IN ('ÀÏ¹İ', 'ÀÇ·á')),
+		/* Áú¹®±Û ¸»¸Ó¸® */
     questionImageOriginal varchar2(300),
-		/* ì§ˆë¬¸ê¸€ ì´ë¯¸ì§€ ì²¨ë¶€íŒŒì¼*/
+		/* Áú¹®±Û ÀÌ¹ÌÁö Ã·ºÎÆÄÀÏ*/
     questionImageSaved varchar2(100),
-		/* ì„œë²„ì— ì €ì¥ëœ ì²¨ë¶€íŒŒì¼ ì´ë¦„*/
+		/* ¼­¹ö¿¡ ÀúÀåµÈ Ã·ºÎÆÄÀÏ ÀÌ¸§*/
     answerCount number default 0,
-		-- ì§ˆë¬¸ê¸€ì— ë‹¬ë¦° ì „ì²´ ë‹µë³€ ê°œìˆ˜
+		-- Áú¹®±Û¿¡ ´Ş¸° ÀüÃ¼ ´äº¯ °³¼ö
     answeredOrNot number default 0 check (answeredOrNot IN (0, 1)),
-		-- ë‹µë³€ì´ ë‹¬ë ¸ëŠ”ì§€ ì•ˆ ë‹¬ë ¸ëŠ”ì§€ ì—¬ë¶€
+		-- ´äº¯ÀÌ ´Ş·È´ÂÁö ¾È ´Ş·È´ÂÁö ¿©ºÎ
     answerAccepted	number default 0 check(answerAccepted in (0,1 ))
-        --ë‹µë³€ ì±„íƒ ì—¬ë¶€
+        --´äº¯ Ã¤ÅÃ ¿©ºÎ
 );
 
 CREATE TABLE answer
 (
     answerNumber    NUMBER PRIMARY KEY,  
-    			--ëŒ“ê¸€ ë²ˆí˜¸
+    			--´ñ±Û ¹øÈ£
     questionNumber  NUMBER REFERENCES question(questionNumber) on delete cascade, 
-    			--ê¸€ ë²ˆí˜¸(ì™¸ë˜í‚¤)
+    			--±Û ¹øÈ£(¿Ü·¡Å°)
     memberId        VARCHAR2(40) NOT NULL,
-    			--ë‹µë³€ ì‘ì„±í•˜ëŠ” íšŒì› ì•„ì´ë””
+    			--´äº¯ ÀÛ¼ºÇÏ´Â È¸¿ø ¾ÆÀÌµğ
     memberNickName  VARCHAR2(40) NOT NULL,
-    			--ë‹µë³€ ì‘ì„±í•˜ëŠ” íšŒì› ë‹‰ë„¤ì„
+    			--´äº¯ ÀÛ¼ºÇÏ´Â È¸¿ø ´Ğ³×ÀÓ
     memberRoleName  VARCHAR2(20) default 'ROLE_USER' CHECK (memberRoleName IN ('ROLE_ADMIN', 'ROLE_DOCTOR', 'ROLE_USER')),
-                --ë‹µë³€ ì‘ì„±í•˜ëŠ” íšŒì› ë“±ê¸‰
+                --´äº¯ ÀÛ¼ºÇÏ´Â È¸¿ø µî±Ş
     answerContents 	VARCHAR2(4000) NOT NULL,
-    			--ë‹µë³€ ë‚´ìš©
+    			--´äº¯ ³»¿ë
     answerInputDate DATE DEFAULT SYSDATE
-    			--ë‹µë³€ ì‘ì„± ì¼ì
+    			--´äº¯ ÀÛ¼º ÀÏÀÚ
 );
 
 create table reportData
 (
     reportNumber NUMBER primary key not null,
-        --ì‹ ê³  ì‹ë³„ë²ˆí˜¸
+        --½Å°í ½Äº°¹øÈ£
     reportCategory VARCHAR2(200) not null,
-        --ì‹ ê³  ì‚¬ìœ  ë‹´ì„ ë³€ìˆ˜(í™ë³´/ë„ë°°, ìŒë€ë¬¼, ë¶ˆë²•ì •ë³´, ìš•ì„¤/í˜ì˜¤í‘œí˜„, ê°œì¸ì •ë³´ ë…¸ì¶œ)
+        --½Å°í »çÀ¯ ´ãÀ» º¯¼ö(È«º¸/µµ¹è, À½¶õ¹°, ºÒ¹ıÁ¤º¸, ¿å¼³/Çø¿ÀÇ¥Çö, °³ÀÎÁ¤º¸ ³ëÃâ)
     memberId VARCHAR2(40) references members(memberId) on delete cascade,
-        --ì‹ ê³ í•œ ë©¤ë²„ ì•„ì´ë””
+        --½Å°íÇÑ ¸â¹ö ¾ÆÀÌµğ
     boardNumber NUMBER references board(boardNumber) on delete cascade,
-        --ì‹ ê³ ë°›ì€ ì»¤ë®¤ë‹ˆí‹° ê²Œì‹œê¸€ë²ˆí˜¸
+        --½Å°í¹ŞÀº Ä¿¹Â´ÏÆ¼ °Ô½Ã±Û¹øÈ£
 	questionNumber NUMBER references question(questionNumber) on delete cascade
-        --ì‹ ê³ ë°›ì€ ì§ˆë¬¸ê¸€ ê²Œì‹œê¸€ë²ˆí˜¸
+        --½Å°í¹ŞÀº Áú¹®±Û °Ô½Ã±Û¹øÈ£
 );
 
 CREATE TABLE "CALENDAR"
@@ -340,8 +340,6 @@ CREATE TABLE "CALENDAR"
 
 
 
-
---------------------- insertë¬¸ ----------------------
 	insert into BOARD (
 		boardNumber
 		, memberId
@@ -352,14 +350,14 @@ CREATE TABLE "CALENDAR"
 		)
 	values (
 		boardNumber_seq.nextval
-		, 'khs11111' --ë©¤ë²„ ì•„ì´ë””
-		, 'testTitle' --ê¸€ì œëª©
-		, 'khs11111' --ë©¤ë²„ë‹‰ë„¤ì„
-		, 'testContents' --ê¸€ë‚´ìš©
-		, 'ì¼ìƒ' --ê¸€ ì¹´í…Œê³ ë¦¬(ì¼ìƒ, ëª¨ì„, Tip)
+		, 'khs11111' --¸â¹ö ¾ÆÀÌµğ
+		, 'testTitle' --±ÛÁ¦¸ñ
+		, 'khs11111' --¸â¹ö´Ğ³×ÀÓ
+		, 'testContents' --±Û³»¿ë
+		, 'ÀÏ»ó' --±Û Ä«Å×°í¸®(ÀÏ»ó, ¸ğÀÓ, Tip)
 		);
         
-	insert into question (
+        insert into question (
 		questionNumber
 		, memberId
 		, questionTitle
@@ -367,11 +365,15 @@ CREATE TABLE "CALENDAR"
 		, questionContents
 		, questionCategory
 		)
-	values (
+		values (
 		questionNumber_seq.nextval
-		, 'khs11111' --ë©¤ë²„ì•„ì´ë””
+		, 'khs11111' --¸â¹ö¾ÆÀÌµğ
 		, 'testTitle'
-		, 'khs11111' --ë©¤ë²„ë‹‰ë„¤ì„
+		, 'khs11111' --¸â¹ö´Ğ³×ÀÓ
 		, 'testContents'
-		, 'ì¼ë°˜' --ì§ˆë¬¸ê¸€ ì¹´í…Œê³ ë¦¬(ì¼ë°˜, ì˜ë£Œ)
+		, 'ÀÏ¹İ' --Áú¹®±Û Ä«Å×°í¸®(ÀÏ¹İ, ÀÇ·á)
 		);
+
+select * from members;
+
+commit;
