@@ -196,7 +196,9 @@ CREATE TABLE challenge
    challengeEndDate    VARCHAR2(200),
    challengeContents    VARCHAR2(200),
    challengeType    VARCHAR2(200),
-   challengeRegistDay date
+   challengeRegistDay date,
+   challengeSavedFile	VARCHAR2(100),
+   challengeOriginalFile	VARCHAR2(300)
 );
 
 --의사 정보 테이블
