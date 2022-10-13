@@ -309,8 +309,10 @@ CREATE TABLE answer
                 --답변 작성하는 회원 등급
     answerContents 	VARCHAR2(4000) NOT NULL,
     			--답변 내용
-    answerInputDate DATE DEFAULT SYSDATE
+    answerInputDate DATE DEFAULT SYSDATE,
     			--답변 작성 일자
+    answerAcceptedOrNot number default 0 check (answerAcceptedOrNot IN (0, 1))
+                --답변 채택 여부
 );
 
 create table reportData
@@ -357,7 +359,7 @@ CREATE TABLE "CALENDAR"
 		, '일상' --글 카테고리(일상, 모임, Tip)
 		);
         
-        insert into question (
+    insert into question (
 		questionNumber
 		, memberId
 		, questionTitle
@@ -365,7 +367,7 @@ CREATE TABLE "CALENDAR"
 		, questionContents
 		, questionCategory
 		)
-		values (
+    values (
 		questionNumber_seq.nextval
 		, 'khs11111' --멤버아이디
 		, 'testTitle'
@@ -373,7 +375,27 @@ CREATE TABLE "CALENDAR"
 		, 'testContents'
 		, '일반' --질문글 카테고리(일반, 의료)
 		);
+        
+    insert into answer
+		(
+			answerNumber
+			, questionNumber
+			, memberId
+			, memberNickName
+			, answerContents
+		)
+    values
+		(
+			answerNumber_seq.nextval
+			, 10
+			, 'khs11111'
+			, 'khs11111'
+			, 'testContents'
+		);
 
 select * from members;
+
+alter table answer
+add (answerAcceptedOrNot number default 0 check (answerAcceptedOrNot IN (0, 1)));
 
 commit;

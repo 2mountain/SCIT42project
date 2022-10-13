@@ -311,6 +311,8 @@ CREATE TABLE answer
     			--답변 내용
     answerInputDate DATE DEFAULT SYSDATE
     			--답변 작성 일자
+    answerAcceptedOrNot number default 0 check (answerAcceptedOrNot IN (0, 1))
+                --답변 채택 여부
 );
 
 create table reportData
