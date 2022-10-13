@@ -78,6 +78,18 @@
 			}
 		});
 	})
+	
+	function mc() {
+		
+		var result = true;
+		
+		let petName = document.getElementById("petName");
+		
+		alert("회원님의 애완견 " + petName.value + "의 등록이 완료되었습니다!");
+		
+		return result;
+	}
+
 </script>
 
 </head>
@@ -219,7 +231,7 @@
 		</div>
 	</div>
 	
-<form id="petInfoInput" th:action="petInfoInput" method="post" enctype="multipart/form-data">
+<form id="petInfoInput" th:action="petInfoInput" method="post" enctype="multipart/form-data" onsubmit="return mc();">
 	<div class="container rounded bg-white mt-5 mb-5"
 		style="position: absolute; margin-left: 380px; top:550px;">
 		<div class="row">

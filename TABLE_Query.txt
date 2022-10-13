@@ -97,7 +97,7 @@ CREATE TABLE pet    --Pet table
     			--애완동물 성별
     petBirthDay 			VARCHAR2(12) NOT NULL, 
     			--애완동물 생년월일
-    petWeight 				NUMBER default 0 NOT NULL, 
+    petWeight 				VARCHAR2(10) default 0 NOT NULL, 
     			--애완동물 몸무게
     petNeuter 				VARCHAR2(1) CHECK(petNeuter IN('Y', 'N')), 
     			--중성화 여부
@@ -335,6 +335,7 @@ CREATE TABLE "CALENDAR"
 	"END_DATE" DATE NOT NULL ENABLE
 );
 
+<<<<<<< Updated upstream
 
 
 
@@ -375,3 +376,55 @@ CREATE TABLE "CALENDAR"
 		, 'testContents'
 		, '일반' --질문글 카테고리(일반, 의료)
 		);
+=======
+##### 회원가입 INSERT 양식
+
+INSERT INTO MEMBERS
+	(
+		memberId,
+		memberPassword,
+		memberNickName,
+		memberPostCode,
+		memberAddress,
+		memberDetailAddress,
+		memberEmail,
+		memberBirthDay
+	)
+	VALUES
+	(
+		'SCIT42'
+		, 'scit4242'
+		, 'Admin_scit'
+		, '06164'
+		, '서울 강남구 봉은사로 524'
+		, '코엑스 4층'
+		, 'scit42@naver.com'
+		, '2022-03-21'
+);
+
+### 애완동물 등록 INSERT 양식
+INSERT INTO PET
+	(
+		petNumber
+		, memberId
+		, petName
+		, petGender
+		, petBreed
+		, petBirthDay
+		, petWeight
+		, petNeuter
+		, petImage
+	)
+	VALUES
+	(
+		pet_seq.nextval
+		, 'SCIT999'
+		, '시바이누'
+		, 'M'
+		, '시바견'
+		, '2022.03.25'
+		, '비만'
+		, 'Y'
+		, #{이미지 파일}
+);
+>>>>>>> Stashed changes
