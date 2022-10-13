@@ -337,15 +337,12 @@ CREATE TABLE "CALENDAR"
 	"END_DATE" DATE NOT NULL ENABLE
 );
 
-<<<<<<< Updated upstream
-
-
-
-
 
 
 --------------------- insert문 ----------------------
-	insert into BOARD (
+
+-- 게시글 INSERT
+	INSERT INTO BOARD (
 		boardNumber
 		, memberId
 		, boardTitle
@@ -353,7 +350,7 @@ CREATE TABLE "CALENDAR"
 		, boardContents
 		, boardCategory
 		)
-	values (
+	VALUES (
 		boardNumber_seq.nextval
 		, 'khs11111' --멤버 아이디
 		, 'testTitle' --글제목
@@ -361,8 +358,9 @@ CREATE TABLE "CALENDAR"
 		, 'testContents' --글내용
 		, '일상' --글 카테고리(일상, 모임, Tip)
 		);
-        
-	insert into question (
+
+-- Q&A INSERT        
+	INSERT INTO question (
 		questionNumber
 		, memberId
 		, questionTitle
@@ -370,7 +368,7 @@ CREATE TABLE "CALENDAR"
 		, questionContents
 		, questionCategory
 		)
-	values (
+	VALUES (
 		questionNumber_seq.nextval
 		, 'khs11111' --멤버아이디
 		, 'testTitle'
@@ -378,10 +376,9 @@ CREATE TABLE "CALENDAR"
 		, 'testContents'
 		, '일반' --질문글 카테고리(일반, 의료)
 		);
-=======
-##### 회원가입 INSERT 양식
 
-INSERT INTO MEMBERS
+-- 회원가입 INSERT
+	INSERT INTO MEMBERS
 	(
 		memberId,
 		memberPassword,
@@ -404,8 +401,8 @@ INSERT INTO MEMBERS
 		, '2022-03-21'
 );
 
-### 애완동물 등록 INSERT 양식
-INSERT INTO PET
+-- 애완동물 등록 INSERT
+	INSERT INTO PET
 	(
 		petNumber
 		, memberId
@@ -429,4 +426,3 @@ INSERT INTO PET
 		, 'Y'
 		, #{이미지 파일}
 );
->>>>>>> Stashed changes
