@@ -38,7 +38,8 @@ CREATE SEQUENCE boardLikedNumber_seq;
 CREATE SEQUENCE questionNumber_seq;
 CREATE SEQUENCE answerNumber_seq;
 CREATE SEQUENCE reportNumber_seq;
-CREATE SEQUENCE calendar_seq
+CREATE SEQUENCE calendar_seq;
+ CREATE SEQUENCE memberchallengenumber_seq;
        INCREMENT BY 1
        START WITH 1
        MINVALUE 1
@@ -260,7 +261,7 @@ create table entrylist
 	 challengeNumber number references CHALLENGE(CHALLENGENUMBER),
 	 challengeSuccess  number,
 	 getPoint number,
-     getPointDate DATE default sysdate
+     getPointDate DATE 
 );
 
 CREATE TABLE question
@@ -337,6 +338,16 @@ CREATE TABLE "CALENDAR"
 	"END_DATE" DATE NOT NULL ENABLE
 );
 
+ create table memberchallenge 
+        (
+        memberchallengenumber number,
+        memberId varchar2(40)  references  MEMBERS(MEMBERID),
+        challengeNumber number references CHALLENGE(CHALLENGENUMBER),
+        memberchallengename VARCHAR2(100),
+        memberchallengecontents VARCHAR2(100),
+        challengeOriginalFile 	VARCHAR2(300) DEFAULT 'defaultImage',
+        challengeSavedFile 	VARCHAR2(100)
+        );
 
 
 --------------------- insert문 ----------------------
@@ -426,3 +437,51 @@ CREATE TABLE "CALENDAR"
 		, 'Y'
 		, #{이미지 파일}
 );
+
+-- challenge 등록 insert
+insert into challenge
+(
+challengenumber,
+challengename,
+challengestartdate,
+challengeenddate,
+challengecontents,
+challengetype
+)
+values
+(
+CHALLENGENUMBER_SQL.nextval,
+'도전이름1',
+'20200101',
+'20201231',
+'도전내용1/5',
+'challenge'
+);
+
+--entrylist 등록 insert
+         insert into entrylist
+         (
+         entrylistnumber,
+         memberid,
+         challengenumber 
+         )
+         values
+         (
+         entrylistNumber_SQL.nextval,
+         'taehyun9711',
+         1
+         );
+         
+-- memberchallenge 등록 insert
+insert into memberchallenge 
+        (
+        memberchallengenumber,
+        memberId ,
+        challengeNumber 
+        )
+ values
+         (
+        memberchallengenumber_SQL.nextval,
+         'taehyun9711',
+         1
+         );
