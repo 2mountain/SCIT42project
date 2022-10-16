@@ -1,17 +1,24 @@
 DROP TABLE members;
 DROP TABLE pet;
+DROP TABLE doctor;
+
 DROP TABLE board;
 DROP TABLE reply;
-DROP TABLE challenge;
-DROP TABLE memberCoupon;
-DROP TABLE shopCoupon;
-DROP TABLE doctor;
-DROP TABLE facilities;
-DROP TABLE facilitiesEvaluation;
 DROP TABLE boardLikedData;
+DROP table reportData;
 DROP table question;
 DROP table answer;
-DROP table reportData;
+
+DROP TABLE memberCoupon;
+DROP TABLE shopCoupon;
+DROP TABLE calendar;
+
+DROP TABLE facilities;
+DROP TABLE facilitiesEvaluation;
+
+DROP TABLE challenge;
+DROP TABLE memberchallenge ;
+DROP TABLE entrylist;
 
 DROP SEQUENCE doctor_seq;
 DROP SEQUENCE pet_seq;
@@ -25,7 +32,11 @@ DROP SEQUENCE boardLikedNumber_seq;
 DROP SEQUENCE questionNumber_seq;
 DROP SEQUENCE answerNumber_seq;
 DROP SEQUENCE reportNumber_seq;
+DROP SEQUENCE memberchallengenumber_seq;
+DROP SEQUENCE calendar_seq;
+DROP SEQUENCE entrylistNumber;
 
+CREATE SEQUENCE entrylistNumber_seq;
 CREATE SEQUENCE doctor_seq;
 CREATE SEQUENCE pet_seq;
 CREATE SEQUENCE boardNumber_seq;
@@ -39,7 +50,7 @@ CREATE SEQUENCE questionNumber_seq;
 CREATE SEQUENCE answerNumber_seq;
 CREATE SEQUENCE reportNumber_seq;
 CREATE SEQUENCE calendar_seq;
- CREATE SEQUENCE memberchallengenumber_seq;
+ CREATE SEQUENCE memberchallengenumber_seq
        INCREMENT BY 1
        START WITH 1
        MINVALUE 1
@@ -81,8 +92,6 @@ CREATE TABLE members
     memberImageSavedFile 		VARCHAR2(100)
                 --이미지 첨부파일 서버에 저장된 이름
 );
-
-
 
 CREATE TABLE pet    --Pet table
 (
@@ -142,16 +151,12 @@ CREATE TABLE BOARD
 		-- 게시글에 달린 전체 댓글 개수
 );
 
-
-
 create table boardLikedData
 (
     boardLikedNumber number primary key not null,
     memberId varchar2(40) references members(memberId),
     boardNumber number references board(boardNumber)
 );
-
-
 
 CREATE TABLE reply
 (
@@ -310,7 +315,7 @@ CREATE TABLE answer
                 --답변 작성하는 회원 등급
     answerContents 	VARCHAR2(4000) NOT NULL,
     			--답변 내용
-    answerInputDate DATE DEFAULT SYSDATE
+    answerInputDate DATE DEFAULT SYSDATE,
     			--답변 작성 일자
     answerAcceptedOrNot number default 0 check (answerAcceptedOrNot IN (0, 1))
                 --답변 채택 여부
@@ -352,42 +357,6 @@ CREATE TABLE "CALENDAR"
 
 --------------------- insert문 ----------------------
 
--- 게시글 INSERT
-	INSERT INTO BOARD (
-		boardNumber
-		, memberId
-		, boardTitle
-		, memberNickName
-		, boardContents
-		, boardCategory
-		)
-	VALUES (
-		boardNumber_seq.nextval
-		, 'khs11111' --멤버 아이디
-		, 'testTitle' --글제목
-		, 'khs11111' --멤버닉네임
-		, 'testContents' --글내용
-		, '일상' --글 카테고리(일상, 모임, Tip)
-		);
-
--- Q&A INSERT        
-	INSERT INTO question (
-		questionNumber
-		, memberId
-		, questionTitle
-		, memberNickName
-		, questionContents
-		, questionCategory
-		)
-	VALUES (
-		questionNumber_seq.nextval
-		, 'khs11111' --멤버아이디
-		, 'testTitle'
-		, 'khs11111' --멤버닉네임
-		, 'testContents'
-		, '일반' --질문글 카테고리(일반, 의료)
-		);
-
 -- 회원가입 INSERT
 	INSERT INTO MEMBERS
 	(
@@ -423,39 +392,73 @@ CREATE TABLE "CALENDAR"
 		, petBirthDay
 		, petWeight
 		, petNeuter
-		, petImage
 	)
 	VALUES
 	(
 		pet_seq.nextval
-		, 'SCIT999'
+		, 'SCIT42'
 		, '시바이누'
 		, 'M'
 		, '시바견'
 		, '2022.03.25'
 		, '비만'
 		, 'Y'
-		, #{이미지 파일}
 );
+
+-- 게시글 INSERT
+	INSERT INTO BOARD (
+		boardNumber
+		, memberId
+		, boardTitle
+		, memberNickName
+		, boardContents
+		, boardCategory
+		)
+	VALUES (
+		boardNumber_seq.nextval
+		, 'SCIT42' --멤버 아이디
+		, 'testTitle' --글제목
+		, 'khs11111' --멤버닉네임
+		, 'testContents' --글내용
+		, '일상' --글 카테고리(일상, 모임, Tip)
+		);
+
+-- Q&A INSERT        
+	INSERT INTO question (
+		questionNumber
+		, memberId
+		, questionTitle
+		, memberNickName
+		, questionContents
+		, questionCategory
+		)
+	VALUES (
+		questionNumber_seq.nextval
+		, 'SCIT42' --멤버아이디
+		, 'testTitle'
+		, 'khs11111' --멤버닉네임
+		, 'testContents'
+		, '일반' --질문글 카테고리(일반, 의료)
+		);
 
 -- challenge 등록 insert
 insert into challenge
 (
-challengenumber,
-challengename,
-challengestartdate,
-challengeenddate,
-challengecontents,
-challengetype
+    challengenumber,
+    challengename,
+    challengestartdate,
+    challengeenddate,
+    challengecontents,
+    challengetype
 )
 values
 (
-CHALLENGENUMBER_SQL.nextval,
-'도전이름1',
-'20200101',
-'20201231',
-'도전내용1/5',
-'challenge'
+    memberCHALLENGENUMBER_seq.nextval,
+    '도전이름1',
+    '20200101',
+    '20201231',
+    '도전내용1/5',
+    'challenge'
 );
 
 --entrylist 등록 insert
@@ -467,8 +470,8 @@ CHALLENGENUMBER_SQL.nextval,
          )
          values
          (
-         entrylistNumber_SQL.nextval,
-         'taehyun9711',
+         entrylistNumber_seq.nextval,
+         'SCIT42',
          1
          );
          
@@ -481,7 +484,40 @@ insert into memberchallenge
         )
  values
          (
-        memberchallengenumber_SQL.nextval,
-         'taehyun9711',
+        memberchallengenumber_seq.nextval,
+         'SCIT42',
          1
          );
+         
+-- reportdata INSERT
+INSERT INTO reportData
+(
+    reportNumber,
+    reportCategory,
+    memberId,
+    boardNumber
+)
+VALUES
+(
+    reportNumber_seq.nextval,
+    '불법정보',
+    'SCIT42',
+    1
+);
+
+INSERT INTO reportData
+(
+    reportNumber,
+    reportCategory,
+    memberId,
+    questionNumber
+)
+VALUES
+(
+    reportNumber_seq.nextval,
+    '불법정보',
+    'SCIT42',
+    1
+);
+
+commit;
